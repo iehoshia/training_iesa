@@ -1,0 +1,13 @@
+<data>
+    <xpath expr="/tree/field[@name=&quot;untaxed_amount&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;tax_amount&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;currency&quot;]" position="replace">
+    	<field name="amount_to_pay" sum="Total"/>
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;amount_to_pay_today&quot;]" position="replace">
+ 
+    </xpath>
+
+</data>

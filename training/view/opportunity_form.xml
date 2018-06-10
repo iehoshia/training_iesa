@@ -1,0 +1,36 @@
+<data>
+	<xpath expr="/form/group[@id=&quot;conversion_probability&quot;]" position="after">
+    	<label name="horario"/>
+    	<field name="horario" widget="selection"/>
+    	<label name="medio"/>
+    	<field name="medio"/>
+    </xpath>
+
+    <!-- LINES --> 
+
+    <xpath expr="/form/notebook/page[@id=&quot;opportunity&quot;]/separator[@name=&quot;comment&quot;]" position="replace">
+    </xpath>
+
+    <xpath expr="/form/notebook/page[@id=&quot;opportunity&quot;]/field[@name=&quot;comment&quot;]" position="replace">
+    	<field name="lines" colspan="4"/>
+    </xpath>
+
+    <!-- EMPLOYEE -->
+    <xpath expr="/form/notebook/page[@id=&quot;opportunity&quot;]/field[@name=&quot;employee&quot;]" position="replace">
+        <field name="employee" widget="selection"/>
+    </xpath>
+
+    <!-- COMMENT -->
+    <xpath expr="/form/notebook/page[@name=&quot;lines&quot;]/field[@name=&quot;lines&quot;]" position="replace">
+        <separator name="meetings"/>
+        <field name="meetings" colspan="4" />
+        <label name="comment"/>
+        <field name="comment" colspan="4" />
+    </xpath>
+
+    <!-- SEGUIMIENTO -->
+    <xpath expr="/form/notebook/page[@name=&quot;lines&quot;]" position="replace_attributes">
+        <page name="lines" string="Seguimiento"/>
+    </xpath>
+
+</data>

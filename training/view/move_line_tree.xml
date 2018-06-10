@@ -1,0 +1,20 @@
+<data>
+	<xpath expr="/tree/field[@name=&quot;description&quot;]" position="replace">
+    </xpath> 
+    <xpath expr="/tree/field[@name=&quot;account&quot;]" position="replace">
+    	<field name="account"/>
+    	<field name="description"/>
+    </xpath> 
+    <!--<xpath expr="/tree/field[@name=&quot;tax_lines&quot;]" position="replace">
+    	<field name="ticket"/>
+    	<field name="third_party"/>
+        <field name="receipt"/>
+    </xpath> -->
+    <xpath expr="/tree/field[@name=&quot;tax_lines&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;reconciliation&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;invoice_payment&quot;]" position="replace">
+    </xpath>
+    
+</data>

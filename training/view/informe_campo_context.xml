@@ -1,0 +1,15 @@
+<form col="6">
+	<group id="campo" colspan="6">
+		<label name="campo"/>
+		<field name="campo" widget="selection"/>
+	</group>
+	<group id="fechas" colspan="6" col="6">
+	    <label name="mes"/>
+	    <field name="mes"/>
+	    <label name="fecha_inicio"/>
+	    <field name="fecha_inicio"/>
+	    <label name="fecha_fin"/>
+	    <field name="fecha_fin"/>
+	</group>
+
+</form>

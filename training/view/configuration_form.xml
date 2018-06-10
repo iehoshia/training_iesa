@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/field[@name='default_account_payable']"
+        position="after">
+        <separator id="product" string="Enrolment and Enrollments" colspan="4"/>
+        <label name="default_enrolment_account"/>
+        <field name="default_enrolment_account"/>
+        <label name="default_enrolment_revenue"/>
+        <field name="default_enrolment_revenue"/>
+    </xpath>
+</data>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tree>
+    <field name="number"/>
+    <field name="reference"/>
+    <field name="description"/>
+    <field name="invoice_date"/>
+    <field name="total_amount"/>
+    <field name="state"/>
+</tree>
+
+<!--
+<data>
+	<xpath expr="/tree/field[@name=&quot;type&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;amount_to_pay&quot;]" position="replace">
+    </xpath>
+	<xpath expr="/tree/field[@name=&quot;party&quot;]" position="replace">
+    </xpath>
+</data>
+-->

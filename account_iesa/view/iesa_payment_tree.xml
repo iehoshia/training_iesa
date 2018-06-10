@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tree>
+    <field name="number"/>
+    <field name="reference"/>
+    <field name="invoice_date"/>
+    <field name="party"/>
+    <field name="amount"/>
+    <field name="state"/>
+    <field name="description"/>
+    <button name="cancel" tree_invisible="1"/>
+    <button name="post" tree_invisible="1"/>
+</tree> 

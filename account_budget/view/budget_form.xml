@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form>
+    <label name="name"/>
+    <field name="name"/>
+    <label name="company"/>
+    <field name="company"/>
+    <label name="fiscalyear"/>
+    <field name="fiscalyear"/>
+    <label name="parent"/>
+    <field name="parent"/>
+    <group id="amount" colspan="4" col="6">
+        <label name="amount"/>
+        <field name="amount"/>
+        <label name="balance"/>
+        <field name="balance"/>
+        <label name="difference"/>
+        <field name="difference"/>
+    </group>
+    <notebook>
+        <page name="accounts" string="Accounts" col="1">
+            <field name="accounts"/>
+        </page>
+        <page name="children" string="Children" col="1">
+            <field name="children"/>
+        </page>
+        <page name="periods" string="Periods" col="1">
+            <button name="distribute_periods" string="Distribuir"
+                icon="tryton-executable"/>
+            <field name="periods"/>
+        </page>
+    </notebook>
+    <button name="copy_budget" string="Copiar" icon="tryton-go-next"
+        colspan="4"/>
+</form>

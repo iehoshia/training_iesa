@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- This file is part country_zip module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="party_configuration_view_form">
+            <field name="model">party.configuration</field>
+            <field name="inherit" ref="party.party_configuration_view_form"/>
+            <field name="name">party_configuration_form</field>
+        </record>
+    </data>
+</tryton>

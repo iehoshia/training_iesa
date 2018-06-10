@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- This file is part sale_pos module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<form col="2">
+	<group col="16" colspan="2" id="dias">
+		<label name="hora_inicio"/>
+	    <field name="hora_inicio"/>
+	    <label name="hora_fin"/>
+	    <field name="hora_fin"/>
+	    <field name="domingo"/>
+	    <label name="domingo"/>
+	    <field name="lunes"/>
+	    <label name="lunes"/>
+	    <field name="martes"/>
+	    <label name="martes"/>
+	    <field name="miercoles"/>
+	    <label name="miercoles"/>
+	    <field name="jueves"/>
+	    <label name="jueves"/>
+	    <field name="viernes"/>	   
+	    <label name="viernes"/>
+	</group>
+	<group col="2" colspan="2" id="Horas">
+		<label name="name"/>
+	    <field name="name"/>
+    </group>
+</form>
+   

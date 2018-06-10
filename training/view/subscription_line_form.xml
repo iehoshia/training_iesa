@@ -1,0 +1,25 @@
+<data>
+    <xpath expr="/form/field[@name=&quot;sequence&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/label[@name=&quot;sequence&quot;]" position="replace">
+        <label name="company"/>
+        <field name="company" readonly="1"/>
+    </xpath>
+    <xpath expr="//field[@name=&quot;service&quot;]" position="replace_attributes">
+    	<field name="service" widget="selection"/>
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]/label[@name=&quot;start_date&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//field[@name=&quot;start_date&quot;]" position="replace_attributes">
+    	<field name="start_date" invisible="1"/>
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]/label[@name=&quot;end_date&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//field[@name=&quot;end_date&quot;]" position="replace_attributes">
+    	<field name="end_date" invisible="1"/>
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]/label[@name=&quot;consumption_delay&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]/field[@name=&quot;consumption_delay&quot;]" position="replace">
+    </xpath>
+</data>

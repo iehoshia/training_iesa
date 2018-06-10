@@ -1,0 +1,299 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:account.operating.capital,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:account.operating.capital,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "Año Fiscal"
+
+msgctxt "field:account.operating.capital,current_asset:"
+msgid "Current Asset"
+msgstr "Activo Corriente"
+
+msgctxt "field:account.operating.capital,current_asset_amount:"
+msgid "Amount"
+msgstr "Saldo"
+
+msgctxt "field:account.operating.capital,current_liability:"
+msgid "Current Liability"
+msgstr "Pasivo Corriente"
+
+msgctxt "field:account.operating.capital,current_liability_amount:"
+msgid "Amount"
+msgstr "Saldo"
+
+msgctxt "field:account.operating.capital,current_capital:"
+msgid "Current Capital"
+msgstr "Capital Actual"
+
+msgctxt "field:account.operating.capital,annual_budget:"
+msgid "Annual Budget"
+msgstr "Gasto Proyectado Anual"
+
+msgctxt "field:account.operating.capital,recommended_capital:"
+msgid "Recommended Capital"
+msgstr "Capital Recomendado"
+
+msgctxt "field:account.operating.capital,difference:"
+msgid "Surplus (Deficit)"
+msgstr "Superávit (Déficit)"
+
+msgctxt "field:account.operating.capital,percentage:"
+msgid "Percentage"
+msgstr "Porcentaje"
+
+msgctxt "field:account.liquidity,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:account.liquidity,cash_bank:"
+msgid "Cash - Bank"
+msgstr "Caja y Bancos"
+
+msgctxt "field:account.liquidity,current_liability:"
+msgid "Current Liability"
+msgstr "Pasivo Corriente"
+
+msgctxt "field:account.liquidity,difference:"
+msgid "Surplus (Deficit)"
+msgstr "Superávit (Déficit)"
+
+msgctxt "field:account.liquidity,percentage:"
+msgid "Percentage"
+msgstr "Porcentaje"
+
+msgctxt "field:account.liquidity,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "Año Fiscal"
+
+msgctxt "field:account.move,is_third_party:"
+msgid "Party"
+msgstr "Requiere Impresión"
+
+msgctxt "field:account.move,third_party:"
+msgid "Party"
+msgstr "Persona"
+
+msgctxt "field:account.iesa.payment,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:account.iesa.payment,company_party:"
+msgid "Company Party"
+msgstr "Colegio"
+
+msgctxt "field:account.iesa.payment,number:"
+msgid "Number"
+msgstr "Número de Recibo"
+
+msgctxt "field:account.iesa.payment,reference:"
+msgid "Reference"
+msgstr "Referencia"
+
+msgctxt "field:account.iesa.payment,description:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "field:account.iesa.payment,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:account.iesa.payment,invoice_date:"
+msgid "Payment Date"
+msgstr "Fecha de Pago"
+
+msgctxt "field:account.iesa.payment,accounting_date:"
+msgid "Accounting Date"
+msgstr "Fecha de Contabilización"
+
+msgctxt "field:account.iesa.payment,party:"
+msgid "Party"
+msgstr "Estudiante"
+
+msgctxt "field:account.iesa.payment,invoice_address:"
+msgid "Invoice Address"
+msgstr "Dirección de Facturación"
+
+msgctxt "field:account.iesa.payment,party_lang:"
+msgid "Party Lang"
+msgstr "Lenguaje"
+
+msgctxt "field:account.iesa.payment,currency:"
+msgid "Currency"
+msgstr "Moneda"
+
+msgctxt "field:account.iesa.payment,currency_digits:"
+msgid "Currency Digits"
+msgstr "Dígitos de la Moneda"
+
+msgctxt "field:account.iesa.payment,currency_date:"
+msgid "Currency Date"
+msgstr "Fecha de la Moneda"
+
+msgctxt "field:account.iesa.payment,journal:"
+msgid "Journal"
+msgstr "Diario"
+
+msgctxt "field:account.iesa.payment,move:"
+msgid "Move"
+msgstr "Asiento"
+
+msgctxt "field:account.iesa.payment,account:"
+msgid "Account"
+msgstr "Cuenta"
+
+msgctxt "field:account.iesa.payment,payment_term:"
+msgid "Payment Term"
+msgstr "Plazo de Pago"
+
+msgctxt "field:account.iesa.payment,invoices:"
+msgid "Invoices"
+msgstr "Cobros"
+
+msgctxt "field:account.iesa.payment,amount:"
+msgid "Amount"
+msgstr "Monto a pagar"
+
+msgctxt "field:account.iesa.payment,amount_receivable:"
+msgid "Receivable"
+msgstr "Pendiente de Cobro"
+
+msgctxt "field:account.iesa.payment,comment:"
+msgid "Comment"
+msgstr "Comentario"
+
+msgctxt "field:account.iesa.payment,ticket:"
+msgid "Ticket"
+msgstr "Boleta"
+
+msgctxt "field:account.iesa.payment,receipt:"
+msgid "Receipt"
+msgstr "Recibo"
+
+msgctxt "field:account.iesa.payment,third_party:"
+msgid "Third Party"
+msgstr "Encargado"
+
+msgctxt "field:account.iesa.payment,payment_lines:"
+msgid "Payment Lines"
+msgstr "Historial de cuenta"
+
+msgctxt "view:account.iesa.payment:"
+msgid "Payment History"
+msgstr "Pagos"
+
+msgctxt "view:account.iesa.payment:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "view:account.iesa.payment:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "view:account.iesa.payment:"
+msgid "Quotation"
+msgstr "Prevalidar"
+
+msgctxt "view:account.iesa.payment:"
+msgid "Post"
+msgstr "Contabilizar"
+
+msgctxt "view:account.iesa.payment:"
+msgid "Other Info"
+msgstr "Información Adicional"
+
+msgctxt "view:account.operating.capital:"
+msgid "Current Capital"
+msgstr "Capital Actual"
+
+msgctxt "view:account.operating.capital:"
+msgid "Recommended Capital"
+msgstr "Capital Recomendado"
+
+msgctxt "view:account.operating.capital:"
+msgid "Operative Capital"
+msgstr "Capital Operativo"
+
+msgctxt "view:account.liquidity:"
+msgid "Current Capital"
+msgstr "Capital Actual"
+
+msgctxt "view:account.move.line:"
+msgid "CreditInverseStr"
+msgstr "Debe"
+
+msgctxt "view:account.move.line:"
+msgid "DebitInverseStr"
+msgstr "Haber"
+
+msgctxt "view:account.move.line:"
+msgid "CreditInverse"
+msgstr "D"
+
+msgctxt "view:account.move.line:"
+msgid "DebitInverse"
+msgstr "H"
+
+msgctxt "model:ir.ui.menu,name:menu_index"
+msgid "Financial Indexes"
+msgstr "Índices Financieros"
+
+msgctxt "model:account.iesa.payment,name:menu_operative_capital"
+msgid "Payment IESA"
+msgstr "Recibo"
+
+msgctxt "model:ir.ui.menu,name:menu_operative_capital"
+msgid "Operative Capital"
+msgstr "Capital Operativo"
+
+msgctxt "model:ir.ui.menu,name:menu_liquidity"
+msgid "Liquidity"
+msgstr "Liquidez"
+
+msgctxt "model:ir.action,name:act_operative_capital"
+msgid "Operative Capital"
+msgstr "Capital Operativo"
+
+msgctxt "model:ir.action,name:act_account_move"
+msgid "Account Moves"
+msgstr "Asientos Contables"
+
+msgctxt "model:ir.action,name:act_liquidity"
+msgid "Liquidity"
+msgstr "Liquidez"
+
+msgctxt "model:ir.action,name:act_iesa_payment_form"
+msgid "Payments"
+msgstr "Recibos"
+
+msgctxt "model:ir.ui.menu,name:menu_account"
+msgid "Account Moves"
+msgstr "Asientos Contables"
+
+msgctxt "model:ir.ui.menu,name:menuitem_account_move"
+msgid "Account Moves"
+msgstr "Asientos Contables"
+
+msgctxt "model:ir.ui.menu,name:menu_payment_form"
+msgid "Payments"
+msgstr "Recibos"
+
+msgctxt "model:ir.model.button,string:payment_post_button"
+msgid "Post"
+msgstr "Confirmar"
+
+msgctxt "model:ir.model.button,string:payment_cancel_button"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "model:ir.model.button,string:payment_quote_button"
+msgid "Quote"
+msgstr "Enumerar"
+
+msgctxt "model:ir.model.button,string:payment_draft_button"
+msgid "Draft"
+msgstr "Borrador"

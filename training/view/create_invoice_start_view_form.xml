@@ -1,0 +1,6 @@
+<data>    
+    <xpath expr="/form/group[@id=&quot;create_date&quot;]/label[@id=&quot;create&quot;]" position="before">
+    	<label name="party"/>
+    	<field name="party"/>
+    </xpath>
+</data>

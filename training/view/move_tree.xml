@@ -1,0 +1,6 @@
+<data>
+    <xpath expr="/tree/field[@name=&quot;state&quot;]" position="before">
+    	<field name="amount" sum="Total"/>
+	</xpath>
+</data> 
+ 

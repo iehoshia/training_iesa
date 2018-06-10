@@ -1,0 +1,11 @@
+<data>
+    <xpath expr="/form/field[@name=&quot;description&quot;]" position="replace">
+    	<field name="description"/>
+    	<label name="ticket"/>
+    	<field name="ticket"/>
+    	<label name="third_party"/>
+    	<field name="third_party"/>
+    	<label name="receipt"/>
+    	<field name="receipt"/>
+    </xpath>
+</data>

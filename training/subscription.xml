@@ -1,0 +1,229 @@
+<tryton>
+    <data>
+
+        <!-- VALIDATE SUBSCRIPTION  -->
+
+        <!--
+        <record model="ir.model.button" id="subscription_run_button">
+            <field name="name">run</field>
+            <field name="model" search="[('model', '=', 'sale.subscription')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+            id="subscription_run_button_group">
+            <field name="button" ref="subscription_run_button"/>
+            <field name="group" ref="sale.group_sale"/>
+        </record>-->
+
+        <record model="res.group" id="group_college">
+            <field name="name">College</field>
+        </record>
+
+        <record model="ir.ui.menu-res.group"
+            id="menu_subscription_form_group_sale">
+            <field name="menu" ref="training.menu_training"/>
+            <field name="group" ref="group_college"/>
+        </record>
+        <record model="res.user-res.group" id="user_admin_group_college">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_college"/>
+        </record>
+
+    <record model="ir.model.access" id="access_subscription">
+            <field name="model" search="[('model', '=', 'sale.subscription')]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_subscription_sale">
+            <field name="model" search="[('model', '=', 'sale.subscription')]"/>
+            <field name="group" ref="group_college"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <!--
+        <record model="ir.model.button" id="subscription_draft_button">
+            <field name="name">draft</field>
+            <field name="string">Draft</field>
+            <field name="model"
+                search="[('model', '=', 'sale.subscription')]"/>
+        </record> 
+    -->
+        <record model="ir.model.button-res.group"
+            id="subscription_draft_button_group_sale">
+            <field name="button" ref="sale_subscription.subscription_draft_button"/>
+            <field name="group" ref="group_college"/>
+        </record>
+
+        <!--
+        <record model="ir.model.button" id="subscription_run_button">
+            <field name="name">run</field>
+            <field name="string">Run</field>
+            <field name="model"
+                search="[('model', '=', 'sale.subscription')]"/>
+        </record>
+    -->
+        <record model="ir.model.button-res.group"
+            id="subscription_run_button_group_sale">
+            <field name="button" ref="sale_subscription.subscription_run_button"/>
+            <field name="group" ref="group_college"/>
+        </record>
+
+        <record model="ir.model.button-res.group"
+            id="subscription_cancel_button_group_sale">
+            <field name="button" ref="sale_subscription.subscription_cancel_button"/>
+            <field name="group" ref="group_college"/>
+        </record>
+
+        <record model="ir.model.button-res.group"
+            id="subscription_quote_button_group_sale">
+            <field name="button" ref="sale_subscription.subscription_quote_button"/>
+            <field name="group" ref="group_college"/>
+        </record>
+
+        <record model="ir.model.access" id="access_subscription_line">
+            <field name="model"
+                search="[('model', '=', 'sale.subscription.line')]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_subscription_line_sale">
+            <field name="model"
+                search="[('model', '=', 'sale.subscription.line')]"/>
+            <field name="group" ref="group_college"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access"
+            id="access_subscription_line_consumption">
+            <field name="model"
+                search="[('model', '=', 'sale.subscription.line.consumption')]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access"
+            id="access_subscription_line_consumption_sale">
+            <field name="model"
+                search="[('model', '=', 'sale.subscription.line.consumption')]"/>
+            <field name="group" ref="group_college"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.action-res.group"
+            id="act_line_consumption_create_group_sale">
+            <field name="action" ref="sale_subscription.act_line_consumption_create"/>
+            <field name="group" ref="group_college"/>
+        </record>
+
+        <record model="res.user-res.group"
+            id="user_generate_line_consumption_group_sale">
+            <field name="user" ref="sale_subscription.user_generate_line_consumption"/>
+            <field name="group" ref="group_college"/>
+        </record>
+
+        <record model="ir.action-res.group"
+            id="act_create_invoice_create_group_sale">
+            <field name="action" ref="sale_subscription.act_create_invoice"/>
+            <field name="group" ref="group_college"/>
+        </record>
+
+        <!--
+        <record model="ir.model.button" id="subscription_cancel_button">
+            <field name="name">cancel</field>
+            <field name="string">Cancel</field>
+            <field name="model"
+                search="[('model', '=', 'sale.subscription')]"/>
+        </record>
+
+        <record model="ir.model.button" id="subscription_quote_button">
+            <field name="name">quote</field>
+            <field name="string">Quote</field>
+            <field name="model"
+                search="[('model', '=', 'sale.subscription')]"/>
+        </record>
+    -->
+
+        <menuitem name="Reporting" sequence="0" 
+            id="menu_reporting_training" parent="training.menu_training"
+            icon="tryton-presentation"/>
+
+        <!-- OVERDUE REPORT -->
+
+        <record model="ir.ui.view" id="print_overdue_report_start_form">
+            <field name="model">overdue.report.print.start</field>
+            <field name="type">form</field>
+            <field name="name">print_overdue_report_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_overdue_report_print">
+            <field name="name">Print Overdue Report</field>
+            <field name="wiz_name">overdue.report.print</field>
+        </record>
+
+        <menuitem parent="menu_reporting_training" action="wizard_overdue_report_print"
+            id="menu_overdue_report_print" icon="tryton-print"/>
+            
+        <record model="ir.action.report" id="print_overdue_report">
+            <field name="name">Print Overdue Report</field>
+            <field name="model">sale.subscription</field>
+            <field name="report_name">overdue.report</field>
+            <field name="report">training/overdue.fodt</field>
+        </record>
+
+        <!-- GRADE OVERDUE REPORT -->
+
+        <record model="ir.ui.view" id="print_grade_overdue_report_start_form">
+            <field name="model">grade.overdue.report.print.start</field>
+            <field name="type">form</field>
+            <field name="name">print_grade_overdue_report_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_grade_overdue_report_print">
+            <field name="name">Print Grade Overdue Report</field>
+            <field name="wiz_name">grade.overdue.report.print</field>
+        </record>
+
+        <menuitem parent="menu_reporting_training" action="wizard_grade_overdue_report_print"
+            id="menu_grade_overdue_report_print" icon="tryton-print"/>
+            
+        <record model="ir.action.report" id="print_grade_overdue_report">
+            <field name="name">Print Grade Overdue Report</field>
+            <field name="model">sale.subscription</field>
+            <field name="report_name">grade.overdue.report</field>
+            <field name="report">training/grade_overdue.fodt</field>
+        </record>
+
+        <record model="ir.ui.view" id="create_invoice_start_view_form">
+            <field name="model">sale.subscription.create_invoice.start</field>
+            <field name="inherit" ref="sale_subscription.create_invoice_start_view_form"/>
+            <field name="name">create_invoice_start_view_form</field>
+        </record>
+        create_invoice_start_form
+
+        <!-- RULE CONSUMPTION -->
+        <record model="ir.rule.group" id="rule_group_line_consumption">
+            <field name="model" search="[('model', '=', 'sale.subscription.line.consumption')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_line_consumption1">
+            <field name="domain"
+                eval="[('line.company', '=', Eval('user', {}).get('company', None) )]"
+                pyson="1"/>
+            <field name="rule_group" ref="rule_group_line_consumption"/>
+        </record>
+
+    </data>
+</tryton>

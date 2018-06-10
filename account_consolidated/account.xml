@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="general_ledger_account_context_view_form">
+            <field name="model">account.general_ledger.account.context</field>
+            <field name="inherit" ref="account.general_ledger_account_context_view_form"/> 
+            <field name="name">general_ledger_account_context_form</field>
+        </record> 
+
+        <record model="ir.ui.view" id="account_type_template_view_form">
+            <field name="model">account.account.type.template</field>
+            <field name="inherit" ref="account.account_type_template_view_form"/> 
+            <field name="name">account_type_template_form</field>
+        </record> 
+
+        <record model="ir.ui.view" id="account_type_view_form">
+            <field name="model">account.account.type</field>
+            <field name="inherit" ref="account.account_type_view_form"/> 
+            <field name="name">account_type_form</field>
+        </record> 
+
+        <record model="ir.ui.view" id="account_meta_type_template_view_form">
+            <field name="model">account.account.meta.type.template</field>
+            <field name="type">form</field>
+            <field name="name">account_meta_type_template_form</field>
+        </record>
+        <record model="ir.ui.view" id="account_meta_type_template_view_list">
+            <field name="model">account.account.meta.type.template</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">account_meta_type_template_list</field>
+        </record>
+        <record model="ir.ui.view" id="account_meta_type_template_view_tree">
+            <field name="model">account.account.meta.type.template</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="field_childs">childs</field>
+            <field name="name">account_meta_type_template_tree</field>
+        </record>
+        <record model="ir.action.act_window" id="act_account_meta_type_template_tree">
+            <field name="name">Account Meta Type Templates</field>
+            <field name="res_model">account.account.meta.type.template</field>
+            <field name="domain" eval="[('parent', '=', None)]" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_account_meta_type_template_tree_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_meta_type_template_view_tree"/>
+            <field name="act_window" ref="act_account_meta_type_template_tree"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_account_type_template_tree_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="account_meta_type_template_view_form"/>
+            <field name="act_window" ref="act_account_meta_type_template_tree"/>
+        </record>
+        <menuitem parent="account.menu_templates"
+            action="act_account_meta_type_template_tree"
+            id="menu_account_meta_type_template_tree"
+            sequence="10"/>
+
+
+        <record model="ir.ui.view" id="account_meta_type_view_form">
+            <field name="model">account.account.meta.type</field>
+            <field name="type">form</field>
+            <field name="name">account_meta_type_form</field>
+        </record>
+        <record model="ir.ui.view" id="account_meta_type_view_tree">
+            <field name="model">account.account.meta.type</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="field_childs">childs</field>
+            <field name="name">account_meta_type_tree</field>
+        </record>
+        <record model="ir.ui.view" id="account_meta_type_view_list">
+            <field name="model">account.account.meta.type</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">account_meta_type_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_account_meta_type_tree">
+            <field name="name">Account Meta Types</field>
+            <field name="res_model">account.account.meta.type</field>
+            <field name="domain" eval="[('parent', '=', None)]" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_account_meta_type_tree_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_meta_type_view_tree"/>
+            <field name="act_window" ref="act_account_meta_type_tree"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_account_meta_type_tree_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="account_meta_type_view_form"/>
+            <field name="act_window" ref="act_account_meta_type_tree"/>
+        </record>
+        <menuitem parent="account.menu_general_account_configuration"
+            action="act_account_meta_type_tree" id="menu_account_meta_type_tree"/>
+
+        <record model="ir.action.act_window" id="act_account_meta_type_list">
+            <field name="name">Account Meta Types</field>
+            <field name="res_model">account.account.meta.type</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_account_meta_type_list_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_meta_type_view_list"/>
+            <field name="act_window" ref="act_account_meta_type_list"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_account_meta_type_list_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="account_meta_type_view_form"/>
+            <field name="act_window" ref="act_account_meta_type_list"/>
+        </record>
+        <menuitem parent="menu_account_meta_type_tree"
+            action="act_account_meta_type_list" id="menu_account_meta_type_list"
+            sequence="10"/>
+        <!--
+        <record model="ir.model.access" id="access_account_type">
+            <field name="model" search="[('model', '=', 'account.account.meta.type')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_account_type_account_admin">
+            <field name="model" search="[('model', '=', 'account.account.meta.type')]"/>
+            <field name="group" ref="account.group_account_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>-->
+
+        <!--
+        <record model="ir.rule.group" id="rule_group_account_meta_type">
+            <field name="model"
+                search="[('model', '=', 'account.account.meta.type')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_account_meta_type1">
+            <field name="domain"
+                eval="[('company', 'in', Eval('user', {}).get('companies', []))]"
+                pyson="1"/>
+            <field name="rule_group" ref="rule_group_account_meta_type"/>
+        </record>-->
+
+
+        <!-- WIZARD -->
+
+        <record model="ir.ui.view" id="create_chart_start_view_form">
+            <field name="model">account.meta.create_chart.start</field>
+            <field name="type">form</field>
+            <field name="name">create_chart_start_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="create_chart_account_view_form">
+            <field name="model">account.meta.create_chart.account</field>
+            <field name="type">form</field>
+            <field name="name">create_chart_account_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="create_chart_properties_view_form">
+            <field name="model">account.meta.create_chart.properties</field>
+            <field name="type">form</field>
+            <field name="name">create_chart_properties_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_create_chart">
+            <field name="name">Create Chart of Accounts from Meta Template</field>
+            <field name="wiz_name">account.meta.create_chart</field>
+        </record>
+
+        <menuitem parent="account.menu_templates"
+            action="wizard_create_chart" id="menu_create_chart"
+            sequence="90"/>
+
+        <record model="ir.module.config_wizard.item"
+            id="config_wizard_item_chart_account">
+            <field name="action" ref="wizard_create_chart"/>
+        </record>
+
+        <record model="ir.ui.view" id="update_chart_start_view_form">
+            <field name="model">account.meta.update_chart.start</field>
+            <field name="type">form</field>
+            <field name="name">update_chart_start_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="update_chart_succeed_view_form">
+            <field name="model">account.meta.update_chart.succeed</field>
+            <field name="type">form</field>
+            <field name="name">update_chart_succeed_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_update_chart">
+            <field name="name">Update Chart of Accounts from Meta Template</field>
+            <field name="wiz_name">account.meta.update_chart</field>
+        </record>
+        <menuitem parent="account.menu_templates"
+            action="wizard_update_chart" id="menu_update_chart"
+            sequence="100"/>
+
+        <record model="ir.ui.view" id="consolidated_balance_sheet_context_view_form">
+            <field name="model">account.consolidated_balance_sheet.context</field>
+            <field name="type">form</field>
+            <field name="name">consolidated_balance_sheet_context_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="consolidated_balance_sheet_comparision_context_view_form">
+            <field name="model">account.consolidated_balance_sheet.comparision.context</field>
+            <field name="inherit" ref="consolidated_balance_sheet_context_view_form"/>
+            <field name="name">consolidated_balance_sheet_context_comparision_form</field>
+        </record>
+        <record model="ir.ui.view" id="account_consolidated_balance_sheet_view_tree">
+            <field name="model">account.account.meta.type</field>
+            <field name="type">tree</field>
+            <field name="field_childs">childs</field>
+            <field name="name">account_consolidated_balance_sheet_tree</field>
+        </record>
+        <record model="ir.action.act_window" id="act_account_consolidated_balance_sheet_tree">
+            <field name="name">Consolidated Balance Sheet</field>
+            <field name="res_model">account.account.meta.type</field>
+            <field name="context_model">account.consolidated_balance_sheet.comparision.context</field>
+            <field name="context_domain"
+                eval="[('company', '=', Eval('company', -1))]"
+                pyson="1"/>
+            <field name="domain"
+                eval="[('balance_sheet', '=', True), ['OR', ('parent', '=', None), ('parent.balance_sheet', '=', False)]]"
+                pyson="1"/>
+            <field name="context" eval="{'cumulate': True}" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_balance_sheet_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_consolidated_balance_sheet_view_tree"/>
+            <field name="act_window" ref="act_account_consolidated_balance_sheet_tree"/>
+        </record>
+
+        <menuitem parent="account.menu_reporting" action="act_account_consolidated_balance_sheet_tree"
+            id="menu_open_balance_sheet"/>
+
+    </data>
+</tryton>

@@ -1,0 +1,352 @@
+<?xml version="1.0"?>
+<!-- This file is part sale_pos module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+
+        <!-- Informe Iglesia -->
+
+        <record model="ir.ui.view" id="informe_iglesia_context">
+            <field name="model">disc.informe.iglesia.context</field>
+            <field name="type">form</field>
+            <field name="name">informe_iglesia_context</field>
+        </record>
+
+        <record model="ir.ui.view" id="informe_iglesia_tree">
+            <field name="model">disc.informe.iglesia</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/> 
+            <field name="name">informe_iglesia_tree</field>
+        </record>
+        <record model="ir.ui.view" id="informe_iglesia_graph">
+            <field name="model">disc.informe.iglesia</field>
+            <field name="type">graph</field>
+            <field name="priority" eval="20"/>
+            <field name="name">informe_iglesia_graph</field>
+        </record>
+
+         <record model="ir.action.act_window" id="act_informe_iglesia">
+            <field name="name">Informe por Iglesia</field>
+            <field name="res_model">disc.informe.iglesia</field>
+            <field name="context_model">disc.informe.iglesia.context</field>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="informe_iglesia_tree1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="informe_iglesia_tree"/>
+            <field name="act_window" ref="act_informe_iglesia"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="informe_iglesia_graph1">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="informe_iglesia_graph"/>
+            <field name="act_window" ref="act_informe_iglesia"/>
+        </record>
+        <menuitem parent="menu_informe_discipulado"
+            action="act_informe_iglesia" id="itemmenu_informe_iglesia"/>
+
+        <!-- Reporte Calendar Iglesia 
+
+        <record model="ir.ui.view" id="reporte_iglesia_bautizo_calendar">
+            <field name="model">disc.reporte</field>
+            <field name="type">calendar</field>
+            <field name="priority" eval="10"/>
+            <field name="name">calendar_iglesia_fecha</field>
+        </record>
+        <record model="ir.action.act_window" id="act_iglesia_bautizo_calendar">
+            <field name="name">Iglesia Calendario</field>
+            <field name="res_model">disc.reporte</field>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="reporte_iglesia_bautizo_calendar1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="reporte_iglesia_bautizo_calendar"/>
+            <field name="act_window" ref="act_iglesia_bautizo_calendar"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="reporte_iglesia_bautizo_graph2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="reporte_iglesia_bautizo_graph"/>
+            <field name="act_window" ref="act_iglesia_bautizo_calendar"/>
+        </record>
+        <menuitem parent="menu_reporte_discipulado"
+            action="act_iglesia_bautizo_calendar" id="menu_reporte_iglesia_calendar"/> -->
+
+        <!-- Reporte Distrito -->
+
+        <record model="ir.ui.view" id="informe_distrito_context">
+            <field name="model">disc.informe.distrito.context</field>
+            <field name="type">form</field>
+            <field name="name">informe_distrito_context</field>
+        </record>
+
+        <record model="ir.ui.view" id="informe_distrito_tree">
+            <field name="model">disc.informe.distrito</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">informe_distrito_tree</field>
+        </record>
+        <record model="ir.ui.view" id="informe_distrito_graph">
+            <field name="model">disc.informe.distrito</field>
+            <field name="type">graph</field>
+            <field name="priority" eval="20"/>
+            <field name="name">informe_distrito_graph</field>
+        </record>
+        <record model="ir.action.act_window" id="act_informe_distrito">
+            <field name="name">Informe por Distrito</field>
+            <field name="res_model">disc.informe.distrito</field>
+            <field name="context_model">disc.informe.distrito.context</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_informe_distrito1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="informe_distrito_tree"/>
+            <field name="act_window" ref="act_informe_distrito"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_informe_distrito2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="informe_distrito_graph"/>
+            <field name="act_window" ref="act_informe_distrito"/>
+        </record>
+
+        <menuitem parent="menu_informe_discipulado"
+            action="act_informe_distrito" id="itemmenu_informe_distrito"/>
+
+        <!-- Reporte Zona -->
+
+        <record model="ir.ui.view" id="informe_zona_context">
+            <field name="model">disc.informe.zona.context</field>
+            <field name="type">form</field>
+            <field name="name">informe_zona_context</field>
+        </record>
+
+        <record model="ir.ui.view" id="informe_zona_tree">
+            <field name="model">disc.informe.zona</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">informe_zona_tree</field>
+        </record>
+        <record model="ir.ui.view" id="informe_zona_graph">
+            <field name="model">disc.informe.zona</field>
+            <field name="type">graph</field>
+            <field name="priority" eval="20"/>
+            <field name="name">informe_zona_graph</field>
+        </record>
+        <record model="ir.action.act_window" id="act_informe_zona">
+            <field name="name">Informe por Zona</field>
+            <field name="res_model">disc.informe.zona</field>
+            <field name="context_model">disc.informe.zona.context</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_informe_zona1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="informe_zona_tree"/>
+            <field name="act_window" ref="act_informe_zona"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_informe_zona2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="informe_zona_graph"/>
+            <field name="act_window" ref="act_informe_zona"/>
+        </record>
+        
+        <menuitem parent="menu_informe_discipulado"
+            action="act_informe_zona" id="itemmenu_informe_zona"/>
+
+        <!-- Reporte Campo -->
+
+        <record model="ir.ui.view" id="informe_campo_context">
+            <field name="model">disc.informe.campo.context</field>
+            <field name="type">form</field>
+            <field name="name">informe_campo_context</field>
+        </record>
+
+        <record model="ir.ui.view" id="informe_campo_tree">
+            <field name="model">disc.informe.campo</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">informe_campo_tree</field>
+        </record>
+        <record model="ir.ui.view" id="informe_campo_graph">
+            <field name="model">disc.informe.campo</field>
+            <field name="type">graph</field>
+            <field name="priority" eval="20"/>
+            <field name="name">informe_campo_graph</field>
+        </record>
+        <record model="ir.action.act_window" id="act_informe_campo">
+            <field name="name">Informe por Campo</field>
+            <field name="res_model">disc.informe.campo</field>
+            <field name="context_model">disc.informe.campo.context</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_campo_zona1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="informe_campo_tree"/>
+            <field name="act_window" ref="act_informe_campo"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_campo_zona2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="informe_campo_graph"/>
+            <field name="act_window" ref="act_informe_campo"/>
+        </record>
+        
+        <menuitem parent="menu_informe_discipulado"
+            action="act_informe_campo" id="itemmenu_informe_campo"/>
+
+        <!-- Reporte Union -->
+
+        <record model="ir.ui.view" id="informe_union_context">
+            <field name="model">disc.informe.union.context</field>
+            <field name="type">form</field>
+            <field name="name">informe_union_context</field>
+        </record>
+
+        <record model="ir.ui.view" id="informe_union_tree">
+            <field name="model">disc.informe.union</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">informe_union_tree</field>
+        </record>
+        <record model="ir.ui.view" id="informe_union_graph">
+            <field name="model">disc.informe.union</field>
+            <field name="type">graph</field>
+            <field name="priority" eval="20"/>
+            <field name="name">informe_union_graph</field>
+        </record>
+        <record model="ir.action.act_window" id="act_informe_union">
+            <field name="name">Informe por Union</field>
+            <field name="res_model">disc.informe.union</field>
+            <field name="context_model">disc.informe.union.context</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_campo_union1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="informe_union_tree"/>
+            <field name="act_window" ref="act_informe_union"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_campo_union2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="informe_union_graph"/>
+            <field name="act_window" ref="act_informe_union"/>
+        </record>
+        
+        <menuitem parent="menu_informe_discipulado"
+            action="act_informe_union" id="itemmenu_informe_union"/>
+
+        <!-- Imprimir Informe iglesia -->
+
+        <record model="ir.ui.view" id="imprimir_reporte_iglesia_inicio_form">
+            <field name="model">disc.reporte.iglesia.imprimir.inicio</field>
+            <field name="type">form</field>
+            <field name="name">imprimir_reporte_iglesia_inicio_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_imprimir_reporte_iglesia">
+            <field name="name">Imprimir Reporte Iglesia</field>
+            <field name="wiz_name">disc.reporte.iglesia.imprimir</field>
+        </record>
+
+        <menuitem parent="menu_discipulado" action="wizard_imprimir_reporte_iglesia"
+            id="menu_imprimir_reporte_iglesia" icon="tryton-print"/>
+            
+        <record model="ir.action.report" id="imprimir_reporte_iglesia">
+            <field name="name">Reporte Iglesia</field>
+            <field name="model">disc.reporte</field>
+            <field name="report_name">disc.reporte.iglesia</field>
+            <field name="report">discipulado/reporte_iglesia.fodt</field>
+        </record>
+
+
+        <!-- Imprimir Informe Distrito -->
+
+        <record model="ir.ui.view" id="imprimir_reporte_distrito_inicio_form">
+            <field name="model">disc.reporte.distrito.imprimir.inicio</field>
+            <field name="type">form</field>
+            <field name="name">imprimir_reporte_distrito_inicio_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_imprimir_reporte_distrito">
+            <field name="name">Imprimir Reporte Distrito</field>
+            <field name="wiz_name">disc.reporte.distrito.imprimir</field>
+        </record>
+
+        <menuitem parent="menu_discipulado" action="wizard_imprimir_reporte_distrito"
+            id="menu_imprimir_reporte_distrito" icon="tryton-print"/>
+            
+        <record model="ir.action.report" id="imprimir_reporte_distrito">
+            <field name="name">Reporte Distrito</field>
+            <field name="model">disc.reporte</field>
+            <field name="report_name">disc.reporte.distrito</field>
+            <field name="report">discipulado/reporte_distrito.fodt</field>
+        </record>
+
+        <!-- Imprimir Informe Zona -->
+
+        <record model="ir.ui.view" id="imprimir_reporte_zona_inicio_form">
+            <field name="model">disc.reporte.zona.imprimir.inicio</field>
+            <field name="type">form</field>
+            <field name="name">imprimir_reporte_zona_inicio_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_imprimir_reporte_zona">
+            <field name="name">Imprimir Reporte Zona</field>
+            <field name="wiz_name">disc.reporte.zona.imprimir</field>
+        </record>
+
+        <menuitem parent="menu_discipulado" action="wizard_imprimir_reporte_zona"
+            id="menu_imprimir_reporte_zona" icon="tryton-print"/>
+            
+        <record model="ir.action.report" id="imprimir_reporte_zona">
+            <field name="name">Reporte Zona</field>
+            <field name="model">disc.reporte</field>
+            <field name="report_name">disc.reporte.zona</field>
+            <field name="report">discipulado/reporte_zona.fodt</field>
+        </record>
+
+        <!-- Imprimir Informe Campo -->
+
+        <record model="ir.ui.view" id="imprimir_reporte_campo_inicio_form">
+            <field name="model">disc.reporte.campo.imprimir.inicio</field>
+            <field name="type">form</field>
+            <field name="name">imprimir_reporte_campo_inicio_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_imprimir_reporte_campo">
+            <field name="name">Imprimir Reporte Campo</field>
+            <field name="wiz_name">disc.reporte.campo.imprimir</field>
+        </record>
+
+        <menuitem parent="menu_discipulado" action="wizard_imprimir_reporte_campo"
+            id="menu_imprimir_reporte_campo" icon="tryton-print"/>
+            
+        <record model="ir.action.report" id="imprimir_reporte_campo">
+            <field name="name">Reporte Campo</field>
+            <field name="model">disc.reporte</field>
+            <field name="report_name">disc.reporte.campo</field>
+            <field name="report">discipulado/reporte_campo.fodt</field>
+        </record>
+
+        <!-- Imprimir Informe Union -->
+
+        <record model="ir.ui.view" id="imprimir_reporte_union_inicio_form">
+            <field name="model">disc.reporte.union.imprimir.inicio</field>
+            <field name="type">form</field>
+            <field name="name">imprimir_reporte_union_inicio_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_imprimir_reporte_union">
+            <field name="name">Imprimir Reporte Union</field>
+            <field name="wiz_name">disc.reporte.union.imprimir</field>
+        </record>
+
+        <menuitem parent="menu_discipulado" action="wizard_imprimir_reporte_union"
+            id="menu_imprimir_reporte_union" icon="tryton-print"/>
+            
+        <record model="ir.action.report" id="imprimir_reporte_union">
+            <field name="name">Reporte Union</field>
+            <field name="model">disc.reporte</field>
+            <field name="report_name">disc.reporte.union</field>
+            <field name="report">discipulado/reporte_union.fodt</field>
+        </record>
+
+    </data>
+</tryton>

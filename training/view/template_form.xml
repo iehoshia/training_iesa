@@ -1,0 +1,7 @@
+<data>
+    <xpath expr="/form/notebook/page[@id='general']/group[@id='checkboxes']"
+        position="inside">
+        <label name="is_enrolment"/>
+        <field name="is_enrolment" xexpand="0" width="25"/>
+    </xpath>
+</data>

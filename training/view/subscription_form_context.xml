@@ -1,0 +1,10 @@
+<form col="8">
+	<!--<label name="horario"/>
+	<field name="horario" widget="selection"/>-->
+	<label name="student"/>
+	<field name="student"/>
+	<label name="subscriber"/>
+	<field name="subscriber"/>
+	<label name="course"/>
+	<field name="course" widget="selection"/>
+</form> 

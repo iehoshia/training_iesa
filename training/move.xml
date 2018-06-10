@@ -1,0 +1,29 @@
+<tryton>
+    <data>
+        <!-- MOVE TREE -->
+        <!--
+
+        <record model="ir.ui.view" id="move_view_tree">
+            <field name="model">account.move</field>
+            <field name="inherit" ref="account.move_view_tree"/>
+            <field name="name">move_tree</field>
+        </record>
+
+    -->
+
+        <!-- ACCOUNT MOVES 
+        <record model="ir.action.act_window" id="act_dialy_closure_form">
+            <field name="name">Daily Closure</field>
+            <field name="res_model">account.move</field>
+            <field name="domain"
+                eval="[('company', '=', Eval('context', {}).get('company', -1))]"
+                pyson="1"/>
+            <field name="search_value"
+                eval="[('date', '>=',  Date() )]"
+                pyson="1"/>
+        </record>
+
+        <menuitem parent="account.menu_entries" action="act_dialy_closure_form"
+            id="menu_move_form"/> -->
+    </data>
+</tryton>

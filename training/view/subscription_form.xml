@@ -1,0 +1,113 @@
+<data>
+    <xpath expr="/form/field[@name=&quot;party&quot;]" position="after">
+                <label name="student"/>
+                <field name="student"/>
+    </xpath>
+    <xpath expr="/form/label[@name=&quot;invoice_address&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/field[@name=&quot;invoice_address&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/label[@name=&quot;reference&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/field[@name=&quot;reference&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/label[@name=&quot;invoice_recurrence&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/field[@name=&quot;invoice_recurrence&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/label[@name=&quot;currency&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/field[@name=&quot;currency&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/label[@name=&quot;payment_term&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/field[@name=&quot;payment_term&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/label[@name=&quot;invoice_start_date&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/field[@name=&quot;invoice_start_date&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;other&quot;]/field[@name=&quot;company&quot;]" position="after">
+        <label name="origin"/>
+        <field name="origin"/>
+        <label name="amount"/>
+        <field name="amount"/>
+        <label name="invoice_address"/>
+        <field name="invoice_address"/>
+        <label name="invoice_recurrence"/>
+        <field name="invoice_recurrence" widget="selection"/>
+        <label name="currency"/>
+        <field name="currency"/>
+        <label name="payment_term"/>
+        <field name="payment_term" widget="selection"/>
+        <label name="invoice_start_date"/>
+        <field name="invoice_start_date"/>
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;other&quot;]" position="after">
+        <page string="Invoices" id="invoice">
+            <field name="invoices" colspan="4" widget="many2many" readonly="1"/>
+        </page>
+    </xpath>
+    <!--
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/field[@name=&quot;invoice_recurrence&quot;]" position="replace">
+                
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/field[@name=&quot;payment_term&quot;]" position="replace">
+                
+    </xpath>
+    
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/label[@name=&quot;start_date&quot;]" position="before">
+                
+                <label name="horario"/>
+                <field name="horario" widget="selection"/>
+                <label name="asesor"/>
+                <field name="asesor"  widget="selection"/>
+    </xpath>-->
+    
+    <!--<xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]/field[@name=&quot;currency&quot;]" position="after">
+                <label name="medio"/>
+                <field name="medio" widget="selection"/>
+    </xpath>-->
+
+
+    <xpath expr="/form/notebook/page[@id=&quot;subscription&quot;]" position="replace">
+        <page string="Subscription" id="subscription" col="6">
+            <label name="enrolment"/>
+            <field name="enrolment" widget="selection"/>
+            <label name="unit_price_enrolment"/>
+            <field name="unit_price_enrolment"/>
+            <label name="section"/>
+            <field name="section"/>
+            <label name="start_date"/>
+            <field name="start_date"/>
+            <label name="end_date"/>
+            <field name="end_date"/>
+            <label name="registration_date"/>
+            <field name="registration_date"/>
+            <separator string="" colspan="4" id="under_construction"/>
+            <field name="lines" colspan="6"
+                view_ids="sale_subscription.subscription_line_view_list_sequence"/>
+            <group col="2" colspan="2" id="states" yfill="1">
+                <label name="state"/>
+                <field name="state"/>
+            </group>
+            <group col="4" colspan="2" id="buttons" yfill="1">
+                <button name="cancel" string="Cancel"/>
+                <button name="draft" string="Draft"/>
+                <button name="quote" string="Quote"/>
+                <button name="run" string="Run"/>
+            </group>
+        </page>
+    </xpath>
+
+    <xpath expr="/form/field[@name='description']" position="replace">
+        <field name="description" colspan="3"/>
+        <label name="reference"/>
+        <field name="reference"/>
+    </xpath>
+
+    <!--<xpath expr="/form/notebook/page[@id=&quot;general&quot;]/field[@name=&quot;addresses&quot;]" position="before">
+        <field name="gps" colspan="4"/>
+    </xpath> -->
+
+</data>

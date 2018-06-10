@@ -1,0 +1,7 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:party.configuration,default_country:"
+msgid "Default Country"
+msgstr "País per defecte"

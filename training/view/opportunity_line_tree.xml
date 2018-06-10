@@ -1,0 +1,5 @@
+<data>
+    <xpath expr="/tree/field[@name=&quot;product&quot;]" position="replace">
+    	<field name="service"/>
+    </xpath>
+</data>

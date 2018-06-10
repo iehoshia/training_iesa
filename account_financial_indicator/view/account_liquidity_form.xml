@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form>
+	<label name="company"/>
+	<field name="company" readonly="1"/>
+	<label name="fiscalyear"/>
+	<field name="fiscalyear" readonly="1"/>
+	<separator string="Current Capital" name="current_capital" colspan="4"/>
+	<label name="cash_bank"/>
+	<field name="cash_bank" readonly="1"/>
+	<newline/>
+	<label name="current_liability"/>
+	<field name="current_liability" readonly="1"/>
+	<newline/>
+	<label name="difference"/>
+	<field name="difference" readonly="1"/>
+	<newline/>
+	<label name="percentage"/>
+	<field name="percentage" readonly="1"/>
+</form>

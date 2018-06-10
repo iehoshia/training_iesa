@@ -1,0 +1,74 @@
+<data>
+    <xpath expr="/form/notebook/page[@id='info']/separator[@name='comment']"
+        position="before">
+        <label name="subscription_origin"/>
+        <field name="subscription_origin" xexpand="0" width="25"/>
+        <label name="is_enrolment"/>
+        <field name="is_enrolment" xexpand="0" width="25"/>
+    </xpath>
+    <xpath expr="//field[@name='company']" position="replace_attributes">
+    	<field name="company" readonly="1"/>
+    </xpath>
+    <xpath expr="//button[@name='pay']" position="replace">
+    </xpath>
+        <xpath expr="//page[@id='payment']" position="replace">
+    </xpath>
+    <!--
+    <xpath expr="//field[@name='taxes']" position="replace">
+    	<field name="taxes" invisible="1"/>
+    </xpath>
+    <xpath expr="//label[@name='untaxed_amount']" position="replace">
+    </xpath>
+    <xpath expr="//field[@name='untaxed_amount']" position="replace">
+    </xpath>-->
+    <xpath expr="//label[@name='party_tax_identifier']" position="replace">
+    </xpath>
+    <xpath expr="//field[@name='party_tax_identifier']" position="replace">
+    </xpath>
+    <!--
+    <xpath expr="//label[@name='tax_amount']" position="replace">
+    </xpath>
+    <xpath expr="//field[@name='tax_amount']" position="replace">
+    </xpath>-->
+    <xpath expr="//field[@name='party']" position="replace">
+    	<field name="party" colspan="2"/>
+    </xpath>
+    <xpath expr="//field[@name='invoice_address']" position="replace">
+    	<field name="invoice_address" colspan="2"/>
+    </xpath>
+    <xpath expr="//field[@name='reference']" position="replace">
+    	<field name="reference" readonly="1"/>
+    </xpath>
+    <xpath expr="//field[@name='journal']" position="replace">
+    	<field name="journal" readonly="1"/>
+    </xpath>
+    <!--
+    <xpath expr="//group[@id='taxes_amount_state_buttons']" colspan="2" position="replace" yfill="1" xalign="0.0">
+    		<group col="2" colspan="6" id="taxes_amount_state_buttons">
+                <group col="4" colspan="1" id="amount_state_buttons" yfill="1">
+                    <group col="2" colspan="2" id="reconciled_state" yfill="1">
+                        <label name="reconciled"/>
+                        <field name="reconciled"/>
+                        <label name="state"/>
+                        <field name="state"/>
+                    </group>
+                    <group col="2" colspan="2" id="amount" yfill="1">
+                        <label name="untaxed_amount" xalign="1.0" xexpand="1"/>
+                        <field name="untaxed_amount" xalign="1.0" xexpand="0"/>
+                        <label name="tax_amount" xalign="1.0" xexpand="1"/>
+                        <field name="tax_amount" xalign="1.0" xexpand="0"/>
+                        <label name="total_amount" xalign="1.0" xexpand="1"/>
+                        <field name="total_amount" xalign="1.0" xexpand="0"/>
+                    </group>
+                    <group col="-1" colspan="4" id="buttons">
+                        <button name="cancel" icon="tryton-cancel"/>
+                        <button name="draft" icon="tryton-go-previous"/>
+                        <button name="validate_invoice" icon="tryton-go-next"/>
+                        <button name="post" icon="tryton-ok"/>
+                        <button name="pay" icon="tryton-go-next"/>
+                    </group>
+                </group>
+            </group>
+    </xpath>
+-->
+</data>

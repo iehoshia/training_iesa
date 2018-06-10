@@ -1,0 +1,16 @@
+<data>
+    <xpath expr="/tree/field[@name=&quot;consumption_recurrence&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;consumption_delay&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;start_date&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;end_date&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;description&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;unit&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;quantity&quot;]" position="replace">
+    </xpath>
+</data>

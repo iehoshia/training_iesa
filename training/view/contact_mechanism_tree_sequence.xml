@@ -1,0 +1,8 @@
+<data>    
+    <xpath expr="/tree/field[@name=&quot;name&quot;]" position="replace">
+    </xpath>     
+    <xpath expr="/tree/field[@name=&quot;invoice&quot;]" position="replace">
+    </xpath>     
+    <xpath expr="/tree/field[@name=&quot;url&quot;]" position="replace">
+    </xpath>     
+</data>

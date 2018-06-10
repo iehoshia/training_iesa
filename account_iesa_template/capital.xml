@@ -1,0 +1,508 @@
+
+    <data grouped="1">
+        <record id="capital_operativo" model="analytic_account.account.template">
+            <field name="name">Capital Operativo</field>
+            <field name="type">root</field>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="liquidez" model="analytic_account.account.template">
+            <field name="name">Liquidez</field>
+            <field name="type">root</field>
+            <field name="display_balance">debit-credit</field>        
+           </record>
+       <record id="sosten_propio" model="analytic_account.account.template">
+            <field name="name">Sostén Propio</field>
+            <field name="type">root</field>
+            <field name="display_balance">debit-credit</field>  
+        </record>
+    </data>  
+    <data grouped="1">
+        <record id="capital_actual" model="analytic_account.account.template">
+            <field name="name">Capital Actual</field>
+            <field name="parent" ref="capital_operativo"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+        </record>
+        <record id="capital_recomedado" model="analytic_account.account.template">
+            <field name="name">Capital Recomendado</field>
+            <field name="parent" ref="capital_operativo"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="is_recommended_capital" ref="True"/>
+            <field name="display_balance">credit-decit</field>
+        </record>
+        <record id="caja_y_bancos" model="analytic_account.account.template">
+            <field name="name">Caja y Bancos</field>
+            <field name="parent" ref="liquidez"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+           </record>
+
+        <record id="pasivo_corriente" model="analytic_account.account.template">
+            <field name="name">Pasivo Corriente</field>
+            <field name="parent" ref="liquidez"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">credit-debit</field>            
+        </record>
+
+        <record id="ingresos" model="analytic_account.account.template">
+            <field name="name">Ingresos</field>
+            <field name="parent" ref="sosten_propio"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+        </record>
+
+        <record id="gastos" model="analytic_account.account.template">
+            <field name="name">Gastos</field>
+            <field name="parent" ref="sosten_propio"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-decit</field>           
+        </record>
+           
+    </data> 
+    <data grouped="1">          
+        <record id="activo_corriente" model="analytic_account.account">
+            <field name="name">Activo Corriente</field>
+            <field name="parent" ref="capital_actual"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+           </record>
+           <record id="pasivo_corriente_li" model="analytic_account.account">
+            <field name="name">Pasivo Corriente</field>
+            <field name="parent" ref="capital_actual"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">credit-debit</field>
+        </record>
+    </data> 
+    <data grouped="1">
+        <record id="caja_chica" model="analytic_account.account">
+            <field name="name">Caja Chica</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+          </record>
+        <record id="caja_general_li" model="analytic_account.account">
+            <field name="name">caja general li</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id=" Banco_GyT_Li" model="analytic_account.account">
+            <field name="name">Banco_GyT_Li</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+         </record>
+        <record id="BANRURAL_LI" model="analytic_account.account">
+            <field name="name">BANRURAL_LI</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+          </record>
+        <record id="Banco_Industrial_LI" model="analytic_account.account">
+            <field name="name">Banco Industrial LI</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+           </record>
+        <record id="Cuenta_de_Ahorro_LI" model="analytic_account.account">
+            <field name="name">Cuenta de Ahorro LI</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+        </record>
+        <record id="Plazo_Fijo_LI" model="analytic_account.account">
+            <field name="name">Plazo Fijo LI</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id="Cuenta_por_pagar_LI" model="analytic_account.account">
+            <field name="name">Cuenta por pagar LI</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+              </record>
+        <record id="IGSS_LI" model="analytic_account.account">
+            <field name="name">IGSS LI</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+               </record>
+        <record id="ISR_LI" model="analytic_account.account">
+            <field name="name">ISR LI</field>
+            <field name="parent" ref="LI_caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+
+        </data> 
+    <data grouped="1">
+    	   </record>
+        <record id="Cuenta_por_Pagar_CO" model="analytic_account.account">
+            <field name="name">Cuenta por Pagar CO</field>
+            <field name="parent" ref="co_pasivo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+              </record>
+        <record id="IGSS_CO" model="analytic_account.account">
+            <field name="name">IGSS CO</field>
+            <field name="parent" ref="co_pasivo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+                 </record>
+        <record id="ISR_CO" model="analytic_account.account">
+            <field name="name">IGSS CO</field>
+            <field name="parent" ref="co_pasivo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+
+             </data> 
+    <data grouped="1">
+      </record>
+        <record id="Caja_Chica_CO" model="analytic_account.account">
+            <field name="name">Caja Chica CO</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+      </record>
+        <record id="Caja_General_CO" model="analytic_account.account">
+            <field name="name">Caja General CO</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id="Banco_GyT_CO" model="analytic_account.account">
+            <field name="name">Banco GyT CO</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="BANRURAL_CO" model="analytic_account.account">
+            <field name="name">BANRURAL CO</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Banco_Industrial_CO" model="analytic_account.account">
+            <field name="name">Banco Industrial CO</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+        </record>
+        <record id="Cuenta_de_Ahorro_CO" model="analytic_account.account">
+            <field name="name">Cuenta de Ahorro CO</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Plazo_Fijo_CO" model="analytic_account.account">
+            <field name="name">Plazo Fijo CO</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+        </record>
+        <record id="Inscripciones_por_Cobrar" model="analytic_account.account">
+            <field name="name">Inscripciones por Cobrar</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id="Colegiaturas_por_cobrar" model="analytic_account.account">
+            <field name="name">Colegiaturas por cobrar</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+               </record>
+        <record id="Derecho_a_Examenes_por_cobrar" model="analytic_account.account">
+            <field name="name">Derecho a Examenes por cobrar</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id="Derecho_a_Mora_por_cobrar" model="analytic_account.account">
+            <field name="name">Derecho a Mora por cobrar</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Cambio_de_cheque" model="analytic_account.account">
+            <field name="name">Cambio de cheque</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id="Fluctuación_en_cambios" model="analytic_account.account">
+            <field name="name">Fluctuación en cambios</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id="Iva_Crédito" model="analytic_account.account">
+            <field name="name">Iva Crédito</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id="Provisión_para_Cuentas_Mala" model="analytic_account.account">
+            <field name="name">Provisión para Cuentas Mala</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+             </record>
+        <record id="Transferencia_de_Fondos" model="analytic_account.account">
+            <field name="name">Transferencia de Fondos</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Unión_Centroamericana_del_Norte" model="analytic_account.account">
+            <field name="name">Unión Centroamericana del Norte</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Asociación_Metropolitana" model="analytic_account.account">
+            <field name="name">Asociación Metropolitana</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Asociación_Central_de_Guatemala" model="analytic_account.account">
+            <field name="name">Asociación Central de Guatemala</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Misión_Oriental" model="analytic_account.account">
+            <field name="name">Misión Oriental</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Instituciones_Educativas" model="analytic_account.account">
+            <field name="name">Instituciones Educativas</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Misión_Norte" model="analytic_account.account">
+            <field name="name">Misión Norte</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Misión Sur" model="analytic_account.account">
+            <field name="name">Misión Sur</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Misión_Centro_Sur" model="analytic_account.account">
+            <field name="name">Misión Centro Sur</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Unión_Radio" model="analytic_account.account">
+            <field name="name">Unión Radio</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Asociación_Occidental" model="analytic_account.account">
+            <field name="name">Asociación Occidental</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+        <record id="Misión_del_Altiplano" model="analytic_account.account">
+            <field name="name">Misión del Altiplano</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+
+             </data> 
+    <data grouped="1">
+      </record>
+      <record id="INGRESOS" model="analytic_account.account">
+            <field name="name">INGRESOS</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="VENTAS_NETAS" model="analytic_account.account">
+            <field name="name">VENTAS NETAS</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="VENTAS" model="analytic_account.account">
+            <field name="name">VENTAS</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="COSTO_DE_MERCANCÍA_VENDIDA" model="analytic_account.account">
+            <field name="name">COSTO DE MERCANCÍA VENDIDA</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="COSTO_DE_PRODUCTOS_TERMINADOS" model="analytic_account.account">
+            <field name="name">COSTO DE PRODUCTOS TERMINADOS</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="DIEZMO_(NETO)" model="analytic_account.account">
+            <field name="name">DIEZMO (NETO)</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="DIEZMOS_BRUTOS_DE_IGLESIAS_LOCALES" model="analytic_account.account">
+            <field name="name">DIEZMOS BRUTOS - DE IGLESIAS LOCALES</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="DIEZMOS_BRUTOS_CONTRIBUCIONES_DIRECTAS" model="analytic_account.account">
+            <field name="name">DIEZMOS BRUTOS - CONTRIBUCIONES DIRECTAS</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="PORCENTAJE_DE_DIEZMOS_DE_ORG._SUBSIDIARIAS" model="analytic_account.account">
+            <field name="name">PORCENTAJE DE DIEZMOS DE ORG. SUBSIDIARIAS</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="PORCENTAJE_DE_DIEZMOS_ORGANIZACIONES_SUPERIORES" model="analytic_account.account">
+            <field name="name">PORCENTAJE DE DIEZMOS ORGANIZACIONES SUPERIORES</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="CAMBIO_DE_DIEZMOS" model="analytic_account.account">
+            <field name="name">CAMBIO DE DIEZMOS</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="INGRESOS_DE_ENSEÑANZA" model="analytic_account.account">
+            <field name="name">INGRESOS DE ENSEÑANZA</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="INGRESOS_DE_ENSEÑANZA" model="analytic_account.account">
+            <field name="name">INGRESOS DE ENSEÑANZA</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="OTROS_INGRESOS" model="analytic_account.account">
+            <field name="name">OTROS INGRESOS</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="INGRESOS_DE_INVERSIONES" model="analytic_account.account">
+            <field name="name">INGRESOS DE INVERSIONES</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+      <record id="INGRESOS_DE_INVERSIONES" model="analytic_account.account">
+            <field name="name">INGRESOS DE INVERSIONES</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+
+            </data> 
+    <data grouped="1">
+      </record>
+            <record id="GASTOS" model="analytic_account.account">
+            <field name="name">GASTOS</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="GASTOS_DE_PUBLICIDAD_Y_VENTAS" model="analytic_account.account">
+            <field name="name">GASTOS DE PUBLICIDAD Y VENTAS</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="COMISIONES_DE_VENTAS" model="analytic_account.account">
+            <field name="name">COMISIONES DE VENTAS</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="GASTOS_DE_CUENTAS_MALAS_(INCOBRABLES)" model="analytic_account.account">
+            <field name="name">GASTOS DE CUENTAS MALAS (INCOBRABLES)</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="OTROS_GASTOS" model="analytic_account.account">
+            <field name="name">OTROS GASTOS</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="OPERACIÓN_Y_MANTENIMIENTO_DE_PLANTA" model="analytic_account.account">
+            <field name="name">OPERACIÓN Y MANTENIMIENTO DE PLANTA</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="ALQUILER_DE_INSTALACIONES/EQUIPOS" model="analytic_account.account">
+            <field name="name">ALQUILER DE INSTALACIONES/EQUIPOS</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="RENTA_DE_TERRENO" model="analytic_account.account">
+            <field name="name">RENTA DE TERRENO</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="RENTA_DE_EDIFICIO" model="analytic_account.account">
+            <field name="name">RENTA DE EDIFICIO</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="RENTA_DE_EQUIPOO" model="analytic_account.account">
+            <field name="name">RENTA DE EQUIPO</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="MAINTENIMIENTO_Y_REPARACIÓN_DE_INST./EQUIPOS" model="analytic_account.account">
+            <field name="name">MAINTENIMIENTO Y REPARACIÓN DE INST./EQUIPOS</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="REPARACIÓN_DE_MEJORAS_DE_TERRENOS" model="analytic_account.account">
+            <field name="name">REPARACIÓN DE MEJORAS DE TERRENOS</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+            <record id="REPARACIÓN_DE_EDIFICIOS" model="analytic_account.account">
+            <field name="name">REPARACIÓN DE EDIFICIOS</field>
+            <field name="parent" ref="Gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            </record>
+
+
+
+
+

@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+    	<!--<menuitem name="Financial Indexes" parent="training.menu_training"
+            id="menu_index" icon="tryton-graph" sequence="1"/>
+        <record model="ir.ui.menu-res.group"
+            id="menu_financial_group_account_admin">
+            <field name="menu" ref="menu_index"/>
+            <field name="group" ref="account.group_account_admin"/>
+        </record>-->
+
+        <record model="ir.ui.view" id="account_capital_view_form">
+            <field name="model">account.operating.capital</field>
+            <field name="type">form</field>
+            <field name="name">account_capital_form</field>
+        </record>
+        <record model="ir.action.act_window" id="act_operative_capital">
+            <field name="name">Operative Capital</field> 
+            <field name="res_model">account.operating.capital</field>
+            <field name="domain" pyson="1"
+                eval="[('company', '=', Eval('context', {}).get('company', -1)), 
+                	('parent', '=', None)]"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_account_form_view">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="account_capital_view_form"/>
+            <field name="act_window" ref="act_operative_capital"/>
+        </record>
+
+        
+        <record model="ir.ui.view" id="payment_lines_view_tree">
+            <field name="model">account.move.line</field>
+            <!--<field name="inherit" ref="account.move_line_view_tree"/> -->
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="name">payment_lines_tree</field>
+        </record> 
+
+        <record model="ir.ui.view" id="invoice_view_tree">
+            <field name="model">account.invoice</field>
+            <!--<field name="inherit" ref="account_invoice.invoice_view_tree"/> -->
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="name">invoice_tree</field>
+        </record> 
+
+        <!--
+        <menuitem parent="menu_index" action="act_operative_capital"
+            id="menu_operative_capital" icon="tryton-list"/>-->
+
+        <record model="ir.ui.view" id="account_liquidity_view_form">
+            <field name="model">account.liquidity</field>
+            <field name="type">form</field>
+            <field name="name">account_liquidity_form</field>
+        </record>
+        <record model="ir.action.act_window" id="act_liquidity">
+            <field name="name">Liquidity</field>
+            <field name="res_model">account.liquidity</field>
+            <field name="domain" pyson="1"
+                eval="[('company', '=', Eval('context', {}).get('company', -1)), ('parent', '=', None)]"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_liquidity_form_view">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="account_liquidity_view_form"/>
+            <field name="act_window" ref="act_liquidity"/>
+        </record> 
+        <!--<menuitem parent="menu_index" action="act_liquidity"
+            id="menu_liquidity" icon="tryton-list"/>-->
+
+        <record model="ir.ui.view" id="move_view_tree">
+            <field name="model">account.move</field>
+            <field name="inherit" ref="account.move_view_tree"/> 
+            <field name="name">move_tree</field>
+        </record> 
+        <record model="ir.ui.view" id="move_view_form">
+            <field name="model">account.move</field>
+            <field name="inherit" ref="account.move_view_form"/> 
+            <field name="name">move_form</field>
+        </record> 
+
+        <!-- CHEQUES -->
+
+        <record model="ir.action.report" id="report_check">
+            <field name="name">Imprimir Cheque</field>
+            <field name="model">account.move</field>
+            <field name="report_name">account.move.check</field>
+            <field name="report">account_iesa/check.fodt</field>
+
+        </record>
+        <record model="ir.action.keyword" id="report_account_check_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">account.move,-1</field>
+            <field name="action" ref="report_check"/>
+        </record>
+
+        <record model="ir.action.report" id="report_account_move">
+            <field name="name">Imprimir Asiento</field>
+            <field name="model">account.move</field>
+            <field name="report_name">account.move.report</field>
+            <field name="report">account_iesa/account_move.fodt</field>
+
+        </record>
+        <record model="ir.action.keyword" id="report_account_move_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">account.move,-1</field> 
+            <field name="action" ref="report_account_move"/>
+        </record>
+
+        <menuitem name="Account Moves" parent="training.menu_training"
+            id="menu_account" sequence="0" icon="tryton-spreadsheet"/>
+
+        <record model="ir.action.act_window" id="act_account_move">
+            <field name="name">Account Moves</field>
+            <field name="res_model">account.move</field>
+            <field name="domain"
+                eval="[('company', '=', Eval('context', {}).get('company', -1))]"
+                pyson="1"/>
+            <field name="search_value"
+                eval="[('create_date', '>=', DateTime(hour=0, minute=0, second=0, microsecond=0, delta_years=-1))]"
+                pyson="1"/>
+        </record>
+
+        <menuitem parent="menu_account" sequence="4"
+            action="act_account_move" id="menuitem_account_move"
+            icon="tryton-list"/>
+
+        <record model="ir.ui.view" id="account_view_tree2">
+            <field name="model">analytic_account.account</field>
+            <field name="inherit" ref="analytic_account.account_view_tree2"/>
+            <field name="priority" eval="20"/>
+            <field name="name">account_tree2</field>
+        </record>
+
+        <record model="ir.ui.view" id="account_view_form">
+            <field name="model">analytic_account.account</field>
+            <field name="inherit" ref="analytic_account.account_view_form"/>
+            <field name="priority" eval="20"/>
+            <field name="name">account_form</field>
+        </record>
+        
+        <record model="ir.ui.view" id="iesa_payment_view_tree_invoice">
+            <field name="model">account.invoice</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="name">iesa_payment_invoice</field>
+        </record>
+        <record model="ir.ui.view" id="iesa_payment_view_form">
+            <field name="model">account.iesa.payment</field>
+            <field name="type">form</field>
+            <field name="name">iesa_payment_form</field>
+        </record>
+        <record model="ir.ui.view" id="iesa_payment_view_tree">
+            <field name="model">account.iesa.payment</field>
+            <field name="type">tree</field>
+            <field name="name">iesa_payment_tree</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_iesa_payment_form">
+            <field name="name">Payments</field>
+            <field name="res_model">account.iesa.payment</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_iesa_payment_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="iesa_payment_view_tree"/>
+            <field name="act_window" ref="act_iesa_payment_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_iesa_payment_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="iesa_payment_view_form"/>
+            <field name="act_window" ref="act_iesa_payment_form"/>
+        </record>
+
+        <menuitem parent="training.menu_training" action="act_iesa_payment_form"
+            id="menu_payment_form" sequence="3"
+            icon="tryton-currency"/>
+
+        <record model="ir.model.access" id="access_iesa_payment">
+            <field name="model" search="[('model', '=', 'account.iesa.payment')]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_iesa_payment_account">
+            <field name="model" search="[('model', '=', 'account.iesa.payment')]"/>
+            <field name="group" ref="account.group_account"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        
+        <record model="ir.model.button" id="payment_post_button">
+            <field name="name">post</field>
+            <field name="string">Post</field>
+            <field name="model" search="[('model', '=', 'account.iesa.payment')]"/>
+        </record>
+        <record model="ir.model.button" id="payment_cancel_button">
+            <field name="name">cancel</field>
+            <field name="string">Cancel</field>
+            <field name="model" search="[('model', '=', 'account.iesa.payment')]"/>
+        </record>
+        <record model="ir.model.button" id="payment_draft_button">
+            <field name="name">draft</field>
+            <field name="string">Draft</field>
+            <field name="model" search="[('model', '=', 'account.iesa.payment')]"/>
+        </record>
+        <record model="ir.model.button" id="payment_quote_button">
+            <field name="name">quote</field>
+            <field name="string">Quotation</field>
+            <field name="model" search="[('model', '=', 'account.iesa.payment')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+            id="payment_post_button_group_account">
+            <field name="button" ref="payment_post_button"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+
+        <!--
+        <record model="ir.model.button" id="iesa_payment_cancel_button">
+            <field name="name">cancel</field>
+            <field name="string">Cancel</field>
+            <field name="confirm">Are you sure to cancel the payment?</field>
+            <field name="help">Cancel the payment</field>
+            <field name="model" search="[('model', '=', 'account.payment')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+            id="iesa_payment_cancel_button_group_account">
+            <field name="button" ref="iesa_payment_cancel_button"/>
+            <field name="group" ref="account.group_account"/>
+        </record>-->
+
+        <record model="ir.action.report" id="report_iesa_payment">
+            <field name="name">Payment</field>
+            <field name="model">account.payment</field>
+            <field name="report_name">account.payment</field>
+            <field name="report">account_iesa/payment.fodt</field>
+            <field name="single" eval="True"/>
+        </record>
+        <record model="ir.action.keyword" id="report_payment_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">account.iesa.payment,-1</field>
+            <field name="action" ref="report_iesa_payment"/>
+        </record>
+
+        <record model="ir.sequence.type" id="sequence_type_account_payment_iesa">
+            <field name="name">Payment</field>
+            <field name="code">account.payment</field>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_account_payment_iesa_group_admin">
+            <field name="sequence_type" ref="sequence_type_account_payment_iesa"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_account_payment_iesa_group_account_admin">
+            <field name="sequence_type" ref="sequence_type_account_payment_iesa"/>
+            <field name="group" ref="account.group_account_admin"/>
+        </record>
+
+        <record model="ir.rule.group" id="rule_group_analytic_account">
+            <field name="model" search="[('model', '=', 'analytic_account.account')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_analytic1">
+            <field name="domain"
+                eval="[('company', '=', Eval('user', {}).get('company', None) )]"
+                pyson="1"/>
+            <field name="rule_group" ref="rule_group_analytic_account"/>
+        </record>
+
+        <record model="ir.rule.group" id="rule_group_iesa_payment">
+            <field name="model" search="[('model', '=', 'account.iesa.payment')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_payment1">
+            <field name="domain"
+                eval="[('company', '=', Eval('user', {}).get('company', None))]"
+                pyson="1"/>
+            <field name="rule_group" ref="rule_group_iesa_payment"/>
+        </record>
+
+        <record model="ir.action.report" id="account.report_general_ledger">
+          <field name="active" eval="False"/>
+        </record>
+
+        <record model="ir.action.report" id="report_general_ledger">
+          <field name="name">General Ledger</field>
+          <field name="model">account.general_ledger.account</field>
+          <field name="report_name">account.iesa.report_general_ledger</field>
+          <field name="report">account_iesa/iesa_general_ledger.fodt</field>
+        </record>
+
+        <record model="ir.action.keyword" id="report_general_ledger_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">account.general_ledger.account,-1</field>
+            <field name="action" ref="report_general_ledger"/>
+        </record>
+
+    </data>
+</tryton>

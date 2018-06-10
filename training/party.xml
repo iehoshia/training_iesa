@@ -1,0 +1,448 @@
+<tryton>
+    <data>
+		<!-- REGISTRO DE IESA  -->
+
+        <record model="party.party" id="party_party_initial">
+            <field name="name">00 Instituciones Educativas S.A.</field>
+        </record>
+
+        <record model="party.party" id="party_party_mision_norte">
+            <field name="name">0001 IESA Misión Norte</field>
+        </record>
+
+        <record model="party.party" id="party_party_mision_oriental">
+            <field name="name">0002 IESA Misión Oriental</field>
+        </record>
+
+        <record model="party.party" id="party_party_asociacion_occidental">
+            <field name="name">0003 IESA Asociación Occidental</field>
+        </record>
+
+        <record model="party.party" id="party_party_asociacion_metropolitana">
+            <field name="name">0004 IESA Asociación Metropolitana</field>
+        </record>
+
+        <record model="party.party" id="party_party_asociacion_central">
+            <field name="name">0005 IESA Asociación Central</field>
+        </record>
+
+        <record model="party.party" id="party_party_mision_del_lago">
+            <field name="name">0006 IESA Misión del Lago</field>
+        </record>
+
+        <record model="party.party" id="party_party_mision_del_altiplano">
+            <field name="name">0007 IESA Misión del Altiplano</field>
+        </record>
+
+        <record model="party.party" id="party_party_mision_sur">
+            <field name="name">0008 IESA Misión Sur</field>
+        </record>
+        
+        <record model="company.company" id="company_company_initial">
+            <field name="party" ref="party_party_initial"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="company.company" id="company_company_mision_norte">
+            <field name="party" ref="party_party_mision_norte"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+            <field name="parent" ref="company_company_initial"/>
+        </record>
+        <record model="company.company" id="company_company_mision_oriental">
+            <field name="party" ref="party_party_mision_oriental"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+            <field name="parent" ref="company_company_initial"/>
+        </record>
+        <record model="company.company" id="company_company_asociacion_occidental">
+            <field name="party" ref="party_party_asociacion_occidental"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+            <field name="parent" ref="company_company_initial"/>
+        </record>
+        <record model="company.company" id="company_company_asociacion_metropolitana">
+            <field name="party" ref="party_party_asociacion_metropolitana"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+            <field name="parent" ref="company_company_initial"/>
+        </record>
+        <record model="company.company" id="company_company_asociacion_central">
+            <field name="party" ref="party_party_asociacion_central"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+            <field name="parent" ref="company_company_initial"/>
+        </record>
+        <record model="company.company" id="company_company_mision_del_lago">
+            <field name="party" ref="party_party_mision_del_lago"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+            <field name="parent" ref="company_company_initial"/>
+        </record>
+        <record model="company.company" id="company_company_mision_del_altiplano">
+            <field name="party" ref="party_party_mision_del_altiplano"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+            <field name="parent" ref="company_company_initial"/>
+        </record>
+        <record model="company.company" id="company_company_mision_sur">
+            <field name="party" ref="party_party_mision_sur"/>
+            <field name="currency">16</field>
+            <field name="timezone">America/Guatemala</field>
+            <field name="parent" ref="company_company_initial"/>
+        </record>
+
+        <record model="party.party" id="party_party_progreso">
+            <field name="name">01 Liceo Adventista El Progreso</field>
+        </record>
+        <record model="company.company" id="company_company_progreso">
+            <field name="party" ref="party_party_progreso"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_asociacion_central"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_maranata">
+            <field name="name">02 Colegio Adventista Maranata</field>
+        </record>
+        <record model="company.company" id="company_company_maranata">
+            <field name="party" ref="party_party_maranata"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_del_altiplano"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_enmanuel">
+            <field name="name">03 Colegio Adventista Enmanuel</field>
+        </record>
+        <record model="company.company" id="company_company_emanuel">
+            <field name="party" ref="party_party_enmanuel"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_sur"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_moises_tahay">
+            <field name="name">04 Colegio Adventista Moisés Tahay</field>
+        </record>
+        <record model="company.company" id="company_company_moises_tahay">
+            <field name="party" ref="party_party_moises_tahay"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_asociacion_occidental"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_florida">
+            <field name="name">05 Colegio Adventista Florida</field>
+        </record>
+        <record model="company.company" id="company_company_florida">
+            <field name="party" ref="party_party_florida"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_asociacion_central"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_bethel">
+            <field name="name">06 Colegio Adventista Bethel</field>
+        </record>
+        <record model="company.company" id="company_company_bethel">
+            <field name="party" ref="party_party_bethel"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_sur"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_braulio">
+            <field name="name">07 Colegio Adventista Dr. Braulio Pérez Marcio</field>
+        </record>
+        <record model="company.company" id="company_company_braulio">
+            <field name="party" ref="party_party_braulio"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_del_altiplano"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_el_alba">
+            <field name="name">08 Colegio Adventista El Alba</field>
+        </record>
+        <record model="company.company" id="company_company_el_alba">
+            <field name="party" ref="party_party_el_alba"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_del_altiplano"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_orion_sacatepequez">
+            <field name="name">09 Colegio Adventista Orión Sacatepéquez</field>
+        </record>
+        <record model="company.company" id="company_company_orion_sacatepequez">
+            <field name="party" ref="party_party_orion_sacatepequez"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_del_lago"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_orion_san_marcos">
+            <field name="name">10 Colegio Adventista Orión San Marcos</field>
+        </record>
+        <record model="company.company" id="company_company_orion_san_marcos">
+            <field name="party" ref="party_party_orion_san_marcos"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_sur"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_elena_white">
+            <field name="name">11 Colegio Adventista Elena G. de White</field>
+        </record>
+        <record model="company.company" id="company_company_elena_white">
+            <field name="party" ref="party_party_elena_white"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_norte"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_salacuim">
+            <field name="name">12 Colegio Adventista Salacuim</field>
+        </record>
+        <record model="company.company" id="company_company_salacuim">
+            <field name="party" ref="party_party_salacuim"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_norte"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_nueva_jerusalem">
+            <field name="name">13 Colegio Adventista Nueva Jerusalem</field>
+        </record>
+        <record model="company.company" id="company_company_nueva_jerusalem">
+            <field name="party" ref="party_party_nueva_jerusalem"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_del_altiplano"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_getsemani">
+            <field name="name">14 Colegio Adventista Getsemaní</field>
+        </record>
+        <record model="company.company" id="company_company_getsemani">
+            <field name="party" ref="party_party_getsemani"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_norte"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_peten">
+            <field name="name">15 Colegio Adventista Petén</field>
+        </record>
+        <record model="company.company" id="company_company_peten">
+            <field name="party" ref="party_party_peten"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_norte"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_amanecer">
+            <field name="name">16 Colegio Adventista Amanecer</field>
+        </record>
+        <record model="company.company" id="company_company_amanecer">
+            <field name="party" ref="party_party_amanecer"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_oriental"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_sinai">
+            <field name="name">17 Colegio Adventista Sinaí</field>
+        </record>
+        <record model="company.company" id="company_company_sinai">
+            <field name="party" ref="party_party_sinai"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_oriental"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_redencion">
+            <field name="name">18 Colegio Adventista Redención</field>
+        </record>
+        <record model="company.company" id="company_company_redencion">
+            <field name="party" ref="party_party_redencion"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_oriental"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_tecnico_adventista_del_sur">
+            <field name="name">19 Colegio Técnico Adventista del Sur</field>
+        </record>
+        <record model="company.company" id="company_company_tecnico_adventista_del_sur">
+            <field name="party" ref="party_party_tecnico_adventista_del_sur"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_del_lago"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_moria">
+            <field name="name">20 Colegio Adventista Moria</field>
+        </record>
+        <record model="company.company" id="company_company_moria">
+            <field name="party" ref="party_party_moria"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_oriental"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_bethania">
+            <field name="name">21 Colegio Adventista Bethania</field>
+        </record>
+        <record model="company.company" id="company_company_bethania">
+            <field name="party" ref="party_party_bethania"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_norte"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_guatemalteco">
+            <field name="name">22 Colegio Adventista Guatemalteco</field>
+        </record>
+        <record model="company.company" id="company_company_guatemalteco">
+            <field name="party" ref="party_party_guatemalteco"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_asociacion_metropolitana"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_ceas">
+            <field name="name">23 Colegio Adventista CEAS</field>
+        </record>
+        <record model="company.company" id="company_company_ceas">
+            <field name="party" ref="party_party_ceas"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_sur"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_juba">
+            <field name="name">24 Colegio Adventista Juba</field>
+        </record>
+        <record model="company.company" id="company_company_juba">
+            <field name="party" ref="party_party_juba"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_asociacion_metropolitana"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_modelo">
+            <field name="name">25 Colegio Adventista Modelo</field>
+        </record>
+        <record model="company.company" id="company_company_modelo">
+            <field name="party" ref="party_party_modelo"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_mision_sur"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_valparaiso">
+            <field name="name">26 Colegio Adventista Valparaiso</field>
+        </record>
+        <record model="company.company" id="company_company_valparaiso">
+            <field name="party" ref="party_party_valparaiso"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_asociacion_occidental"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <record model="party.party" id="party_party_campestre">
+            <field name="name">27 Colegio Campestre</field>
+        </record>
+        <record model="company.company" id="company_company_campestre">
+            <field name="party" ref="party_party_campestre"/>
+            <field name="currency">16</field>
+            <field name="parent" ref="company_company_asociacion_metropolitana"/>
+            <field name="timezone">America/Guatemala</field>
+        </record>
+
+        <!-- ESTUDIANTE -->
+
+        <record model="ir.ui.view" id="party_view_tree">
+            <field name="model">party.party</field>
+            <field name="inherit" ref="party.party_view_tree"/>
+            <field name="name">party_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="student_view_tree">
+            <field name="model">party.party</field>
+            <field name="type">tree</field>
+            <field name="name">student_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="view_party_form">
+            <field name="model">party.party</field>
+            <field name="inherit" ref="party.party_view_form"/>
+            <field name="name">party_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="view_party_address_form">
+            <field name="model">party.address</field>
+            <field name="inherit" ref="party.address_view_form"/>
+            <field name="name">address_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="contact_mechanism_view_form">
+            <field name="model">party.contact_mechanism</field>
+            <field name="inherit" ref="party.contact_mechanism_view_form"/>
+            <field name="name">contact_mechanism_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="contact_mechanism_view_tree_sequence">
+            <field name="model">party.contact_mechanism</field>
+            <field name="inherit" ref="party.contact_mechanism_view_tree_sequence"/>
+            <field name="name">contact_mechanism_tree_sequence</field>
+        </record>
+
+        <!-- PARTY -->
+
+        <record model="ir.action.act_window" id="act_subscriber">
+            <field name="name">Subscribers</field>
+            <field name="res_model">party.party</field>
+            <field name="domain" eval="[ 'AND', 
+                    [('is_subscriber', '=', True),], 
+                    [('company', '=', Eval('context', {}).get('company', -1))],
+             ]" pyson="1"/>
+          </record>
+
+          <menuitem parent="menu_training" sequence="1"
+            action="act_subscriber" id="menuitem_subscriber"
+            icon="subscriptor_icon"/>
+
+          <record model="ir.action.act_window" id="act_student">
+            <field name="name">Students</field>
+            <field name="res_model">party.party</field>
+            <!--<field name="domain" eval="['AND', [('estudiante', '=', True)],
+                                        [('company', '=', Eval('user', {}).get('company', None))],
+                                        ]" pyson="1"/>-->
+            <field name="domain" eval="[ 'AND', 
+                    [('is_student', '=', True),], 
+                    [('company', '=', Eval('context', {}).get('company', -1))],
+             ]" pyson="1"/>
+          </record>
+
+        <record model="ir.action.act_window.view" id="act_student_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="student_view_tree"/>
+            <field name="act_window" ref="act_student"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_student_form_view2">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="view_party_form"/>
+            <field name="act_window" ref="act_student"/>
+        </record>
+        
+        <menuitem parent="menu_training" sequence="2"
+            action="act_student" id="menuitem_student"
+            icon="student_icon"/>
+        
+    </data>
+</tryton>

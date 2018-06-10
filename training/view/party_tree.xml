@@ -1,0 +1,14 @@
+<data>
+    
+    <xpath expr="/tree/field[@name=&quot;receivable_today&quot;]" position="replace">
+                <field name="receivable" />
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;payable_today&quot;]" position="replace">
+        <!--<field name="payable"/>-->
+    </xpath>
+	<xpath expr="/tree/field[@name=&quot;lang&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;tax_identifier&quot;]" position="replace">
+        <field name="company" tree_invisible="1"/>
+    </xpath>
+</data>

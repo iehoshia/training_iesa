@@ -1,0 +1,6 @@
+<data>
+	<xpath expr="/form/label[@name=&quot;product&quot;]" position="before">
+    	<label name="service"/>
+    	<field name="service" widget="selection"/>
+    </xpath>
+</data>

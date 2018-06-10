@@ -1,0 +1,23 @@
+<data>
+    <xpath expr="/tree/field[@name=&quot;reference&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;start_date&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;end_date&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;description&quot;]" position="replace">
+    	<!--<field name="horario"/>-->
+    	<!--<field name="asesor" tree_invisible="1"/>-->
+        <field name="student"/>
+        <field name="grade"/>
+    	<field name="receivable" sum="Total"/>
+    </xpath>
+    <xpath expr="/tree/field[@name=&quot;receivable&quot;]" position="after">
+    	<!--<field name="horario"/>-->
+    	<!--<field name="asesor" tree_invisible="1"/>-->
+    	<button name="cancel" string="Cancel" tree_invisible="1"/>
+    	<button name="draft" string="Draft" tree_invisible="1"/>
+    	<button name="quote" string="Quote" tree_invisible="1"/>
+    	<button name="run" string="Run" tree_invisible="1"/>  
+    </xpath>
+</data>  

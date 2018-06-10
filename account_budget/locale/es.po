@@ -1,0 +1,143 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "model:res.group,name:group_budget"
+msgid "Budget"
+msgstr "Presupuesto"
+
+msgctxt "field:account.budget,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.budget,amount:"
+msgid "Amount"
+msgstr "Monto"
+
+msgctxt "field:account.budget,balance:"
+msgid "Balance"
+msgstr "Ejecutado"
+
+msgctxt "field:account.budget,difference:"
+msgid "Difference"
+msgstr "Diferencia"
+
+msgctxt "field:account.budget,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "Año Fiscal"
+
+msgctxt "field:account.budget,accounts:"
+msgid "Accounts"
+msgstr "Cuentas Contables"
+
+msgctxt "field:account.budget,periods:"
+msgid "Periods"
+msgstr "Períodos"
+
+msgctxt "field:account.budget,parent:"
+msgid "Parent"
+msgstr "Padre"
+
+msgctxt "field:account.budget,children:"
+msgid "Children"
+msgstr "Hijos"
+
+msgctxt "field:account.budget,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:account.budget.period,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.budget.period,amount:"
+msgid "Amount"
+msgstr "Monto"
+
+msgctxt "field:account.budget.period,balance:"
+msgid "Balance"
+msgstr "Ejecutado"
+
+msgctxt "field:account.budget.period,difference:"
+msgid "Difference"
+msgstr "Diferencia"
+
+msgctxt "field:account.budget.period,period:"
+msgid "Period"
+msgstr "Período"
+
+msgctxt "field:account.budget.period,budget:"
+msgid "Budget"
+msgstr "Presupuesto"
+
+msgctxt "field:account.budget.period,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "Año Fiscal"
+
+msgctxt "field:account.budget.period,budget:"
+msgid "Period"
+msgstr "Período"
+
+msgctxt "wizard_button:account.budget.distribute_period,start,distribute:"
+msgid "Distribute"
+msgstr "Distribuir"
+
+msgctxt "wizard_button:account.budget.copy,start,copy:"
+msgid "Copy"
+msgstr "Copiar"
+
+msgctxt "view:account.budget:"
+msgid "Accounts"
+msgstr "Cuentas"
+
+msgctxt "view:account.budget:"
+msgid "Amount"
+msgstr "Monto"
+
+msgctxt "view:account.budget:"
+msgid "Balance"
+msgstr "Ejecutado"
+
+msgctxt "view:account.budget:"
+msgid "Difference"
+msgstr "Diferencia"
+
+msgctxt "view:account.budget:"
+msgid "Children"
+msgstr "Hijos"
+
+msgctxt "view:account.budget:"
+msgid "Periods"
+msgstr "Períodos"
+
+msgctxt "view:account.budget.period:"
+msgid "Amount"
+msgstr "Monto"
+
+msgctxt "view:account.budget.period:"
+msgid "Balance"
+msgstr "Ejecutado"
+
+msgctxt "view:account.budget.period:"
+msgid "Difference"
+msgstr "Diferencia"
+
+msgctxt "model:ir.ui.menu,name:menu_budget"
+msgid "Budgets"
+msgstr "Presupuestos"
+
+msgctxt "model:ir.ui.menu,name:menu_budget_form"
+msgid "Budgets"
+msgstr "Presupuestos"
+
+msgctxt "model:ir.action,name:act_budget_form"
+msgid "Budgets"
+msgstr "Presupuestos"
+
+msgctxt "model:ir.action,name:act_budget_balance"
+msgid "Budget Balance"
+msgstr "Presupuesto Ejecutado"
+
+msgctxt "model:ir.action.wizard,name:wizard_distribute_periods"
+msgid "Distribute Budget over Periods"
+msgstr "Distribuir Presupuesto en los Períodos"

@@ -1,0 +1,89 @@
+<data>    
+    <xpath expr="/form/label[@name=&quot;code&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/field[@name=&quot;code&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/label[@name=&quot;name&quot;]" position="replace">
+    </xpath>
+	<xpath expr="/form/field[@name=&quot;name&quot;]" position="replace">
+        <group id="party" col="6" colspan="6">
+            <group col="4" colspan="5" id="data">
+                <label name="name"/>
+                <field name="name" colspan="3"/>
+                <label name="dob"/>
+                <field name="dob"/>
+                <label name="age"/>
+                <field name="age"/>
+                <label name="sex"/>
+                <field name="sex"/>
+                <label name="civil_status"/>
+                <field name="civil_status"/>
+                <label name="scholarship"/>
+                <field name="scholarship"/>
+                <label name="profession"/>
+                <field name="profession"/>
+                <label name="code"/>
+                <field name="code"/>
+                <label name="dpi"/> 
+                <field name="dpi"/>
+                <label name="company"/>
+                <field name="company" readonly="1"/>
+                <label name="license"/>
+                <field name="license"/>
+
+            </group>
+            <group col ="1" colspan="1" string="Avatar" id="person_picture">
+                <field xfill="0" xexpand="1" name="photo" height="150" width="150" widget="image"/>
+            </group>
+        </group>
+    </xpath>
+    <xpath expr="/form/group[@id=&quot;checkboxes&quot;]/field[@name=&quot;active&quot;]" position="after">
+                <label name="is_subscriber"/>
+                <field name="is_subscriber" xexpand="0" width="25"/>
+                <label name="is_student"/>
+                <field name="is_student" xexpand="0" width="25"/>
+    </xpath> 
+
+    <!--
+    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]/field[@name=&quot;contact_mechanisms&quot;]" position="replace">
+    </xpath>-->
+
+    <!--<xpath expr="/form/notebook/page[@id=&quot;general&quot;]/field[@name=&quot;categories&quot;]" position="replace">
+    </xpath>-->
+
+    <xpath expr="/form/notebook/page[@id=&quot;general&quot;]" position="replace">
+        
+        <page string="General" id="general" col="5">
+            <field name="addresses" mode="form,tree" colspan="3"
+                    view_ids="party.address_view_form,party.address_view_tree_sequence"/>
+            <field name="contact_mechanisms" colspan="2"
+                    view_ids="party.contact_mechanism_view_tree_sequence"/>
+        </page>
+        
+        <page string="Subscriptions" id="subscription" col="2">
+            <field name="subscriptions" colspan="2"/>
+        </page>
+
+        <page string="Subscriptions" id="subscriptions_student" col="2">
+            <field name="subscriptions_student" colspan="2"/>
+        </page>
+    
+        <page string="Invoices" id="invoice">
+            <field name="invoices" colspan="4" widget="many2many"/>
+            <label name="receivable"/>
+            <field name="receivable"/>
+            <label name="payable"/>
+            <field name="payable"/>
+        </page>
+        <page string="School Notes" id="notes">
+            <separator string="Under construction" colspan="4" id="under_construction"/>
+        </page>
+    </xpath>
+
+    
+    <xpath expr="/form/notebook/page[@id=&quot;stock&quot;]" position="replace">
+    </xpath> 
+    <xpath expr="/form/notebook/page[@name=&quot;identifiers&quot;]" position="replace">
+    </xpath> 
+
+</data>

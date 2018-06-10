@@ -1,0 +1,4 @@
+<form col="6">
+	<label name="horario"/>
+	<field name="horario" widget="selection"/>
+</form>

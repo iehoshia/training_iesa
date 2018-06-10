@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+
+    <data>
+   
+	    <xpath expr="/form/group[@id=&quot;state&quot;]/field[@name=&quot;state&quot;]" position="after">
+	    	<label name="is_recommended_capital"/>
+	    	<field name="is_recommended_capital" xexpand="0" width="100"/>
+	    </xpath>
+	
+    </data>

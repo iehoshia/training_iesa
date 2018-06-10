@@ -1,0 +1,10 @@
+<data>
+    <xpath expr="/form/label[@name=&quot;zip&quot;]" position="replace">
+    </xpath> 
+    <xpath expr="/form/field[@name=&quot;zip&quot;]" position="replace">
+    </xpath> 
+    <xpath expr="/form/label[@name=&quot;sequence&quot;]" position="replace">
+    </xpath>
+    <xpath expr="/form/field[@name=&quot;sequence&quot;]" position="replace">
+    </xpath>
+</data>
