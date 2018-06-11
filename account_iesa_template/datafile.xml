@@ -7933,7 +7933,15 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record> 
+        <record id="examenes" model="analytic_account.account.template">
+            <field name="name">Derecho de Exámen</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record> 
     </data>
+
     <!--
         <record id="VENTAS_NETAS" model="analytic_account.account.template">
             <field name="name">VENTAS NETAS</field>
@@ -8105,6 +8113,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
     </data>
     -->
+
     <data grouped="1">
         <record id="ar_621110_iesa" model="analytic_account.rule.template">
             <field name="account" ref="pgc_621110_iesa"/>
@@ -8115,5 +8124,21 @@ this repository contains the full copyright notices and license terms. -->
         <record id="ar_621130_iesa" model="analytic_account.rule.template">
             <field name="account" ref="pgc_621130_iesa"/>
         </record>
+        <record id="ar_621140_iesa" model="analytic_account.rule.template">
+            <field name="account" ref="pgc_621140_iesa"/>
+        </record>
+        <record id="ar_638110_iesa" model="analytic_account.rule.template">
+            <field name="account" ref="pgc_638110_iesa"/>
+        </record>
     </data>
+
+
+    <!--<data grouped="1">
+        <record id="ae_621110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_621110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="examenes"/>
+        </record>
+    </data> -->
+
 </tryton>

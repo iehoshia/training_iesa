@@ -1,0 +1,2 @@
+trytond_account<4.9,>=4.8
+trytond<4.9,>=4.8

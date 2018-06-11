@@ -217,7 +217,8 @@ class Rule(ModelSQL, ModelView):
 
     template = fields.Many2One('analytic_account.rule.template', 'Template')
 
-    def update_analytic_rule(self, template2rule=None):
+    def update_analytic_rule(self, template2rule=None,
+        template2account=None):
         '''
         Update recursively types based on template.
         template2type is a dictionary with template id as key and type id as
@@ -227,17 +228,25 @@ class Rule(ModelSQL, ModelView):
         if template2rule is None:
             template2rule = {}
 
+        if template2account is None:
+            template2account = {}
+
         values = []
         childs = [self]
         while childs:
             for child in childs:
                 if child.template:
                     vals = child.template._get_rule_value()
+                    if child.template.account:
+                        vals['account'] = template2account.get(child.template.account.id)
+                    else:
+                        vals['account'] = None
                     if vals:
                         values.append([child])
                         values.append(vals)
                     template2rule[child.template.id] = child.id
-            childs = sum((c.childs for c in childs), ())
+            break
+            #childs = sum((c.childs for c in childs), ())
         if values:
             self.write(*values)
 
@@ -256,13 +265,14 @@ class RuleTemplate(ModelSQL, ModelView):
         Set the values for account creation.
         '''
         res = {}
-        if not rule or rule.account != self.account:
-            res['account'] = self.account
+        #if not rule or rule.account != self.account:
+        #    res['account'] = self.account
         if not rule or rule.template != self:
             res['template'] = self.id
         return res
 
-    def create_analytic_rule(self, company_id, template2rule=None):
+    def create_analytic_rule(self, company_id, template2rule=None,
+        template2account=None):
         '''
         Create recursively types based on template.
         template2type is a dictionary with template id as key and type id as
@@ -271,7 +281,7 @@ class RuleTemplate(ModelSQL, ModelView):
         '''
         pool = Pool()
         Rule = pool.get('analytic_account.rule')
-        assert self.parent is None
+        #assert self.parent is None
 
         if template2rule is None:
             template2rule = {}
@@ -283,6 +293,11 @@ class RuleTemplate(ModelSQL, ModelView):
                 if template.id not in template2rule:
                     vals = template._get_rule_value()
                     vals['company'] = company_id
+                    if template.account:
+                        vals['account'] = template2account.get(template.account.id)
+                    else:
+                        vals['account'] = None
+                    #print "vals: " + str(vals)
                     values.append(vals)
                     created.append(template)
 
@@ -291,27 +306,72 @@ class RuleTemplate(ModelSQL, ModelView):
                 template2rule[template.id] = rule.id
 
         childs = [self]
+        print "CHILDS: " + str(childs)
         while childs:
             create(childs)
-            childs = sum((c.childs for c in childs), ())
+            break
+        #    childs = sum((c.childs for c in childs), ())
 
 class AnalyticAccountEntry(ModelView, ModelSQL):
     'Analytic Account Entry'
-    __name__ = 'analytic_account.entry'
+    __name__ = 'analytic.account.entry'
     
-    template = fields.Many2One('analytic_account.entry.template', 'Template')
+    template = fields.Many2One('analytic.account.entry.template', 'Template')
+
+    def update_entry(self, template2entry=None,
+        template2analytic_account=None):
+        '''
+        Update recursively types based on template.
+        template2type is a dictionary with template id as key and type id as
+        value, used to convert template id into type. The dictionary is filled
+        with new types
+        '''
+        if template2entry is None:
+            template2entry = {}
+
+        if template2analytic_account is None:
+            template2analytic_account = {}
+
+        values = []
+        childs = [self]
+        while childs:
+            for child in childs:
+                if child.template:
+                    vals = child.template._get_entry_value()
+                    if child.template.origin:
+                        vals['origin'] = template2account.get(child.template.origin)
+                    else:
+                        vals['origin'] = None
+                    if child.template.account:
+                        vals['account'] = template2account.get(child.template.account.id)
+                    else:
+                        vals['account'] = None
+                    if child.template.root:
+                        vals['root'] = template2account.get(child.template.root.id)
+                    else:
+                        vals['root'] = None
+                    if vals:
+                        values.append([child])
+                        values.append(vals)
+                    template2rule[child.template.id] = child.id
+            break
+            #childs = sum((c.childs for c in childs), ())
+        if values:
+            self.write(*values)
 
 class AnalyticAccountEntryTemplate(ModelView, ModelSQL):
     'Analytic Account Entry Template'
-    __name__ = 'analytic_account.entry.template'
+    __name__ = 'analytic.account.entry.template'
 
+    #origin = fields.Reference('Origin', selection='get_origin', select=True)
+    #origin = fields.Many2One('analytic_account.rule.template', 'Origin')
     root = fields.Many2One(
-        'analytic_account.account.template', "Root Analytic", required=True,
+        'analytic.account.entry.template', "Root Analytic", required=True,
         domain=[
             ('type', '=', 'root'),
             ],
         )
-    account = fields.Many2One('analytic_account.account.template', 'Account',
+    account = fields.Many2One('analytic.account.entry.template', 'Account',
         ondelete='RESTRICT',
         states={
             'required': Eval('required', False),
@@ -324,6 +384,19 @@ class AnalyticAccountEntryTemplate(ModelView, ModelSQL):
     required = fields.Function(fields.Boolean('Required'),
         'on_change_with_required')
 
+    @classmethod
+    def _get_origin(cls):
+        return ['analytic_account.rule.template']
+
+    @classmethod
+    def get_origin(cls):
+        Model = Pool().get('ir.model')
+        models = cls._get_origin()
+        models = Model.search([
+                ('model', 'in', models),
+                ])
+        return [(None, '')] + [(m.model, m.name) for m in models]
+
     @fields.depends('root')
     def on_change_with_required(self, name=None):
         if self.root:
@@ -335,15 +408,11 @@ class AnalyticAccountEntryTemplate(ModelView, ModelSQL):
         Set the values for account creation.
         '''
         res = {}
-        if not entry or entry.account != self.account:
-            res['account'] = self.account
-        if not entry or entry.root != self.root:
-            res['root'] = self.root
         if not entry or entry.template != self:
             res['template'] = self.id
         return res
 
-    def create_entry(self, company_id, template2entry=None):
+    def create_analytic_entry(self, company_id, template2entry=None):
         '''
         Create recursively types based on template.
         template2type is a dictionary with template id as key and type id as
@@ -351,7 +420,7 @@ class AnalyticAccountEntryTemplate(ModelView, ModelSQL):
         with new types.
         '''
         pool = Pool()
-        Entry = pool.get('analytic_account.entry')
+        Entry = pool.get('analytic.account.entry')
         assert self.parent is None
 
         if template2entry is None:
@@ -363,6 +432,18 @@ class AnalyticAccountEntryTemplate(ModelView, ModelSQL):
             for template in templates:
                 if template.id not in template2entry:
                     vals = template._get_entry_value()
+                    if child.template.origin:
+                        vals['origin'] = template2account.get(child.template.origin)
+                    else:
+                        vals['origin'] = None
+                    if child.template.account:
+                        vals['account'] = template2account.get(child.template.account.id)
+                    else:
+                        vals['account'] = None
+                    if child.template.root:
+                        vals['root'] = template2account.get(child.template.root.id)
+                    else:
+                        vals['root'] = None
                     vals['company'] = company_id
                     values.append(vals)
                     created.append(template)
@@ -483,9 +564,10 @@ class CreateChart(Wizard):
             analytic_rules = AnalyticRule.search([()])
             for rule in analytic_rules:
                 template2rule = {}
-                template.create_rule(
+                rule.create_analytic_rule(
                     company.id,
                     template2rule, 
+                    template2account, 
                     )
 
 
@@ -522,6 +604,12 @@ class UpdateChart(Wizard):
             pool.get('account.tax.rule.line.template')
         AnalyticAccount = \
             pool.get('analytic_account.account')
+        AnalyticAccountTemplate = \
+            pool.get('analytic_account.account.template')
+        AnalyticRule = \
+            pool.get('analytic_account.rule')
+        AnalyticRuleTemplate = \
+            pool.get('analytic_account.rule.template')
 
         account = self.start.account
         company = account.company
@@ -548,11 +636,14 @@ class UpdateChart(Wizard):
 
         # Update analytic accounts
         template2analytic_account = {}
+        
         analytic_accounts = AnalyticAccount.search([
             ('parent','=',None),
             ('company','=',company.id)])
+
         for analytic_account in analytic_accounts:
             analytic_account.update_analytic_account(template2account=template2analytic_account)
+
             # Create missing accounts
             if analytic_account.template:
                 analytic_account.template.create_analytic_account(
@@ -561,15 +652,73 @@ class UpdateChart(Wizard):
 
         # Update analytic rules
         template2analytic_rule = {}
+
         analytic_rules = AnalyticRule.search([
-            ('company','=',company.id)])
+            ('company','=',company.id)
+            ])
+        analytic_rule_templates = AnalyticRuleTemplate.search([()])
+
+        existing = []
+        for analytic_rule in analytic_rules: 
+            existing.append(analytic_rule.template.id)
+        
+        all_templates = []
+        for analytic_rule_template in analytic_rule_templates: 
+            all_templates.append(analytic_rule_template.id)
+        not_existing = tuple(set(all_templates) - set(existing))
+
+        # Update existing rules
         for analytic_rule in analytic_rules:
-            analytic_rule.update_analytic_rule(template2rule=template2analytic_rule)
-            # Create missing accounts
-            if analytic_rule.template:
-                analytic_rule.template.create_analytic_rule(
-                    company.id,
-                    template2rule=template2analytic_rule)
+            analytic_rule.update_analytic_rule(template2rule=template2analytic_rule, 
+                template2account=template2account)
+        
+        # Create missing rules
+        if not_existing is not []: 
+            for new_rule in not_existing: 
+                analytic_rules = AnalyticRuleTemplate.search([('id','=',new_rule)])
+                for analytic_rule in analytic_rules: 
+                    new_analytic_rule = analytic_rule
+                #print "NEW ANALYTIC RULE: " + str(new_analytic_rule)
+                if new_analytic_rule:
+                    analytic_rule.create_analytic_rule(
+                        company.id,
+                        template2rule=template2analytic_rule,
+                        template2account=template2account)
+
+        # Update analytic entries
+        template2entry = {}
+        analytic_entries = AnalyticEntry.search([
+            ('company','=',company.id)
+            ])
+        all_existing_entries = AnalyticRuleTemplate.search([()])
+
+        existing = []
+        for analytic_entry in analytic_entries: 
+            existing.append(analytic_entry.template.id)
+        
+        all_entries = []
+        for analytic_entry_template in all_existing_entries: 
+            all_entries.append(analytic_entry_template.id)
+        
+        not_existing = tuple(set(all_entries) - set(existing))
+
+        for analytic_entry in analytic_entries:
+            analytic_entry.update_entry(template2entry=template2entry, 
+                template2analytic_account=template2analytic_account,
+                )
+        
+        # Create missing entries
+        if not_existing is not []: 
+            for new_entry in not_existing: 
+                analytic_entries = AnalyticEntryTemplate.search([('id','=',new_entry)])
+                for analytic_entry in analytic_entries: 
+                    new_analytic_entry = analytic_entry
+                #print "NEW ANALYTIC RULE: " + str(new_analytic_rule)
+                if new_analytic_entry:
+                    analytic_entry.create_analytic_entry(
+                        company.id,
+                        template2entry=template2entry,
+                        template2analytic_account=template2analytic_account)
 
         # Update taxes
         template2tax = {}

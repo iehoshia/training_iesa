@@ -1,0 +1,4 @@
+
+    [trytond.modules]
+    account_consolidated = trytond.modules.account_consolidated
+    
