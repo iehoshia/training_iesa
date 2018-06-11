@@ -30,15 +30,47 @@ __all__ = [
         'AnalyticAccountEntry', 
         'CreateChartAccount',
         'CreateChart',
+        'UpdateChart',
     ]  
 
 __metaclass__ = PoolMeta
+
+def inactive_records(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        with Transaction().set_context(active_test=False):
+            return func(*args, **kwargs)
+    return wrapper
 
 class Account(ModelSQL, ModelView):
     'Analytic Account'
     __name__ = 'analytic_account.account'
 
     template = fields.Many2One('analytic_account.account.template', 'Template')
+
+    def update_analytic_account(self, template2account=None):
+        '''
+        Update recursively types based on template.
+        template2type is a dictionary with template id as key and type id as
+        value, used to convert template id into type. The dictionary is filled
+        with new types
+        '''
+        if template2account is None:
+            template2account = {}
+
+        values = []
+        childs = [self]
+        while childs:
+            for child in childs:
+                if child.template:
+                    vals = child.template._get_account_value()
+                    if vals:
+                        values.append([child])
+                        values.append(vals)
+                    template2account[child.template.id] = child.id
+            childs = sum((c.childs for c in childs), ())
+        if values:
+            self.write(*values)
 
 class AccountTemplate(ModelSQL, ModelView):
     'Analytic Account Template'
@@ -72,6 +104,8 @@ class AccountTemplate(ModelSQL, ModelView):
             'required': Eval('type') != 'root',
             },
         depends=['root', 'type'])
+    childs = fields.One2Many('analytic_account.account.template', 'parent',
+        'Children')
     state = fields.Selection([
         ('draft', 'Draft'),
         ('opened', 'Opened'),
@@ -134,8 +168,7 @@ class AccountTemplate(ModelSQL, ModelView):
             res['template'] = self.id
         return res
 
-    def create_account(self, company_id, template2account=None,
-            template2type=None):
+    def create_analytic_account(self, company_id, template2account=None):
         '''
         Create recursively accounts based on template.
         template2account is a dictionary with template id as key and account id
@@ -151,9 +184,6 @@ class AccountTemplate(ModelSQL, ModelView):
         if template2account is None:
             template2account = {}
 
-        if template2type is None:
-            template2type = {}
-
         def create(templates):
             values = []
             created = []
@@ -166,7 +196,7 @@ class AccountTemplate(ModelSQL, ModelView):
                     else:
                         vals['parent'] = None
                     if template.root:
-                        vals['root'] = template2type.get(template.root.id)
+                        vals['root'] = template2account.get(template.root.id)
                     else:
                         vals['root'] = None
                     values.append(vals)
@@ -181,35 +211,35 @@ class AccountTemplate(ModelSQL, ModelView):
             create(childs)
             childs = sum((c.childs for c in childs), ())
 
-    def update_type(self, template2type=None):
+class Rule(ModelSQL, ModelView):
+    "Analytic Rule"
+    __name__ = 'analytic_account.rule'
+
+    template = fields.Many2One('analytic_account.rule.template', 'Template')
+
+    def update_analytic_rule(self, template2rule=None):
         '''
         Update recursively types based on template.
         template2type is a dictionary with template id as key and type id as
         value, used to convert template id into type. The dictionary is filled
         with new types
         '''
-        if template2type is None:
-            template2type = {}
+        if template2rule is None:
+            template2rule = {}
 
         values = []
         childs = [self]
         while childs:
             for child in childs:
-                if child.template and not child.template_override:
-                    vals = child.template._get_type_value(type=child)
+                if child.template:
+                    vals = child.template._get_rule_value()
                     if vals:
                         values.append([child])
                         values.append(vals)
-                    template2type[child.template.id] = child.id
+                    template2rule[child.template.id] = child.id
             childs = sum((c.childs for c in childs), ())
         if values:
             self.write(*values)
-
-class Rule(ModelSQL, ModelView):
-    "Analytic Rule"
-    __name__ = 'analytic_account.rule'
-
-    template = fields.Many2One('analytic_account.rule.template', 'Template')
 
 class RuleTemplate(ModelSQL, ModelView):
     "Analytic Rule Template"
@@ -232,7 +262,7 @@ class RuleTemplate(ModelSQL, ModelView):
             res['template'] = self.id
         return res
 
-    def create_rule(self, company_id, template2rule=None):
+    def create_analytic_rule(self, company_id, template2rule=None):
         '''
         Create recursively types based on template.
         template2type is a dictionary with template id as key and type id as
@@ -351,7 +381,7 @@ class CreateChartAccount(ModelView):
     __name__ = 'account.create_chart.account'
 
     analytic_account_template = fields.Many2One('analytic_account.account.template',
-            'Analytic Account Template', required=True, domain=[('parent', '=', None)])
+            'Analytic Account Template', required=False, domain=[('parent', '=', None)])
 
 class CreateChart(Wizard):
     'Create Chart'
@@ -370,6 +400,8 @@ class CreateChart(Wizard):
         Config = pool.get('ir.configuration')
         Account = pool.get('account.account')
         transaction = Transaction()
+
+        #print "TRANSITION: "
 
         company = self.account.company
         # Skip access rule
@@ -436,11 +468,169 @@ class CreateChart(Wizard):
                 template2rule_line=template2rule_line)
 
             # Create analytic plan
-            analytic_account_template = self.account.account_template
-            template2analytic_account = {}
-            AnalyticAccountTemplate.create_account(
-                analytic_account_template.id, template2analytic_account, 
-                )
+            analytic_templates = AnalyticAccountTemplate.search([
+                ('type','=','root'),
+                ('parent','=',None)
+                ])
+            for template in analytic_templates: 
+                template2analytic_account = {}
+                template.create_analytic_account(
+                    company.id,
+                    template2analytic_account, 
+                    )
+
+            # Create analytic rule
+            analytic_rules = AnalyticRule.search([()])
+            for rule in analytic_rules:
+                template2rule = {}
+                template.create_rule(
+                    company.id,
+                    template2rule, 
+                    )
+
 
 
         return 'properties'
+
+class UpdateChart(Wizard):
+    'Update Chart'
+    __name__ = 'account.update_chart'
+    start = StateView('account.update_chart.start',
+        'account.update_chart_start_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Update', 'update', 'tryton-ok', default=True),
+            ])
+    update = StateTransition()
+    succeed = StateView('account.update_chart.succeed',
+        'account.update_chart_succeed_view_form', [
+            Button('OK', 'end', 'tryton-ok', default=True),
+            ])
+
+    @inactive_records
+    def transition_update(self):
+        pool = Pool()
+        TaxCode = pool.get('account.tax.code')
+        TaxCodeTemplate = pool.get('account.tax.code.template')
+        TaxCodeLine = pool.get('account.tax.code.line')
+        TaxCodeLineTemplate = pool.get('account.tax.code.line.template')
+        Tax = pool.get('account.tax')
+        TaxTemplate = pool.get('account.tax.template')
+        TaxRule = pool.get('account.tax.rule')
+        TaxRuleTemplate = pool.get('account.tax.rule.template')
+        TaxRuleLine = pool.get('account.tax.rule.line')
+        TaxRuleLineTemplate = \
+            pool.get('account.tax.rule.line.template')
+        AnalyticAccount = \
+            pool.get('analytic_account.account')
+
+        account = self.start.account
+        company = account.company
+
+        # Update account types
+        template2type = {}
+        account.type.update_type(template2type=template2type)
+        # Create missing account types
+        if account.type.template:
+            account.type.template.create_type(
+                company.id,
+                template2type=template2type)
+
+        # Update accounts
+        template2account = {}
+        account.update_account(template2account=template2account,
+            template2type=template2type)
+        # Create missing accounts
+        if account.template:
+            account.template.create_account(
+                company.id,
+                template2account=template2account,
+                template2type=template2type)
+
+        # Update analytic accounts
+        template2analytic_account = {}
+        analytic_accounts = AnalyticAccount.search([
+            ('parent','=',None),
+            ('company','=',company.id)])
+        for analytic_account in analytic_accounts:
+            analytic_account.update_analytic_account(template2account=template2analytic_account)
+            # Create missing accounts
+            if analytic_account.template:
+                analytic_account.template.create_analytic_account(
+                    company.id,
+                    template2account=template2analytic_account)
+
+        # Update analytic rules
+        template2analytic_rule = {}
+        analytic_rules = AnalyticRule.search([
+            ('company','=',company.id)])
+        for analytic_rule in analytic_rules:
+            analytic_rule.update_analytic_rule(template2rule=template2analytic_rule)
+            # Create missing accounts
+            if analytic_rule.template:
+                analytic_rule.template.create_analytic_rule(
+                    company.id,
+                    template2rule=template2analytic_rule)
+
+        # Update taxes
+        template2tax = {}
+        Tax.update_tax(
+            company.id,
+            template2account=template2account,
+            template2tax=template2tax)
+        # Create missing taxes
+        if account.template:
+            TaxTemplate.create_tax(
+                account.template.id, account.company.id,
+                template2account=template2account,
+                template2tax=template2tax)
+
+        # Update tax codes
+        template2tax_code = {}
+        TaxCode.update_tax_code(
+            company.id,
+            template2tax_code=template2tax_code)
+        # Create missing tax codes
+        if account.template:
+            TaxCodeTemplate.create_tax_code(
+                account.template.id, company.id,
+                template2tax_code=template2tax_code)
+
+        # Update tax code lines
+        template2tax_code_line = {}
+        TaxCodeLine.update_tax_code_line(
+            company.id,
+            template2tax=template2tax,
+            template2tax_code=template2tax_code,
+            template2tax_code_line=template2tax_code_line)
+        # Create missing tax code lines
+        if account.template:
+            TaxCodeLineTemplate.create_tax_code_line(
+                account.template.id,
+                template2tax=template2tax,
+                template2tax_code=template2tax_code,
+                template2tax_code_line=template2tax_code_line)
+
+        # Update taxes on accounts
+        account.update_account_taxes(template2account, template2tax)
+
+        # Update tax rules
+        template2rule = {}
+        TaxRule.update_rule(company.id, template2rule=template2rule)
+        # Create missing tax rules
+        if account.template:
+            TaxRuleTemplate.create_rule(
+                account.template.id, account.company.id,
+                template2rule=template2rule)
+
+        # Update tax rule lines
+        template2rule_line = {}
+        TaxRuleLine.update_rule_line(
+            company.id, template2tax, template2rule,
+            template2rule_line=template2rule_line)
+        # Create missing tax rule lines
+        if account.template:
+            TaxRuleLineTemplate.create_rule_line(
+                account.template.id, template2tax, template2rule,
+                template2rule_line=template2rule_line)
+
+        return 'succeed'

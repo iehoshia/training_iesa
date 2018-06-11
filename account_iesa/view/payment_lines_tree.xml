@@ -3,31 +3,10 @@
 this repository contains the full copyright notices and license terms. -->
 
 <tree>
-    <field name="move" xexpand="0" width="500"/>
+    <field name="move"/>
     <field name="origin"/>
     <field name="description"/>
     <field name="date"/>
     <field name="credit" string="CreditInverseStr" sum="CreditInverse"/>
     <field name="debit" string="DebitInverseStr" sum="DebitInverse"/>
 </tree>
- 
-<!--
-<data>
-    <xpath expr="/tree/field[@name=&quot;move_description&quot;]" position="replace">
-    </xpath>
-    <xpath expr="/tree/field[@name=&quot;tax_lines&quot;]" position="replace">
-    </xpath>
-    <xpath expr="/tree/field[@name=&quot;reconciliation&quot;]" position="replace">
-    </xpath>
-    <xpath expr="/tree/field[@name=&quot;state&quot;]" position="replace">
-    </xpath>
-    <xpath expr="/tree/field[@name=&quot;move_state&quot;]" position="replace">
-    </xpath>
-    <xpath expr="/tree/field[@name=&quot;invoice_payment&quot;]" position="replace">
-    </xpath>
-    <xpath expr="/tree/field[@name=&quot;party&quot;]" position="replace">
-    </xpath>
-    <xpath expr="/tree/field[@name=&quot;account&quot;]" position="replace">
-    </xpath>
-</data>
--->

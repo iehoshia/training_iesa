@@ -7581,6 +7581,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="parent" ref="capital_operativo"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="capital_recomendado" model="analytic_account.account.template">
             <field name="name">Capital Recomendado</field>
@@ -7588,30 +7589,35 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="capital_operativo"/>
             <!--<field name="is_recommended_capital" ref="True"/>-->
             <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
         </record>
         <record id="caja_y_bancos" model="analytic_account.account.template">
             <field name="name">Caja y Bancos</field>
             <field name="parent" ref="liquidez"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
            </record>
         <record id="pasivo_corriente_li" model="analytic_account.account.template">
             <field name="name">Pasivo Corriente</field>
             <field name="parent" ref="liquidez"/>
             <field name="root" ref="liquidez"/>
-            <field name="display_balance">credit-debit</field>            
+            <field name="display_balance">credit-debit</field>    
+            <field name="type">normal</field>        
         </record>
         <record id="ingresos" model="analytic_account.account.template">
             <field name="name">Ingresos</field>
             <field name="parent" ref="sosten_propio"/>
             <field name="root" ref="sosten_propio"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="gastos" model="analytic_account.account.template">
             <field name="name">Gastos</field>
             <field name="parent" ref="sosten_propio"/>
             <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">credit-debit</field>           
+            <field name="display_balance">credit-debit</field>  
+            <field name="type">normal</field>         
         </record>
            
     </data> 
@@ -7621,12 +7627,14 @@ this repository contains the full copyright notices and license terms. -->
             <field name="parent" ref="capital_actual"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="pasivo_corriente_co" model="analytic_account.account.template">
             <field name="name">Pasivo Corriente</field>
             <field name="parent" ref="capital_actual"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
         </record>
     </data> 
     <data grouped="1">
@@ -7635,54 +7643,63 @@ this repository contains the full copyright notices and license terms. -->
             <field name="parent" ref="caja_y_bancos"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="caja_general_li" model="analytic_account.account.template">
             <field name="name">Caja General</field>
             <field name="parent" ref="caja_y_bancos"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="banco_gyt_li" model="analytic_account.account.template">
             <field name="name">Banco GyT Continental</field>
             <field name="parent" ref="caja_y_bancos"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
          </record>
         <record id="banrural1_li" model="analytic_account.account.template">
             <field name="name">Banco BANRURAL 1</field>
             <field name="parent" ref="caja_y_bancos"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="banrural2_li" model="analytic_account.account.template">
             <field name="name">Banco BANRURAL 2</field>
             <field name="parent" ref="caja_y_bancos"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="banco_industrial_li" model="analytic_account.account.template">
             <field name="name">Banco Industrial</field>
             <field name="parent" ref="caja_y_bancos"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="cuenta_por_pagar_li" model="analytic_account.account.template">
             <field name="name">Cuenta por Pagar</field>
             <field name="parent" ref="pasivo_corriente_li"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
         </record>
         <record id="iggs_li" model="analytic_account.account.template">
             <field name="name">IGSS</field>
             <field name="parent" ref="pasivo_corriente_li"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
         </record>
         <record id="isr_li" model="analytic_account.account.template">
             <field name="name">ISR</field>
             <field name="parent" ref="pasivo_corriente_li"/>
             <field name="root" ref="liquidez"/>
             <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
         </record>
     </data>
 
@@ -7692,42 +7709,49 @@ this repository contains the full copyright notices and license terms. -->
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="caja_general_co" model="analytic_account.account.template">
             <field name="name">Caja General CO</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="banco_gyt_co" model="analytic_account.account.template">
             <field name="name">Banco GyT CO</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="banrural1_co" model="analytic_account.account.template">
             <field name="name">BANRURAL 1</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="banrural2_co" model="analytic_account.account.template">
             <field name="name">BANRURAL 2</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="banco_industrial_co" model="analytic_account.account.template">
             <field name="name">Banco Industrial</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="ingresos_de_ensenanza_por_cobrar" model="analytic_account.account.template">
             <field name="name">Ingresos de Enseñanza por Cobrar</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
 
         <!--
@@ -7762,125 +7786,155 @@ this repository contains the full copyright notices and license terms. -->
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="fluctuacion_en_cambios" model="analytic_account.account.template">
             <field name="name">Fluctuación en cambios</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="iva_credito" model="analytic_account.account.template">
             <field name="name">Iva Crédito</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="provision_para_cuentas_mala" model="analytic_account.account.template">
             <field name="name">Provisión para Cuentas Mala</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="transferencia_de_fondos" model="analytic_account.account.template">
             <field name="name">Transferencia de Fondos</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="union_centroamericana_del_norte" model="analytic_account.account.template">
             <field name="name">Unión Centroamericana del Norte</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="asociacion_metropolitana" model="analytic_account.account.template">
             <field name="name">Asociación Metropolitana</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="asociacion_central_de_guatemala" model="analytic_account.account.template">
             <field name="name">Asociación Central de Guatemala</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="mision_oriental" model="analytic_account.account.template">
             <field name="name">Misión Oriental</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="instituciones_educativas" model="analytic_account.account.template">
             <field name="name">Instituciones Educativas</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="mision_norte" model="analytic_account.account.template">
             <field name="name">Misión Norte</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="mision_sur" model="analytic_account.account.template">
             <field name="name">Misión Sur</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="mision_centro_sur" model="analytic_account.account.template">
             <field name="name">Misión Centro Sur</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="union_radio" model="analytic_account.account.template">
             <field name="name">Unión Radio</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="asociacion_occidental" model="analytic_account.account.template">
             <field name="name">Asociación Occidental</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
         <record id="mision_del_altiplano" model="analytic_account.account.template">
             <field name="name">Misión del Altiplano</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
             <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
         </record>
 
         <record id="cuenta_por_pagar_co" model="analytic_account.account.template">
             <field name="name">Cuenta por Pagar</field>
             <field name="parent" ref="pasivo_corriente_co"/>
             <field name="root" ref="capital_operativo"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
         </record>
         <record id="iggs_co" model="analytic_account.account.template">
             <field name="name">IGSS</field>
             <field name="parent" ref="pasivo_corriente_co"/>
             <field name="root" ref="capital_operativo"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
         </record>
         <record id="isr_co" model="analytic_account.account.template">
             <field name="name">ISR</field>
             <field name="parent" ref="pasivo_corriente_co"/>
             <field name="root" ref="capital_operativo"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
         </record>
     </data>
-    <!--
+
+    
     <data grouped="1">
-        <record id="INGRESOS" model="analytic_account.account.template">
-            <field name="name">INGRESOS</field>
+        <record id="inscripciones" model="analytic_account.account.template">
+            <field name="name">Inscripciones</field>
             <field name="parent" ref="ingresos"/>
             <field name="root" ref="sosten_propio"/>
             <field name="display_balance">debit-credit</field>
-        </record>
+            <field name="type">normal</field>
+        </record> 
+        <record id="colegiaturas" model="analytic_account.account.template">
+            <field name="name">Colegiaturas</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record> 
+    </data>
+    <!--
         <record id="VENTAS_NETAS" model="analytic_account.account.template">
             <field name="name">VENTAS NETAS</field>
             <field name="parent" ref="ingresos"/>
@@ -8052,11 +8106,14 @@ this repository contains the full copyright notices and license terms. -->
     </data>
     -->
     <data grouped="1">
-        <record id="ar_101110_iesa" model="analytic_account.rule.template">
-            <field name="account" ref="pgc_101110_iesa"/>
+        <record id="ar_621110_iesa" model="analytic_account.rule.template">
+            <field name="account" ref="pgc_621110_iesa"/>
         </record>
-        <record id="ar_101120_iesa" model="analytic_account.rule.template">
-            <field name="account" ref="pgc_101120_iesa"/>
+        <record id="ar_621120_iesa" model="analytic_account.rule.template">
+            <field name="account" ref="pgc_621120_iesa"/>
+        </record>
+        <record id="ar_621130_iesa" model="analytic_account.rule.template">
+            <field name="account" ref="pgc_621130_iesa"/>
         </record>
     </data>
 </tryton>

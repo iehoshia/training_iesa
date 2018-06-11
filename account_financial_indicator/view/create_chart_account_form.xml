@@ -3,7 +3,6 @@
 this repository contains the full copyright notices and license terms. -->
 <data>
     <xpath expr="/form/field[@name=&quot;account_template&quot;]" position="after">
-    	<label name="analytic_account_template"/>
-    	<field name="analytic_account_template" widget="selection"/>
+
     </xpath>
 </data>

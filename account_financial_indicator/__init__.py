@@ -13,6 +13,9 @@ def register():
         Rule, 
         AnalyticAccountEntry, 
         CreateChartAccount,
-        CreateChart,
         module='account_financial_indicator', type_='model')
+    Pool.register(
+        CreateChart,
+        UpdateChart,
+        module='account_financial_indicator', type_='wizard')
     
