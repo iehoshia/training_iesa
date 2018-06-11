@@ -18,10 +18,10 @@ def register():
         AccountTypeTemplate,
         ConsolidatedBalanceSheetContext,
         ConsolidatedBalanceSheetComparisionContext,
-        GeneralLedgerAccount, 
-        CompanyPartyRel, 
+        GeneralLedgerAccount,
+        CompanyPartyRel,
         module='account_consolidated', type_='model')
     Pool.register(
         CreateChart,
         UpdateChart,
-        module='account', type_='wizard')
+        module='account_consolidated', type_='wizard')

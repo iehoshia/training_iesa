@@ -7939,184 +7939,191 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="sosten_propio"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
-        </record> 
+        </record>
+        <record id="mora" model="analytic_account.account.template">
+            <field name="name">Derecho a Mora</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="donaciones" model="analytic_account.account.template">
+            <field name="name">Donaciones</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="primas_ganadas" model="analytic_account.account.template">
+            <field name="name">Primas Ganadas</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="intereses_ganados" model="analytic_account.account.template">
+            <field name="name">Intereses Ganados</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ganancia_en_cambios" model="analytic_account.account.template">
+            <field name="name">Ganancias en Cambios</field>
+            <field name="parent" ref="ingresos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+
+        <record id="cuentas_malas" model="analytic_account.account.template">
+            <field name="name">Cuentas Malas</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="salario_empleados" model="analytic_account.account.template">
+            <field name="name">Salario Empleados</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="bono_14_empleados" model="analytic_account.account.template">
+            <field name="name">Bono 14 Empleados</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="aguinaldo_empleados" model="analytic_account.account.template">
+            <field name="name">Aguinaldo Empleados</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="finiquitos" model="analytic_account.account.template">
+            <field name="name">Finiquitos</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="bonificacion_incentivo" model="analytic_account.account.template">
+            <field name="name">Bonificación e Incentivo</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="seguro_4_en_1" model="analytic_account.account.template">
+            <field name="name">Seguro 4 en 1</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="seguro_de_estudiantes" model="analytic_account.account.template">
+            <field name="name">Seguro de Estudiantes</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="seguro_social_igss" model="analytic_account.account.template">
+            <field name="name">Seguro Social IGSS</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="irtra" model="analytic_account.account.template">
+            <field name="name">Irtra</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="intecap" model="analytic_account.account.template">
+            <field name="name">Intecap</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="indemnizacion" model="analytic_account.account.template">
+            <field name="name">Indemnización</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="jubilacion" model="analytic_account.account.template">
+            <field name="name">Jubilación</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="viaticos" model="analytic_account.account.template">
+            <field name="name">Viáticos</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="acreditacion_nominal" model="analytic_account.account.template">
+            <field name="name">Acreditación Denominacional</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="reuniones_y_juntas" model="analytic_account.account.template">
+            <field name="name">Reuniones y Juntas</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="capacitacion_y_retiros" model="analytic_account.account.template">
+            <field name="name">Capacitación y Retiros</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="asesoria_legal" model="analytic_account.account.template">
+            <field name="name">Asesoría Legal</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="gastos_por_fondo_educativo" model="analytic_account.account.template">
+            <field name="name">Gastos por Fondo Educativo</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="materiales_de_oficina" model="analytic_account.account.template">
+            <field name="name">Materiales de Oficina</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        
     </data>
 
-    <!--
-        <record id="VENTAS_NETAS" model="analytic_account.account.template">
-            <field name="name">VENTAS NETAS</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="VENTAS" model="analytic_account.account.template">
-            <field name="name">VENTAS</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="COSTO_DE_MERCANCÍA_VENDIDA" model="analytic_account.account.template">
-            <field name="name">COSTO DE MERCANCÍA VENDIDA</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="COSTO_DE_PRODUCTOS_TERMINADOS" model="analytic_account.account.template">
-            <field name="name">COSTO DE PRODUCTOS TERMINADOS</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="DIEZMO_(NETO)" model="analytic_account.account.template">
-            <field name="name">DIEZMO (NETO)</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="DIEZMOS_BRUTOS_DE_IGLESIAS_LOCALES" model="analytic_account.account.template">
-            <field name="name">DIEZMOS BRUTOS - DE IGLESIAS LOCALES</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="DIEZMOS_BRUTOS_CONTRIBUCIONES_DIRECTAS" model="analytic_account.account.template">
-            <field name="name">DIEZMOS BRUTOS - CONTRIBUCIONES DIRECTAS</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="PORCENTAJE_DE_DIEZMOS_DE_ORG._SUBSIDIARIAS" model="analytic_account.account.template">
-            <field name="name">PORCENTAJE DE DIEZMOS DE ORG. SUBSIDIARIAS</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="PORCENTAJE_DE_DIEZMOS_ORGANIZACIONES_SUPERIORES" model="analytic_account.account.template">
-            <field name="name">PORCENTAJE DE DIEZMOS ORGANIZACIONES SUPERIORES</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="CAMBIO_DE_DIEZMOS" model="analytic_account.account.template">
-            <field name="name">CAMBIO DE DIEZMOS</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="INGRESOS_DE_ENSEÑANZA" model="analytic_account.account.template">
-            <field name="name">INGRESOS DE ENSEÑANZA</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="INGRESOS_DE_ENSEÑANZA" model="analytic_account.account.template">
-            <field name="name">INGRESOS DE ENSEÑANZA</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="OTROS_INGRESOS" model="analytic_account.account.template">
-            <field name="name">OTROS INGRESOS</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="INGRESOS_DE_INVERSIONES" model="analytic_account.account.template">
-            <field name="name">INGRESOS DE INVERSIONES</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="INGRESOS_DE_INVERSIONES" model="analytic_account.account.template">
-            <field name="name">INGRESOS DE INVERSIONES</field>
-            <field name="parent" ref="ingresos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="GASTOS" model="analytic_account.account.template">
-            <field name="name">GASTOS</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="GASTOS_DE_PUBLICIDAD_Y_VENTAS" model="analytic_account.account.template">
-            <field name="name">GASTOS DE PUBLICIDAD Y VENTAS</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="COMISIONES_DE_VENTAS" model="analytic_account.account.template">
-            <field name="name">COMISIONES DE VENTAS</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="GASTOS_DE_CUENTAS_MALAS_(INCOBRABLES)" model="analytic_account.account.template">
-            <field name="name">GASTOS DE CUENTAS MALAS (INCOBRABLES)</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="OTROS_GASTOS" model="analytic_account.account.template">
-            <field name="name">OTROS GASTOS</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="OPERACIÓN_Y_MANTENIMIENTO_DE_PLANTA" model="analytic_account.account.template">
-            <field name="name">OPERACIÓN Y MANTENIMIENTO DE PLANTA</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="ALQUILER_DE_INSTALACIONES/EQUIPOS" model="analytic_account.account.template">
-            <field name="name">ALQUILER DE INSTALACIONES/EQUIPOS</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="RENTA_DE_TERRENO" model="analytic_account.account.template">
-            <field name="name">RENTA DE TERRENO</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="RENTA_DE_EDIFICIO" model="analytic_account.account.template">
-            <field name="name">RENTA DE EDIFICIO</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="RENTA_DE_EQUIPOO" model="analytic_account.account.template">
-            <field name="name">RENTA DE EQUIPO</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="MAINTENIMIENTO_Y_REPARACIÓN_DE_INST./EQUIPOS" model="analytic_account.account.template">
-            <field name="name">MAINTENIMIENTO Y REPARACIÓN DE INST./EQUIPOS</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="REPARACIÓN_DE_MEJORAS_DE_TERRENOS" model="analytic_account.account.template">
-            <field name="name">REPARACIÓN DE MEJORAS DE TERRENOS</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-        <record id="REPARACIÓN_DE_EDIFICIOS" model="analytic_account.account.template">
-            <field name="name">REPARACIÓN DE EDIFICIOS</field>
-            <field name="parent" ref="Gastos"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="display_balance">debit-credit</field>
-        </record>
-    </data>
-    -->
+    <!-- AR Analytic Rule Template -->
 
     <data grouped="1">
         <record id="ar_621110_iesa" model="analytic_account.rule.template">
-            <field name="account" ref="pgc_621110_iesa"/>
+            <field name="account" ref="pgc_101110_iesa"/>
         </record>
         <record id="ar_621120_iesa" model="analytic_account.rule.template">
             <field name="account" ref="pgc_621120_iesa"/>
@@ -8132,13 +8139,15 @@ this repository contains the full copyright notices and license terms. -->
         </record>
     </data>
 
+    <!-- AE Analytic Account Entry Template -->
 
-    <!--<data grouped="1">
+    <data grouped="1">
         <record id="ae_621110_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_621110_iesa"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="account" ref="examenes"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="caja_general_co"/>
         </record>
-    </data> -->
+    </data>
+
 
 </tryton>

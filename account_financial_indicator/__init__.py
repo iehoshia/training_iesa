@@ -18,4 +18,3 @@ def register():
         CreateChart,
         UpdateChart,
         module='account_financial_indicator', type_='wizard')
-    

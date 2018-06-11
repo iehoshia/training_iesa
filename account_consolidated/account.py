@@ -38,7 +38,7 @@ __all__ = [
     'ConsolidatedBalanceSheetComparisionContext',
     'GeneralLedgerAccount',
     'CompanyPartyRel',
-    ]  
+    ]
 
 _MOVE_STATES = {
     'readonly': Eval('state') == 'posted',
@@ -235,10 +235,10 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
 
     @classmethod
     def get_amount(cls, types, name):
-
         pool = Pool()
         Account = pool.get('account.account.type')
-        GeneralLedger = pool.get('account.general_ledger.account')
+        transaction = Transaction()
+        context = transaction.context
 
         res = {}
         for type_ in types:
@@ -251,25 +251,14 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
         for type_ in childs:
             type_sum[type_.id] = Decimal('0.0')
 
-        start_period_ids = GeneralLedger.get_period_ids('start_%s' % name)
-        end_period_ids = GeneralLedger.get_period_ids('end_%s' % name)
-        period_ids = list(
-            set(end_period_ids).difference(set(start_period_ids)))
-
-        context = Transaction().context
-        companies = context.get('companies')
-        print "COMPANIES: " + str(companies)
-        for company in companies: 
-            print "COMPANY: " + str(company)
-            accounts = Account.search([
-                    ('meta_type', 'in', [t.id for t in childs]),
-                    ('company','=',company['id'])
-                    ])
-            for account in accounts: 
-                print "ACCOUNT: " + account.name + " - " + str(account.amount)
-        accounts = []
-        for account in accounts:
-            type_sum[account.meta_type.id] += (account.amount)
+        for company in context.get('companies', []):
+            with transaction.set_context(company=company['id']):
+                accounts = Account.search([
+                        ('meta_type', 'in', [t.id for t in childs]),
+                        ('company', '=', company['id'])
+                        ])
+                for account in accounts:
+                    type_sum[account.meta_type.id] += (account.amount)
 
         for type_ in types:
             childs = cls.search([
@@ -398,7 +387,7 @@ class CreateChart(Wizard):
             #    company.id,
             #    template2account=template2account,
             #    template2type=template2type)
-            
+
         return 'end'
 
     def default_properties(self, fields):

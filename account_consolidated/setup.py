@@ -37,7 +37,7 @@ version = info.get('version', '0.0.1')
 major_version, minor_version, _ = version.split('.', 2)
 major_version = int(major_version)
 minor_version = int(minor_version)
-name = 'trytond_account_es'
+name = 'trytond_account_consolidated'
 
 download_url = 'http://downloads.tryton.org/%s.%s/' % (
     major_version, minor_version)
@@ -67,13 +67,13 @@ setup(name=name,
     url='http://www.tryton.org/',
     download_url=download_url,
     keywords='tryton account chart spanish',
-    package_dir={'trytond.modules.account_es': '.'},
+    package_dir={'trytond.modules.account_consolidated': '.'},
     packages=[
-        'trytond.modules.account_es',
-        'trytond.modules.account_es.tests',
+        'trytond.modules.account_consolidated',
+        'trytond.modules.account_consolidated.tests',
         ],
     package_data={
-        'trytond.modules.account_es': (info.get('xml', [])
+        'trytond.modules.account_consolidated': (info.get('xml', [])
             + ['tryton.cfg']),
         },
     classifiers=[
@@ -101,7 +101,7 @@ setup(name=name,
     zip_safe=False,
     entry_points="""
     [trytond.modules]
-    account_es = trytond.modules.account_es
+    account_consolidated = trytond.modules.account_consolidated
     """,
     test_suite='tests',
     test_loader='trytond.test_loader:Loader',
