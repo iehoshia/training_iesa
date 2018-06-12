@@ -13,6 +13,7 @@ def register():
         Rule, 
         AnalyticAccountEntry, 
         CreateChartAccount,
+        UpdateChartStart,
         module='account_financial_indicator', type_='model')
     Pool.register(
         CreateChart,

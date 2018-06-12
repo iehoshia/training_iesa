@@ -1,7 +1,12 @@
 <?xml version="1.0"?>
 <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
 this repository contains the full copyright notices and license terms. -->
-<form col="2">
-    <label name="account"/>
-    <field name="account"/>
-</form>
+<data>
+    <xpath expr="/form/label[@name=&quot;account&quot;]" position="before">
+    	<label name="meta_type"/>
+    	<field name="meta_type" widget="selection" readonly="1"/>
+    </xpath>
+    <xpath expr="//field[@name=&quot;account&quot;]" position="replace_attributes">
+    	<field name="account" widget="selection"/>
+    </xpath>
+</data>

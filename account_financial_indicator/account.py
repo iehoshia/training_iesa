@@ -31,6 +31,7 @@ __all__ = [
         'CreateChartAccount',
         'CreateChart',
         'UpdateChart',
+        'UpdateChartStart',
     ]  
 
 __metaclass__ = PoolMeta
@@ -235,7 +236,7 @@ class Rule(ModelSQL, ModelView):
                     })
         return accounts
         ''' 
-        return None
+        return []
 
     def update_analytic_rule(self, template2analytic_rule=None,
         template2account=None):
@@ -291,7 +292,9 @@ class RuleTemplate(ModelSQL, ModelView):
             res['template'] = self.id
         return res
 
-    def create_analytic_rule(self, company_id, template2analytic_rule=None,
+    def create_analytic_rule(self, 
+        company_id, 
+        template2analytic_rule=None,
         template2account=None):
         '''
         Create recursively types based on template.
@@ -320,8 +323,9 @@ class RuleTemplate(ModelSQL, ModelView):
                     #print "vals: " + str(vals)
                     values.append(vals)
                     created.append(template)
-
+            print "VALUES: " + str(values)
             rules = Rule.create(values)
+
             for template, rule in zip(created, rules):
                 template2analytic_rule[template.id] = rule.id
 
@@ -504,8 +508,15 @@ class CreateChartAccount(ModelView):
     'Create Chart'
     __name__ = 'account.create_chart.account'
 
-    analytic_account_template = fields.Many2One('analytic_account.account.template',
-            'Analytic Account Template', required=False, domain=[('parent', '=', None)])
+    meta_type = fields.Many2One('account.account.meta.type',
+            'Consolidated Plan', required=True, domain=[('parent', '=', None)])
+
+    @staticmethod
+    def default_meta_type():
+        AccountTemplate = Pool().get('account.account.meta.type')
+        accounts = AccountTemplate.search([('parent','=',None)])
+        if len(accounts) == 1: 
+            return accounts[0].id
 
 class CreateChart(Wizard):
     'Create Chart'
@@ -539,12 +550,18 @@ class CreateChart(Wizard):
         with transaction.set_context(language=Config.get_language(),
                 company=company.id):
             account_template = self.account.account_template
+            account_meta_template = self.account.meta_type
+
+            # Get account meta types
+            template2meta_type = {}
+            account_meta_template.update_type(template2type=template2meta_type)
 
             # Create account types
             template2type = {}
             account_template.type.create_type(
                 company.id,
-                template2type=template2type)
+                template2type=template2type,
+                template2meta_type=template2meta_type)
 
             # Create accounts
             template2account = {}
@@ -611,6 +628,8 @@ class CreateChart(Wizard):
                     )
                 template2analytic_account_cumm = merge_two_dicts(template2analytic_account_cumm,template2analytic_account)
 
+            
+            template2analytic_rule_cumm = {}
             # Create analytic rule
             analytic_rules = AnalyticRule.search([()])
             for rule in analytic_rules:
@@ -618,8 +637,8 @@ class CreateChart(Wizard):
                 rule.create_analytic_rule(
                     company.id,
                     template2analytic_rule, 
-                    template2account, 
-                    )
+                    template2account)
+                template2analytic_rule_cumm = merge_two_dicts(template2analytic_rule_cumm,template2analytic_rule)
 
             # Create analytic entry
             analytic_entries = AnalyticEntry.search([()])
@@ -628,11 +647,26 @@ class CreateChart(Wizard):
                 entry.create_analytic_entry(
                     company.id,
                     template2entry, 
-                    template2analytic_rule, 
+                    template2analytic_rule_cumm, 
                     template2analytic_account_cumm, 
                     )
 
         return 'properties'
+
+class UpdateChartStart(ModelView):
+    'Update Chart'
+    __name__ = 'account.update_chart.start'
+
+    meta_type = fields.Many2One('account.account.meta.type',
+            'Consolidated Plan', required=True, domain=[('parent', '=', None)])
+
+    @staticmethod
+    def default_meta_type():
+        AccountTemplate = Pool().get('account.account.meta.type')
+        accounts = AccountTemplate.search([('parent','=',None)])
+        if len(accounts) == 1: 
+            return accounts[0].id
+
 
 class UpdateChart(Wizard):
     'Update Chart'
@@ -674,16 +708,24 @@ class UpdateChart(Wizard):
         AnalyticEntry = pool.get('analytic.account.entry')
 
         account = self.start.account
+        meta_type = self.start.meta_type
         company = account.company
+
+        # Update account meta types
+        template2meta_type = {}
+        meta_type.update_type(template2type=template2meta_type)
 
         # Update account types
         template2type = {}
-        account.type.update_type(template2type=template2type)
+        account.type.update_type(template2type=template2type,
+            template2meta_type=template2meta_type)
+
         # Create missing account types
         if account.type.template:
             account.type.template.create_type(
                 company.id,
-                template2type=template2type)
+                template2type=template2type,
+                template2meta_type=template2meta_type)
 
         # Update accounts
         template2account = {}
@@ -717,7 +759,6 @@ class UpdateChart(Wizard):
                     company.id,
                     template2account=template2analytic_account)
 
-
         # Update analytic rules
         template2analytic_rule_cumm = {}
 
@@ -734,7 +775,8 @@ class UpdateChart(Wizard):
             for analytic_rule in analytic_rules: 
                 if analytic_rule.template: 
                     existing.append(analytic_rule.template.id)
-                    analytic_rule.update_analytic_rule(template2analytic_rule=template2analytic_rule, 
+                    analytic_rule.update_analytic_rule(
+                        template2analytic_rule=template2analytic_rule,
                         template2account=template2account)
                     template2analytic_rule_cumm = merge_two_dicts(template2analytic_rule_cumm, template2analytic_rule)
         
@@ -772,7 +814,7 @@ class UpdateChart(Wizard):
             for analytic_entry in analytic_entries: 
                 if analytic_entry.template: 
                     existing.append(analytic_entry.template.id)
-                    print "BEFORE template2entry: " + str(template2entry)
+                    #print "BEFORE template2entry: " + str(template2entry)
                     analytic_entry.update_entry(template2entry=template2entry, 
                         template2analytic_rule=template2analytic_rule_cumm,
                         template2analytic_account=template2analytic_account,
