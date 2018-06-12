@@ -7,9 +7,9 @@
 	</xpath>
 	<xpath expr="/form/field[@name=&quot;lines&quot;]" position="replace">
 		<field name="lines" colspan="4"
-        	view_ids="account.move_line_view_form_move"/>
-        <field name="lines" colspan="4"
-        	view_ids="account.move_line_view_tree_move" readonly="1"/>
+        	view_ids="account_iesa.move_line_view_form_move,account_iesa.move_line_view_form_move"/>
+        <field name="lines" colspan="4" 
+        	view_ids="account.move_line_view_tree_move,account.move_line_view_tree_move" readonly="1"/> 
 		<!--<field name="lines" colspan="4"
         	view_ids="account.move_line_view_tree_move,account.move_line_view_form_move"/>
 		<label name="amount"/>
