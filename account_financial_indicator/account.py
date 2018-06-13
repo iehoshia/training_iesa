@@ -121,6 +121,7 @@ class AccountTemplate(ModelSQL, ModelView):
             },
         depends=['type'],
         help="Make this account mandatory when filling documents")
+    is_recommended_capital = fields.Boolean('Recommended Capital')
 
     @classmethod
     def __setup__(cls):
@@ -165,6 +166,8 @@ class AccountTemplate(ModelSQL, ModelView):
             res['type'] = self.type
         if not account or account.display_balance != self.display_balance:
             res['display_balance'] = self.display_balance
+        if not account or account.is_recommended_capital != self.is_recommended_capital:
+            res['is_recommended_capital'] = self.is_recommended_capital
         if not account or account.template != self:
             res['template'] = self.id
         return res
@@ -372,7 +375,6 @@ class AnalyticAccountEntry(ModelView, ModelSQL):
                     vals = child.template._get_entry_value()
                     if child.template.origin:
                         origin =  template2analytic_rule.get(child.template.origin.id)
-
                         vals['origin'] = 'analytic_account.rule,'+str(origin)
                     else:
                         vals['origin'] = None
@@ -479,7 +481,8 @@ class AnalyticAccountEntryTemplate(ModelView, ModelSQL):
                     vals = template._get_entry_value()
                     vals['companies'] = company_id
                     if template.origin:
-                        vals['origin'] = template2analytic_rule.get(template.origin)
+                        origin = template2analytic_rule.get(template.origin.id)
+                        vals['origin'] = 'analytic_account.rule,' + str(origin)
                     else:
                         vals['origin'] = None
                     if template.root:
