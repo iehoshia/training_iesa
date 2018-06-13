@@ -288,9 +288,10 @@ class Subscription(ModelSQL, ModelView):
     @classmethod 
     def __setup__(cls): 
         super(Subscription, cls).__setup__() 
+        cls.party.depends=['company']
         cls.party.domain=['AND', 
                 [('is_subscriber', '=', True)],
-                [('company', '=', Eval('company') )],
+                [('company', '=', Eval('company',-1) )],
             ]
         cls.lines.required=True
         cls.end_date.required=True
@@ -826,17 +827,18 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
         states={
             'readonly': Eval('state') != 'draft',
             },
-        domain=[
-            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
-                Eval('context', {}).get('company', -1)),
-            ],
+        #domain=[
+        #    ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+        #        Eval('context', {}).get('company', -1)),
+        #    ],
         depends=['state'],
         help="Make the subscription line belong to the company.")
 
     @classmethod 
     def __setup__(cls): 
         super(Line, cls).__setup__() 
-        cls.service.domain=[('company', '=', Eval('company') )]
+        cls.service.depends=['subscription']
+        cls.service.domain=[('company', '=', Eval('subscription.company',-1) )]
         cls.unit_price.digits=(16,2)
 
     @classmethod
