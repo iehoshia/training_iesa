@@ -310,5 +310,24 @@ this repository contains the full copyright notices and license terms. -->
             <field name="action" ref="report_general_ledger"/>
         </record>
 
+        <!-- MOVE TEMPLATE -->
+
+        <record model="ir.action.act_window" id="act_move_template_form">
+            <field name="name">Account Move Template</field>
+            <field name="res_model">account.move.template</field>
+            <field name="domain"
+                eval="[('company', '=', Eval('context', {}).get('company', -1))]"
+                pyson="1"/>
+        </record>
+
+        <menuitem parent="training.menu_configuracion_training"
+            action="act_move_template_form" id="menu_move_template_form"/>
+
+        <record model="ir.action.wizard" id="act_move_template_create">
+            <field name="name">Create Move from Template</field>
+            <field name="wiz_name">account.move.template.create</field>
+        </record>
+        <menuitem parent="menu_account" action="act_move_template_create"
+            id="menu_move_template_create"/>
     </data>
 </tryton>

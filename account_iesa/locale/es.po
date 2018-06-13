@@ -270,6 +270,27 @@ msgctxt "model:ir.action,name:act_iesa_payment_form"
 msgid "Payments"
 msgstr "Recibos"
 
+msgctxt "model:ir.action,name:act_operative_capital"
+msgid "Operative Capital"
+msgstr "Capital Operativo"
+
+
+msgctxt "model:ir.action,name:act_move_template_create"
+msgid "Create Move from Template"
+msgstr "Crear asiento desde plantilla"
+
+msgctxt "model:ir.ui.menu,name:menu_move_template_create"
+msgid "Create Move from Template"
+msgstr "Crear asiento desde plantilla"
+
+msgctxt "model:ir.action,name:act_move_template_form"
+msgid "Account Move Template"
+msgstr "Plantilla de asiento contable"
+
+msgctxt "model:ir.ui.menu,name:menu_move_template_form"
+msgid "Account Move Template"
+msgstr "Plantilla de asiento contable"
+
 msgctxt "model:ir.ui.menu,name:menu_account"
 msgid "Account Moves"
 msgstr "Asientos Contables"

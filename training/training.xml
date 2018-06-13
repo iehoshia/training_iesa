@@ -361,7 +361,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="action" ref="report_agreement"/>
         </record>-->
 
-        <!-- RULE SUBSCRIPTION -->
+        <!-- RULE SUBSCRIPTION 
         <record model="ir.rule.group" id="rule_group_subscription">
             <field name="model" search="[('model', '=', 'sale.subscription')]"/>
             <field name="global_p" eval="True"/>
@@ -371,7 +371,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
                 eval="[('company', '=', Eval('user', {}).get('company', None) )]"
                 pyson="1"/>
             <field name="rule_group" ref="rule_group_subscription"/>
-        </record>
+        </record> -->
         <!--
         <record model="ir.rule.group" id="rule_group_party">
             <field name="model" search="[('model', '=', 'party.party')]"/>
@@ -382,7 +382,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
                 eval="[('company', '=', Eval('user', {}).get('company', None))]"
                 pyson="1"/>
             <field name="rule_group" ref="rule_group_party"/>
-        </record>-->
+        </record>--> 
 
   </data>
 

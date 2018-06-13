@@ -7606,14 +7606,14 @@ this repository contains the full copyright notices and license terms. -->
             <field name="type">normal</field>        
         </record>
         <record id="ingresos" model="analytic_account.account.template">
-            <field name="name">Ingresos</field>
+            <field name="name">01 Ingresos</field>
             <field name="parent" ref="sosten_propio"/>
             <field name="root" ref="sosten_propio"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record>
         <record id="gastos" model="analytic_account.account.template">
-            <field name="name">Gastos</field>
+            <field name="name">02 Gastos</field>
             <field name="parent" ref="sosten_propio"/>
             <field name="root" ref="sosten_propio"/>
             <field name="display_balance">credit-debit</field>  
@@ -7893,6 +7893,13 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record>
+        <record id="transferencia_entre_fondos" model="analytic_account.account.template">
+            <field name="name">Transferencia entre Fondos</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
 
         <record id="cuenta_por_pagar_co" model="analytic_account.account.template">
             <field name="name">Cuenta por Pagar</field>
@@ -7933,14 +7940,14 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record> 
-        <record id="examenes" model="analytic_account.account.template">
+        <record id="derecho_de_examenes" model="analytic_account.account.template">
             <field name="name">Derecho de Exámen</field>
             <field name="parent" ref="ingresos"/>
             <field name="root" ref="sosten_propio"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record>
-        <record id="mora" model="analytic_account.account.template">
+        <record id="derecho_a_mora" model="analytic_account.account.template">
             <field name="name">Derecho a Mora</field>
             <field name="parent" ref="ingresos"/>
             <field name="root" ref="sosten_propio"/>
@@ -8102,6 +8109,13 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type">normal</field>
         </record>
+        <record id="asesoria_contable" model="analytic_account.account.template">
+            <field name="name">Asesoría Contable</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
         <record id="gastos_por_fondo_educativo" model="analytic_account.account.template">
             <field name="name">Gastos por Fondo Educativo</field>
             <field name="parent" ref="gastos"/>
@@ -8116,38 +8130,1060 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type">normal</field>
         </record>
-        
+        <record id="material_didactico" model="analytic_account.account.template">
+            <field name="name">Material Didáctico</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="carnets_de_estudiantes" model="analytic_account.account.template">
+            <field name="name">Carnets de Estudiantes</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="correos_y_envios" model="analytic_account.account.template">
+            <field name="name">Correos y Envios</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="telefonos_internet" model="analytic_account.account.template">
+            <field name="name">Telefono e Internet</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="agazajos_y_representaciones" model="analytic_account.account.template">
+            <field name="name">Agazajos y Representaciones</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="atencion_a_padres" model="analytic_account.account.template">
+            <field name="name">Atención a Padres</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="atencion_a_alumnos" model="analytic_account.account.template">
+            <field name="name">Atención a Alumnos</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="atencion_a_personal_docente" model="analytic_account.account.template">
+            <field name="name">Atención a Personal Docente</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="gastos_generales" model="analytic_account.account.template">
+            <field name="name">Gastos Generales</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="evangelismo" model="analytic_account.account.template">
+            <field name="name">Evangelismo</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="uniformes_de_personal" model="analytic_account.account.template">
+            <field name="name">Uniformes de Personal</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="aniversario" model="analytic_account.account.template">
+            <field name="name">Aniversario</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="seguridad_y_monitoreo" model="analytic_account.account.template">
+            <field name="name">Seguridad y Monitoreo</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="enfermeria" model="analytic_account.account.template">
+            <field name="name">Enfermería</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="talleres" model="analytic_account.account.template">
+            <field name="name">Enfermería</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="banda_escolar" model="analytic_account.account.template">
+            <field name="name">Banda Escolar</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="biblioteca" model="analytic_account.account.template">
+            <field name="name">Biblioteca</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="mensajeria_y_transporte" model="analytic_account.account.template">
+            <field name="name">Mensajería y Transporte</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="materiales_de_limpieza" model="analytic_account.account.template">
+            <field name="name">Materiales de Limpieza</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="extraccion_de_basura" model="analytic_account.account.template">
+            <field name="name">Extracción de Básura</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="operacion_escuela" model="analytic_account.account.template">
+            <field name="name">Operación Escuela</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="publicidad" model="analytic_account.account.template">
+            <field name="name">Publicidad</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="soporte_tecnico" model="analytic_account.account.template">
+            <field name="name">Soporte Técnico</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="seguro_de_edificios" model="analytic_account.account.template">
+            <field name="name">Seguro de Edificios</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="seguro_de_equipo" model="analytic_account.account.template">
+            <field name="name">Seguro de Equipo</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="comisiones_bancarias" model="analytic_account.account.template">
+            <field name="name">Seguro de Equipo</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="costos_y_gastos_de_rentas_exentas" model="analytic_account.account.template">
+            <field name="name">Costos y Gastos de Rentas Exentas</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="reparacion_de_mejoras_de_terrenos" model="analytic_account.account.template">
+            <field name="name">REPARACIÓN DE MEJORAS DE TERRENOS</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="mantenimiento_de_edificio" model="analytic_account.account.template">
+            <field name="name">Mantenimiento de Edificio</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="mantenimiento_de_equipo" model="analytic_account.account.template">
+            <field name="name">Mantenimiento de Equipo</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="depreciacion_de_edificio" model="analytic_account.account.template">
+            <field name="name">Depreciación de Edificio</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="depreciacion_de_mobiliario_y_equipo" model="analytic_account.account.template">
+            <field name="name">Depreciación de Mobiliario y Equipo</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="electricidad" model="analytic_account.account.template">
+            <field name="name">Electricidad</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="agua_y_alcantarillado" model="analytic_account.account.template">
+            <field name="name">Agua y Alcantarillado</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="transferencia_entre_funciones" model="analytic_account.account.template">
+            <field name="name">Transferencia entre Funciones</field>
+            <field name="parent" ref="gastos"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="display_balance">credit-debit</field>
+            <field name="type">normal</field>
+        </record>
     </data>
 
     <!-- AR Analytic Rule Template -->
 
     <data grouped="1">
-        <record id="ar_621110_iesa" model="analytic_account.rule.template">
+        <record id="ar_101110_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_101110_iesa"/>
-        </record>
-        <record id="ar_621120_iesa" model="analytic_account.rule.template">
+        </record>   
+        <record id="ar_101120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_101120_iesa"/>
+        </record>   
+        <record id="ar_102110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_102110_iesa"/>
+        </record>   
+        <record id="ar_102120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_102120_iesa"/>
+        </record>   
+        <record id="ar_102130_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_102130_iesa"/>
+        </record>   
+        <record id="ar_102140_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_102140_iesa"/>
+        </record>   
+        <record id="ar_103110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_103110_iesa"/>
+        </record>   
+        <record id="ar_103120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_103120_iesa"/>
+        </record>   
+        <record id="ar_134110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_134110_iesa"/>
+        </record>   
+        <record id="ar_138CAMBI01_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_138CAMBI01_iesa"/>
+        </record>   
+        <record id="ar_138FLUCA01_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_138FLUCA01_iesa"/>
+        </record>   
+        <record id="ar_138IVACR01_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_138IVACR01_iesa"/>
+        </record>   
+        <record id="ar_139110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_139110_iesa"/>
+        </record>   
+        <record id="ar_197110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_197110_iesa"/>
+        </record>   
+        <record id="ar_AGN111_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_AGN111_iesa"/>
+        </record>   
+        <record id="ar_AGNC11_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_AGNC11_iesa"/>
+        </record>   
+        <record id="ar_AGND11_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_AGND11_iesa"/>
+        </record>   
+        <record id="ar_AGNE11_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_AGNE11_iesa"/>
+        </record>   
+        <record id="ar_AGNINSTI1_iesa" model="analytic_account.rule.template">  
+            <field name="account" ref="pgc_AGNINSTI1_iesa"/>
+        </record>   
+        <record id="ar_AGNN11_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_AGNN11_iesa"/>
+        </record>   
+        <record id="ar_AGNS11_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_AGNS11_iesa"/>
+        </record>   
+        <record id="ar_AGNT11_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_AGNT11_iesa"/>
+        </record>   
+        <record id="ar_AGNUNION1_iesa" model="analytic_account.rule.template">  
+            <field name="account" ref="pgc_AGNUNION1_iesa"/>
+        </record>   
+        <record id="ar_AGNW11_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_AGNW11_iesa"/>
+        </record>   
+        <record id="ar_AGNWT11_iesa" model="analytic_account.rule.template">    
+            <field name="account" ref="pgc_AGNWT11_iesa"/>
+        </record>   
+        <record id="ar_358110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_358110_iesa"/>
+        </record>   
+        <record id="ar_CIGSS01_iesa" model="analytic_account.rule.template">    
+            <field name="account" ref="pgc_CIGSS01_iesa"/>
+        </record>   
+        <record id="ar_CISR01_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_CISR01_iesa"/>
+        </record>   
+
+        <record id="ar_621110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_621110_iesa"/>
+        </record>   
+        <record id="ar_621120_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_621120_iesa"/>
-        </record>
-        <record id="ar_621130_iesa" model="analytic_account.rule.template">
+        </record>   
+        <record id="ar_621130_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_621130_iesa"/>
-        </record>
-        <record id="ar_621140_iesa" model="analytic_account.rule.template">
+        </record>   
+        <record id="ar_621140_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_621140_iesa"/>
-        </record>
-        <record id="ar_638110_iesa" model="analytic_account.rule.template">
+        </record>   
+        <record id="ar_638110_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_638110_iesa"/>
-        </record>
+        </record>   
+        <record id="ar_671110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_671110_iesa"/>
+        </record>   
+        <record id="ar_711110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_711110_iesa"/>
+        </record>   
+        <record id="ar_751110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_751110_iesa"/>
+        </record>   
+
+
+        <record id="ar_803110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_803110_iesa"/>
+        </record>   
+        <record id="ar_811110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_811110_iesa"/>
+        </record>   
+        <record id="ar_811120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_811120_iesa"/>
+        </record>   
+        <record id="ar_811130_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_811130_iesa"/>
+        </record>   
+        <record id="ar_811140_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_811140_iesa"/>
+        </record>   
+        <record id="ar_811210_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_811210_iesa"/>
+        </record>   
+        <record id="ar_815110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_815110_iesa"/>
+        </record>   
+        <record id="ar_815120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_815120_iesa"/>
+        </record>   
+        <record id="ar_818110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_818110_iesa"/>
+        </record>   
+        <record id="ar_818120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_818120_iesa"/>
+        </record>   
+        <record id="ar_818130_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_818130_iesa"/>
+        </record>   
+        <record id="ar_818140_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_818140_iesa"/>
+        </record>   
+        <record id="ar_818150_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_818150_iesa"/>
+        </record>   
+        <record id="ar_870110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_870110_iesa"/>
+        </record>   
+        <record id="ar_870120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_870120_iesa"/>
+        </record>   
+        <record id="ar_872120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_872120_iesa"/>
+        </record>   
+        <record id="ar_872130_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_872130_iesa"/>
+        </record>   
+        <record id="ar_875110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_875110_iesa"/>
+        </record>   
+        <record id="ar_878110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_878110_iesa"/>
+        </record>   
+        <record id="ar_878130_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_878130_iesa"/>
+        </record>   
+        <record id="ar_881110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_881110_iesa"/>
+        </record>   
+        <record id="ar_881120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_881120_iesa"/>
+        </record>   
+        <record id="ar_881130_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_881130_iesa"/>
+        </record>   
+        <record id="ar_882110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_882110_iesa"/>
+        </record>   
+        <record id="ar_887120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_887120_iesa"/>
+        </record>   
+        <record id="ar_888110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_888110_iesa"/>
+        </record>   
+        <record id="ar_888120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_888120_iesa"/>
+        </record>   
+        <record id="ar_888130_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_888130_iesa"/>
+        </record>   
+        <record id="ar_888140_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_888140_iesa"/>
+        </record>   
+        <record id="ar_890110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890110_iesa"/>
+        </record>   
+        <record id="ar_890115_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890115_iesa"/>
+        </record>   
+        <record id="ar_890120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890120_iesa"/>
+        </record>   
+        <record id="ar_890125_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890125_iesa"/>
+        </record>   
+        <record id="ar_890130_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890130_iesa"/>
+        </record>   
+        <record id="ar_890135_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890135_iesa"/>
+        </record>   
+        <record id="ar_890140_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890140_iesa"/>
+        </record>   
+        <record id="ar_890145_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890145_iesa"/>
+        </record>   
+        <record id="ar_890150_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890150_iesa"/>
+        </record>   
+        <record id="ar_890155_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890155_iesa"/>
+        </record>   
+        <record id="ar_890160_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890160_iesa"/>
+        </record>   
+        <record id="ar_890165_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890165_iesa"/>
+        </record>   
+        <record id="ar_890170_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890170_iesa"/>
+        </record>   
+        <record id="ar_890175_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_890175_iesa"/>
+        </record>   
+        <record id="ar_893110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_893110_iesa"/>
+        </record>   
+        <record id="ar_894110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_894110_iesa"/>
+        </record>   
+        <record id="ar_894120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_894120_iesa"/>
+        </record>   
+        <record id="ar_896110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_896110_iesa"/>
+        </record>   
+        <record id="ar_897120_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_897120_iesa"/>
+        </record>   
+        <record id="ar_9022_iesa" model="analytic_account.rule.template">   
+            <field name="account" ref="pgc_9022_iesa"/>
+        </record>   
+        <record id="ar_902310_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_902310_iesa"/>
+        </record>   
+        <record id="ar_902510_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_902510_iesa"/>
+        </record>   
+        <record id="ar_903203_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_903203_iesa"/>
+        </record>   
+        <record id="ar_903205_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_903205_iesa"/>
+        </record>   
+        <record id="ar_907110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_907110_iesa"/>
+        </record>   
+        <record id="ar_907210_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_907210_iesa"/>
+        </record>   
+        <record id="ar_995110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_995110_iesa"/>
+        </record>   
+        <record id="ar_997110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_997110_iesa"/>
+        </record>  
     </data>
 
     <!-- AE Analytic Account Entry Template -->
-
     <data grouped="1">
-        <record id="ae_621110_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_621110_iesa"/>
+        <record id="ae_101110_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_101110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="caja_chica_co"/>
+        </record>
+        <record id="ae_101110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_101110_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="caja_chica_li"/>
+        </record>
+        <record id="ae_101120_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_101120_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="caja_general_co"/>
         </record>
-    </data>
+        <record id="ae_101120_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_101120_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="caja_general_li"/>
+        </record>
+        <record id="ae_102110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102110_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="banco_gyt_li"/>
+        </record>
+        <record id="ae_102110_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="banco_gyt_co"/>
+        </record>
 
+        <record id="ae_102120_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102120_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="banrural1_li"/>
+        </record>
+        <record id="ae_102120_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102120_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="banrural1_co"/>
+        </record>
+        <record id="ae_102130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102130_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="banrural2_co"/>
+        </record>
+        <record id="ae_102130_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102130_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="banrural2_li"/>
+        </record>
+
+        <record id="ae_134110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_134110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="ingresos_de_ensenanza_por_cobrar"/>
+        </record>
+        <record id="ae_138CAMBI01_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_138CAMBI01_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="cambio_de_cheque"/>
+        </record>
+
+        
+        <record id="ae_138FLUCA01_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_138FLUCA01_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="fluctuacion_en_cambios"/>
+        </record>
+        <record id="ae_138IVACR01_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_138IVACR01_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="iva_credito"/>
+        </record>
+
+                <record id="ae_139110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_139110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="provision_para_cuentas_mala"/>
+        </record>
+        <record id="ae_197110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_197110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="transferencia_entre_fondos"/>
+        </record>
+        <record id="ae_AGN111_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGN111_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="union_centroamericana_del_norte"/>
+        </record>
+        <record id="ae_AGNC11_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNC11_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="asociacion_metropolitana"/>
+        </record>
+        <record id="ae_AGND11_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGND11_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="asociacion_central_de_guatemala"/>
+        </record>
+        <record id="ae_AGNE11_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNE11_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="mision_oriental"/>
+        </record>
+        <record id="ae_AGNINSTI1_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNINSTI1_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="instituciones_educativas"/>
+        </record>
+        <record id="ae_AGNN11_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNN11_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="mision_norte"/>
+        </record>
+
+        <record id="ae_AGNS11_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNS11_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="mision_sur"/>
+        </record>
+        <record id="ae_AGNT11_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNT11_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="mision_centro_sur"/>
+        </record>
+        <record id="ae_AGNUNION1_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNUNION1_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="union_radio"/>
+        </record>
+        <record id="ae_AGNW11_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNW11_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="asociacion_occidental"/>
+        </record>
+
+
+        <record id="ae_AGNWT11_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_AGNWT11_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="instituciones_educativas"/>
+        </record>
+        <record id="ae_358110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_358110_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="cuenta_por_pagar_li"/>
+        </record>
+        <record id="ae_358110_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_358110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="cuenta_por_pagar_co"/>
+        </record>
+        
+        <record id="ae_CIGSS01_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_CIGSS01_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="iggs_li"/>
+        </record>
+        <record id="ae_CIGSS01_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_CIGSS01_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="iggs_co"/>
+        </record>
+        <record id="ae_CISR01_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_CISR01_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="isr_li"/>
+        </record>
+        <record id="ae_CISR01_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_CISR01_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="isr_co"/>
+        </record>
+        <record id="ae_621110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_621110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="inscripciones"/>
+        </record>
+        <record id="ae_621120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_621120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="colegiaturas"/>
+        </record>
+        <record id="ae_621130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_621130_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="derecho_de_examenes"/>
+        </record>
+        <record id="ae_621140_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_621140_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="derecho_a_mora"/>
+        </record>
+        <record id="ae_638110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_638110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="donaciones"/>
+        </record>
+        <record id="ae_671110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_671110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="primas_ganadas"/>
+        </record>
+        <record id="ae_711110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_711110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="intereses_ganados"/>
+        </record>
+        <record id="ae_751110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_751110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="ganancia_en_cambios"/>
+        </record>
+
+        <record id="ae_803110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_803110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="cuentas_malas"/>
+        </record>
+        <record id="ae_811110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_811110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="salario_empleados"/>
+        </record>
+        <record id="ae_811120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_811120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="bono_14_empleados"/>
+        </record>
+        <record id="ae_811130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_811130_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="aguinaldo_empleados"/>
+        </record>
+        <record id="ae_811140_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_811140_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="finiquitos"/>
+        </record>
+        <record id="ae_811210_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_811210_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="bonificacion_incentivo"/>
+        </record>
+        <record id="ae_815110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_815110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="seguro_4_en_1"/>
+        </record>
+        <record id="ae_815120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_815120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="seguro_de_estudiantes"/>
+        </record>
+        <record id="ae_818110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_818110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="seguro_social_igss"/>
+        </record>
+        <record id="ae_818120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_818120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="irtra"/>
+        </record>
+        <record id="ae_818130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_818130_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="intecap"/>
+        </record>
+        <record id="ae_818140_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_818140_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="indemnizacion"/>
+        </record>
+        <record id="ae_818150_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_818150_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="jubilacion"/>
+        </record>
+        <record id="ae_870110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_870110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="viaticos"/>
+        </record>
+        <record id="ae_870120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_870120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="acreditacion_nominal"/>
+        </record>
+        <record id="ae_872120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_872120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="reuniones_y_juntas"/>
+        </record>
+        <record id="ae_872130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_872130_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="capacitacion_y_retiros"/>
+        </record>
+        <record id="ae_875110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_875110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="asesoria_legal"/>
+        </record>
+        <record id="ae_878110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_878110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="asesoria_contable"/>
+        </record>
+        <record id="ae_878130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_878130_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="gastos_por_fondo_educativo"/>
+        </record>
+        <record id="ae_881110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_881110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="materiales_de_oficina"/>
+        </record>
+        <record id="ae_881120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_881120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="material_didactico"/>
+        </record>
+        <record id="ae_881130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_881130_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="carnets_de_estudiantes"/>
+        </record>
+        <record id="ae_882110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_882110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="correos_y_envios"/>
+        </record>
+        <record id="ae_887120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_887120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="telefonos_internet"/>
+        </record>
+        <record id="ae_888110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_888110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="agazajos_y_representaciones"/>
+        </record>
+        <record id="ae_888120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_888120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="atencion_a_padres"/>
+        </record>
+        <record id="ae_888130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_888130_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="atencion_a_alumnos"/>
+        </record>
+        <record id="ae_888140_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_888140_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="atencion_a_personal_docente"/>
+        </record>
+        <record id="ae_890110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="gastos_generales"/>
+        </record>
+        <record id="ae_890115_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890115_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="evangelismo"/>
+        </record>
+        <record id="ae_890120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="uniformes_de_personal"/>
+        </record>
+        <record id="ae_890125_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890125_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="aniversario"/>
+        </record>
+        <record id="ae_890130_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890130_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="seguridad_y_monitoreo"/>
+        </record>
+        <record id="ae_890135_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890135_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="enfermeria"/>
+        </record>
+        <record id="ae_890140_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890140_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="talleres"/>
+        </record>
+        <record id="ae_890145_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890145_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="banda_escolar"/>
+        </record>
+        <record id="ae_890150_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890150_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="biblioteca"/>
+        </record>
+        <record id="ae_890155_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890155_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="mensajeria_y_transporte"/>
+        </record>
+        <record id="ae_890160_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890160_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="materiales_de_limpieza"/>
+        </record>
+        <record id="ae_890165_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890165_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="extraccion_de_basura"/>
+        </record>
+        <record id="ae_890170_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890170_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="operacion_escuela"/>
+        </record>
+        <record id="ae_890175_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_890175_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="publicidad"/>
+        </record>
+        <record id="ae_893110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_893110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="soporte_tecnico"/>
+        </record>
+        <record id="ae_894110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_894110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="seguro_de_edificios"/>
+        </record>
+        <record id="ae_894120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_894120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="seguro_de_equipo"/>
+        </record>
+        <record id="ae_896110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_896110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="comisiones_bancarias"/>
+        </record>
+        <record id="ae_897120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_897120_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="costos_y_gastos_de_rentas_exentas"/>
+        </record>
+        <record id="ae_9022_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_9022_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="reparacion_de_mejoras_de_terrenos"/>
+        </record>
+        <record id="ae_902310_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_902310_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="mantenimiento_de_edificio"/>
+        </record>
+        <record id="ae_902510_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_902510_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="mantenimiento_de_equipo"/>
+        </record>
+        <record id="ae_903203_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_903203_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="depreciacion_de_edificio"/>
+        </record>
+        <record id="ae_903205_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_903205_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="depreciacion_de_mobiliario_y_equipo"/>
+        </record>
+        <record id="ae_907110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_907110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="electricidad"/>
+        </record>
+        <record id="ae_907210_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_907210_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="agua_y_alcantarillado"/>
+        </record>
+        <record id="ae_995110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_995110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="transferencia_entre_funciones"/>
+        </record>
+        <!--
+        <record id="ae_997110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_997110_iesa"/>
+            <field name="root" ref="sosten_propio"/>
+            <field name="account" ref="transferencia_entre_fondos"/>
+        </record>
+        -->
+
+        
+        <record id="ae_103110_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="banco_industrial_co"/>
+        </record>
+        <record id="ae_103120_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103120_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="banco_industrial_li"/>
+        </record>
+        
+
+        
+        
+    </data>
 
 </tryton>
