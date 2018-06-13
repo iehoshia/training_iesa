@@ -139,7 +139,7 @@ class SubscriptionContext(ModelView):
         domain=['AND', 
                 [('is_student', '=', True)],
                 [('company', '=', Eval('context', {}).get('company', -1))],
-            ]
+            ],
         )
     subscriber = fields.Many2One('party.party','Subscriber', #suscriptor
         domain=['AND', 
@@ -162,9 +162,9 @@ class Subscription(ModelSQL, ModelView):
             'readonly': ((Eval('state') != 'draft') 
                 | (Eval('lines', [0]) & Eval('student'))),
             },
-        depends=['state'],
+        depends=['state','company'],
         domain=['AND', [('is_student', '=', True)],
-                [('company', '=', Eval('context', {}).get('company', -1))],
+                [ ('company', '=', Eval('company',-1) )],
             ],
         help="The student who subscribe.")
 
@@ -209,13 +209,13 @@ class Subscription(ModelSQL, ModelView):
     enrolment = fields.Many2One('product.product','Enrolment',
         domain=['AND', 
             [('is_enrolment', '=', True)],
-            [('company', '=', Eval('context', {}).get('company', -1))],
+            [('company', '=', Eval('company', -1) )],
         ],  
         required=True, 
         states={
             'readonly': Eval('state') != 'draft',
             },
-        depends=['state']
+        depends=['state','company']
         )
 
     unit_price_enrolment = fields.Numeric("Enrolment Price", 
@@ -289,6 +289,7 @@ class Subscription(ModelSQL, ModelView):
     def __setup__(cls): 
         super(Subscription, cls).__setup__() 
         cls.party.depends=['company']
+        cls.company.domain=[]
         cls.party.domain=['AND', 
                 [('is_subscriber', '=', True)],
                 [('company', '=', Eval('company',-1) )],
@@ -837,8 +838,8 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
     @classmethod 
     def __setup__(cls): 
         super(Line, cls).__setup__() 
-        cls.service.depends=['subscription']
-        cls.service.domain=[('company', '=', Eval('subscription.company',-1) )]
+        cls.service.depends=['company','subscription_state']
+        cls.service.domain=[('company', '=', Eval('company',-1) )]
         cls.unit_price.digits=(16,2)
 
     @classmethod

@@ -23,7 +23,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="accounts"/>
         </page>
         <page name="children" string="Children" col="1">
-            <field name="children"/>
+            <field name="children" view_ids="account_budget.budget_view_tree" yfill="1" yexpand="1"/>
         </page>
         <page name="periods" string="Periods" col="1">
             <button name="distribute_periods" string="Distribuir"
