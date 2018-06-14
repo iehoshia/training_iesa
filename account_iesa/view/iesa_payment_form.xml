@@ -1,32 +1,33 @@
 <?xml version="1.0"?>
 <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
 this repository contains the full copyright notices and license terms. -->
-<form col="6" cursor="party">
-    <group id="party" colspan="3" col="4">
-        <label name="party"/>
-        <field name="party" colspan="3"/>
-        <label name="third_party"/>
-        <field name="third_party"/>
-    </group>
-    <group id="invoice" colspan="3" col="4" yfill="1">
+<form col="6" cursor="third_party">
+    <group id="parties" colspan="3" col="2">
         <label name="number"/>
         <field name="number" readonly="1"/>
+        <label name="third_party"/>
+        <field name="third_party" />
+        <!--<field name="parties" colspan="4" widget="many2many"/>-->
+    </group>
+    <group id="invoice" colspan="3" col="4" yfill="1">
         <label name="invoice_date"/>
         <field name="invoice_date"/>
         <label name="amount"/>
         <field name="amount" xalign="1.0" xexpand="0"/>
-        <label name="amount_receivable"/>
-        <field name="amount_receivable" readonly="1"/>
+        <!--<label name="amount_receivable"/>
+        <field name="amount_receivable" readonly="1"/>-->
         <label name="journal"/>
-        <field name="journal"/>
+        <field name="journal" widget="selection"/>
         <label name="ticket"/>
         <field name="ticket"/>
-    </group>
-    <group id="references" colspan="6" col="6">
         <label name="description"/>
-        <field name="description" colspan="2"/>
-        <!--<label name="reference"/>
-        <field name="reference" colspan="2"/>-->
+        <field name="description" colspan="3"/>
+    </group>
+    <group id="lines" colspan="6" col="6">
+        <field name="lines" colspan="6"
+            view_ids="account_iesa.iesa_payment_line_view_form,account_iesa.iesa_payment_line_view_form"/>
+        <field name="lines" colspan="6"
+            view_ids="account_iesa.iesa_payment_line_view_tree,account_iesa.iesa_payment_line_view_tree"/>
     </group>
     <notebook colspan="6">
         <page string="Payment History" id="invoice" col="6">
@@ -42,29 +43,28 @@ this repository contains the full copyright notices and license terms. -->
                     <button name="post"/>
                 </group>
             </group>
-            <field name="payment_lines" colspan="6" 
-                view_ids="account_iesa.payment_lines_view_tree"/>
+            <!--<field name="payment_lines" colspan="6" 
+                view_ids="account_iesa.payment_lines_view_tree"/>-->
         </page>
-        <page string="Other Info" id="info">
+        <page string="Other Info" id="info" col="6">
             <label name="company"/>
             <field name="company" readonly="1"/>
             <!--<label name="account"/>
             <field name="account"/>-->
             <label name="accounting_date"/>
             <field name="accounting_date" readonly="1"/>
-            <label name="move"/>
-            <field name="move"/>
             <label name="currency"/>
             <field name="currency" readonly="1"/>
             <!--<label name="invoice_address"/>
             <field name="invoice_address"/>-->
-            <field name="invoices" colspan="6"
-                view_ids="account_iesa.invoice_view_tree"/>
+            <!--<field name="invoices" colspan="6"
+                view_ids="account_iesa.invoice_view_tree"/>-->
             <!--<label name="cancel_move"/>
             <field name="cancel_move"/>-->
-            <separator name="comment" colspan="4"/>
-            <field name="comment" colspan="4"/>
+            <field name="moves" colspan="6"/>
+            <separator name="comment" colspan="6"/>
+            <field name="comment" colspan="6"/>
         </page>
     </notebook>
-    <field name="party_lang" invisible="1" colspan="6"/>
+    <!--<field name="party_lang" invisible="1" colspan="6"/>-->
 </form> 

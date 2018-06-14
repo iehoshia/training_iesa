@@ -14,5 +14,30 @@ this repository contains the full copyright notices and license terms. -->
             <field name="inherit" ref="account.update_chart_start_view_form"/>
             <field name="name">update_chart_start_form</field>
         </record>
+
+        <record model="ir.ui.view" id="account_view_tree2">
+            <field name="model">analytic_account.account</field>
+            <field name="inherit" ref="analytic_account.account_view_tree2"/>
+            <field name="priority" eval="20"/>
+            <field name="name">account_tree2</field>
+        </record>
+
+        <record model="ir.ui.view" id="account_view_form">
+            <field name="model">analytic_account.account</field>
+            <field name="inherit" ref="analytic_account.account_view_form"/>
+            <field name="priority" eval="20"/>
+            <field name="name">account_form</field>
+        </record>
+        
+        <record model="ir.rule.group" id="rule_group_analytic_account">
+            <field name="model" search="[('model', '=', 'analytic_account.account')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_analytic1">
+            <field name="domain"
+                eval="[('company', '=', Eval('user', {}).get('company', None) )]"
+                pyson="1"/>
+            <field name="rule_group" ref="rule_group_analytic_account"/>
+        </record>
     </data>
 </tryton>

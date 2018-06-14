@@ -159,8 +159,8 @@ msgid "Amount"
 msgstr "Monto a pagar"
 
 msgctxt "field:account.iesa.payment,amount_receivable:"
-msgid "Receivable"
-msgstr "Pendiente de Cobro"
+msgid "Balance"
+msgstr "Balance"
 
 msgctxt "field:account.iesa.payment,comment:"
 msgid "Comment"
@@ -181,6 +181,18 @@ msgstr "Encargado"
 msgctxt "field:account.iesa.payment,payment_lines:"
 msgid "Payment Lines"
 msgstr "Historial de cuenta"
+
+msgctxt "field:account.iesa.payment,lines:"
+msgid "Payment Lines"
+msgstr "Líneas de Pago"
+
+msgctxt "field:account.iesa.payment.line,party:"
+msgid "Party"
+msgstr "Estudiante"
+
+msgctxt "field:account.iesa.payment.line,amount:"
+msgid "Amount"
+msgstr "Monto a Pagar"
 
 msgctxt "view:account.iesa.payment:"
 msgid "Payment History"
@@ -318,3 +330,19 @@ msgstr "Enumerar"
 msgctxt "model:ir.model.button,string:payment_draft_button"
 msgid "Draft"
 msgstr "Borrador"
+
+msgctxt "selection:account.iesa.payment,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:account.iesa.payment,state:"
+msgid "Canceled"
+msgstr "Cancelado"
+
+msgctxt "selection:account.iesa.payment,state:"
+msgid "Quotation"
+msgstr "Enumerado"
+
+msgctxt "selection:account.iesa.payment,state:"
+msgid "Posted"
+msgstr "Contabilizado"

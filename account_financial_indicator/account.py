@@ -4,6 +4,7 @@ from decimal import Decimal
 import datetime
 import operator
 from functools import wraps
+from collections import defaultdict
 
 from dateutil.relativedelta import relativedelta
 from sql import Column, Null, Window, Literal
@@ -43,11 +44,220 @@ def inactive_records(func):
             return func(*args, **kwargs)
     return wrapper
 
-class Account(ModelSQL, ModelView):
+class Account(DeactivableMixin, ModelSQL, ModelView):
     'Analytic Account'
     __name__ = 'analytic_account.account'
 
     template = fields.Many2One('analytic_account.account.template', 'Template')
+    is_recommended_capital = fields.Boolean('Recommended Capital')
+    financial_indicator = fields.Function(
+        fields.Numeric('Financial Indicator',
+            digits=(16, Eval('currency_digits', 2))
+        ),
+        'get_financial_indicator')
+    custom_balance = fields.Function(fields.Numeric('Balance',
+        digits=(16, Eval('currency_digits', 1)), depends=['currency_digits']),
+        'get_custom_balance')
+
+    def get_recommended_capital(self):
+        #print "LLEGA BUDGETS: " 
+        balances = {}
+        pool = Pool()
+        Date = pool.get('ir.date')
+        today = Date.today()
+        Fiscalyear = pool.get('account.fiscalyear')
+        Budget = pool.get('account.budget')
+        company = Transaction().context.get('company')
+        fiscalyears = Fiscalyear.search([('company','=',company),
+            ('start_date','<=',today),
+            ('end_date','>=',today)])
+        fiscalyear = None 
+        if len(fiscalyears)==1: 
+            fiscalyear = fiscalyears[0].id
+        budgets = Budget.search([('fiscalyear','=',fiscalyear),
+            ('company','=',company)])
+        if budgets:
+            balance = budgets[0].amount * Decimal('0.15') / Decimal('12.0')
+            return balance
+        return 0 
+
+    @classmethod
+    def get_balance(cls, accounts, name):
+        pool = Pool()
+        Line = pool.get('analytic_account.line')
+        MoveLine = pool.get('account.move.line')
+        cursor = Transaction().connection.cursor()
+        table = cls.__table__()
+        line = Line.__table__()
+        move_line = MoveLine.__table__()
+
+        ids = [a.id for a in accounts]
+        childs = cls.search([('parent', 'child_of', ids)])
+        all_ids = {}.fromkeys(ids + [c.id for c in childs]).keys()
+
+        id2account = {}
+        all_accounts = cls.browse(all_ids)
+        for account in all_accounts:
+            id2account[account.id] = account
+
+        line_query = Line.query_get(line)
+        cursor.execute(*table.join(line, 'LEFT',
+                condition=table.id == line.account
+                ).join(move_line, 'LEFT',
+                condition=move_line.id == line.move_line
+                ).select(table.id,
+                Sum(Coalesce(line.debit, 0) - Coalesce(line.credit, 0)),
+                where=(table.type != 'view')
+                & table.id.in_(all_ids)
+                & (table.active == True) & line_query,
+                group_by=table.id))
+        account_sum = defaultdict(Decimal)
+        for account_id, value in cursor.fetchall():
+            account_sum.setdefault(account_id, Decimal('0.0'))
+            # SQLite uses float for SUM
+            if not isinstance(value, Decimal):
+                value = Decimal(str(value))
+            account_sum[account_id] += value
+
+        balances = {}
+        for account in accounts:
+            balance = Decimal()
+            childs = cls.search([
+                    ('parent', 'child_of', [account.id]),
+                    ])
+            for child in childs:
+                balance += account_sum[child.id]
+            if account.display_balance == 'credit-debit' and balance:
+                balance *= -1
+            exp = Decimal(str(10.0 ** -account.currency_digits))
+            balances[account.id] = balance.quantize(exp)
+        return balances
+
+    @classmethod
+    def get_custom_balance(cls, accounts, name):
+        pool = Pool()
+        Line = pool.get('analytic_account.line')
+        MoveLine = pool.get('account.move.line')
+        cursor = Transaction().connection.cursor()
+        table = cls.__table__()
+        line = Line.__table__()
+        move_line = MoveLine.__table__()
+
+        ids = [a.id for a in accounts]
+        childs = cls.search([('parent', 'child_of', ids)])
+        all_ids = {}.fromkeys(ids + [c.id for c in childs]).keys()
+
+        id2account = {}
+        all_accounts = cls.browse(all_ids)
+        for account in all_accounts:
+            id2account[account.id] = account
+
+        line_query = Line.query_get(line)
+        cursor.execute(*table.join(line, 'LEFT',
+                condition=table.id == line.account
+                ).join(move_line, 'LEFT',
+                condition=move_line.id == line.move_line
+                ).select(table.id,
+                Sum(Coalesce(line.debit, 0) - Coalesce(line.credit, 0)),
+                where=(table.type != 'view')
+                & table.id.in_(all_ids)
+                & (table.active == True) & line_query,
+                group_by=table.id))
+        account_sum = defaultdict(Decimal)
+        for account_id, value in cursor.fetchall():
+            account_sum.setdefault(account_id, Decimal('0.0'))
+            # SQLite uses float for SUM
+            if not isinstance(value, Decimal):
+                value = Decimal(str(value))
+            account_sum[account_id] += value
+
+        balances = {}
+        for account in accounts:
+            balance = Decimal()
+            childs = cls.search([
+                    ('parent', 'child_of', [account.id]),
+                    ])
+            for child in childs:
+                balance += account_sum[child.id]
+            if account.is_recommended_capital == True: 
+                balance = account.get_recommended_capital()
+            if account.type == 'root':
+                first_child = second_child = 0 
+                if account.childs is not []: 
+                    first_child = account.childs[0].balance  
+                    second_child = account.childs[1].balance
+                    balance = first_child - second_child 
+            if account.display_balance == 'credit-debit' and balance:
+                balance *= -1
+            exp = Decimal(str(10.0 ** -account.currency_digits))
+            balances[account.id] = balance.quantize(exp)
+        return balances
+
+    @classmethod
+    def get_credit_debit(cls, accounts, names):
+        pool = Pool()
+        Line = pool.get('analytic_account.line')
+        MoveLine = pool.get('account.move.line')
+        cursor = Transaction().connection.cursor()
+        table = cls.__table__()
+        line = Line.__table__()
+        move_line = MoveLine.__table__()
+
+        result = {}
+        ids = [a.id for a in accounts]
+        for name in names:
+            if name not in ('credit', 'debit'):
+                raise Exception('Bad argument')
+            result[name] = {}.fromkeys(ids, Decimal('0.0'))
+
+        id2account = {}
+        for account in accounts:
+            id2account[account.id] = account
+
+        line_query = Line.query_get(line)
+        columns = [table.id]
+        for name in names:
+            columns.append(Sum(Coalesce(Column(line, name), 0)))
+        cursor.execute(*table.join(line, 'LEFT',
+                condition=table.id == line.account
+                ).join(move_line, 'LEFT',
+                condition=move_line.id == line.move_line
+                ).select(*columns,
+                where=(table.type != 'view')
+                & table.id.in_(ids)
+                & (table.active == True) & line_query,
+                group_by=table.id))
+
+        for row in cursor.fetchall():
+            account_id = row[0]
+            for i, name in enumerate(names, 1):
+                value = row[i]
+                # SQLite uses float for SUM
+                if not isinstance(value, Decimal):
+                    value = Decimal(str(value))
+                #print "ROW: " + str(row)+ " VALUE: " + str(value)
+                result[name][account_id] += value
+        for account in accounts:
+            for name in names:
+                exp = Decimal(str(10.0 ** -account.currency_digits))
+                result[name][account.id] = (
+                    result[name][account.id].quantize(exp))
+        return result
+    
+    def get_financial_indicator(self, name):
+        if self.type == 'root':
+            first_child = second_child = quotient = 0 
+            if self.childs is not None: 
+                first_child = self.childs[0].custom_balance  
+                second_child = self.childs[1].custom_balance
+            if second_child != 0:
+                quotient = first_child / second_child * Decimal('100.0')
+                return quotient
+        credit = self.credit if self.credit else 0
+        debit = self.debit if self.debit else 0 
+        if debit is not Decimal('0.0'): 
+            return credit / debit 
+        return 0
 
     def update_analytic_account(self, template2account=None):
         '''

@@ -14,13 +14,14 @@ def register():
         Template, 
         Service,
         Move,  
-        Account, 
         InvoiceLine,
-        Payment, 
         PaymentParty,
+        Payment, 
         PaymentMoveLine, 
+        PaymentMoveReference,
         Configuration, 
         ConfigurationSequence, 
+        PaymentLine, 
         module='account_iesa', type_='model')
 #    Pool.register(
 #        CopyBudget,

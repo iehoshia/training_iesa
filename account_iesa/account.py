@@ -36,14 +36,16 @@ from numero_letras import numero_a_moneda
 __all__ = ['Capital',
     'Liquidity',
     'Move',
-    'Account',
+    #'Account',
     'AccountMoveReport',
-    'Payment',
     'PaymentParty',
+    'Payment',
+    'PaymentMoveReference',
     'PaymentMoveLine',
     'GeneralLedger',
+    'PaymentLine'
     ]  
-#__metaclass__ = PoolMeta
+__metaclass__ = PoolMeta
 
 _MOVE_STATES = {
     'readonly': Eval('state') == 'posted',
@@ -71,7 +73,7 @@ STATES = [
     ('draft', 'Draft'),
     ('posted', 'Posted'),
     ('quotation', 'Quotation'),
-    ('cancel', 'Canceled'),
+    ('canceled', 'Canceled'),
     ]
 
 class Capital(ModelView):
@@ -389,171 +391,6 @@ class AnalyticAccountContext(ModelSQL, ModelView):
     def default_to_date(cls):
         return Transaction().context.get('to_date')
 
-class Account(DeactivableMixin, ModelSQL, ModelView):
-    'Analytic Account'
-    __name__ = 'analytic_account.account'
-
-    is_recommended_capital = fields.Boolean('Recommended Capital')
-
-    financial_indicator = fields.Function(
-        fields.Numeric('Financial Indicator',
-            digits=(16, Eval('currency_digits', 2))
-        ),
-        'get_financial_indicator')
-
-    def get_recommended_capital(self):
-        #print "LLEGA BUDGETS: " 
-        balances = {}
-        pool = Pool()
-        Date = pool.get('ir.date')
-        today = Date.today()
-        Fiscalyear = pool.get('account.fiscalyear')
-        Budget = pool.get('account.budget')
-        company = Transaction().context.get('company')
-        fiscalyears = Fiscalyear.search([('company','=',company),
-            ('start_date','<=',today),
-            ('end_date','>=',today)])
-        fiscalyear = None 
-        if len(fiscalyears)==1: 
-            fiscalyear = fiscalyears[0].id
-        budgets = Budget.search([('fiscalyear','=',fiscalyear),
-            ('company','=',company)])
-        if budgets:
-            balance = budgets[0].amount * Decimal('0.15') / Decimal('12.0')
-            return balance
-        return 0 
-
-    @classmethod
-    def get_balance(cls, accounts, name):
-        #print "NO LLEGA BUDGETS: "
-        pool = Pool()
-        Line = pool.get('analytic_account.line')
-        MoveLine = pool.get('account.move.line')
-        cursor = Transaction().connection.cursor()
-        table = cls.__table__()
-        line = Line.__table__()
-        move_line = MoveLine.__table__()
-
-        ids = [a.id for a in accounts]
-        #print "IDS: " + str(ids)
-        childs = cls.search([('parent', 'child_of', ids)])
-        all_ids = {}.fromkeys(ids + [c.id for c in childs]).keys()
-
-        id2account = {}
-        all_accounts = cls.browse(all_ids)
-        for account in all_accounts:
-            id2account[account.id] = account
-
-        line_query = Line.query_get(line)
-        cursor.execute(*table.join(line, 'LEFT',
-                condition=table.id == line.account
-                ).join(move_line, 'LEFT',
-                condition=move_line.id == line.move_line
-                ).select(table.id,
-                Sum(Coalesce(line.debit, 0) - Coalesce(line.credit, 0)),
-                where=(table.type != 'view')
-                & table.id.in_(all_ids)
-                & (table.active == True) & line_query,
-                group_by=table.id))
-        account_sum = defaultdict(Decimal)
-        for account_id, value in cursor.fetchall():
-            account_sum.setdefault(account_id, Decimal('0.0'))
-            # SQLite uses float for SUM
-            if not isinstance(value, Decimal):
-                value = Decimal(str(value))
-            account_sum[account_id] += value
-
-        balances = {}
-        for account in accounts:
-            balance = Decimal()
-            childs = cls.search([
-                    ('parent', 'child_of', [account.id]),
-                    ])
-            for child in childs:
-                balance += account_sum[child.id]
-            if account.is_recommended_capital == True: 
-                balance = account.get_recommended_capital()
-            if account.type == 'root':
-                first_child = second_child = 0 
-                if account.childs is not None: 
-                    first_child = account.childs[0].balance  
-                    second_child = account.childs[1].balance
-                    balance = first_child - second_child 
-            if account.display_balance == 'credit-debit' and balance:
-                balance *= -1
-            exp = Decimal(str(10.0 ** -account.currency_digits))
-            balances[account.id] = balance.quantize(exp)
-        return balances
-
-    @classmethod
-    def get_credit_debit(cls, accounts, names):
-        pool = Pool()
-        Line = pool.get('analytic_account.line')
-        MoveLine = pool.get('account.move.line')
-        cursor = Transaction().connection.cursor()
-        table = cls.__table__()
-        line = Line.__table__()
-        move_line = MoveLine.__table__()
-
-        result = {}
-        ids = [a.id for a in accounts]
-        for name in names:
-            if name not in ('credit', 'debit'):
-                raise Exception('Bad argument')
-            result[name] = {}.fromkeys(ids, Decimal('0.0'))
-
-        id2account = {}
-        for account in accounts:
-            id2account[account.id] = account
-
-        line_query = Line.query_get(line)
-        columns = [table.id]
-        for name in names:
-            columns.append(Sum(Coalesce(Column(line, name), 0)))
-        cursor.execute(*table.join(line, 'LEFT',
-                condition=table.id == line.account
-                ).join(move_line, 'LEFT',
-                condition=move_line.id == line.move_line
-                ).select(*columns,
-                where=(table.type != 'view')
-                & table.id.in_(ids)
-                & (table.active == True) & line_query,
-                group_by=table.id))
-
-        for row in cursor.fetchall():
-            account_id = row[0]
-            for i, name in enumerate(names, 1):
-                value = row[i]
-                # SQLite uses float for SUM
-                if not isinstance(value, Decimal):
-                    value = Decimal(str(value))
-                #print "ROW: " + str(row)+ " VALUE: " + str(value)
-                result[name][account_id] += value
-        for account in accounts:
-            for name in names:
-                exp = Decimal(str(10.0 ** -account.currency_digits))
-                result[name][account.id] = (
-                    result[name][account.id].quantize(exp))
-        return result
-    
-    def get_financial_indicator(self, name):
-        if self.type == 'root':
-            first_child = second_child = 0 
-            if self.childs is not None: 
-                first_child = self.childs[0].balance  
-                #print "FIRSTCHILD: " + str(first_child)
-                second_child = self.childs[1].balance
-                #print "SECONDCHILD: " + str(second_child)
-            if second_child != 0:
-                quotient = first_child / second_child * Decimal('100.0')
-                #print "QUOTIENT: " + str(quotient) 
-                return quotient
-        credit = self.credit if self.credit else 0
-        debit = self.debit if self.debit else 0 
-        if debit is not 0: 
-            return credit / debit 
-        return 0
-
 class AccountMoveReport(Report):
     __name__ = 'account.move.report'
 
@@ -572,8 +409,26 @@ class AccountMoveReport(Report):
 
         return report_context
 
+
+class PaymentParty(ModelSQL, ModelView):
+    'Payment - Party'
+    __name__ = 'account.iesa.payment-party.party'
+    _table = 'payment_party_rel'
+
+    payment = fields.Many2One('account.iesa.payment', 
+            'Payment', ondelete='CASCADE',
+            required=True, select=True)
+    party = fields.Many2One('party.party', 
+            'Party', ondelete='CASCADE',
+            required=True, select=True,
+            #domain=['AND',
+            #        [('company','=',Eval('context', {}).get('company', -1) )],
+            #        [('is_student','=',True)]
+            #]
+            )
+
 class Payment(Workflow, ModelView, ModelSQL):
-    'IESA Payment'
+    'Payment'
     __name__ = 'account.iesa.payment'
 
     company = fields.Many2One('company.company', 'Company', required=True,
@@ -582,10 +437,18 @@ class Payment(Workflow, ModelView, ModelSQL):
                 Eval('context', {}).get('company', -1)),
             ],
         depends=_DEPENDS)
-    company_party = fields.Function(
-        fields.Many2One('party.party', "Company Party"),
-        'on_change_with_company_party')
-    number = fields.Char('Number', size=None, readonly=False, select=True, 
+    #parties = fields.Many2Many('account.iesa.payment-party.party','payment','party',  
+    #    'Parties', 
+    #    required=True,  
+        #domain=[('company','=',Eval('company',-1) ),
+        #        ('is_student','=',True),
+        #        ], 
+    #    depends=['company'],
+    #    )
+    #company_party = fields.Function(
+    #    fields.Many2One('party.party', "Company Party"),
+    #    'on_change_with_company_party')
+    number = fields.Char('Number', size=None, select=True, 
         required=False)
     reference = fields.Char('Reference', size=None, states=_STATES,
         depends=_DEPENDS)
@@ -600,18 +463,20 @@ class Payment(Workflow, ModelView, ModelSQL):
         depends=['state'])
     accounting_date = fields.Date('Accounting Date', states=_STATES,
         depends=_DEPENDS)
-    party = fields.Many2One('party.party', 'Party',
-        required=True, states=_STATES, depends=_DEPENDS,
-        domain=['AND', 
-                [('is_student', '=', True)],
-                [('company', '=', Eval('context', {}).get('company', -1))],
-            ]
-        )
+    #party = fields.Many2One('party.party', 'Party',
+    #    required=False, states=_STATES, depends=_DEPENDS,
+    #    domain=['AND', 
+    #            [('is_student', '=', True)],
+    #            [('company', '=', Eval('company',-1) )],
+    #        ],
+    #    )
+
     invoice_address = fields.Many2One('party.address', 'Invoice Address',
-        required=False, states=_STATES, depends=['state', 'party'],
-        domain=[('party', '=', Eval('party'))])
-    party_lang = fields.Function(fields.Char('Party Language'),
-        'on_change_with_party_lang')
+        required=False, states=_STATES, depends=['state'],
+        #domain=[('party', '=', Eval('party'))]
+        )
+    #party_lang = fields.Function(fields.Char('Party Language'),
+    #    'on_change_with_party_lang')
     currency = fields.Many2One('currency.currency', 'Currency', required=True,
         states=_STATES, depends=_DEPENDS)
     currency_digits = fields.Function(fields.Integer('Currency Digits'),
@@ -629,46 +494,47 @@ class Payment(Workflow, ModelView, ModelSQL):
             'invisible': Eval('type') != 'writeoff',
             'required': Eval('type') == 'writeoff',
             }, depends=['type'])'''
-    move = fields.Many2One('account.move', 'Move', readonly=True,
-        domain=[
-            ('company', '=', Eval('company', -1)),
-            ],
+    moves = fields.One2Many('account.iesa.payment.move.line','payment', 'Move Lines', readonly=True,
+        #domain=[
+        #    ('company', '=', Eval('company', -1)),
+        #    ],
         depends=['company'])
-    account = fields.Many2One('account.account', 'Account', required=False,
+    account = fields.Many2One('account.account', 'Account', 
+        required=False,
         states=_STATES, depends=_DEPENDS + ['type', 'company'],
         domain=[
             ('company', '=', Eval('company', -1)),
             ('kind', '=', 'receivable'),
             ])
     payment_term = fields.Many2One('account.invoice.payment_term',
-        'Payment Term', states=_STATES, depends=_DEPENDS)
-    #invoices = fields.One2Many('account.invoice', 'party', 'Invoices',
-    #    domain=[
-    #        ('company', '=', Eval('company', -1)),
-    #        ('party', '=', Eval('party', -1)),
-    #        ],
-    #    states={
-    #        'readonly': True,
-    #        },
-    #    depends=['state', 'company','party'])
-    invoices = fields.Many2Many('account.iesa.payment-party.party', 'party', 'invoice',
-            'Invoices', help='Invoices registered for users',
+        'Payment Term', states=_STATES, depends=_DEPENDS,
+        required=False)
+    lines = fields.One2Many('account.iesa.payment.line','payment', 
+        'Payment Lines',
+        required=True,
+        states=_STATES, depends=_DEPENDS+['company'],
+        domain=[
+            ('company', '=', Eval('company', -1)),
+            #('id','in',Eval('parties',[]))
+        ])
+    
+    invoices = fields.Function(fields.One2Many('account.invoice', None,
+            'Invoices',
             domain=[
-                ('company', '=', Eval('company', -1)),
-                ('party', '=', Eval('party', -1)),
+                ('company','=',Eval('company',-1))
             ],
-            depends=['company','party'],
-            readonly=True, 
-            )
+            states=_STATES,
+            depends=['state','company'],
+        ),'get_invoices')
     amount = fields.Numeric('Amount', digits=(16,
                 Eval('currency_digits', 2)), 
                 depends=['currency_digits'],
                 required=True, 
                 states=_STATES, 
                 )
-    amount_receivable = fields.Numeric('Receivable',
+    amount_receivable = fields.Numeric('Balance',
             digits=(16, Eval('currency_digits', 2)),
-            depends=['currency_digits','party'],
+            depends=['currency_digits'],
             readonly=False, )
     comment = fields.Text('Comment', states=_STATES, depends=_DEPENDS)
     ticket = fields.Char('Ticket',  states=_STATES, 
@@ -677,15 +543,15 @@ class Payment(Workflow, ModelView, ModelSQL):
     third_party = fields.Char('Third Party', 
         required=True, 
         states=_STATES, )
-    payment_lines = fields.Many2Many('account.iesa.payment-account.move.line',
-        'party', 'line', string='Payment Lines',
-        help='Payment Lines for Party',
-        domain=[
-            ('party', '=', Eval('party', -1)),
-            ],
-        depends=['company','party'],
-        readonly=True, 
-        )
+    #payment_lines = fields.Many2Many('account.iesa.payment-account.move.line',
+    #    'parties', 'line', string='Payment Lines',
+    #    help='Payment Lines for Party',
+    #    domain=[
+    #        ('party', 'in', Eval('parties', [])),
+    #        ],
+    #    depends=['company','parties'],
+    #    readonly=True, 
+    #    )
 
     @classmethod
     def __setup__(cls):
@@ -697,11 +563,15 @@ class Payment(Workflow, ModelView, ModelSQL):
         cls._error_messages.update({
                 'missing_account_receivable': ('Missing Account Revenue.'),
                 'amount_can_not_be_zero': ('Amount to Pay can not be zero.'),
+                'post_unbalanced_payment': ('You can not post payment "%s" because '
+                    'it is an unbalanced.'),
                 })
         cls._transitions |= set((
                 ('draft', 'canceled'),
                 ('draft', 'quotation'),
                 ('quotation', 'posted'),
+                ('quotation', 'draft'),
+                ('quotation', 'canceled'),
                 ('canceled', 'draft'),
                 ))
         cls._buttons.update({
@@ -764,6 +634,28 @@ class Payment(Workflow, ModelView, ModelSQL):
         Date = pool.get('ir.date')
         return Date.today()
 
+    def get_incoming_moves(self, name):
+        moves = []
+        if self.warehouse_input == self.warehouse_storage:
+            return [m.id for m in self.moves]
+        for move in self.moves:
+            if move.to_location == self.warehouse_input:
+                moves.append(move.id)
+        return moves
+
+    '''
+    def get_invoices(self, name):
+        invoices = []
+        Invoice = Pool().get('account.invoice')
+        if self.parties: 
+            parties = self.parties 
+            found_invoices = Invoice.search([('party','in',parties)])
+        if found_invoices is not None:  
+            for found_invoice in found_invoices:
+                invoices.append(found_invoice.id)
+        return invoices
+    '''
+
     def __get_account_payment_term(self):
         '''
         Return default account and payment term
@@ -779,41 +671,59 @@ class Payment(Workflow, ModelView, ModelSQL):
                 if self.party.supplier_payment_term:
                     self.payment_term = self.party.supplier_payment_term
 
-    @fields.depends('party', 'payment_term', 'type', 'company','amount_receivable','invoices')
-    def on_change_party(self):
-
+    '''
+    @fields.depends('parties', 'payment_term', 'type', 'company','amount_receivable','invoices','lines')
+    def on_change_parties(self):
         self.invoice_address = None
         self.invoices = None 
         self.amount_receivable = None 
         self.lines = None
-        if self.party:
+        if self.parties is not None:
             pool = Pool()
             Invoice = pool.get('account.invoice')
             Line = pool.get('account.move.line')
+
+            parties = self.parties 
             start_date = date(date.today().year, 1, 1)
             end_date =  date(date.today().year, 12, 31)
 
-            invoices = Invoice.search([
-                    ('party', '=', self.party.id),
-                    ('state', '=', 'posted'),
-                    ('invoice_date','>=',start_date),
-                    ('invoice_date','<=',end_date),
-                    ])
-            if invoices:
+            invoices = []
+            found_invoices = Invoice.search([('party','in',parties)])
+            if found_invoices is not None:  
+                for found_invoice in found_invoices:
+                    invoices.append(found_invoice.id)
                 self.invoices = invoices
 
-            lines = Line.search([
-                ('party','=',self.party.id),
+            lines = []
+            found_lines = Line.search([
+                ('party','in',parties),
                 ('state','=','valid'),
                 ])
-            if lines: 
+            if found_lines: 
+                for found_line in found_lines:
+                    lines.append(found_line.id)
                 self.payment_lines = lines 
+            #self.invoice_address = self.party.address_get(type='invoice')
+            
+            amount_receivable = 0
+            for party in parties: 
+                amount_receivable =+ party.receivable 
 
-            self.invoice_address = self.party.address_get(type='invoice')
+            self.amount_receivable = amount_receivable
 
-            self.amount_receivable =  self.party.receivable
-            if self.party.supplier_payment_term:
-                self.payment_term = self.party.supplier_payment_term
+            parties_amount = []
+            Line = Pool().get('account.iesa.payment.line')
+            for party in parties: 
+                line = Line()
+                #line.payment = self 
+                line.party = party.id 
+                current_amount = 0 if party.receivable < 0 else party.receivable
+                line.amount = current_amount
+                parties_amount.append(line) 
+                
+            self.lines = parties_amount
+    '''
+
 
     @fields.depends('currency')
     def on_change_with_currency_digits(self, name=None):
@@ -826,18 +736,18 @@ class Payment(Workflow, ModelView, ModelSQL):
         Date = Pool().get('ir.date')
         return self.invoice_date or Date.today()
 
-    @fields.depends('party')
-    def on_change_with_party_lang(self, name=None):
-        Config = Pool().get('ir.configuration')
-        if self.party:
-            if self.party.lang:
-                return self.party.lang.code
-        return Config.get_language()
+    #@fields.depends('parties')
+    #def on_change_with_party_lang(self, name=None):
+    #    Config = Pool().get('ir.configuration')
+    #    if self.party:
+    #        if self.party.lang:
+    #            return self.party.lang.code
+    #    return Config.get_language()
 
-    @fields.depends('company')
-    def on_change_with_company_party(self, name=None):
-        if self.company:
-            return self.company.party.id
+    #@fields.depends('company')
+    #def on_change_with_company_party(self, name=None):
+    #    if self.company:
+    #        return self.company.party.id
 
     @classmethod
     def set_number(cls, payments):
@@ -887,7 +797,7 @@ class Payment(Workflow, ModelView, ModelSQL):
             pay_wizard.do_print_()
             print "PAY: " + str(pay_wizard) 
 
-    def get_move(self, amount):
+    def get_move(self, party, amount):
 
         pool = Pool()
         Move = pool.get('account.move')    
@@ -897,7 +807,6 @@ class Payment(Workflow, ModelView, ModelSQL):
         
         journal = self.journal 
         date = self.invoice_date
-        party = self.party
 
         account_config = AccountConfiguration(1)
         default_account_receivable = account_config.get_multivalue('default_account_receivable')
@@ -957,6 +866,19 @@ class Payment(Workflow, ModelView, ModelSQL):
     @ModelView.button
     @Workflow.transition('quotation')
     def quote(cls, payments):
+        for payment in payments: 
+            company = payment.company
+            total_amount = payment.amount
+            current_amount = 0
+
+            print "LINES: " + str(payment.lines)
+            for line in payment.lines: 
+                current_amount += line.amount 
+                print "CURRENT AMOUNT: " + str(current_amount)
+            balance = total_amount - current_amount
+
+            if not company.currency.is_zero(balance):
+                cls.raise_user_error('post_unbalanced_payment', (payment.rec_name,))
         cls.set_number(payments)
 
     @classmethod
@@ -979,48 +901,107 @@ class Payment(Workflow, ModelView, ModelSQL):
         Date = pool.get('ir.date')
 
         for payment in payments: 
-            amount = payment.amount
-            move = payment.get_move(amount)
+            moves = []
+            for line in payment.lines: 
+                move = payment.get_move(line.party, line.amount)
+                moves.append(move)
 
-            '''receivable = payment.party.receivable
-            accumulated_amount = 0
-            if receivable <= 0: 
-                #print "RECEIVABLE: " + str(receivable)
-                move = payment.get_move(amount)
-            else:
-                if amount >= receivable:
-                    difference = 0 
-                    for invoice in payment.invoices:
-                        current_amount = invoice.amount_to_pay 
-                        accumulated_amount += current_amount
-                        difference = amount - accumulated_amount
-                        move = payment._pay_invoice_wizard(invoice, invoice.amount_to_pay)
-                    if difference > 0: 
-                        move = payment.get_move(difference)
-                else: 
-                    accumulated_amount = 0
-                    for invoice in payment.invoices: 
-                        current_amount = invoice.amount_to_pay
-                        accumulated_amount += current_amount
-                        difference = amount - current_amount
-                        possitive_difference = current_amount - amount 
-                        if amount > current_amount:
-                            payment._pay_invoice_wizard(invoice, current_amount)
-                        else: 
-                            payment._pay_invoice_wizard(invoice, amount)
-                            break
-                        amount -= current_amount
-                        difference = amount - accumulated_amount
-                        if difference > 0: 
-                            move = payment.get_move(difference)'''
+            
             payment.accounting_date = Date.today()
-            payment.move = move 
+            #payment.moves = moves
             payment.state = 'posted'
             payment.save()
-        
-class PaymentParty(ModelSQL):
-    'Payment - Party'
-    __name__ = 'account.iesa.payment-party.party'
+
+class PaymentMoveReference(ModelView, ModelSQL):
+    'Payment Move Reference'
+    __name__ = 'account.iesa.payment.move.line'
+
+    payment = fields.Many2One('account.iesa.payment','Payment')
+    move = fields.Many2One('account.move','Move')
+
+
+class PaymentLine(ModelView, ModelSQL):
+    'Payment Line'
+    __name__ = 'account.iesa.payment.line'
+
+    _states = {
+        'readonly': Eval('payment_state') != 'draft',
+        }
+    _depends = ['payment_state']
+
+    payment_state = fields.Function(fields.Selection(STATES, 'Payment State'),
+        'on_change_with_payment_state')
+    payment = fields.Many2One('account.iesa.payment','Payment', required=True)
+    party = fields.Many2One('party.party','Party', required=True,
+        domain=['AND',
+                    [('company','=',Eval('context', {}).get('company', -1) )],
+                    [('is_student','=',True)]
+            ],
+        states={
+            'required': ~Eval('payment'),
+            'readonly': _states['readonly'],
+            },
+        depends=['payment'] + _depends,
+        )
+    amount = fields.Numeric('Amount', 
+                    digits=(16, Eval('currency_digits', 2)), 
+                    required=True, 
+        states={
+            'required': ~Eval('payment'),
+            'readonly': _states['readonly'],
+            },
+        depends=['payment','currency_digits'] + _depends,
+        )
+    currency = fields.Many2One('currency.currency', 'Currency', required=True)
+    currency_digits = fields.Function(fields.Integer('Currency Digits'),
+        'on_change_with_currency_digits')
+    company = fields.Many2One('company.company','Company')
+
+    @fields.depends('payment', '_parent_payment.state')
+    def on_change_with_payment_state(self, name=None):
+        if self.payment:
+            return self.payment.state
+        return 'draft'
+
+    @staticmethod
+    def default_company():
+        return Transaction().context.get('company')
+
+    #@staticmethod
+    #def default_amount():
+    #    current_amount = 0 
+    #    if self.party.receivable:
+    #        current_amount = 0 if self.party.receivable < 0 else self.party.receivable
+    #    return current_amount
+
+    @staticmethod
+    def default_currency():
+        Company = Pool().get('company.company')
+        if Transaction().context.get('company'):
+            company = Company(Transaction().context['company'])
+            return company.currency.id
+
+    @staticmethod
+    def default_currency_digits():
+        Company = Pool().get('company.company')
+        if Transaction().context.get('company'):
+            company = Company(Transaction().context['company'])
+            return company.currency.digits
+        return 2
+
+    @staticmethod
+    def default_company():
+        return Transaction().context.get('company')
+
+    @fields.depends('currency')
+    def on_change_with_currency_digits(self, name=None):
+        if self.currency:
+            return self.currency.digits
+        return 2
+
+class InvoiceParty(ModelSQL):
+    'Invoice - Party'
+    __name__ = 'account.invoice-party.party'
     _table = 'invoice_party_rel'
 
     invoice = fields.Many2One('account.invoice', 'Invoice', ondelete='CASCADE',
