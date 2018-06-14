@@ -317,7 +317,7 @@ msgstr "Recibos"
 
 msgctxt "model:ir.model.button,string:payment_post_button"
 msgid "Post"
-msgstr "Confirmar"
+msgstr "Contabilizar"
 
 msgctxt "model:ir.model.button,string:payment_cancel_button"
 msgid "Cancel"
@@ -346,3 +346,7 @@ msgstr "Enumerado"
 msgctxt "selection:account.iesa.payment,state:"
 msgid "Posted"
 msgstr "Contabilizado"
+
+msgctxt "error:account.iesa.payment:"
+msgid "You can not post payment \"%s\" because it is an unbalanced."
+msgstr "No puede contabilizar el recibo \"%s\" porque está descuadrado."

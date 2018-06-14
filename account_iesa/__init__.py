@@ -30,4 +30,5 @@ def register():
     Pool.register(
         AccountMoveReport,
         GeneralLedger,
+        PaymentReceipt,
         module='account_iesa', type_='report')

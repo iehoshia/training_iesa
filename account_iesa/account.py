@@ -43,7 +43,8 @@ __all__ = ['Capital',
     'PaymentMoveReference',
     'PaymentMoveLine',
     'GeneralLedger',
-    'PaymentLine'
+    'PaymentLine',
+    'PaymentReceipt'
     ]  
 __metaclass__ = PoolMeta
 
@@ -543,15 +544,15 @@ class Payment(Workflow, ModelView, ModelSQL):
     third_party = fields.Char('Third Party', 
         required=True, 
         states=_STATES, )
-    #payment_lines = fields.Many2Many('account.iesa.payment-account.move.line',
-    #    'parties', 'line', string='Payment Lines',
-    #    help='Payment Lines for Party',
-    #    domain=[
-    #        ('party', 'in', Eval('parties', [])),
-    #        ],
-    #    depends=['company','parties'],
-    #    readonly=True, 
-    #    )
+    payment_lines = fields.Many2Many('account.iesa.payment-account.move.line',
+        'lines', 'line', string='Historic Payment Lines',
+        help='Historic Payment Lines',
+        domain=[
+            ('party', 'in', Eval('parties', [])),
+            ],
+        depends=['company','parties'],
+        readonly=True, 
+        )
 
     @classmethod
     def __setup__(cls):
@@ -671,9 +672,8 @@ class Payment(Workflow, ModelView, ModelSQL):
                 if self.party.supplier_payment_term:
                     self.payment_term = self.party.supplier_payment_term
 
-    '''
-    @fields.depends('parties', 'payment_term', 'type', 'company','amount_receivable','invoices','lines')
-    def on_change_parties(self):
+    @fields.depends('type', 'company','amount_receivable','invoices','payment_lines')
+    def on_change_lines(self):
         self.invoice_address = None
         self.invoices = None 
         self.amount_receivable = None 
@@ -722,8 +722,6 @@ class Payment(Workflow, ModelView, ModelSQL):
                 parties_amount.append(line) 
                 
             self.lines = parties_amount
-    '''
-
 
     @fields.depends('currency')
     def on_change_with_currency_digits(self, name=None):
@@ -1047,4 +1045,39 @@ class GeneralLedger(Report):
 
         print "REPORT CONTEXT: " + str(report_context)
 
+        return report_context
+
+class PaymentReceipt(Report):
+    'Payment Receipt'
+    __name__ = 'account.iesa.payment.report'
+
+    #@classmethod
+    #def _get_records(cls, ids, model, data):
+    #    return None 
+
+    @classmethod
+    def get_context(cls, records, data):
+
+        report_context = super(PaymentReceipt, cls).get_context(records, data)
+
+        amount = 0
+        for record in records: 
+            amount = record.amount
+
+        amount_on_letters = numero_a_moneda(amount)
+
+        #report_context['amount'] = data['amount'] 
+        #report_context['party'] = data['party'] 
+        #report_context['date'] = data['date'] 
+        #report_context['number'] = data['number'] 
+        #report_context['journal'] = data['journal'] 
+        #report_context['is_ticket'] = data['is_ticket']
+        #report_context['ticket'] = data['ticket']
+        #report_context['third_party'] = data['third_party']
+        #report_context['description'] = data['description'] 
+        #report_context['product'] = data['product'] 
+        #report_context['product2'] = data['product2'] 
+        #report_context['month'] = data['month'] 
+        report_context['amount_on_letters'] = amount_on_letters
+        
         return report_context

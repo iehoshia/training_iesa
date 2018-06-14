@@ -97,7 +97,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="model">account.move</field>
             <field name="report_name">account.move.check</field>
             <field name="report">account_iesa/check.fodt</field>
-
         </record>
         <record model="ir.action.keyword" id="report_account_check_keyword">
             <field name="keyword">form_print</field>
@@ -230,10 +229,12 @@ this repository contains the full copyright notices and license terms. -->
             <field name="group" ref="account.group_account"/>
         </record>-->
 
+        <!-- PAYMENTS -->
+
         <record model="ir.action.report" id="report_iesa_payment">
             <field name="name">Payment</field>
-            <field name="model">account.payment</field>
-            <field name="report_name">account.payment</field>
+            <field name="model">account.iesa.payment</field>
+            <field name="report_name">account.iesa.payment.report</field>
             <field name="report">account_iesa/payment.fodt</field>
             <field name="single" eval="True"/>
         </record>
