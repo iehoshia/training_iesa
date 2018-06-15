@@ -544,15 +544,15 @@ class Payment(Workflow, ModelView, ModelSQL):
     third_party = fields.Char('Third Party', 
         required=True, 
         states=_STATES, )
-    payment_lines = fields.Many2Many('account.iesa.payment-account.move.line',
-        'lines', 'line', string='Historic Payment Lines',
-        help='Historic Payment Lines',
-        domain=[
-            ('party', 'in', Eval('parties', [])),
-            ],
-        depends=['company','parties'],
-        readonly=True, 
-        )
+    #payment_lines = fields.Function(fields.One2Many('account.move.line',
+    #    'lines', string='Historic Payment Lines',
+    #    help='Historic Payment Lines',
+    #    domain=[
+    #        ('party', 'in', Eval('parties', [])),
+    #        ],
+    #    depends=['company','parties'],
+    #    readonly=True, 
+    #    ))
 
     @classmethod
     def __setup__(cls):
@@ -672,6 +672,7 @@ class Payment(Workflow, ModelView, ModelSQL):
                 if self.party.supplier_payment_term:
                     self.payment_term = self.party.supplier_payment_term
 
+    '''
     @fields.depends('type', 'company','amount_receivable','invoices','payment_lines')
     def on_change_lines(self):
         self.invoice_address = None
@@ -722,6 +723,7 @@ class Payment(Workflow, ModelView, ModelSQL):
                 parties_amount.append(line) 
                 
             self.lines = parties_amount
+    '''
 
     @fields.depends('currency')
     def on_change_with_currency_digits(self, name=None):

@@ -58,10 +58,6 @@ msgctxt "field:account.invoice.pay.start,amount:account_invoice"
 msgid "Amount"
 msgstr "Monto a Pagar"
 
-msgctxt "field:account.invoice,party:account_invoice"
-msgid "Party"
-msgstr "Alumno"
-
 msgctxt "field:account.invoice,company:account_invoice"
 msgid "Company"
 msgstr "Colegio"
@@ -97,10 +93,6 @@ msgstr "Estudiante"
 msgctxt "field:sale.subscription,invoice_start_date:sale_subscription"
 msgid "Invoice Start Date"
 msgstr "Fecha inicial de cobro"
-
-msgctxt "field:account.move,company:account"
-msgid "Company"
-msgstr "Colegio"
 
 msgctxt "field:account.move,company:account"
 msgid "Company"

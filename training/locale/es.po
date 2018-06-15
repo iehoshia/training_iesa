@@ -2,10 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "field:account.move,amount:"
-msgid "Amount"
-msgstr "Monto"
-
 msgctxt "field:sale.subscription,student:"
 msgid "Student"
 msgstr "Estudiante"
@@ -41,6 +37,8 @@ msgstr "Edad"
 msgctxt "field:party.party,sex:"
 msgid "Sex"
 msgstr "Sexo"
+
+
 
 msgctxt "field:party.party,license:"
 msgid "License"
@@ -114,6 +112,7 @@ msgctxt "field:overdue.report.print.start,user:"
 msgid "User"
 msgstr "Usuario"
 
+
 msgctxt "field:grade.overdue.report.print.start,date:"
 msgid "Date"
 msgstr "Fecha"
@@ -165,8 +164,6 @@ msgstr "Inscripción"
 msgctxt "field:sale.subscription.create_invoice.start,party:"
 msgid "Party"
 msgstr "Estudiante"
-
-
 
 msgctxt "view:sale.subscription:"
 msgid "Invoices"
