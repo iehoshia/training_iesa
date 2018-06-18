@@ -2123,7 +2123,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
         </record>
         <record id="iesa_consolidated_balance_134110" model="account.account.meta.type.template">
-            <field name="name">134110. Ingresos de Enseñanza por Cobrar</field>
+            <field name="name">134110. Cuentas por Cobrar Alumnos</field>
             <field name="parent" ref="iesa_consolidated_balance_134"/>
             <field name="sequence" eval="134110"/>
             <field name="display_balance">credit-debit</field>
@@ -5351,7 +5351,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <record id="iesa_balance_134110" model="account.account.type.template">
-            <field name="name">134110. Ingresos de Enseñanza por Cobrar</field>
+            <field name="name">134110. Cuentas por Cobrar Alumnos</field>
             <field name="parent" ref="iesa_balance_134"/>
             <field name="sequence" eval="134110"/>
             <field name="display_balance">debit-credit</field>
@@ -6318,10 +6318,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="deferral" eval="True"/>
             <field name="party_required" eval="False"/>
         </record>
-        <!--
-        <record id="ar_101120_iesa" model="account.account.template">
-            <field name="account" ref="pgc_101120_iesa"/>
-        </record>-->
 
         <record id="pgc_102110_iesa" model="account.account.template">
             <field name="name">Banco GyT Continental</field>
@@ -6497,7 +6493,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="reconcile" eval="True"/>
         </record>
         <record id="pgc_134110_iesa" model="account.account.template">
-            <field name="name">Ingresos de Enseñanza por Cobrar</field>
+            <field name="name">Cuentas por Cobrar Alumnos</field>
             <field name="parent" ref="pgc_1_iesa"/>
             <field name="code">134110</field>
             <field name="type" ref="iesa_balance_134110"/>
@@ -7597,7 +7593,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
-           </record>
+        </record>
         <record id="pasivo_corriente_li" model="analytic_account.account.template">
             <field name="name">Pasivo Corriente</field>
             <field name="parent" ref="liquidez"/>
@@ -7658,7 +7654,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
-         </record>
+        </record>
         <record id="banrural1_li" model="analytic_account.account.template">
             <field name="name">Banco BANRURAL 1</field>
             <field name="parent" ref="caja_y_bancos"/>
@@ -7746,10 +7742,52 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record>
-        <record id="ingresos_de_ensenanza_por_cobrar" model="analytic_account.account.template">
-            <field name="name">Ingresos de Enseñanza por Cobrar</field>
+        <record id="cuentas_por_cobrar_alumnos" model="analytic_account.account.template">
+            <field name="name">Cuentas por Cobrar Alumnos</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ahorro_banrural_co" model="analytic_account.account.template">
+            <field name="name">Ahorro BANRURAL</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ahorro_banrural_li" model="analytic_account.account.template">
+            <field name="name">Ahorro BANRURAL</field>
+            <field name="parent" ref="caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ahorro_industrial_co" model="analytic_account.account.template">
+            <field name="name">Ahorro Industrial</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ahorro_industrial_li" model="analytic_account.account.template">
+            <field name="name">Ahorro Industrial</field>
+            <field name="parent" ref="caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="plazo_fijo_co" model="analytic_account.account.template">
+            <field name="name">Plazo Fijo</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="plazo_fijo_li" model="analytic_account.account.template">
+            <field name="name">Plazo Fijo</field>
+            <field name="parent" ref="caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record>
@@ -8403,10 +8441,13 @@ this repository contains the full copyright notices and license terms. -->
         </record>   
         <record id="ar_103120_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_103120_iesa"/>
-        </record>   
+        </record> 
+        <record id="ar_104110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_104110_iesa"/>
+        </record>  
         <record id="ar_134110_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_134110_iesa"/>
-        </record>   
+        </record>
         <record id="ar_138CAMBI01_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_138CAMBI01_iesa"/>
         </record>   
@@ -8686,28 +8727,28 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="liquidez"/>
             <field name="account" ref="caja_general_li"/>
         </record>
-        <record id="ae_102110_li_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_102110_iesa"/>
-            <field name="root" ref="liquidez"/>
-            <field name="account" ref="banco_gyt_li"/>
-        </record>
+
         <record id="ae_102110_co_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_102110_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="banco_gyt_co"/>
         </record>
-
-        <record id="ae_102120_li_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_102120_iesa"/>
+        <record id="ae_102110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102110_iesa"/>
             <field name="root" ref="liquidez"/>
-            <field name="account" ref="banrural1_li"/>
+            <field name="account" ref="banco_gyt_li"/>
         </record>
         <record id="ae_102120_co_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_102120_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="banrural1_co"/>
         </record>
-        <record id="ae_102130_iesa" model="analytic.account.entry.template">
+        <record id="ae_102120_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102120_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="banrural1_li"/>
+        </record>
+        <record id="ae_102130_co_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_102130_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="banrural2_co"/>
@@ -8718,18 +8759,61 @@ this repository contains the full copyright notices and license terms. -->
             <field name="account" ref="banrural2_li"/>
         </record>
 
-        <record id="ae_134110_iesa" model="analytic.account.entry.template">
+        <record id="ae_102140_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102140_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="banrural2_co"/>
+        </record>
+        <record id="ae_102140_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102140_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="banrural2_li"/>
+        </record>
+
+        <record id="ae_103110_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="ahorro_banrural_co"/>
+        </record>
+        <record id="ae_103110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103110_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="ahorro_banrural_li"/>
+        </record>
+
+        <record id="ae_103120_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103120_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="ahorro_industrial_co"/>
+        </record>
+        <record id="ae_103120_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103120_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="ahorro_industrial_li"/>
+        </record>
+
+        <record id="ae_104110_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_104110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="ahorro_industrial_co"/>
+        </record>
+        <record id="ae_104110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_104110_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="ahorro_industrial_li"/>
+        </record>
+        
+        <record id="ae_134110_co_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_134110_iesa"/>
             <field name="root" ref="capital_operativo"/>
-            <field name="account" ref="ingresos_de_ensenanza_por_cobrar"/>
+            <field name="account" ref="cuentas_por_cobrar_alumnos"/>
         </record>
+        
         <record id="ae_138CAMBI01_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_138CAMBI01_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="cambio_de_cheque"/>
         </record>
-
-        
         <record id="ae_138FLUCA01_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_138FLUCA01_iesa"/>
             <field name="root" ref="capital_operativo"/>
@@ -8741,7 +8825,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="account" ref="iva_credito"/>
         </record>
 
-                <record id="ae_139110_iesa" model="analytic.account.entry.template">
+        <record id="ae_139110_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_139110_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="provision_para_cuentas_mala"/>
@@ -8802,7 +8886,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="asociacion_occidental"/>
         </record>
-
 
         <record id="ae_AGNWT11_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_AGNWT11_iesa"/>
@@ -9161,29 +9244,5 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="sosten_propio"/>
             <field name="account" ref="transferencia_entre_funciones"/>
         </record>
-        <!--
-        <record id="ae_997110_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_997110_iesa"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="account" ref="transferencia_entre_fondos"/>
-        </record>
-        -->
-
-        
-        <record id="ae_103110_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_103110_iesa"/>
-            <field name="root" ref="capital_operativo"/>
-            <field name="account" ref="banco_industrial_co"/>
-        </record>
-        <record id="ae_103120_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_103120_iesa"/>
-            <field name="root" ref="liquidez"/>
-            <field name="account" ref="banco_industrial_li"/>
-        </record>
-        
-
-        
-        
     </data>
-
 </tryton>

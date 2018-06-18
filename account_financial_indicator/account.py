@@ -55,9 +55,9 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
             digits=(16, Eval('currency_digits', 2))
         ),
         'get_financial_indicator')
-    custom_balance = fields.Function(fields.Numeric('Balance',
-        digits=(16, Eval('currency_digits', 1)), depends=['currency_digits']),
-        'get_custom_balance')
+    #custom_balance = fields.Function(fields.Numeric('Balance',
+    #    digits=(16, Eval('currency_digits', 1)), depends=['currency_digits']),
+    #    'get_custom_balance')
 
     def get_recommended_capital(self):
         #print "LLEGA BUDGETS: " 
@@ -77,7 +77,8 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
         budgets = Budget.search([('fiscalyear','=',fiscalyear),
             ('company','=',company)])
         if budgets:
-            balance = budgets[0].amount * Decimal('0.15') / Decimal('12.0')
+            balance = budgets[0].amount * Decimal('0.15')
+            #return Decimal('231382.92')
             return balance
         return 0 
 
@@ -127,6 +128,14 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
                     ])
             for child in childs:
                 balance += account_sum[child.id]
+            if account.is_recommended_capital == True: 
+                balance = account.get_recommended_capital()
+            if account.type == 'root':
+                first_child = second_child = 0 
+                if account.childs is not []: 
+                    first_child = account.childs[0].balance  
+                    second_child = account.childs[1].balance
+                    balance = first_child - second_child 
             if account.display_balance == 'credit-debit' and balance:
                 balance *= -1
             exp = Decimal(str(10.0 ** -account.currency_digits))
@@ -248,14 +257,14 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
         if self.type == 'root':
             first_child = second_child = quotient = 0 
             if self.childs is not None: 
-                first_child = self.childs[0].custom_balance  
-                second_child = self.childs[1].custom_balance
+                first_child = self.childs[0].balance  
+                second_child = self.childs[1].balance
             if second_child != 0:
-                quotient = first_child / second_child * Decimal('100.0')
+                quotient = first_child / second_child * 100
                 return quotient
         credit = self.credit if self.credit else 0
         debit = self.debit if self.debit else 0 
-        if debit is not Decimal('0.0'): 
+        if debit is not 0: 
             return credit / debit 
         return 0
 
@@ -555,6 +564,11 @@ class AnalyticAccountEntry(ModelView, ModelSQL):
     template = fields.Many2One('analytic.account.entry.template', 'Template')
     companies = fields.Many2One('company.company','Companies',required=True)
 
+    @classmethod
+    def __setup__(cls):
+        super(AnalyticAccountEntry, cls).__setup__()
+        cls.origin.required=True 
+        
     @staticmethod
     def default_companies():
         return Transaction().context.get('company')
@@ -579,29 +593,29 @@ class AnalyticAccountEntry(ModelView, ModelSQL):
 
         values = []
         childs = [self]
-        while childs:
-            for child in childs:
-                if child.template:
-                    vals = child.template._get_entry_value()
-                    if child.template.origin:
-                        origin =  template2analytic_rule.get(child.template.origin.id)
-                        vals['origin'] = 'analytic_account.rule,'+str(origin)
-                    else:
-                        vals['origin'] = None
-                    if child.template.root:
-                        vals['root'] = template2analytic_account.get(child.template.root.id)
-                    else:
-                        vals['root'] = None
-                    if child.template.account:
-                        vals['account'] = template2analytic_account.get(child.template.account.id)
-                    else:
-                        vals['account'] = None
-                    if vals:
-                        values.append([child])
-                        values.append(vals)
-                    template2entry[child.template.id] = child.id
-            break
-            #childs = sum((c.childs for c in childs), ())
+        #while childs:
+        for child in childs:
+            if child.template:
+                vals = child.template._get_entry_value()
+                if child.template.origin:
+                    origin =  template2analytic_rule.get(child.template.origin.id)
+                    vals['origin'] = 'analytic_account.rule,'+str(origin)
+                else:
+                    vals['origin'] = None
+                if child.template.root:
+                    vals['root'] = template2analytic_account.get(child.template.root.id)
+                else:
+                    vals['root'] = None
+                if child.template.account:
+                    vals['account'] = template2analytic_account.get(child.template.account.id)
+                else:
+                    vals['account'] = None
+                if vals:
+                    values.append([child])
+                    values.append(vals)
+                template2entry[child.template.id] = child.id
+        #break
+        #childs = sum((c.childs for c in childs), ())
         if values:
             self.write(*values)
 

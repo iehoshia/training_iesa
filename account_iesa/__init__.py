@@ -9,8 +9,6 @@ from .configuration import *
 
 def register():
     Pool.register(
-        Capital,
-        Liquidity,
         Template, 
         Service,
         Move,  

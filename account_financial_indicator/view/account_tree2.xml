@@ -5,7 +5,7 @@ this repository contains the full copyright notices and license terms. -->
     <data>
    
 	    <xpath expr="/tree/field[@name=&quot;currency&quot;]" position="replace">
-	    	<field name="custom_balance"/>
+	    	<!--<field name="custom_balance"/>-->
 	    	<field name="financial_indicator"/>
 	    </xpath>	
     </data>

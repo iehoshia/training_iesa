@@ -1,28 +1,21 @@
 <data>
-	
-	<xpath expr="/form/field[@name=&quot;origin&quot;]" position="replace">
-		<field name="origin" colspan="3"/>
-		<!--<label name="amount"/>
-		<field name="amount"/>-->
-	</xpath>
 	<xpath expr="/form/field[@name=&quot;lines&quot;]" position="replace">
-		<field name="lines" colspan="4"
-        	view_ids="account_iesa.move_line_view_form_move,account_iesa.move_line_view_form_move"/>
-        <field name="lines" colspan="4" 
-        	view_ids="account.move_line_view_tree_move,account.move_line_view_tree_move" 
-        	readonly="1"/> 
 		<!--<field name="lines" colspan="4"
-        	view_ids="account.move_line_view_tree_move,account.move_line_view_form_move"/>
-		<label name="amount"/>
+        	view_ids="account_iesa.move_line_view_form_move,account_iesa.move_line_view_form_move"/>-->
+        <field name="lines" colspan="4" 
+        	view_ids="account_iesa.move_line_view_tree"/>
+		<!--<label name="amount"/>
 		<field name="amount"/>-->
 	</xpath>
 
 	
 
     <xpath expr="/form/field[@name=&quot;description&quot;]" position="after">
+        <!--
     	<label name="is_third_party"/>
     	<field name="is_third_party"/>
     	<label name="third_party"/>
     	<field name="third_party"/>
+    -->
     </xpath>
 </data>

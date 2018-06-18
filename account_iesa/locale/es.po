@@ -6,70 +6,6 @@ msgctxt "field:account.operating.capital,company:"
 msgid "Company"
 msgstr "Colegio"
 
-msgctxt "field:account.operating.capital,fiscalyear:"
-msgid "Fiscal Year"
-msgstr "Año Fiscal"
-
-msgctxt "field:account.operating.capital,current_asset:"
-msgid "Current Asset"
-msgstr "Activo Corriente"
-
-msgctxt "field:account.operating.capital,current_asset_amount:"
-msgid "Amount"
-msgstr "Saldo"
-
-msgctxt "field:account.operating.capital,current_liability:"
-msgid "Current Liability"
-msgstr "Pasivo Corriente"
-
-msgctxt "field:account.operating.capital,current_liability_amount:"
-msgid "Amount"
-msgstr "Saldo"
-
-msgctxt "field:account.operating.capital,current_capital:"
-msgid "Current Capital"
-msgstr "Capital Actual"
-
-msgctxt "field:account.operating.capital,annual_budget:"
-msgid "Annual Budget"
-msgstr "Gasto Proyectado Anual"
-
-msgctxt "field:account.operating.capital,recommended_capital:"
-msgid "Recommended Capital"
-msgstr "Capital Recomendado"
-
-msgctxt "field:account.operating.capital,difference:"
-msgid "Surplus (Deficit)"
-msgstr "Superávit (Déficit)"
-
-msgctxt "field:account.operating.capital,percentage:"
-msgid "Percentage"
-msgstr "Porcentaje"
-
-msgctxt "field:account.liquidity,company:"
-msgid "Company"
-msgstr "Colegio"
-
-msgctxt "field:account.liquidity,cash_bank:"
-msgid "Cash - Bank"
-msgstr "Caja y Bancos"
-
-msgctxt "field:account.liquidity,current_liability:"
-msgid "Current Liability"
-msgstr "Pasivo Corriente"
-
-msgctxt "field:account.liquidity,difference:"
-msgid "Surplus (Deficit)"
-msgstr "Superávit (Déficit)"
-
-msgctxt "field:account.liquidity,percentage:"
-msgid "Percentage"
-msgstr "Porcentaje"
-
-msgctxt "field:account.liquidity,fiscalyear:"
-msgid "Fiscal Year"
-msgstr "Año Fiscal"
-
 msgctxt "field:account.move,is_third_party:"
 msgid "Party"
 msgstr "Requiere Impresión"
@@ -85,6 +21,14 @@ msgstr "Colegio"
 msgctxt "field:account.iesa.payment,company_party:"
 msgid "Company Party"
 msgstr "Colegio"
+
+msgctxt "field:account.iesa.payment,subscriber:"
+msgid "Subscriber"
+msgstr "Encargado"
+
+msgctxt "field:account.iesa.payment,is_third_party:"
+msgid "Is Third Party"
+msgstr "Pago de Terceros"
 
 msgctxt "field:account.iesa.payment,number:"
 msgid "Number"
@@ -186,6 +130,10 @@ msgctxt "field:account.iesa.payment,lines:"
 msgid "Payment Lines"
 msgstr "Líneas de Pago"
 
+msgctxt "field:account.iesa.payment,existing_move_lines:"
+msgid "Payment Moves"
+msgstr "Historial de Pagos"
+
 msgctxt "field:account.iesa.payment.line,party:"
 msgid "Party"
 msgstr "Estudiante"
@@ -194,25 +142,17 @@ msgctxt "field:account.iesa.payment.line,amount:"
 msgid "Amount"
 msgstr "Monto a Pagar"
 
+msgctxt "field:account.iesa.payment.line,account:"
+msgid "Account"
+msgstr "Cuenta"
+
+msgctxt "field:account.iesa.payment.line,description:"
+msgid "Description"
+msgstr "Descripción"
+
 msgctxt "view:account.iesa.payment:"
 msgid "Payment History"
 msgstr "Pagos"
-
-msgctxt "view:account.iesa.payment:"
-msgid "Cancel"
-msgstr "Cancelar"
-
-msgctxt "view:account.iesa.payment:"
-msgid "Draft"
-msgstr "Borrador"
-
-msgctxt "view:account.iesa.payment:"
-msgid "Quotation"
-msgstr "Prevalidar"
-
-msgctxt "view:account.iesa.payment:"
-msgid "Post"
-msgstr "Contabilizar"
 
 msgctxt "view:account.iesa.payment:"
 msgid "Other Info"
@@ -257,18 +197,6 @@ msgstr "Índices Financieros"
 msgctxt "model:account.iesa.payment,name:menu_operative_capital"
 msgid "Payment IESA"
 msgstr "Recibo"
-
-msgctxt "model:ir.ui.menu,name:menu_operative_capital"
-msgid "Operative Capital"
-msgstr "Capital Operativo"
-
-msgctxt "model:ir.ui.menu,name:menu_liquidity"
-msgid "Liquidity"
-msgstr "Liquidez"
-
-msgctxt "model:ir.action,name:act_operative_capital"
-msgid "Operative Capital"
-msgstr "Capital Operativo"
 
 msgctxt "model:ir.action,name:act_account_move"
 msgid "Account Moves"
