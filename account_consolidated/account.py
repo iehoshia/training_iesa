@@ -236,7 +236,7 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
     @classmethod
     def get_amount(cls, types, name):
         pool = Pool()
-        Account = pool.get('account.account.type')
+        Account = pool.get('account.account')
         transaction = Transaction()
         context = transaction.context
 
@@ -254,11 +254,13 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
         for company in context.get('companies', []):
             with transaction.set_context(company=company['id']):
                 accounts = Account.search([
-                        ('meta_type', 'in', [t.id for t in childs]),
-                        ('company', '=', company['id'])
+                        ('company', '=', company['id']),
+                        ('type.meta_type', 'in', [t.id for t in childs]),
+                        ('kind', '!=', 'view'),
                         ])
                 for account in accounts:
-                    type_sum[account.meta_type.id] += (account.amount)
+                    key = account.type.meta_type.id
+                    type_sum[key] += (account.debit - account.credit)
 
         for type_ in types:
             childs = cls.search([
@@ -271,7 +273,6 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
             if type_.display_balance == 'credit-debit':
                 res[type_.id] = - res[type_.id]
         return res
-
 
     @classmethod
     def get_amount_cmp(cls, types, name):
