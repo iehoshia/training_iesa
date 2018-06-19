@@ -69,12 +69,16 @@
         </page>
     
         <page string="Invoices" id="invoice">
-            <field name="invoices" colspan="4" widget="many2many"/>
+            <field name="invoices" colspan="4" widget="many2many" readonly="1"/>
+        </page>
+
+        <page string="Payment History" id="invoice">
             <label name="receivable"/>
             <field name="receivable"/>
-            <label name="payable"/>
-            <field name="payable"/>
+            <field name="payment_lines" colspan="4" widget="many2many" readonly="1"
+                view_ids="training.custom_move_line_view_tree"/>
         </page>
+
         <page string="School Notes" id="notes">
             <separator string="Under construction" colspan="4" id="under_construction"/>
         </page>

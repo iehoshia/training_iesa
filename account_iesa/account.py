@@ -196,6 +196,7 @@ class PaymentParty(ModelSQL, ModelView):
 class Payment(Workflow, ModelView, ModelSQL):
     'Payment'
     __name__ = 'account.iesa.payment'
+    _order_name = 'number'
 
     company = fields.Many2One('company.company', 'Company', required=True,
         states=_STATES, select=True, domain=[
@@ -289,6 +290,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         required=False, 
         states=_STATES, )
     subscriber = fields.Many2One('party.party','Subscriber',
+        states=_STATES, 
         domain=['AND', 
                 [('is_subscriber', '=', True)],
                 [('company', '=', Eval('context', {}).get('company', -1))],
@@ -339,6 +341,19 @@ class Payment(Workflow, ModelView, ModelSQL):
                     'depends': ['state'],
                     },
                 })
+
+    @classmethod
+    def search_rec_name(cls, name, clause):
+        if clause[1].startswith('!') or clause[1].startswith('not '):
+            bool_op = 'AND'
+        else:
+            bool_op = 'OR'
+        return [bool_op,
+            ('number',) + tuple(clause[1:]),
+            ('description',) + tuple(clause[1:]),
+            ('subscriber',) + tuple(clause[1:]),
+            ('invoice_date',) + tuple(clause[1:]),
+            ]
 
     @staticmethod
     def default_state():

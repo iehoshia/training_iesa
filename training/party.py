@@ -65,6 +65,7 @@ class Party(ModelSQL, ModelView):
     subscriptions = fields.One2Many('sale.subscription','party','Subscriptions')
     subscriptions_student = fields.One2Many('sale.subscription','student','Subscriptions')
     invoices = fields.One2Many('account.invoice','party','Invoices')
+    payment_lines = fields.One2Many('account.move.line','party','Payment History')
     company = fields.Many2One('company.company', 'Company', required=False,
         readonly=False, 
         #invisible=True, 

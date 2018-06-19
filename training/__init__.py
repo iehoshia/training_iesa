@@ -12,6 +12,7 @@ def register():
         Party,
         Subscription,
         Line, 
+        LineConsumption, 
         SubscriptionContext, 
         SaleOpportunity,
         SaleOpportunityLine,

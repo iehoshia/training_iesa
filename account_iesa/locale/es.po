@@ -26,6 +26,14 @@ msgctxt "field:account.iesa.payment,subscriber:"
 msgid "Subscriber"
 msgstr "Encargado"
 
+msgctxt "model:analytic_account.open_chart.start,name:"
+msgid "Open Chart of Accounts"
+msgstr "Índices Financieros"
+
+msgctxt "model:ir.ui.menu,name:menu_open_chart"
+msgid "Open Chart of Accounts"
+msgstr "Índices Financieros"
+
 msgctxt "field:account.iesa.payment,is_third_party:"
 msgid "Is Third Party"
 msgstr "Pago de Terceros"

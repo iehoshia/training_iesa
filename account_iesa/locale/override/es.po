@@ -9,3 +9,7 @@ msgstr "Fecha Cobro"
 msgctxt "model:account.invoice,name:account_invoice."
 msgid "Factura"
 msgstr "Cobro"
+
+msgctxt "model:ir.action,name:analytic_account.act_open_chart"
+msgid "Open Chart of Analytic Accounts"
+msgstr "Abrir Índices Financieros"

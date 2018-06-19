@@ -27,6 +27,7 @@ _FIRSTDAY = datetime.date(_YEAR,1,1)
 __all__ = ['Subscription',
             'SubscriptionContext',
             'Line',
+            'LineConsumption',
             'PrintOverdueReportStart',
             'PrintOverdueReport',
             'OverdueReportTable',
@@ -570,13 +571,13 @@ class Subscription(ModelSQL, ModelView):
 
     @classmethod
     def generate_invoice(cls, date=None, party=None, enrolment=None):
-        #print "PASS GENERATE invoices: " + str(date)
         pool = Pool()
         Date = pool.get('ir.date')
         Consumption = pool.get('sale.subscription.line.consumption')
         Invoice = pool.get('account.invoice')
         InvoiceLine = pool.get('account.invoice.line')
         Subscription = pool.get('sale.subscription')
+        company =  Transaction().context.get('company')
 
         if date is None:
             date = Date.today()
@@ -585,18 +586,17 @@ class Subscription(ModelSQL, ModelView):
                 ('invoice_line', '=', None),
                 ('line.subscription.next_invoice_date', '<=', date),
                 ('line.subscription.state', 'in', ['running', 'closed']),
+                ('company','=',company)
                 ],
             order=[
                 ('line.subscription.id', 'DESC'),
                 ])
-        
-        #print "PASS Consumptions: " + str(consumptions)
 
         def keyfunc(consumption):
             return consumption.line.subscription
         invoices = {}
         lines = {}
-        #print "PASS consumptions detail: " + str(consumptions)
+
         if consumptions:
             invoice_date = consumptions[0].date
         for subscription, consumptions in groupby(consumptions, key=keyfunc):
@@ -607,17 +607,6 @@ class Subscription(ModelSQL, ModelView):
 
         all_invoices = invoices.values()
         
-        '''for invoice in all_invoices: 
-            receivable = invoice.party.receivable
-            if receivable > 0: 
-                amount = receivable
-                current_amount = invoice.total 
-                while receivable > current_amount: 
-                    invoice.save()
-                    invoice.post()
-                    amount -= current_amount
-
-            print "CURRENT invoice: " + str(invoice)'''
         Invoice.save(all_invoices)
 
         all_invoice_lines = []
@@ -641,7 +630,9 @@ class Subscription(ModelSQL, ModelView):
 
         subscriptions = cls.search([
                 ('next_invoice_date', '<=', date),
+                ('company','=',company)
                 ])
+
         for subscription in subscriptions:
             if subscription.state == 'running':
                 while subscription.next_invoice_date <= date:
@@ -758,36 +749,11 @@ class Subscription(ModelSQL, ModelView):
             return recurrences[0].id 
         return None 
 
-    #@classmethod
-    #def default_payment_term(cls):
-    #    PaymentTerm = Pool().get('account.invoice.payment_term')
-    #    payment_terms = PaymentTerm.search(cls.payment_term.domain)
-    #    if len(payment_terms) == 1:
-    #        return payment_terms[0].id
-
-    #@classmethod
-    #def default_asesor(cls):
-    #    User = Pool().get('res.user')
-    #    employee_id = None
-    #    if Transaction().context.get('employee'):
-    #        employee_id = Transaction().context['employee']
-    #    else:
-    #        user = User(Transaction().user)
-    #        if user.employee:
-    #            employee_id = user.employee.id
-    #    if employee_id:
-    #        return employee_id
-
     @classmethod 
     def default_registration_date(cls):
         Date = Pool().get('ir.date')
         date = Date.today()
         return date 
-
-    #@classmethod 
-    #def default_medio(cls):
-    #    return 'Facebook'
-
 
     @classmethod
     def search(cls, domain, offset=0, limit=None, order=None, count=False,
@@ -819,6 +785,15 @@ class Subscription(ModelSQL, ModelView):
             cache.pop(cls.__name__, None)
         return records
 
+class LineConsumption(ModelSQL, ModelView):
+    "Subscription Line Consumption"
+    __name__ = 'sale.subscription.line.consumption'
+
+    company = fields.Many2One(
+        'company.company', "Company", required=False, select=True,
+        help="Make the subscription belong to the company."
+        )
+
 class Line(sequence_ordered(), ModelSQL, ModelView):
     "Subscription Line"
     __name__ = 'sale.subscription.line'
@@ -848,27 +823,21 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
 
     @classmethod
     def generate_consumption(cls, date=None, party=None):
-        #print "PASS consumptions: " + str(date)
         pool = Pool()
         Date = pool.get('ir.date')
         Consumption = pool.get('sale.subscription.line.consumption')
         Subscription = pool.get('sale.subscription')
-        context = Transaction().context
-        company = context['company']
+        company = Transaction().context.get('company')
 
         if date is None:
             date = Date.today()
 
-        #cur_date = _FIRSTDAY
-        #print "FIRSTDAY: " + str(cur_date) + " DATE: " + str(date)
-
-        #if cur_date = date: 
         if party is not None: 
             remainings = all_lines = cls.search([
                 ('consumption_recurrence', '!=', None),
                 ('next_consumption_date_delayed', '<=', date),
                 ('subscription.state', '=', 'running'),
-                ( 'company','=',company),
+                ('company','=',company),
                 ('subscription.student','=',party)
                 ])
         else:
@@ -878,7 +847,7 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
                 ('subscription.state', '=', 'running'),
                 ( 'company','=',company)
                 ])
-        print "PASS Remainings: "+ str(remainings)
+        print "REMAININGS: " + str(remainings)
         consumptions = []
         subscription_ids = set()
         while remainings:
@@ -893,42 +862,18 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
                     subscription_ids.add(line.subscription.id)
                 elif line.get_next_consumption_date_delayed() <= date:
                     remainings.append(line)
-                print "PASS consumptions list: " + str(consumptions)
         Consumption.save(consumptions)
         cls.save(all_lines)
         Subscription.process(Subscription.browse(list(subscription_ids)))
 
-        '''while cur_date <= date:
-            remainings = all_lines = cls.search([
-                    ('consumption_recurrence', '!=', None),
-                    ('next_consumption_date_delayed', '<=', cur_date),
-                    ('subscription.state', '=', 'running'),
-                    ( 'company','=',company)
-                    ])
-            print "PASS Remainings: "+ str(remainings)
-            consumptions = []
-            subscription_ids = set()
-            while remainings:
-                lines, remainings = remainings, []
-                for line in lines:
-                    consumptions.append(
-                        line.get_consumption(line.next_consumption_date))
-                    line.next_consumption_date = (
-                        line.compute_next_consumption_date())
-                    line.consumed = True
-                    if line.next_consumption_date is None:
-                        subscription_ids.add(line.subscription.id)
-                    elif line.get_next_consumption_date_delayed() <= cur_date:
-                        remainings.append(line)
-            #print "PASS consumptions list: " + str(consumptions)
-            Consumption.save(consumptions)
-            cls.save(all_lines)
-            Subscription.process(Subscription.browse(list(subscription_ids)))
-            cur_date += relativedelta(months=1)'''
+    def get_consumption(self, date):
+        pool = Pool()
+        Consumption = pool.get('sale.subscription.line.consumption')
+        company = Transaction().context.get('company')
+        return Consumption(line=self, quantity=self.quantity, date=date,company=company)
 
     @classmethod
     def generate_consumption_monthly(cls, party=None, date=None):
-        #print "PASS consumptions: " + str(date)
         pool = Pool()
         Date = pool.get('ir.date')
         Subscription = pool.get('sale.subscription')
@@ -946,7 +891,6 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
 
     @classmethod
     def generate_consumption_cash(cls, party=None, date=None):
-        #print "PASS consumptions: " + str(date)
         pool = Pool()
         Date = pool.get('ir.date')
         Subscription = pool.get('sale.subscription')

@@ -30,6 +30,10 @@ msgctxt "field:party.party,dob:"
 msgid "Date of Birth"
 msgstr "Fecha de Nacimiento"
 
+msgctxt "field:party.party,payment_lines:"
+msgid "Payment History"
+msgstr "Historial de Pagos"
+
 msgctxt "field:party.party,age:"
 msgid "Age"
 msgstr "Edad"
@@ -37,8 +41,6 @@ msgstr "Edad"
 msgctxt "field:party.party,sex:"
 msgid "Sex"
 msgstr "Sexo"
-
-
 
 msgctxt "field:party.party,license:"
 msgid "License"
@@ -168,6 +170,18 @@ msgstr "Estudiante"
 msgctxt "view:sale.subscription:"
 msgid "Invoices"
 msgstr "Cobros"
+
+msgctxt "view:party.party:"
+msgid "Payment History"
+msgstr "Historial de Pagos"
+
+msgctxt "view:account.move.line:"
+msgid "InverseCredit"
+msgstr "Debe"
+
+msgctxt "view:account.move.line:"
+msgid "InverseDebit"
+msgstr "Haber"
 
 msgctxt "view:party.party:"
 msgid "School Notes"
