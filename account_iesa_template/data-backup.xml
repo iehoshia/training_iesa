@@ -286,202 +286,202 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">60. Ventas netas</field>
             <field name="parent" ref="iesa_consolidated_pyg_6"/>
             <field name="sequence" eval="60"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_61" model="account.account.meta.type.template">
             <field name="name">61. Diezmo neto</field>
             <field name="parent" ref="iesa_consolidated_pyg_6"/>
             <field name="sequence" eval="61"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_62" model="account.account.meta.type.template">
             <field name="name">62. Ingresos de enseñanza</field>
             <field name="parent" ref="iesa_consolidated_pyg_6"/>/>
             <field name="sequence" eval="62"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_63" model="account.account.meta.type.template">
             <field name="name">63. Ofrendas y donaciones generales (Dist. de diezmo)</field>
             <field name="parent" ref="iesa_consolidated_pyg_6"/>
             <field name="sequence" eval="63"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_65" model="account.account.meta.type.template">
             <field name="name">65. Aprop./Subvenciones recibidas en org. adventistas</field>
             <field name="parent" ref="iesa_consolidated_pyg_6"/>
             <field name="sequence" eval="65"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_66" model="account.account.meta.type.template">
             <field name="name">66. Subsidios/Donaciones recibidos de org. no adv.</field>
             <field name="parent" ref="iesa_consolidated_pyg_6"/>
             <field name="sequence" eval="66"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_67" model="account.account.meta.type.template">
             <field name="name">67. Ingresos operativos directos</field>
             <field name="parent" ref="iesa_consolidated_pyg_6"/>
             <field name="sequence" eval="67"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
 
         <record id="iesa_consolidated_pyg_71" model="account.account.meta.type.template">
             <field name="name">71. Ingresos de inversiones</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="71"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_72" model="account.account.meta.type.template">
             <field name="name">72. Donaciones vencidas diferidas</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="72"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_73" model="account.account.meta.type.template">
             <field name="name">73. Adiciones a acuerdos de part. comp. irrev.</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="73"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_74" model="account.account.meta.type.template">
             <field name="name">74. ADICIONES DE FONDOS EN USUFRUCTO</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="74"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_75" model="account.account.meta.type.template">
             <field name="name">75. GANANCIAS POR FLUCTUACIÓN MOMENTARIA</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="75"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_76" model="account.account.meta.type.template">
             <field name="name">76. ADICIONES AL FONDO DE PLANTA DISPONIBLE</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="76"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_77" model="account.account.meta.type.template">
             <field name="name">77. ADICIONES A LA INVERSIÓN EN PLANTA</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="77"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_78" model="account.account.meta.type.template">
             <field name="name">78. OTROS INGRESOS</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="78"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_79" model="account.account.meta.type.template">
             <field name="name">79. LIBERACIÓN DE INGRESOS RESTRINGIDOS</field>
             <field name="parent" ref="iesa_consolidated_pyg_7"/>
             <field name="sequence" eval="77"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
 
         <record id="iesa_consolidated_pyg_80" model="account.account.meta.type.template">
             <field name="name">80. GASTOS DE PUBLICIDAD Y VENTAS</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="80"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_81" model="account.account.meta.type.template">
             <field name="name">81. GASTOS RELACIONADOS CON EMPLEADOS</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="81"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_82" model="account.account.meta.type.template">
             <field name="name">82. GASTOS DE VIAJES</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="82"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_83" model="account.account.meta.type.template">
             <field name="name">83. APROPIACIONES Y DONACIONES A ORG. ADVENTISTAS</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="83"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_84" model="account.account.meta.type.template">
             <field name="name">84. SUBVENCIONES Y BECAS A ESTUDIANTES</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="84"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_85" model="account.account.meta.type.template">
             <field name="name">85. OTRAS APROPIACIONES CONCEDIDAS PARA BECAS (BURSARY)</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="85"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_86" model="account.account.meta.type.template">
             <field name="name">86. GASTOS DE PROGRAMAS ESPECÍFICOS</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="86"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_87" model="account.account.meta.type.template">
             <field name="name">87. GASTOS</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="87"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_88" model="account.account.meta.type.template">
             <field name="name">88. GASTOS DE OFICINA</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="88"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_89" model="account.account.meta.type.template">
             <field name="name">89. GASTOS GENERALES</field>
             <field name="parent" ref="iesa_consolidated_pyg_8"/>
             <field name="sequence" eval="89"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
 
         <record id="iesa_consolidated_pyg_90" model="account.account.meta.type.template">
             <field name="name">90. OPERACIÓN Y MANTENIMIENTO DE PLANTA</field>
             <field name="parent" ref="iesa_consolidated_pyg_9"/>
             <field name="sequence" eval="90"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_91" model="account.account.meta.type.template">
             <field name="name">91. DEDUCCIONES DE INVERSIONES</field>
             <field name="parent" ref="iesa_consolidated_pyg_9"/>
             <field name="sequence" eval="91"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_93" model="account.account.meta.type.template">
             <field name="name">93. DEDUCCIONES DE ACUERDOS DE PART. IRREVOCABLES</field>
             <field name="parent" ref="iesa_consolidated_pyg_9"/>
             <field name="sequence" eval="93"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_94" model="account.account.meta.type.template">
             <field name="name">94. DEDUCCIONES DE FONDOS DE USUFRUCTO</field>
             <field name="parent" ref="iesa_consolidated_pyg_9"/>
             <field name="sequence" eval="94"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_95" model="account.account.meta.type.template">
             <field name="name">95. PÉRDIDAS POR FLUCTUACIÓN MONETARIA</field>
             <field name="parent" ref="iesa_consolidated_pyg_9"/>
             <field name="sequence" eval="95"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_96" model="account.account.meta.type.template">
             <field name="name">96. DEDUCCIONES DEL FONDO DE PLANTA DISPONIBLE</field>
             <field name="parent" ref="iesa_consolidated_pyg_9"/>
             <field name="sequence" eval="96"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_97" model="account.account.meta.type.template">
             <field name="name">97. DEDUCCIONES DE PLANTA NO DISPONIBLE (INVERTIDO)</field>
             <field name="parent" ref="iesa_consolidated_pyg_9"/>
             <field name="sequence" eval="97"/>
-            <field name="display_balance">debit-credit</field>
+            <field name="display_balance">credit-debit</field>
         </record>
         <record id="iesa_consolidated_pyg_98" model="account.account.meta.type.template">
             <field name="name">98. OTROS GASTOS</field>
@@ -2123,7 +2123,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
         </record>
         <record id="iesa_consolidated_balance_134110" model="account.account.meta.type.template">
-            <field name="name">134110. Ingresos de Enseñanza por Cobrar</field>
+            <field name="name">134110. Cuentas por Cobrar Alumnos</field>
             <field name="parent" ref="iesa_consolidated_balance_134"/>
             <field name="sequence" eval="134110"/>
             <field name="display_balance">credit-debit</field>
@@ -5351,7 +5351,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <record id="iesa_balance_134110" model="account.account.type.template">
-            <field name="name">134110. Ingresos de Enseñanza por Cobrar</field>
+            <field name="name">134110. Cuentas por Cobrar Alumnos</field>
             <field name="parent" ref="iesa_balance_134"/>
             <field name="sequence" eval="134110"/>
             <field name="display_balance">debit-credit</field>
@@ -6318,10 +6318,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="deferral" eval="True"/>
             <field name="party_required" eval="False"/>
         </record>
-        <!--
-        <record id="ar_101120_iesa" model="account.account.template">
-            <field name="account" ref="pgc_101120_iesa"/>
-        </record>-->
 
         <record id="pgc_102110_iesa" model="account.account.template">
             <field name="name">Banco GyT Continental</field>
@@ -6497,7 +6493,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="reconcile" eval="True"/>
         </record>
         <record id="pgc_134110_iesa" model="account.account.template">
-            <field name="name">Ingresos de Enseñanza por Cobrar</field>
+            <field name="name">Cuentas por Cobrar Alumnos</field>
             <field name="parent" ref="pgc_1_iesa"/>
             <field name="code">134110</field>
             <field name="type" ref="iesa_balance_134110"/>
@@ -7587,8 +7583,8 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">Capital Recomendado</field>
             <field name="parent" ref="capital_operativo"/>
             <field name="root" ref="capital_operativo"/>
-            <!--<field name="is_recommended_capital" ref="True"/>-->
-            <field name="display_balance">credit-debit</field>
+            <field name="is_recommended_capital">True</field>
+            <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record>
         <record id="caja_y_bancos" model="analytic_account.account.template">
@@ -7597,7 +7593,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
-           </record>
+        </record>
         <record id="pasivo_corriente_li" model="analytic_account.account.template">
             <field name="name">Pasivo Corriente</field>
             <field name="parent" ref="liquidez"/>
@@ -7658,7 +7654,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
-         </record>
+        </record>
         <record id="banrural1_li" model="analytic_account.account.template">
             <field name="name">Banco BANRURAL 1</field>
             <field name="parent" ref="caja_y_bancos"/>
@@ -7746,10 +7742,52 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record>
-        <record id="ingresos_de_ensenanza_por_cobrar" model="analytic_account.account.template">
-            <field name="name">Ingresos de Enseñanza por Cobrar</field>
+        <record id="cuentas_por_cobrar_alumnos" model="analytic_account.account.template">
+            <field name="name">Cuentas por Cobrar Alumnos</field>
             <field name="parent" ref="activo_corriente"/>
             <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ahorro_banrural_co" model="analytic_account.account.template">
+            <field name="name">Ahorro BANRURAL</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ahorro_banrural_li" model="analytic_account.account.template">
+            <field name="name">Ahorro BANRURAL</field>
+            <field name="parent" ref="caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ahorro_industrial_co" model="analytic_account.account.template">
+            <field name="name">Ahorro Industrial</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="ahorro_industrial_li" model="analytic_account.account.template">
+            <field name="name">Ahorro Industrial</field>
+            <field name="parent" ref="caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="plazo_fijo_co" model="analytic_account.account.template">
+            <field name="name">Plazo Fijo</field>
+            <field name="parent" ref="activo_corriente"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type">normal</field>
+        </record>
+        <record id="plazo_fijo_li" model="analytic_account.account.template">
+            <field name="name">Plazo Fijo</field>
+            <field name="parent" ref="caja_y_bancos"/>
+            <field name="root" ref="liquidez"/>
             <field name="display_balance">debit-credit</field>
             <field name="type">normal</field>
         </record>
@@ -8403,10 +8441,13 @@ this repository contains the full copyright notices and license terms. -->
         </record>   
         <record id="ar_103120_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_103120_iesa"/>
-        </record>   
+        </record> 
+        <record id="ar_104110_iesa" model="analytic_account.rule.template"> 
+            <field name="account" ref="pgc_104110_iesa"/>
+        </record>  
         <record id="ar_134110_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_134110_iesa"/>
-        </record>   
+        </record>
         <record id="ar_138CAMBI01_iesa" model="analytic_account.rule.template"> 
             <field name="account" ref="pgc_138CAMBI01_iesa"/>
         </record>   
@@ -8686,28 +8727,28 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="liquidez"/>
             <field name="account" ref="caja_general_li"/>
         </record>
-        <record id="ae_102110_li_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_102110_iesa"/>
-            <field name="root" ref="liquidez"/>
-            <field name="account" ref="banco_gyt_li"/>
-        </record>
+
         <record id="ae_102110_co_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_102110_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="banco_gyt_co"/>
         </record>
-
-        <record id="ae_102120_li_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_102120_iesa"/>
+        <record id="ae_102110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102110_iesa"/>
             <field name="root" ref="liquidez"/>
-            <field name="account" ref="banrural1_li"/>
+            <field name="account" ref="banco_gyt_li"/>
         </record>
         <record id="ae_102120_co_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_102120_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="banrural1_co"/>
         </record>
-        <record id="ae_102130_iesa" model="analytic.account.entry.template">
+        <record id="ae_102120_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102120_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="banrural1_li"/>
+        </record>
+        <record id="ae_102130_co_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_102130_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="banrural2_co"/>
@@ -8718,18 +8759,61 @@ this repository contains the full copyright notices and license terms. -->
             <field name="account" ref="banrural2_li"/>
         </record>
 
-        <record id="ae_134110_iesa" model="analytic.account.entry.template">
+        <record id="ae_102140_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102140_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="banrural2_co"/>
+        </record>
+        <record id="ae_102140_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_102140_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="banrural2_li"/>
+        </record>
+
+        <record id="ae_103110_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="ahorro_banrural_co"/>
+        </record>
+        <record id="ae_103110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103110_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="ahorro_banrural_li"/>
+        </record>
+
+        <record id="ae_103120_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103120_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="ahorro_industrial_co"/>
+        </record>
+        <record id="ae_103120_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_103120_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="ahorro_industrial_li"/>
+        </record>
+
+        <record id="ae_104110_co_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_104110_iesa"/>
+            <field name="root" ref="capital_operativo"/>
+            <field name="account" ref="ahorro_industrial_co"/>
+        </record>
+        <record id="ae_104110_li_iesa" model="analytic.account.entry.template">
+            <field name="origin" ref="ar_104110_iesa"/>
+            <field name="root" ref="liquidez"/>
+            <field name="account" ref="ahorro_industrial_li"/>
+        </record>
+        
+        <record id="ae_134110_co_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_134110_iesa"/>
             <field name="root" ref="capital_operativo"/>
-            <field name="account" ref="ingresos_de_ensenanza_por_cobrar"/>
+            <field name="account" ref="cuentas_por_cobrar_alumnos"/>
         </record>
+        
         <record id="ae_138CAMBI01_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_138CAMBI01_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="cambio_de_cheque"/>
         </record>
-
-        
         <record id="ae_138FLUCA01_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_138FLUCA01_iesa"/>
             <field name="root" ref="capital_operativo"/>
@@ -8741,7 +8825,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="account" ref="iva_credito"/>
         </record>
 
-                <record id="ae_139110_iesa" model="analytic.account.entry.template">
+        <record id="ae_139110_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_139110_iesa"/>
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="provision_para_cuentas_mala"/>
@@ -8802,7 +8886,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="capital_operativo"/>
             <field name="account" ref="asociacion_occidental"/>
         </record>
-
 
         <record id="ae_AGNWT11_iesa" model="analytic.account.entry.template">
             <field name="origin" ref="ar_AGNWT11_iesa"/>
@@ -9161,29 +9244,5 @@ this repository contains the full copyright notices and license terms. -->
             <field name="root" ref="sosten_propio"/>
             <field name="account" ref="transferencia_entre_funciones"/>
         </record>
-        <!--
-        <record id="ae_997110_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_997110_iesa"/>
-            <field name="root" ref="sosten_propio"/>
-            <field name="account" ref="transferencia_entre_fondos"/>
-        </record>
-        -->
-
-        
-        <record id="ae_103110_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_103110_iesa"/>
-            <field name="root" ref="capital_operativo"/>
-            <field name="account" ref="banco_industrial_co"/>
-        </record>
-        <record id="ae_103120_iesa" model="analytic.account.entry.template">
-            <field name="origin" ref="ar_103120_iesa"/>
-            <field name="root" ref="liquidez"/>
-            <field name="account" ref="banco_industrial_li"/>
-        </record>
-        
-
-        
-        
     </data>
-
 </tryton>

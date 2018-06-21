@@ -74,7 +74,7 @@ class BalanceMixin:
         diferences = {}
         for record in records:
             #print "BALANCE: " + str(record.balance)
-            diferences[record.id] = record.amount + (record.balance)
+            diferences[record.id] = record.amount - record.balance
         return diferences
 
 

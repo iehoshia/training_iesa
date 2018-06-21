@@ -27,7 +27,7 @@ msgid "Subscriber"
 msgstr "Encargado"
 
 msgctxt "model:analytic_account.open_chart.start,name:"
-msgid "Open Chart of Accounts"
+msgid "Open Chart of Analytic Accounts"
 msgstr "Índices Financieros"
 
 msgctxt "model:ir.ui.menu,name:menu_open_chart"

@@ -33,6 +33,8 @@ __all__ = [
         'CreateChart',
         'UpdateChart',
         'UpdateChartStart',
+        'ContextAnalyticAccount',
+        'OpenChartAccount',
     ]  
 
 __metaclass__ = PoolMeta
@@ -44,103 +46,186 @@ def inactive_records(func):
             return func(*args, **kwargs)
     return wrapper
 
+class OpenChartAccount(Wizard):
+    'Open Chart of Accounts'
+    __name__ = 'financial_indicator.open_chart'
+
+    start = StateView('analytic_account.open_chart.start',
+        'analytic_account.open_chart_start_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Open', 'open_', 'tryton-ok', default=True),
+            ])
+    open_ = StateAction('account_financial_indicator.act_account_tree2')
+
+    def do_open_(self, action):
+        action['pyson_context'] = PYSONEncoder().encode({
+                'start_date': self.start.start_date,
+                'end_date': self.start.end_date,
+                })
+        return action, {}
+
+    def transition_open_(self):
+        return 'end'
+
+
 class Account(DeactivableMixin, ModelSQL, ModelView):
     'Analytic Account'
     __name__ = 'analytic_account.account'
 
     template = fields.Many2One('analytic_account.account.template', 'Template')
+    is_current_capital = fields.Boolean('Current Capital')
+    is_current_asset = fields.Boolean('Current Asset')
     is_recommended_capital = fields.Boolean('Recommended Capital')
+    is_cash = fields.Boolean('Cash and Banks')
+    is_current_liability = fields.Boolean('Current Liability')
+    is_revenue = fields.Boolean('Revenue')
+    is_expense = fields.Boolean('Expense')
     financial_indicator = fields.Function(
         fields.Numeric('Financial Indicator',
             digits=(16, Eval('currency_digits', 2))
         ),
         'get_financial_indicator')
-    #custom_balance = fields.Function(fields.Numeric('Balance',
-    #    digits=(16, Eval('currency_digits', 1)), depends=['currency_digits']),
-    #    'get_custom_balance')
 
-    def get_recommended_capital(self):
-        #print "LLEGA BUDGETS: " 
-        balances = {}
+    custom_balance = fields.Function(fields.Numeric('Custom Balance',
+        digits=(16, Eval('currency_digits', 1)), depends=['currency_digits']),
+        'get_custom_balance')
+
+    def get_current_capital(self):
         pool = Pool()
         Date = pool.get('ir.date')
+        AccountType = pool.get('account.account.type')
+
         today = Date.today()
+        company = Transaction().context.get('company')
+        current_capital = current_liability = Decimal('0.0') 
+
+        current_capitals = AccountType.search([('company','=',company),
+            ('name','=','1) ACTIVOS CORRIENTES')])
+        if len(current_capitals)==1: 
+            current_capital = current_capitals[0].amount * Decimal('1.0')
+
+        current_liabilities = AccountType.search([('company','=',company),
+            ('name','=','3) PASIVOS CORRIENTES')])
+        if len(current_liabilities)==1: 
+            current_liability = current_liabilities[0].amount * Decimal('1.0')
+
+        balance = (current_capital - current_liability) * Decimal('1.0')
+        return balance
+
+    def get_cash(self):
+        pool = Pool()
+        Date = pool.get('ir.date')
+        AccountType = pool.get('account.account.type')
+
+        today = Date.today()
+        company = Transaction().context.get('company')
+        balance = Decimal('0.0') 
+
+        accounts = AccountType.search([('company','=',company),
+            ('name','=','10. Efectivo y Equivalencias de Efectivo')])
+        if len(accounts)==1: 
+            balance = accounts[0].amount * Decimal('1.0')
+
+        return balance
+
+    def get_current_asset(self):
+        pool = Pool()
+        Date = pool.get('ir.date')
+        AccountType = pool.get('account.account.type')
+
+        today = Date.today()
+        company = Transaction().context.get('company')
+        current_asset = Decimal('0.0') 
+
+        current_assets = AccountType.search([('company','=',company),
+            ('name','=','1) ACTIVOS CORRIENTES')])
+        if len(current_assets)==1: 
+            current_asset = current_assets[0].amount * Decimal('1.0')
+            
+        return current_asset
+
+    def get_current_liability(self):
+        pool = Pool()
+        Date = pool.get('ir.date')
+        AccountType = pool.get('account.account.type')
+
+        today = Date.today()
+        company = Transaction().context.get('company')
+        current_liability = Decimal('0.0')  
+
+        current_liabilities = AccountType.search([('company','=',company),
+            ('name','=','3) PASIVOS CORRIENTES')])
+        if len(current_liabilities)==1: 
+            current_liability = current_liabilities[0].amount * Decimal('1.0')
+            
+        return current_liability
+
+    def get_revenues(self):
+        pool = Pool()
+        Date = pool.get('ir.date')
+        AccountType = pool.get('account.account.type')
+
+        today = Date.today()
+        company = Transaction().context.get('company')
+        Decimal('0.0') 
+
+        revenues = AccountType.search([('company','=',company),
+            ('name','=','INGRESOS FINANCIEROS')])
+        if len(revenues)==1: 
+            revenue = revenues[0].amount * Decimal('1.0')
+            
+        return revenue
+
+    def get_expenses(self):
+        pool = Pool()
+        Date = pool.get('ir.date')
+        AccountType = pool.get('account.account.type')
+
+        today = Date.today()
+        company = Transaction().context.get('company')
+        expense = Decimal('0.0') 
+
+        expenses = AccountType.search([('company','=',company),
+            ('name','=','GASTOS FINANCIEROS')])
+        if len(expenses)==1: 
+            expense = expenses[0].amount * Decimal('1.0')
+            
+        return expense
+
+
+    def get_recommended_capital(self):
+
+        pool = Pool()
+        Date = pool.get('ir.date')
         Fiscalyear = pool.get('account.fiscalyear')
         Budget = pool.get('account.budget')
+
+        today = Date.today()
         company = Transaction().context.get('company')
+        balance = Decimal('0.0')
+
         fiscalyears = Fiscalyear.search([('company','=',company),
             ('start_date','<=',today),
             ('end_date','>=',today)])
         fiscalyear = None 
         if len(fiscalyears)==1: 
             fiscalyear = fiscalyears[0].id
+
         budgets = Budget.search([('fiscalyear','=',fiscalyear),
-            ('company','=',company)])
-        if budgets:
+            ('company','=',company),
+            ('parent','=',None)])
+
+        if len(budgets)==1: 
             balance = budgets[0].amount * Decimal('0.15')
-            #return Decimal('231382.92')
-            return balance
-        return 0 
+        return balance
 
-    @classmethod
-    def get_balance(cls, accounts, name):
-        pool = Pool()
-        Line = pool.get('analytic_account.line')
-        MoveLine = pool.get('account.move.line')
-        cursor = Transaction().connection.cursor()
-        table = cls.__table__()
-        line = Line.__table__()
-        move_line = MoveLine.__table__()
-
-        ids = [a.id for a in accounts]
-        childs = cls.search([('parent', 'child_of', ids)])
-        all_ids = {}.fromkeys(ids + [c.id for c in childs]).keys()
-
-        id2account = {}
-        all_accounts = cls.browse(all_ids)
-        for account in all_accounts:
-            id2account[account.id] = account
-
-        line_query = Line.query_get(line)
-        cursor.execute(*table.join(line, 'LEFT',
-                condition=table.id == line.account
-                ).join(move_line, 'LEFT',
-                condition=move_line.id == line.move_line
-                ).select(table.id,
-                Sum(Coalesce(line.debit, 0) - Coalesce(line.credit, 0)),
-                where=(table.type != 'view')
-                & table.id.in_(all_ids)
-                & (table.active == True) & line_query,
-                group_by=table.id))
-        account_sum = defaultdict(Decimal)
-        for account_id, value in cursor.fetchall():
-            account_sum.setdefault(account_id, Decimal('0.0'))
-            # SQLite uses float for SUM
-            if not isinstance(value, Decimal):
-                value = Decimal(str(value))
-            account_sum[account_id] += value
-
-        balances = {}
-        for account in accounts:
-            balance = Decimal()
-            childs = cls.search([
-                    ('parent', 'child_of', [account.id]),
-                    ])
-            for child in childs:
-                balance += account_sum[child.id]
-            if account.is_recommended_capital == True: 
-                balance = account.get_recommended_capital()
-            if account.type == 'root':
-                first_child = second_child = 0 
-                if account.childs is not []: 
-                    first_child = account.childs[0].balance  
-                    second_child = account.childs[1].balance
-                    balance = first_child - second_child 
-            if account.display_balance == 'credit-debit' and balance:
-                balance *= -1
-            exp = Decimal(str(10.0 ** -account.currency_digits))
-            balances[account.id] = balance.quantize(exp)
-        return balances
+    def get_difference_between_childs(self):
+        balance = first_child = second_child = 0 
+        if self.childs[0] is not None and self.childs[1] is not None: 
+            first_child = self.childs[0].custom_balance  
+            second_child = self.childs[1].custom_balance
+            balance = first_child - second_child 
+        return balance 
 
     @classmethod
     def get_custom_balance(cls, accounts, name):
@@ -188,14 +273,22 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
                     ])
             for child in childs:
                 balance += account_sum[child.id]
-            if account.is_recommended_capital == True: 
+            if account.is_current_capital == True:
+                balance = account.get_difference_between_childs()
+            elif account.is_recommended_capital == True: 
                 balance = account.get_recommended_capital()
-            if account.type == 'root':
-                first_child = second_child = 0 
-                if account.childs is not []: 
-                    first_child = account.childs[0].balance  
-                    second_child = account.childs[1].balance
-                    balance = first_child - second_child 
+            elif account.is_cash == True: 
+                balance = account.get_cash()
+            elif account.is_current_liability == True: 
+                balance = account.get_current_liability()
+            elif account.is_current_asset == True: 
+                balance = account.get_current_asset()
+            elif account.is_revenue == True: 
+                balance = account.get_revenues()
+            elif account.is_expense == True: 
+                balance = account.get_expenses()
+            elif account.type == 'root':
+                balance = account.get_difference_between_childs()
             if account.display_balance == 'credit-debit' and balance:
                 balance *= -1
             exp = Decimal(str(10.0 ** -account.currency_digits))
@@ -244,7 +337,6 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
                 # SQLite uses float for SUM
                 if not isinstance(value, Decimal):
                     value = Decimal(str(value))
-                #print "ROW: " + str(row)+ " VALUE: " + str(value)
                 result[name][account_id] += value
         for account in accounts:
             for name in names:
@@ -257,8 +349,8 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
         if self.type == 'root':
             first_child = second_child = quotient = 0 
             if self.childs is not None: 
-                first_child = self.childs[0].balance  
-                second_child = self.childs[1].balance
+                first_child = Decimal(str(self.childs[0].custom_balance))
+                second_child = Decimal(str(self.childs[1].custom_balance))
             if second_child != 0:
                 quotient = first_child / second_child * 100
                 return quotient
@@ -340,7 +432,13 @@ class AccountTemplate(ModelSQL, ModelView):
             },
         depends=['type'],
         help="Make this account mandatory when filling documents")
+    is_current_capital = fields.Boolean('Current Capital')
+    is_current_asset = fields.Boolean('Current Asset')
     is_recommended_capital = fields.Boolean('Recommended Capital')
+    is_cash = fields.Boolean('Cash and Banks')
+    is_current_liability = fields.Boolean('Current Liability')
+    is_revenue = fields.Boolean('Revenue')
+    is_expense = fields.Boolean('Expense')
 
     @classmethod
     def __setup__(cls):
@@ -385,8 +483,22 @@ class AccountTemplate(ModelSQL, ModelView):
             res['type'] = self.type
         if not account or account.display_balance != self.display_balance:
             res['display_balance'] = self.display_balance
+        if not account or account.is_current_capital != self.is_current_capital:
+            res['is_current_capital'] = self.is_current_capital
         if not account or account.is_recommended_capital != self.is_recommended_capital:
             res['is_recommended_capital'] = self.is_recommended_capital
+        if not account or account.is_current_liability != self.is_current_liability:
+            res['is_current_liability'] = self.is_current_liability
+        if not account or account.is_current_asset != self.is_current_asset:
+            res['is_current_asset'] = self.is_current_asset
+        if not account or account.is_cash != self.is_cash:
+            res['is_cash'] = self.is_cash
+        if not account or account.is_revenue != self.is_revenue:
+            res['is_revenue'] = self.is_revenue
+        if not account or account.is_expense != self.is_expense:
+            res['is_expense'] = self.is_expense
+
+
         if not account or account.template != self:
             res['template'] = self.id
         return res
@@ -542,10 +654,8 @@ class RuleTemplate(ModelSQL, ModelView):
                         vals['account'] = template2account.get(template.account.id)
                     else:
                         vals['account'] = None
-                    #print "vals: " + str(vals)
                     values.append(vals)
                     created.append(template)
-            print "VALUES: " + str(values)
             rules = Rule.create(values)
 
             for template, rule in zip(created, rules):
@@ -1021,7 +1131,6 @@ class UpdateChart(Wizard):
                 analytic_rules = AnalyticRuleTemplate.search([('id','=',new_rule)])
                 for analytic_rule in analytic_rules: 
                     new_analytic_rule = analytic_rule
-                #print "NEW ANALYTIC RULE: " + str(new_analytic_rule)
                 if new_analytic_rule:
                     analytic_rule.create_analytic_rule(
                         company.id,
@@ -1041,7 +1150,6 @@ class UpdateChart(Wizard):
             for analytic_entry in analytic_entries: 
                 if analytic_entry.template: 
                     existing.append(analytic_entry.template.id)
-                    #print "BEFORE template2entry: " + str(template2entry)
                     analytic_entry.update_entry(template2entry=template2entry, 
                         template2analytic_rule=template2analytic_rule_cumm,
                         template2analytic_account=template2analytic_account,
@@ -1131,3 +1239,22 @@ class UpdateChart(Wizard):
                 template2rule_line=template2rule_line)
 
         return 'succeed'
+
+class ContextAnalyticAccount(ModelView):
+    'Context Analytic Account'
+    __name__ = 'analytic_account.account.context'
+
+    from_date = fields.Date("From Date",
+        domain=[
+            If(Eval('to_date') & Eval('from_date'),
+                ('from_date', '<=', Eval('to_date')),
+                ()),
+            ],
+        depends=['to_date'])
+    to_date = fields.Date("To Date",
+        domain=[
+            If(Eval('from_date') & Eval('to_date'),
+                ('to_date', '>=', Eval('from_date')),
+                ()),
+            ],
+        depends=['from_date'])

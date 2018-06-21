@@ -2,8 +2,8 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "model:res.group,name:group_budget"
-msgid "Budget"
+msgctxt "model:res.group,name:group_iesa_budget"
+msgid "Budget IESA"
 msgstr "Presupuesto"
 
 msgctxt "field:account.budget,name:"

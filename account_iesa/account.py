@@ -352,7 +352,7 @@ class Payment(Workflow, ModelView, ModelSQL):
             ('number',) + tuple(clause[1:]),
             ('description',) + tuple(clause[1:]),
             ('subscriber',) + tuple(clause[1:]),
-            ('invoice_date',) + tuple(clause[1:]),
+            #('invoice_date',) + tuple(clause[1:]),
             ]
 
     @staticmethod
@@ -678,12 +678,13 @@ class Payment(Workflow, ModelView, ModelSQL):
 
         for payment in payments: 
             move = None
-            for line in payment.lines: 
-                move = payment.get_move()
+            #for line in payment.lines: 
+            move = payment.get_move()
             payment.accounting_date = Date.today()
             payment.move = move
             payment.state = 'posted'
             payment.save()
+            break
 
 class PaymentMoveReference(ModelView, ModelSQL):
     'Payment Move Reference'

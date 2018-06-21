@@ -36,6 +36,7 @@ __all__ = [
     'UpdateChart',
     'ConsolidatedBalanceSheetContext',
     'ConsolidatedBalanceSheetComparisionContext',
+    'ConsolidatedIncomeStatementContext',
     'GeneralLedgerAccount',
     'CompanyPartyRel',
     ]
@@ -237,6 +238,7 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
     def get_amount(cls, types, name):
         pool = Pool()
         Account = pool.get('account.account')
+        GeneralLedger = pool.get('account.general_ledger.account')
         transaction = Transaction()
         context = transaction.context
 
@@ -250,6 +252,11 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
         type_sum = {}
         for type_ in childs:
             type_sum[type_.id] = Decimal('0.0')
+
+        start_period_ids = GeneralLedger.get_period_ids('start_%s' % name)
+        end_period_ids = GeneralLedger.get_period_ids('end_%s' % name)
+        period_ids = list(
+            set(end_period_ids).difference(set(start_period_ids)))
 
         for company in context.get('companies', []):
             with transaction.set_context(company=company['id']):
@@ -509,7 +516,21 @@ class UpdateChart(Wizard):
 class ConsolidatedBalanceSheetContext(ModelView):
     'Consolidated Balance Sheet Context'
     __name__ = 'account.consolidated_balance_sheet.context'
-    date = fields.Date('Date', required=True)
+    date = fields.Date('Date', required=False)
+    from_date = fields.Date("From Date",
+        domain=[
+            If(Eval('to_date') & Eval('from_date'),
+                ('from_date', '<=', Eval('to_date')),
+                ()),
+            ],
+        depends=['to_date'])
+    to_date = fields.Date("To Date",
+        domain=[
+            If(Eval('from_date') & Eval('to_date'),
+                ('to_date', '>=', Eval('from_date')),
+                ()),
+            ],
+        depends=['from_date'])
     company = fields.Many2One('company.company', 'Company', required=True)
     posted = fields.Boolean('Posted Move', help='Show only posted move')
     companies = fields.One2Many('company.company','parent','Companies',
@@ -549,6 +570,128 @@ class ConsolidatedBalanceSheetComparisionContext(ConsolidatedBalanceSheetContext
         self.date_cmp = None
         if self.comparison and self.date:
             self.date_cmp = self.date - relativedelta(years=1)
+
+    @classmethod
+    def view_attributes(cls):
+        return [
+            ('/form/separator[@id="comparison"]', 'states', {
+                    'invisible': ~Eval('comparison', False),
+                    }),
+            ]
+
+class ConsolidatedIncomeStatementContext(ModelView):
+    'Income Statement Context'
+    __name__ = 'account.consolidated_income_statement.context'
+    
+    #fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+    #    required=True,
+    #    domain=[
+    #        ('company', '=', Eval('company')),
+    #        ],
+    #    depends=['company'])
+    start_period = fields.Many2One('account.period', 'Start Period',
+        domain=[
+            ('fiscalyear', '=', Eval('fiscalyear')),
+            ('start_date', '<=', (Eval('end_period'), 'start_date'))
+            ],
+        depends=['end_period', 'fiscalyear'])
+    end_period = fields.Many2One('account.period', 'End Period',
+        domain=[
+            ('fiscalyear', '=', Eval('fiscalyear')),
+            ('start_date', '>=', (Eval('start_period'), 'start_date')),
+            ],
+        depends=['start_period', 'fiscalyear'])
+    from_date = fields.Date("From Date",
+        domain=[
+            If(Eval('to_date') & Eval('from_date'),
+                ('from_date', '<=', Eval('to_date')),
+                ()),
+            ],
+        depends=['to_date'])
+    to_date = fields.Date("To Date",
+        domain=[
+            If(Eval('from_date') & Eval('to_date'),
+                ('to_date', '>=', Eval('from_date')),
+                ()),
+            ],
+        depends=['from_date'])
+    company = fields.Many2One('company.company', 'Company', required=True)
+    companies = fields.One2Many('company.company','parent','Companies',
+        domain=([('parent','child_of',Eval('company'))]),
+        depends=['company']
+        )
+    posted = fields.Boolean('Posted Move', help='Show only posted move')
+    comparison = fields.Boolean('Comparison')
+    fiscalyear_cmp = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+        states={
+            'required': Eval('comparison', False),
+            'invisible': ~Eval('comparison', False),
+            },
+        domain=[
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'])
+    start_period_cmp = fields.Many2One('account.period', 'Start Period',
+        domain=[
+            ('fiscalyear', '=', Eval('fiscalyear_cmp')),
+            ('start_date', '<=', (Eval('end_period_cmp'), 'start_date'))
+            ],
+        states={
+            'invisible': ~Eval('comparison', False),
+            },
+        depends=['end_period_cmp', 'fiscalyear_cmp'])
+    end_period_cmp = fields.Many2One('account.period', 'End Period',
+        domain=[
+            ('fiscalyear', '=', Eval('fiscalyear_cmp')),
+            ('start_date', '>=', (Eval('start_period_cmp'), 'start_date')),
+            ],
+        states={
+            'invisible': ~Eval('comparison', False),
+            },
+        depends=['start_period_cmp', 'fiscalyear_cmp'])
+    from_date_cmp = fields.Date("From Date",
+        domain=[
+            If(Eval('to_date_cmp') & Eval('from_date_cmp'),
+                ('from_date_cmp', '<=', Eval('to_date_cmp')),
+                ()),
+            ],
+        states={
+            'invisible': ~Eval('comparison', False),
+            },
+        depends=['to_date_cmp', 'comparison'])
+    to_date_cmp = fields.Date("To Date",
+        domain=[
+            If(Eval('from_date_cmp') & Eval('to_date_cmp'),
+                ('to_date_cmp', '>=', Eval('from_date_cmp')),
+                ()),
+            ],
+        states={
+            'invisible': ~Eval('comparison', False),
+            },
+        depends=['from_date_cmp', 'comparison'])
+
+    @staticmethod
+    def default_fiscalyear():
+        FiscalYear = Pool().get('account.fiscalyear')
+        return FiscalYear.find(
+            Transaction().context.get('company'), exception=False)
+
+    @staticmethod
+    def default_company():
+        return Transaction().context.get('company')
+
+    @staticmethod
+    def default_posted():
+        return False
+
+    @classmethod
+    def default_comparison(cls):
+        return False
+
+    @fields.depends('fiscalyear')
+    def on_change_fiscalyear(self):
+        self.start_period = None
+        self.end_period = None
 
     @classmethod
     def view_attributes(cls):

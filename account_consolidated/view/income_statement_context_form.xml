@@ -3,13 +3,20 @@
 this repository contains the full copyright notices and license terms. -->
 <form col="6">
 	<group id="date-company" colspan="4" col="6">
-	<!-- 
-	    <label name="date"/>
-	    <field name="date"/>
-	-->
+		<!--
+		<label name="fiscalyear"/>
+    	<field name="fiscalyear"/>
+		-->
 	    <label name="company"/>
 	    <field name="company" readonly="1"/>
-		<label name="from_date"/>
+	    <!--
+	    <label name="start_period"/>
+	    <field name="start_period"/>
+	    <label name="end_period"/>
+	    <field name="end_period"/>
+	    <newline/>
+		-->
+	    <label name="from_date"/>
 	    <field name="from_date"/>
 	    <label name="to_date"/>
 	    <field name="to_date"/>

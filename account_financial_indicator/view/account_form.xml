@@ -1,12 +1,23 @@
 <?xml version="1.0"?>
 <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
 this repository contains the full copyright notices and license terms. -->
-
-    <data>
-   
-	    <xpath expr="/form/group[@id=&quot;state&quot;]/field[@name=&quot;state&quot;]" position="after">
-	    	<label name="is_recommended_capital"/>
-	    	<field name="is_recommended_capital" xexpand="0" width="100"/>
-	    </xpath>
-	
-    </data>
+<data>
+    <xpath expr="/form/notebook/page[@id=&quot;notes&quot;]" position="after">
+        <page string="Types" id="types">
+            <label name="is_current_capital"/>
+            <field name="is_current_capital" xexpand="0" width="100"/>
+            <label name="is_current_asset"/>
+            <field name="is_current_asset" xexpand="0" width="100"/>
+        	<label name="is_recommended_capital"/>
+        	<field name="is_recommended_capital" xexpand="0" width="100"/>
+            <label name="is_cash"/>
+            <field name="is_cash" xexpand="0" width="100"/>
+            <label name="is_current_liability"/>
+            <field name="is_current_liability" xexpand="0" width="100"/>
+            <label name="is_revenue"/>
+            <field name="is_revenue" xexpand="0" width="100"/>
+            <label name="is_expense"/>
+            <field name="is_expense" xexpand="0" width="100"/>
+        </page>
+    </xpath>
+</data>

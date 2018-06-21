@@ -4,7 +4,7 @@ this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
     	<menuitem name="Financial Indexes" parent="training.menu_training"
-            id="menu_index" icon="tryton-graph" sequence="1"/>
+            id="menu_index" icon="tryton-graph" sequence="0"/>
         <record model="ir.ui.menu-res.group"
             id="menu_financial_group_account_admin">
             <field name="menu" ref="menu_index"/>

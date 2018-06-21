@@ -18,6 +18,7 @@ def register():
         AccountTypeTemplate,
         ConsolidatedBalanceSheetContext,
         ConsolidatedBalanceSheetComparisionContext,
+        ConsolidatedIncomeStatementContext,
         GeneralLedgerAccount,
         CompanyPartyRel,
         module='account_consolidated', type_='model')

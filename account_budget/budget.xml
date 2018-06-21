@@ -3,19 +3,19 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-        <record model="res.group" id="group_budget">
-            <field name="name">Budget</field>
+        <record model="res.group" id="group_iesa_budget">
+            <field name="name">Budget IESA</field>
         </record>
         <record model="res.user-res.group" id="user_admin_group_budget">
             <field name="user" ref="res.user_admin"/>
-            <field name="group" ref="group_budget"/>
+            <field name="group" ref="group_iesa_budget"/> S
         </record>
         <menuitem name="Budgets" parent="account.menu_account"
             id="menu_budget" sequence="90"/>
 
         <record model="res.user-res.group" id="user_trigger_group_budget">
             <field name="user" ref="res.user_trigger"/>
-            <field name="group" ref="group_budget"/>
+            <field name="group" ref="group_iesa_budget"/>
         </record>
 
         <record model="ir.ui.view" id="budget_view_form">
@@ -83,7 +83,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <record model="ir.model.access" id="access_budget_admin">
             <field name="model" search="[('model', '=', 'account.budget')]"/>
-            <field name="group" ref="group_budget"/>
+            <field name="group" ref="group_iesa_budget"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="True"/>
@@ -127,7 +127,7 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.model.access" id="access_budget_period_admin">
             <field name="model"
                 search="[('model', '=', 'account.budget.period')]"/>
-            <field name="group" ref="group_budget"/>
+            <field name="group" ref="group_iesa_budget"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="True"/>

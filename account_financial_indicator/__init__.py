@@ -14,8 +14,10 @@ def register():
         AnalyticAccountEntry, 
         CreateChartAccount,
         UpdateChartStart,
+        ContextAnalyticAccount, 
         module='account_financial_indicator', type_='model')
     Pool.register(
         CreateChart,
         UpdateChart,
+        OpenChartAccount,
         module='account_financial_indicator', type_='wizard')

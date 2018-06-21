@@ -15,19 +15,82 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">update_chart_start_form</field>
         </record>
 
+        <record model="ir.ui.view" id="analytic_account_view_context">
+            <field name="model">analytic_account.account.context</field>
+            <field name="type">form</field>
+            <field name="name">analytic_account_context</field>
+        </record>
+
+        <!--
+        <record model="ir.ui.view" id="account_view_tree2">
+            <field name="model">analytic_account.account</field>
+            <field name="type">tree</field>
+            <field name="field_childs">childs</field>
+            <field name="priority" eval="20"/>
+            <field name="name">account_tree2</field>
+        </record>
+        -->
+
+        <!--
         <record model="ir.ui.view" id="account_view_tree2">
             <field name="model">analytic_account.account</field>
             <field name="inherit" ref="analytic_account.account_view_tree2"/>
             <field name="priority" eval="20"/>
             <field name="name">account_tree2</field>
         </record>
+        -->
+
+        <!--
+        <record model="ir.action.act_window.view" id="act_account_tree2_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_view_tree2"/>
+            <field name="act_window" ref="act_account_tree2"/>
+        </record>
+
 
         <record model="ir.ui.view" id="account_view_form">
+            <field name="model">analytic_account.account</field>
+            <field name="type">form</field>
+            <field name="name">account_form</field>
+        </record>
+        -->
+
+        <record model="ir.ui.view" id="account_view_forms">
             <field name="model">analytic_account.account</field>
             <field name="inherit" ref="analytic_account.account_view_form"/>
             <field name="priority" eval="20"/>
             <field name="name">account_form</field>
         </record>
+        
+        <record model="ir.ui.view" id="account_view_tree2">
+            <field name="model">analytic_account.account</field>
+            <field name="type">tree</field>
+            <field name="field_childs">childs</field>
+            <field name="priority" eval="20"/>
+            <field name="name">account_tree2</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_account_tree2">
+            <field name="name">Analytic Accounts</field>
+            <field name="res_model">analytic_account.account</field>
+            <field name="context_model">analytic_account.account.context</field>
+            <field name="domain" eval="[('parent', '=', None)]" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_account_tree2_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_view_tree2"/>
+            <field name="act_window" ref="act_account_tree2"/>
+        </record>
+        <record model="ir.action.wizard" id="act_open_chart">
+            <field name="name">Open Chart of Analytic Accounts</field>
+            <field name="wiz_name">financial_indicator.open_chart</field>
+        </record>
+        <menuitem parent="account.menu_charts" action="act_account_tree2"
+            icon="tryton-tree" id="menu_open_chart"/>
+
+
+
+        
         
         <record model="ir.rule.group" id="rule_group_analytic_account">
             <field name="model" search="[('model', '=', 'analytic_account.account')]"/>
