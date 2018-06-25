@@ -10,6 +10,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="fiscalyear"/>
     <label name="parent"/>
     <field name="parent"/>
+    <label name="type"/>
+    <field name="type"/>
     <group id="amount" colspan="4" col="6">
         <label name="amount"/>
         <field name="amount"/>

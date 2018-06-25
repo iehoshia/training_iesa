@@ -9,6 +9,7 @@ from .account import *
 
 def register():
     Pool.register(
+        CreateChartProperties, 
         Party,
         Subscription,
         Line, 
@@ -38,6 +39,7 @@ def register():
         PrintGradeOverdueReport,
         CreateLineConsumption, 
         CreateSubscriptionInvoice, 
+        CreateChart,
 #        ImprimirReporteDistrito,
 #        ImprimirReporteZona,
 #        ImprimirReporteCampo,

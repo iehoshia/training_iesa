@@ -59,6 +59,7 @@ class BalanceMixin:
         for sub_ids in grouped_slice(ids):
             cursor.execute(*cls._get_balance_query(sub_ids))
             balances.update(dict(cursor.fetchall()))
+
         # SQLite uses float for SUM
         for record_id, balance in balances.iteritems():
             if isinstance(balance, Decimal):
@@ -71,11 +72,11 @@ class BalanceMixin:
 
     @classmethod
     def get_difference(cls, records, name):
-        diferences = {}
+        differences = {}
         for record in records:
             #print "BALANCE: " + str(record.balance)
-            diferences[record.id] = record.amount - record.balance
-        return diferences
+            differences[record.id] = record.amount - record.balance
+        return differences
 
 
 class BudgetMixin(BalanceMixin, ModelSQL, ModelView):
@@ -89,6 +90,9 @@ class BudgetMixin(BalanceMixin, ModelSQL, ModelView):
         help="Make the budget belong to the company.")
     left = fields.Integer("Left", required=True, select=True)
     right = fields.Integer("Right", required=True, select=True)
+    type = fields.Selection([('debit','Debit'),
+        ('credit','Credit')],
+        'Type')
 
     @classmethod
     def _childs_domain(cls):
@@ -251,7 +255,8 @@ class Budget(BudgetMixin):
         line = MoveLine.__table__()
         move = Move.__table__()
         period = Period.__table__()
-        balance = Sum( Coalesce(line.debit, 0) -Coalesce(line.credit, 0) )
+        balance = Sum( Coalesce(line.credit, 0) -Coalesce(line.debit, 0) )
+
         #print "BALANCE: " + str(balance)
 
         return table_a.join(table_c,
@@ -366,7 +371,7 @@ class BudgetPeriod(BalanceMixin, ModelSQL, ModelView):
         account = BudgetAccount.__table__()
         move = Move.__table__()
         line = MoveLine.__table__()
-        balance = Sum(Coalesce(line.debit, 0) - Coalesce(line.credit, 0))
+        balance = Sum(Coalesce(line.credit, 0) - Coalesce(line.debit, 0)) 
         return table.join(table_a,
             condition=(table_a.id == table.budget)
             ).join(table_c,

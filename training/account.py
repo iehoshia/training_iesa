@@ -39,9 +39,47 @@ __all__ = [
     'InvoiceReportReceipt',
     'PayInvoiceStart',
     'MoveLine',
+    'CreateChart',
+    'CreateChartProperties',
     ] 
 
 __metaclass__ = PoolMeta
+
+class CreateChartProperties:
+    __metaclass__ = PoolMeta
+    __name__ = 'account.create_chart.properties'
+
+    enrolment_account = fields.Many2One(
+        'account.account', 'Default Enrolment Account',
+        domain=[
+            ('kind', '=', 'receivable'),
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'])
+    enrolment_revenue = fields.Many2One(
+        'account.account', 'Default Enrolment Revenue',
+        domain=[
+            ('kind', '=', 'revenue'),
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'])
+
+class CreateChart:
+    __metaclass__ = PoolMeta
+    __name__ = 'account.create_chart'
+
+    def transition_create_properties(self):
+        pool = Pool()
+        Configuration = pool.get('account.configuration')
+        state = super(CreateChart, self).transition_create_properties()
+
+        with Transaction().set_context(company=self.properties.company.id):
+            config = Configuration(1)
+            for name in ['enrolment_account', 'enrolment_revenue']:
+                setattr(config, 'default_%s' % name,
+                    getattr(self.properties, name, None))
+            config.save()
+        return state
 
 class Configuration:
     __name__ = 'account.configuration'

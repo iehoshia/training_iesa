@@ -222,7 +222,6 @@ msgctxt "model:ir.action,name:act_operative_capital"
 msgid "Operative Capital"
 msgstr "Capital Operativo"
 
-
 msgctxt "model:ir.action,name:act_move_template_create"
 msgid "Create Move from Template"
 msgstr "Crear asiento desde plantilla"
