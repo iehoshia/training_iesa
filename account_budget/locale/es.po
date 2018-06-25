@@ -3,7 +3,7 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "model:res.group,name:group_iesa_budget"
-msgid "Budget IESA"
+msgid "Budget"
 msgstr "Presupuesto"
 
 msgctxt "field:account.budget,name:"
@@ -122,7 +122,7 @@ msgctxt "view:account.budget.period:"
 msgid "Difference"
 msgstr "Diferencia"
 
-msgctxt "model:ir.ui.menu,name:menu_budget"
+msgctxt "model:ir.ui.menu,name:menu_budget" 
 msgid "Budgets"
 msgstr "Presupuestos"
 
