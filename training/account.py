@@ -418,6 +418,11 @@ class MoveLine(ModelSQL, ModelView):
     third_party = fields.Char('Third Party', states=_states, depends=_depends)
     receipt = fields.Char('Receipt', states=_states, depends=_depends)
 
+    @classmethod 
+    def __setup__(cls): 
+        super(MoveLine, cls).__setup__() 
+        cls._order[0] = ('id', 'DESC')
+
 class PayInvoiceStart(ModelView):
     'Pay Invoice'
     __name__ = 'account.invoice.pay.start'

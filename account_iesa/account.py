@@ -28,7 +28,6 @@ from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 from trytond.report import Report
 
-
 from trytond import backend
 
 from numero_letras import numero_a_moneda
@@ -113,6 +112,11 @@ class Move(ModelSQL, ModelView):
         amount_in_letters = numero_a_moneda(self.amount)
         return amount_in_letters
 
+    @classmethod 
+    def __setup__(cls): 
+        super(Move, cls).__setup__() 
+        cls._order[0] = ('id', 'ASC')
+
     '''class AccountMoveReport(Report):
     __name__ = 'account.move'
 
@@ -165,11 +169,23 @@ class AccountMoveReport(Report):
         pool = Pool()
         Company = pool.get('company.company')
         context = Transaction().context
+        '''
+        Move = pool.get('account.move')
+        pool = Pool()
+        Move = pool.get('account.move')
+        MoveLine = pool.get('account.move.line')
+        active_id = context['ids']
+
+        print "ACTIVE ID: " + str(active_id)
+        move = Move(active_id)
+        lines = MoveLine.search(['id','=', move.id], 
+            order=[('id','DESC')])
+        '''
 
         report_context = super(AccountMoveReport, cls).get_context(records, data)
 
         report_context['company'] = Company(context['company'])
-        
+        #report_context['lines'] = lines
         report_context['from_date'] = context.get('from_date')
         report_context['to_date'] = context.get('to_date')
 

@@ -10,7 +10,8 @@ this repository contains the full copyright notices and license terms. -->
             <field name="user" ref="res.user_admin"/>
             <field name="group" ref="group_budget"/> S
         </record>
-        <menuitem name="Presupuestos" parent="account.menu_account"
+        
+        <menuitem name="Budgets" parent="account.menu_account"
             id="menu_budget" sequence="90"/>
 
         <record model="res.user-res.group" id="user_trigger_group_budget">

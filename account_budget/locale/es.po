@@ -2,13 +2,25 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "model:res.group,name:group_iesa_budget"
+msgctxt "model:res.group,name:group_budget"
+msgid "Budget Group"
+msgstr "Presupuesto"
+
+msgctxt "model:res.group,name:user_admin_group_budget"
+msgid "Budget Group"
+msgstr "Presupuesto"
+
+msgctxt "model:res.group,name:group_budget"
 msgid "Budget"
 msgstr "Presupuesto"
 
 msgctxt "field:account.budget,name:"
 msgid "Name"
 msgstr "Nombre"
+
+msgctxt "field:account.budget,type:"
+msgid "Type"
+msgstr "Tipo"
 
 msgctxt "field:account.budget,amount:"
 msgid "Amount"
@@ -127,6 +139,10 @@ msgid "Budgets"
 msgstr "Presupuestos"
 
 msgctxt "model:ir.ui.menu,name:menu_budget_form"
+msgid "Budgets"
+msgstr "Presupuestos"
+
+msgctxt "model:ir.action,name:act_budget"
 msgid "Budgets"
 msgstr "Presupuestos"
 
