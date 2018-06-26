@@ -103,7 +103,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="model">account.move</field>
             <field name="report_name">account.move.report</field>
             <field name="report">account_iesa/account_move.fodt</field>
-
         </record>
         <record model="ir.action.keyword" id="report_account_move_keyword">
             <field name="keyword">form_print</field>

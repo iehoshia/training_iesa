@@ -20,7 +20,7 @@ from trytond.model import (ModelSingleton, DeactivableMixin,
     ModelView, ModelSQL, DeactivableMixin, fields,
     Unique, Workflow, sequence_ordered) 
 from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
-    Button
+    Button, StateReport
 from trytond.report import Report
 from trytond.tools import reduce_ids, grouped_slice
 from trytond.pyson import Eval, If, PYSONEncoder, Bool
@@ -601,7 +601,6 @@ class Payment(Workflow, ModelView, ModelSQL):
             pay_wizard.transition_choice()
             pay_wizard.transition_pay()
             pay_wizard.do_print_()
-            print "PAY: " + str(pay_wizard) 
 
     def get_move(self):
 
@@ -663,8 +662,6 @@ class Payment(Workflow, ModelView, ModelSQL):
             company = payment.company
             total_amount = payment.amount
             current_amount = 0
-
-            print "LINES: " + str(payment.lines)
             for line in payment.lines: 
                 current_amount += line.amount 
             balance = total_amount - current_amount
@@ -692,15 +689,16 @@ class Payment(Workflow, ModelView, ModelSQL):
         Currency = pool.get('currency.currency')
         Date = pool.get('ir.date')
 
+        print_ = StateReport('account.iesa.payment.report')
+
         for payment in payments: 
             move = None
-            #for line in payment.lines: 
             move = payment.get_move()
             payment.accounting_date = Date.today()
             payment.move = move
             payment.state = 'posted'
             payment.save()
-            break
+
 
 class PaymentMoveReference(ModelView, ModelSQL):
     'Payment Move Reference'
@@ -710,8 +708,6 @@ class PaymentMoveReference(ModelView, ModelSQL):
     party = fields.Many2One('party.party','Party')
     description = fields.Char('Description')
     amount = fields.Numeric('Amount')
-
-
 
 class PaymentLine(ModelView, ModelSQL):
     'Payment Line'
@@ -880,8 +876,6 @@ class GeneralLedger(Report):
         report_context['to_date'] = context.get('to_date')
 
         report_context['accounts'] = records
-
-        print "REPORT CONTEXT: " + str(report_context)
 
         return report_context
 
