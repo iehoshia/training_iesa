@@ -658,7 +658,8 @@ class Payment(Workflow, ModelView, ModelSQL):
         cls.set_number(payments)
 
     @classmethod
-    @ModelView.button
+    @ModelView.button_action(
+        'account_iesa.report_iesa_payment')
     @Workflow.transition('posted')
     def post(cls, payments):
         
