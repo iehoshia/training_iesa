@@ -20,13 +20,14 @@ from trytond.model import (ModelSingleton, DeactivableMixin,
     ModelView, ModelSQL, DeactivableMixin, fields,
     Unique, Workflow, sequence_ordered) 
 from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
-    Button, StateReport
+    Button
 from trytond.report import Report
 from trytond.tools import reduce_ids, grouped_slice
 from trytond.pyson import Eval, If, PYSONEncoder, Bool
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 from trytond.report import Report
+
 
 from trytond import backend
 
@@ -112,11 +113,6 @@ class Move(ModelSQL, ModelView):
         amount_in_letters = numero_a_moneda(self.amount)
         return amount_in_letters
 
-    @classmethod 
-    def __setup__(cls): 
-        super(Move, cls).__setup__() 
-        cls._order[0] = ('id', 'ASC')
-
     '''class AccountMoveReport(Report):
     __name__ = 'account.move'
 
@@ -169,23 +165,11 @@ class AccountMoveReport(Report):
         pool = Pool()
         Company = pool.get('company.company')
         context = Transaction().context
-        '''
-        Move = pool.get('account.move')
-        pool = Pool()
-        Move = pool.get('account.move')
-        MoveLine = pool.get('account.move.line')
-        active_id = context['ids']
-
-        print "ACTIVE ID: " + str(active_id)
-        move = Move(active_id)
-        lines = MoveLine.search(['id','=', move.id], 
-            order=[('id','DESC')])
-        '''
 
         report_context = super(AccountMoveReport, cls).get_context(records, data)
 
         report_context['company'] = Company(context['company'])
-        #report_context['lines'] = lines
+        
         report_context['from_date'] = context.get('from_date')
         report_context['to_date'] = context.get('to_date')
 
@@ -601,6 +585,7 @@ class Payment(Workflow, ModelView, ModelSQL):
             pay_wizard.transition_choice()
             pay_wizard.transition_pay()
             pay_wizard.do_print_()
+            print "PAY: " + str(pay_wizard) 
 
     def get_move(self):
 
@@ -662,6 +647,8 @@ class Payment(Workflow, ModelView, ModelSQL):
             company = payment.company
             total_amount = payment.amount
             current_amount = 0
+
+            print "LINES: " + str(payment.lines)
             for line in payment.lines: 
                 current_amount += line.amount 
             balance = total_amount - current_amount
@@ -689,16 +676,15 @@ class Payment(Workflow, ModelView, ModelSQL):
         Currency = pool.get('currency.currency')
         Date = pool.get('ir.date')
 
-        print_ = StateReport('account.iesa.payment.report')
-
         for payment in payments: 
             move = None
+            #for line in payment.lines: 
             move = payment.get_move()
             payment.accounting_date = Date.today()
             payment.move = move
             payment.state = 'posted'
             payment.save()
-
+            break
 
 class PaymentMoveReference(ModelView, ModelSQL):
     'Payment Move Reference'
@@ -708,6 +694,8 @@ class PaymentMoveReference(ModelView, ModelSQL):
     party = fields.Many2One('party.party','Party')
     description = fields.Char('Description')
     amount = fields.Numeric('Amount')
+
+
 
 class PaymentLine(ModelView, ModelSQL):
     'Payment Line'
@@ -876,6 +864,8 @@ class GeneralLedger(Report):
         report_context['to_date'] = context.get('to_date')
 
         report_context['accounts'] = records
+
+        print "REPORT CONTEXT: " + str(report_context)
 
         return report_context
 

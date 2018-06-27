@@ -20,13 +20,24 @@ this repository contains the full copyright notices and license terms. -->
         </record>-->
 
         <record model="ir.ui.view" id="print_general_balance_start_form">
-            <field name="model">account.account.type</field>
+            <field name="model">print.general_balance.start</field>
             <field name="type">form</field>
             <field name="name">print_general_balance_start</field>
         </record>
-        
-        <menuitem name="Print General Balance" parent="account.menu_reporting"
-            id="menu_print_general_balance" sequence="100"/>
 
+        <record model="ir.action.report" id="report_general_balance">
+            <field name="name">General Balance</field>
+            <field name="model">account.account.type</field>
+            <field name="report_name">general_balance.report</field>
+            <field name="report">account_report/general_balance.fodt</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_print_general_balance">
+            <field name="name">Print General Balance</field>
+            <field name="wiz_name">print.general_balance</field>
+        </record>
+        <menuitem parent="account.menu_reporting" action="wizard_print_general_balance"
+            id="menu_print_general_balance" icon="tryton-print"/>
+        
     </data>
 </tryton>
