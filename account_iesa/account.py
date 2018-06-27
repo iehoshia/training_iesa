@@ -113,15 +113,18 @@ class Move(ModelSQL, ModelView):
         amount_in_letters = numero_a_moneda(self.amount)
         return amount_in_letters
 
-    '''class AccountMoveReport(Report):
-    __name__ = 'account.move'
-
     @classmethod
     def __setup__(cls):
-        super(InvoiceReport, cls).__setup__()
-        cls.__rpc__['execute'] = RPC(False)
+        super(Move, cls).__setup__()
+        cls._order = [
+            ('post_date', 'ASC'),
+            ('id', 'ASC'),
+            ]
 
+        
     
+    '''class AccountMoveReport(Report):
+    __name__ = 'account.move'
 
     @classmethod
     def get_context(cls, records, data):
