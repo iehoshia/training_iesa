@@ -32,6 +32,8 @@ from trytond.modules.product import price_digits
 from numero_letras import numero_a_moneda
 
 __all__ = [
+    'CreateChart',
+    'CreateChartProperties',
     'Configuration',
     'ConfigurationDefaultAccount',
     'Invoice',
@@ -39,8 +41,6 @@ __all__ = [
     'InvoiceReportReceipt',
     'PayInvoiceStart',
     'MoveLine',
-    'CreateChart',
-    'CreateChartProperties',
     ] 
 
 __metaclass__ = PoolMeta
@@ -417,6 +417,11 @@ class MoveLine(ModelSQL, ModelView):
     ticket = fields.Char('Ticket', states=_states, depends=_depends)
     third_party = fields.Char('Third Party', states=_states, depends=_depends)
     receipt = fields.Char('Receipt', states=_states, depends=_depends)
+
+    @classmethod 
+    def __setup__(cls): 
+        super(MoveLine, cls).__setup__() 
+        cls._order[0] = ('id', 'DESC')
 
 class PayInvoiceStart(ModelView):
     'Pay Invoice'
