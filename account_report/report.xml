@@ -3,21 +3,6 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
-        <!--<record model="res.group" id="group_budget">
-            <field name="name">Budget Group</field>
-        </record>
-        <record model="res.user-res.group" id="user_admin_group_budget">
-            <field name="user" ref="res.user_admin"/>
-            <field name="group" ref="group_budget"/> S
-        </record>
-        
-        <menuitem name="Budgets" parent="account.menu_account"
-            id="menu_budget" sequence="90"/>
-
-        <record model="res.user-res.group" id="user_trigger_group_budget">
-            <field name="user" ref="res.user_trigger"/>
-            <field name="group" ref="group_budget"/>
-        </record>-->
 
         <record model="ir.ui.view" id="print_general_balance_start_form">
             <field name="model">print.general_balance.start</field>
@@ -38,6 +23,26 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <menuitem parent="account.menu_reporting" action="wizard_print_general_balance"
             id="menu_print_general_balance" icon="tryton-print"/>
+
+        <record model="ir.ui.view" id="print_income_statement_start_form">
+            <field name="model">print.income_statement.start</field>
+            <field name="type">form</field>
+            <field name="name">print_income_statement_start</field>
+        </record>
+
+        <record model="ir.action.report" id="report_income_statement">
+            <field name="name">Income Statement</field>
+            <field name="model">account.account.type</field>
+            <field name="report_name">income_statement.report</field>
+            <field name="report">account_report/income_statement.fodt</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_print_income_statement">
+            <field name="name">Print Income Statement</field>
+            <field name="wiz_name">print.income_statement</field>
+        </record>
+        <menuitem parent="account.menu_reporting" action="wizard_print_income_statement"
+            id="menu_print_income_statement" icon="tryton-print"/>
         
     </data>
 </tryton>

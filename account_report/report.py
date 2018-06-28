@@ -20,6 +20,9 @@ __all__ = [
     'PrintGeneralBalanceStart',
     'PrintGeneralBalance',
     'GeneralBalance',
+    'PrintIncomeStatementStart',
+    'PrintIncomeStatement',
+    'IncomeStatement',
     ]
 
 __metaclass__ = PoolMeta
@@ -113,5 +116,112 @@ class GeneralBalance(Report):
         report_context['fiscalyear'] = data['fiscalyear']
         report_context['start_date'] = data['start_date']
         report_context['end_date'] = data['end_date']
+
+        return report_context
+
+class PrintIncomeStatementStart(ModelView):
+    'Income Statement Start'
+    __name__ = 'print.income_statement.start'
+
+    company = fields.Many2One('company.company', "Company", readonly=True,
+        domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', -1)),
+            ])
+    fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+        help="The fiscalyear on which the new created budget will apply.",
+        required=True, 
+        domain=[
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'])
+    account = fields.Many2One('account.account.type', 'Account Plan',
+        help="The account plan for balance.",
+        required=True, 
+        domain=[
+            #('company', '=', Eval('company')),
+            #('parent', '=', None),
+            ('income_statement', '=', True), 
+            ],
+        depends=['company'])
+
+    @classmethod
+    def default_company(cls):
+        return Transaction().context.get('company')
+
+
+class PrintIncomeStatement(Wizard):
+    'Income Statement Balance'
+    __name__ = 'print.income_statement'
+
+    start = StateView('print.income_statement.start',
+        'account_report.print_income_statement_start_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Print', 'print_', 'tryton-print', default=True),
+            ])
+    print_ = StateReport('income_statement.report')
+
+    def do_print_(self, action):
+        start_date = self.start.fiscalyear.start_date
+        end_date = self.start.fiscalyear.end_date
+        start_date = Date(start_date.year, start_date.month, start_date.day)
+        end_date = Date(end_date.year, end_date.month, end_date.day)
+        data = {
+            'company': self.start.company.id,
+            'account': self.start.account.id,
+            'fiscalyear': self.start.fiscalyear.name,
+            'start_date': self.start.fiscalyear.start_date,
+            'end_date': self.start.fiscalyear.end_date,
+            }
+        action['pyson_context'] = PYSONEncoder().encode({
+                #'company': self.start.company.id,
+                'start_date': start_date,
+                'end_date': end_date,
+                })
+        return action, data
+
+class IncomeStatement(Report):
+    'Income Statement Report'
+    __name__ = 'income_statement.report'
+
+    @classmethod
+    def _get_records(cls, ids, model, data):
+        Account = Pool().get('account.account.type')
+
+        account = Account(data['account'])
+        accounts = account._get_childs_by_order()
+
+        return accounts
+
+    @classmethod
+    def get_context(cls, records, data):
+        report_context = super(IncomeStatement, cls).get_context(records, data)
+
+        pool = Pool()
+        Company = pool.get('company.company')
+        Account = pool.get('account.account.type')
+
+        company = Company(data['company'])
+        total_revenue = total_expense = net_revenue = 0 
+
+        total_revenue_account = Account.search([('name','=','INGRESOS FINANCIEROS'),
+            ('company','=',company)])
+        total_expense_account = Account.search([('name','=','GASTOS FINANCIEROS'),
+            ('company','=',company)])
+
+        if len(total_revenue_account)==1: 
+            total_revenue = total_revenue_account[0].amount 
+        if len(total_expense_account)==1: 
+            total_expense = total_expense_account[0].amount 
+        net_revenue = total_revenue - total_expense
+
+        report_context['company'] = company
+        report_context['digits'] = company.currency.digits
+        report_context['fiscalyear'] = data['fiscalyear']
+        report_context['start_date'] = data['start_date']
+        report_context['end_date'] = data['end_date']
+        report_context['total_revenue'] = total_revenue
+        report_context['total_expense'] = total_expense
+        report_context['net_revenue'] = net_revenue
 
         return report_context

@@ -7,11 +7,14 @@ from .account import *
 def register():
     Pool.register(
         PrintGeneralBalanceStart,
+        PrintIncomeStatementStart,
         Type, 
         module='account_report', type_='model')
     Pool.register(
         PrintGeneralBalance,
+        PrintIncomeStatement,
         module='account_report', type_='wizard')
     Pool.register(
         GeneralBalance,
+        IncomeStatement, 
         module='account_report', type_='report')
