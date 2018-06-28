@@ -94,16 +94,10 @@ class GeneralBalance(Report):
     def _get_records(cls, ids, model, data):
         Account = Pool().get('account.account.type')
 
-        clause = [
-            #('balance_sheet', '=', True), 
-            ('company', '=', data['company']),
-            ('parent', 'child_of', data['account']),
-            #['OR', ('parent', 'child_of', None), ('parent.balance_sheet', '=', False)]
-        ]
-        return Account.search(clause,
-                #order=[('sequence', 'ASC')]
-                )
-    
+        account = Account(data['account'])
+        accounts = account._get_children_by_order()
+
+        return accounts
 
     @classmethod
     def get_context(cls, records, data):
