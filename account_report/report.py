@@ -95,13 +95,14 @@ class GeneralBalance(Report):
         Account = Pool().get('account.account.type')
 
         account = Account(data['account'])
-        accounts = account._get_children_by_order()
+        accounts = account._get_childs_by_order()
 
         return accounts
 
     @classmethod
     def get_context(cls, records, data):
         report_context = super(GeneralBalance, cls).get_context(records, data)
+
 
         Company = Pool().get('company.company')
 

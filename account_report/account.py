@@ -31,8 +31,8 @@ class Type(ModelSQL, ModelView):
             level = self.parent.level + 1
         return  level
 
-    def _get_children_by_order(self, res=None):
-        '''returns the records of all the children computed recursively, and sorted by sequence. Ready for the printing'''
+    def _get_childs_by_order(self, res=None):
+        '''Returns the records of all the children computed recursively, and sorted by sequence. Ready for the printing'''
         
         Account = Pool().get('account.account.type')
         
@@ -44,5 +44,5 @@ class Type(ModelSQL, ModelView):
         if len(childs)>=1:
             for child in childs:
                 res.append(Account(child.id))
-                child._get_children_by_order(res=res)
+                child._get_childs_by_order(res=res)
         return res 

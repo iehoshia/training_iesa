@@ -2,10 +2,12 @@
 # this repository contains the full copyright notices and license terms.
 from trytond.pool import Pool
 from .report import *
+from .account import * 
 
 def register():
     Pool.register(
         PrintGeneralBalanceStart,
+        Type, 
         module='account_report', type_='model')
     Pool.register(
         PrintGeneralBalance,
