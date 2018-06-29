@@ -72,6 +72,7 @@ class PrintGeneralBalance(Wizard):
     def do_print_(self, action):
         start_date = self.start.fiscalyear.start_date
         end_date = self.start.fiscalyear.end_date
+        fiscalyear = self.start.fiscalyear.id
         start_date = Date(start_date.year, start_date.month, start_date.day)
         end_date = Date(end_date.year, end_date.month, end_date.day)
         data = {
@@ -82,10 +83,13 @@ class PrintGeneralBalance(Wizard):
             'end_date': self.start.fiscalyear.end_date,
             }
         action['pyson_context'] = PYSONEncoder().encode({
-                #'company': self.start.company.id,
-                'start_date': start_date,
+                'company': self.start.company.id,
+                'fiscalyear': self.start.fiscalyear.id,
+                'start_date': start_date, 
                 'end_date': end_date,
                 })
+        if self.start.fiscalyear:
+            action['name'] += ' - %s' % self.start.fiscalyear.rec_name
         return action, data
 
 class GeneralBalance(Report):
