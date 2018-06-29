@@ -47,8 +47,7 @@ class PrintGeneralBalanceStart(ModelView):
         help="The account plan for balance.",
         required=True, 
         domain=[
-            #('company', '=', Eval('company')),
-            #('parent', '=', None),
+            ('company', '=', Eval('company')),
             ('balance_sheet', '=', True), 
             ],
         depends=['company'])
@@ -143,8 +142,7 @@ class PrintIncomeStatementStart(ModelView):
         help="The account plan for balance.",
         required=True, 
         domain=[
-            #('company', '=', Eval('company')),
-            #('parent', '=', None),
+            ('company', '=', Eval('company')),
             ('income_statement', '=', True), 
             ],
         depends=['company'])
