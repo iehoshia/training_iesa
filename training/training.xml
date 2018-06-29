@@ -219,7 +219,9 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             id="act_subscription_form_domain_draft">
             <field name="name">Draft</field>
             <field name="sequence" eval="10"/>
-            <field name="domain" eval="[('state', '=', 'draft')]" pyson="1"/>
+            <field name="domain" eval="[('state', '=', 'draft'),
+                ('company', '=', Eval('context', {}).get('company', -1)),
+                ]" pyson="1"/>
             <field name="count" eval="True"/>
             <field name="act_window" ref="act_subscription"/>
         </record>
@@ -227,7 +229,9 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             id="act_subscription_form_domain_quotation">
             <field name="name">Quotation</field>
             <field name="sequence" eval="20"/> 
-            <field name="domain" eval="[('state', '=', 'quotation')]"
+            <field name="domain" eval="[('state', '=', 'quotation'),
+                ('company', '=', Eval('context', {}).get('company', -1)),
+                ]"
                 pyson="1"/>
             <field name="count" eval="True"/>
             <field name="act_window" ref="act_subscription"/>
@@ -236,7 +240,9 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             id="act_subscription_form_domain_running">
             <field name="name">Running</field>
             <field name="sequence" eval="30"/>
-            <field name="domain" eval="[('state', '=', 'running')]" pyson="1"/>
+            <field name="domain" eval="[('state', '=', 'running'),
+                ('company', '=', Eval('context', {}).get('company', -1)),
+                ]" pyson="1"/>
             <field name="count" eval="True"/>
             <field name="act_window" ref="act_subscription"/>
         </record>
@@ -244,7 +250,9 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             id="act_subscription_form_domain_all">
             <field name="name">All</field>
             <field name="sequence" eval="9999"/>
-            <field name="domain"></field>
+            <field name="domain" eval="[('company', '=', 
+                Eval('context', {}).get('company', -1)),
+                ]" pyson="1"/>
             <field name="act_window" ref="act_subscription"/>
         </record>
 
@@ -298,7 +306,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="name">Grades</field>
             <field name="res_model">product.template</field>
             <field name="domain" eval="[('company', '=', 
-                Eval('context', {}).get('company', -1) ) ]" pyson="1"/>
+                Eval('context', {}).get('company', -1))]" pyson="1"/>
         </record>
 
         <menuitem parent="menu_configuracion_training" sequence="2"
