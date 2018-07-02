@@ -629,26 +629,6 @@ class Rule(ModelSQL, ModelView):
 
     template = fields.Many2One('analytic_account.rule.template', 'Template')
 
-    @classmethod
-    def default_analytic_accounts(cls):
-        '''
-        pool = Pool()
-        AnalyticAccount = pool.get('analytic_account.account')
-
-        accounts = []
-        root_accounts = AnalyticAccount.search(
-            cls.analytic_accounts_domain() + [
-                ('parent', '=', None),
-                ])
-        for account in root_accounts:
-            accounts.append({
-                    'required': account.mandatory,
-                    'root': account.id,
-                    })
-        return accounts
-        ''' 
-        return []
-
     def update_analytic_rule(self, template2analytic_rule=None,
         template2account=None):
         '''

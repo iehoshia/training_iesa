@@ -22,8 +22,16 @@ def register():
         ConsolidatedIncomeStatementContext,
         GeneralLedgerAccount,
         CompanyPartyRel,
+        PrintGeneralBalanceStart,
+        PrintIncomeStatementStart,
         module='account_consolidated', type_='model')
     Pool.register(
         CreateChart,
         UpdateChart,
+        PrintGeneralBalance,
+        PrintIncomeStatement,
         module='account_consolidated', type_='wizard')
+    Pool.register(
+        GeneralBalance,
+        IncomeStatement,
+        module='account_consolidated', type_='report')

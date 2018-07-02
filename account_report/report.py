@@ -205,26 +205,11 @@ class IncomeStatement(Report):
         Account = pool.get('account.account.type')
 
         company = Company(data['company'])
-        total_revenue = total_expense = net_revenue = 0 
-
-        total_revenue_account = Account.search([('name','=','INGRESOS FINANCIEROS'),
-            ('company','=',company)])
-        total_expense_account = Account.search([('name','=','GASTOS FINANCIEROS'),
-            ('company','=',company)])
-
-        if len(total_revenue_account)==1: 
-            total_revenue = total_revenue_account[0].amount 
-        if len(total_expense_account)==1: 
-            total_expense = total_expense_account[0].amount 
-        net_revenue = total_revenue - total_expense
 
         report_context['company'] = company
         report_context['digits'] = company.currency.digits
         report_context['fiscalyear'] = data['fiscalyear']
         report_context['start_date'] = data['start_date']
         report_context['end_date'] = data['end_date']
-        report_context['total_revenue'] = total_revenue
-        report_context['total_expense'] = total_expense
-        report_context['net_revenue'] = net_revenue
 
         return report_context

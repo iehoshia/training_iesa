@@ -16,8 +16,6 @@ __all__ = [
     'Type',
     ]
 
-
-
 class Type(ModelSQL, ModelView):
     'Account Type'
     __name__ = 'account.account.type'

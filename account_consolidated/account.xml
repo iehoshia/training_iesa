@@ -281,5 +281,23 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">income_statement_context_form</field>
         </record>
 
+        <record model="ir.ui.view" id="print_consolidated_general_balance_start_form">
+            <field name="model">print.consolidated_general_balance.start</field>
+            <field name="type">form</field>
+            <field name="name">print_general_balance_start</field>
+        </record>
+        <record model="ir.action.report" id="report_consolidated_general_balance">
+            <field name="name">Consolidated General Balance</field>
+            <field name="model">account.account.meta.type</field>
+            <field name="report_name">consolidated_general_balance.report</field>
+            <field name="report">account_consolidated/general_balance.fodt</field>
+        </record>
+        <record model="ir.action.wizard" id="wizard_print_consolidated_general_balance">
+            <field name="name">Print Consolidated General Balance</field>
+            <field name="wiz_name">print.consolidated_general_balance</field>
+        </record>
+        <menuitem parent="account.menu_reporting" action="wizard_print_consolidated_general_balance"
+            id="menu_print_consolidated_general_balance" icon="tryton-print" sequence="200"/>
+
     </data>
 </tryton>

@@ -1,8 +1,9 @@
 <data>
-	<!--
-    <xpath expr="/tree/field[@name=&quot;state&quot;]" position="before">
-    	<field name="amount" sum="Total"/>
+    <xpath expr="/tree/field[@name=&quot;number&quot;]" position="replace">
 	</xpath>
--->
+	<xpath expr="/tree/field[@name=&quot;date&quot;]" position="replace">
+	</xpath>
+	<xpath expr="/tree/button[@name=&quot;post&quot;]" position="replace_attributes">
+		<button name="post" tree_invisible="1"/>
+	</xpath>
 </data> 
- 

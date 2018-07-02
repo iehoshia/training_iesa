@@ -118,11 +118,23 @@ class Move(ModelSQL, ModelView):
         super(Move, cls).__setup__()
         cls._order = [
             ('post_date', 'ASC'),
+            ('post_number','DESC'),
             ('id', 'ASC'),
             ]
 
-        
-    
+    @classmethod
+    def search_rec_name(cls, name, clause):
+        if clause[1].startswith('!') or clause[1].startswith('not '):
+            bool_op = 'AND'
+        else:
+            bool_op = 'OR'
+        return [bool_op,
+            ('post_number',) + tuple(clause[1:]),
+            ('description',) + tuple(clause[1:]),
+            ('journal',) + tuple(clause[1:]),
+            (cls._rec_name,) + tuple(clause[1:]),
+            ]
+
     '''class AccountMoveReport(Report):
     __name__ = 'account.move'
 
@@ -600,6 +612,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         journal = self.journal 
         date = self.invoice_date
         amount = self.amount
+        description = self.number
         lines = []
         
         for line in self.lines: 
@@ -624,7 +637,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         period_id = Period.find(self.company.id, date=date)
 
         move = Move(journal=journal, period=period_id, date=date,
-            company=self.company, lines=lines, origin=self)
+            company=self.company, lines=lines, origin=self, description=description)
         move.save()
         Move.post([move])
 
