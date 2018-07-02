@@ -1,3 +1,35 @@
 #
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "model:ir.ui.menu,name:menu_print_general_balance"
+msgid "Print General Balance"
+msgstr "Imprimir Balance General"
+
+msgctxt "model:ir.ui.menu,name:menu_print_income_statement"
+msgid "Print Income Statement"
+msgstr "Imprimir Estado de Resultados"
+
+msgctxt "field:print.general_balance.start,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:print.general_balance.start,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "Año Fiscal"
+
+msgctxt "field:print.general_balance.start,account:"
+msgid "Account Plan"
+msgstr "Plan Contable"
+
+msgctxt "field:print.income_statement.start,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:print.income_statement.start,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "Año Fiscal"
+
+msgctxt "field:print.income_statement.start,account:"
+msgid "Account Plan"
+msgstr "Plan Contable"

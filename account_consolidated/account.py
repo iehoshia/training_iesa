@@ -25,6 +25,7 @@ import json, ast
 from numero_letras import numero_a_moneda
 
 __all__ = [
+    'Company',
     'TypeTemplate',
     'Type',
     'CreateChart',
@@ -54,6 +55,16 @@ def inactive_records(func):
         with Transaction().set_context(active_test=False):
             return func(*args, **kwargs)
     return wrapper
+
+class Company(ModelSQL, ModelView):
+    'Company'
+    __name__ = 'company.company'
+    __metaclass__ = PoolMeta
+
+    type = fields.Selection(
+        [('view','View'),
+        ('normal','Normal'),],
+        'Type')
 
 class TypeTemplate(sequence_ordered(), ModelSQL, ModelView):
     'Account Meta Type Template'
@@ -534,7 +545,10 @@ class ConsolidatedBalanceSheetContext(ModelView):
     company = fields.Many2One('company.company', 'Company', required=True)
     posted = fields.Boolean('Posted Move', help='Show only posted move')
     companies = fields.One2Many('company.company','parent','Companies',
-        domain=([('parent','child_of',Eval('company'))]),
+        domain=([
+            ('parent','child_of',Eval('company')),
+            ('type','=','normal')
+            ]),
         depends=['company']
         )
 
@@ -583,12 +597,6 @@ class ConsolidatedIncomeStatementContext(ModelView):
     'Income Statement Context'
     __name__ = 'account.consolidated_income_statement.context'
     
-    #fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
-    #    required=True,
-    #    domain=[
-    #        ('company', '=', Eval('company')),
-    #        ],
-    #    depends=['company'])
     start_period = fields.Many2One('account.period', 'Start Period',
         domain=[
             ('fiscalyear', '=', Eval('fiscalyear')),
@@ -617,7 +625,10 @@ class ConsolidatedIncomeStatementContext(ModelView):
         depends=['from_date'])
     company = fields.Many2One('company.company', 'Company', required=True)
     companies = fields.One2Many('company.company','parent','Companies',
-        domain=([('parent','child_of',Eval('company'))]),
+        domain=([
+            ('parent','child_of',Eval('company')),
+            ('type','=','normal')
+            ]),
         depends=['company']
         )
     posted = fields.Boolean('Posted Move', help='Show only posted move')

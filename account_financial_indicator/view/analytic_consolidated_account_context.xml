@@ -3,11 +3,14 @@
 this repository contains the full copyright notices and license terms. -->
 <form col="6">
 	<group id="date-company" colspan="4" col="6">
-		<label name="fiscalyear"/>
-        <field name="fiscalyear" widget="selection"/>
+		<label name="company"/>
+        <field name="company" widget="selection" readonly="1"/>
 	    <label name="from_date"/>
 	    <field name="from_date"/>
 	    <label name="to_date"/>
 	    <field name="to_date"/>
+	</group>
+	<group id="date-company" colspan="2" col="2">
+        <field name="companies" widget="many2many"/>
 	</group>
 </form>

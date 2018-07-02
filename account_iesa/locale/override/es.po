@@ -13,3 +13,11 @@ msgstr "Cobro"
 msgctxt "model:ir.action,name:analytic_account.act_open_chart"
 msgid "Open Chart of Analytic Accounts"
 msgstr "Abrir Índices Financieros"
+
+msgctxt "model:ir.action,name:account_financial_indicator.act_account_tree2"
+msgid "Analytic Accounts"
+msgstr "Índices Financieros"
+
+msgctxt "model:ir.action,name:account_financial_indicator.wizard_print_financial_indicator"
+msgid "Print Financial Indicator"
+msgstr "Imprimir Índices Financieros"

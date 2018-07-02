@@ -3,6 +3,14 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
+        <menuitem name="Financial Indexes" parent="training.menu_training"
+            id="menu_index" icon="tryton-graph" sequence="0"/>
+        <record model="ir.ui.menu-res.group"
+            id="menu_financial_group_account_admin">
+            <field name="menu" ref="menu_index"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+
     	<record model="ir.ui.view" id="create_chart_account_view_form">
             <field name="model">account.create_chart.account</field>
             <field name="inherit" ref="account.create_chart_account_view_form"/>
@@ -21,39 +29,11 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">analytic_account_context</field>
         </record>
 
-        <!--
-        <record model="ir.ui.view" id="account_view_tree2">
-            <field name="model">analytic_account.account</field>
-            <field name="type">tree</field>
-            <field name="field_childs">childs</field>
-            <field name="priority" eval="20"/>
-            <field name="name">account_tree2</field>
-        </record>
-        -->
-
-        <!--
-        <record model="ir.ui.view" id="account_view_tree2">
-            <field name="model">analytic_account.account</field>
-            <field name="inherit" ref="analytic_account.account_view_tree2"/>
-            <field name="priority" eval="20"/>
-            <field name="name">account_tree2</field>
-        </record>
-        -->
-
-        <!--
-        <record model="ir.action.act_window.view" id="act_account_tree2_view1">
-            <field name="sequence" eval="10"/>
-            <field name="view" ref="account_view_tree2"/>
-            <field name="act_window" ref="act_account_tree2"/>
-        </record>
-
-
-        <record model="ir.ui.view" id="account_view_form">
-            <field name="model">analytic_account.account</field>
+        <record model="ir.ui.view" id="analytic_consolidated_account_view_context">
+            <field name="model">analytic_account.consolidated_account.context</field>
             <field name="type">form</field>
-            <field name="name">account_form</field>
+            <field name="name">analytic_consolidated_account_context</field>
         </record>
-        -->
 
         <record model="ir.ui.view" id="account_view_forms">
             <field name="model">analytic_account.account</field>
@@ -69,7 +49,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="priority" eval="20"/>
             <field name="name">account_tree2</field>
         </record>
-
         <record model="ir.action.act_window" id="act_account_tree2">
             <field name="name">Analytic Accounts</field>
             <field name="res_model">analytic_account.account</field>
@@ -81,6 +60,28 @@ this repository contains the full copyright notices and license terms. -->
             <field name="view" ref="account_view_tree2"/>
             <field name="act_window" ref="act_account_tree2"/>
         </record>
+
+        <record model="ir.ui.view" id="account_view_tree3">
+            <field name="model">analytic_account.account</field>
+            <field name="type">tree</field>
+            <field name="field_childs">childs</field>
+            <field name="priority" eval="20"/>
+            <field name="name">account_tree3</field>
+        </record>
+        <record model="ir.action.act_window" id="act_account_tree3">
+            <field name="name">Consolidated Financial Indictor</field>
+            <field name="res_model">analytic_account.account</field>
+            <field name="context_model">analytic_account.consolidated_account.context</field>
+            <field name="domain" eval="[('parent', '=', None)]" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_account_tree3_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_view_tree3"/>
+            <field name="act_window" ref="act_account_tree3"/>
+        </record>
+        <menuitem parent="account.menu_charts" action="act_account_tree3"
+            icon="tryton-tree" id="menu_item_account_tree3_view1"/>
+
         <record model="ir.action.wizard" id="act_open_chart">
             <field name="name">Open Chart of Analytic Accounts</field>
             <field name="wiz_name">financial_indicator.open_chart</field>
@@ -88,10 +89,6 @@ this repository contains the full copyright notices and license terms. -->
         <menuitem parent="account.menu_charts" action="act_account_tree2"
             icon="tryton-tree" id="menu_open_chart"/>
 
-
-
-        
-        
         <record model="ir.rule.group" id="rule_group_analytic_account">
             <field name="model" search="[('model', '=', 'analytic_account.account')]"/>
             <field name="global_p" eval="True"/>
@@ -102,5 +99,28 @@ this repository contains the full copyright notices and license terms. -->
                 pyson="1"/>
             <field name="rule_group" ref="rule_group_analytic_account"/>
         </record>
+
+        <record model="ir.ui.view" id="print_financial_indicator_start_form">
+            <field name="model">print.financial_indicator.start</field>
+            <field name="type">form</field>
+            <field name="name">print_financial_indicator_start</field>
+        </record>
+
+        <record model="ir.action.report" id="report_financial_indicator">
+            <field name="name">Financial Indicator</field>
+            <field name="model">analytic_account.account</field>
+            <field name="report_name">financial_indicator.report</field>
+            <field name="report">account_financial_indicator/financial_indicator.fodt</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_print_financial_indicator">
+            <field name="name">Print Financial Indicator</field>
+            <field name="wiz_name">print.financial_indicator</field>
+        </record>
+    
+        <menuitem parent="menu_index" action="act_account_tree2"
+            id="menu_open_chart" icon="tryton-list"/>
+        <menuitem parent="menu_index" action="wizard_print_financial_indicator"
+            id="menu_print_financial_indicator" icon="tryton-print"/> 
     </data>
 </tryton>

@@ -22,7 +22,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="wiz_name">print.general_balance</field>
         </record>
         <menuitem parent="account.menu_reporting" action="wizard_print_general_balance"
-            id="menu_print_general_balance" icon="tryton-print"/>
+            id="menu_print_general_balance" icon="tryton-print" sequence="150"/>
 
         <record model="ir.ui.view" id="print_income_statement_start_form">
             <field name="model">print.income_statement.start</field>
@@ -42,7 +42,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="wiz_name">print.income_statement</field>
         </record>
         <menuitem parent="account.menu_reporting" action="wizard_print_income_statement"
-            id="menu_print_income_statement" icon="tryton-print"/>
+            id="menu_print_income_statement" icon="tryton-print" sequence="160"/>
         
     </data>
 </tryton>

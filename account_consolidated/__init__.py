@@ -7,6 +7,7 @@ from .template import *
 
 def register():
     Pool.register(
+        Company, 
         TypeTemplate,
         Type,
         CreateChartAccount,

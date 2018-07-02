@@ -3,10 +3,6 @@
 this repository contains the full copyright notices and license terms. -->
 <form col="6">
 	<group id="date-company" colspan="4" col="6">
-	<!-- 
-	    <label name="date"/>
-	    <field name="date"/>
-	-->
 	    <label name="company"/>
 	    <field name="company" readonly="1"/>
 		<label name="from_date"/>
@@ -14,8 +10,6 @@ this repository contains the full copyright notices and license terms. -->
 	    <label name="to_date"/>
 	    <field name="to_date"/>
 	</group>
-    <!--<label name="posted"/>
-    <field name="posted"/>-->
     <group id="companies" colspan="2">
     	<field name="companies" widget="many2many"/>
     </group>

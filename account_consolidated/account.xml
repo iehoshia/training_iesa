@@ -3,6 +3,12 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
+        <record model="ir.ui.view" id="company_view_form">
+            <field name="model">company.company</field>
+            <field name="inherit" ref="company.company_view_form"/> 
+            <field name="name">company_form</field>
+        </record> 
+
         <record model="ir.ui.view" id="general_ledger_account_context_view_form">
             <field name="model">account.general_ledger.account.context</field>
             <field name="inherit" ref="account.general_ledger_account_context_view_form"/> 
@@ -60,7 +66,6 @@ this repository contains the full copyright notices and license terms. -->
             action="act_account_meta_type_template_tree"
             id="menu_account_meta_type_template_tree"
             sequence="10"/>
-
 
         <record model="ir.ui.view" id="account_meta_type_view_form">
             <field name="model">account.account.meta.type</field>
@@ -207,37 +212,41 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">consolidated_balance_sheet_context_form</field>
         </record>
 
+        <!--
         <record model="ir.ui.view" id="consolidated_balance_sheet_comparision_context_view_form">
             <field name="model">account.consolidated_balance_sheet.comparision.context</field>
             <field name="inherit" ref="consolidated_balance_sheet_context_view_form"/>
             <field name="name">consolidated_balance_sheet_context_comparision_form</field>
         </record>
-        <record model="ir.ui.view" id="account_consolidated_balance_sheet_view_tree">
+    -->
+        <record model="ir.ui.view" id="account_consolidated_balance_sheet_view">
             <field name="model">account.account.meta.type</field>
             <field name="type">tree</field>
             <field name="field_childs">childs</field>
             <field name="name">account_consolidated_balance_sheet_tree</field>
         </record>
-        <record model="ir.action.act_window" id="act_account_consolidated_balance_sheet_tree">
+        <record model="ir.action.act_window" id="act_account_consolidated_balance_sheet">
             <field name="name">Consolidated Balance Sheet</field>
             <field name="res_model">account.account.meta.type</field>
-            <field name="context_model">account.consolidated_balance_sheet.comparision.context</field>
+            <field name="context_model">account.consolidated_balance_sheet.context</field>
+            <!--
             <field name="context_domain"
                 eval="[('company', '=', Eval('company', -1))]"
-                pyson="1"/>
+                pyson="1"/>-->
             <field name="domain"
                 eval="[('balance_sheet', '=', True), ['OR', ('parent', '=', None), ('parent.balance_sheet', '=', False)]]"
                 pyson="1"/>
             <field name="context" eval="{'cumulate': True}" pyson="1"/>
         </record>
-        <record model="ir.action.act_window.view" id="act_balance_sheet_view1">
+
+        <record model="ir.action.act_window.view" id="act_balance_sheet_view">
             <field name="sequence" eval="10"/>
-            <field name="view" ref="account_consolidated_balance_sheet_view_tree"/>
-            <field name="act_window" ref="act_account_consolidated_balance_sheet_tree"/>
+            <field name="view" ref="account_consolidated_balance_sheet_view"/>
+            <field name="act_window" ref="act_account_consolidated_balance_sheet"/>
         </record>
 
-        <menuitem parent="account.menu_reporting" action="act_account_consolidated_balance_sheet_tree"
-            id="menu_open_balance_sheet"/>
+        <menuitem parent="account.menu_reporting" action="act_account_consolidated_balance_sheet"
+            id="menu_open_balance_sheet" sequence="100"/>
 
 
         <record model="ir.ui.view" id="account_income_statement_view_tree">
@@ -246,25 +255,25 @@ this repository contains the full copyright notices and license terms. -->
             <field name="field_childs">childs</field>
             <field name="name">account_consolidated_income_statement_tree</field> 
         </record>
-        <record model="ir.action.act_window" id="act_account_income_statement_tree">
+        <record model="ir.action.act_window" id="act_account_income_statement">
             <field name="name">Income Statement</field>
             <field name="res_model">account.account.meta.type</field>
             <field name="context_model">account.consolidated_income_statement.context</field>
-            <field name="context_domain"
+            <!--<field name="context_domain"
                 eval="[('company', '=', Eval('company', -1))]"
-                pyson="1"/>
+                pyson="1"/>-->
             <field name="domain"
                 eval="[('income_statement', '=', True), ['OR', ('parent', '=', None), ('parent.income_statement', '=', False)]]"
                 pyson="1"/>
-        </record>
+        </record> 
         <record model="ir.action.act_window.view" id="act_income_statement_view1">
             <field name="sequence" eval="10"/>
             <field name="view" ref="account_income_statement_view_tree"/>
-            <field name="act_window" ref="act_account_income_statement_tree"/>
+            <field name="act_window" ref="act_account_income_statement"/>
         </record>
 
-        <menuitem parent="account.menu_reporting" action="act_account_income_statement_tree"
-            id="menu_open_income_statement"/>
+        <menuitem parent="account.menu_reporting" action="act_account_income_statement"
+            id="menu_open_income_statement" sequence="110"/>
 
         <record model="ir.ui.view" id="income_statement_context_view_form">
             <field name="model">account.consolidated_income_statement.context</field>

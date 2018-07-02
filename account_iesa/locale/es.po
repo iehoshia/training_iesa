@@ -34,6 +34,10 @@ msgctxt "model:ir.ui.menu,name:menu_open_chart"
 msgid "Open Chart of Accounts"
 msgstr "Índices Financieros"
 
+msgctxt "model:ir.ui.menu,name:menu_print_financial_indicator"
+msgid "Print Financial Indicator"
+msgstr "Imprimir Índices Financieros"
+
 msgctxt "field:account.iesa.payment,is_third_party:"
 msgid "Is Third Party"
 msgstr "Pago de Terceros"
@@ -285,3 +289,11 @@ msgstr "Contabilizado"
 msgctxt "error:account.iesa.payment:"
 msgid "You can not post payment \"%s\" because it is an unbalanced."
 msgstr "No puede contabilizar el recibo \"%s\" porque está descuadrado."
+
+msgctxt "model:ir.action,name:wizard_print_financial_indicator"
+msgid "Print Financial Indicator"
+msgstr "Imprimir Índices Financieros"
+
+msgctxt "model:ir.action,name:act_account_tree2"
+msgid "Analytic Accounts"
+msgstr "Índices Financieros"

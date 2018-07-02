@@ -32,6 +32,7 @@ class PrintGeneralBalanceStart(ModelView):
     __name__ = 'print.general_balance.start'
 
     company = fields.Many2One('company.company', "Company", readonly=True,
+        required=True, 
         domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
@@ -94,7 +95,6 @@ class PrintGeneralBalance(Wizard):
 class GeneralBalance(Report):
     'General Balance Report'
     __name__ = 'general_balance.report'
-
     
     @classmethod
     def _get_records(cls, ids, model, data):
@@ -127,6 +127,7 @@ class PrintIncomeStatementStart(ModelView):
     __name__ = 'print.income_statement.start'
 
     company = fields.Many2One('company.company', "Company", readonly=True,
+        required=True, 
         domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),

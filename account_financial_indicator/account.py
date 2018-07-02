@@ -14,10 +14,10 @@ from sql.conditionals import Coalesce, Case
 from trytond.model import (
     ModelSingleton, ModelView, ModelSQL, DeactivableMixin, fields, Unique, sequence_ordered)
 from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
-    Button
+    Button, StateReport
 from trytond.report import Report
 from trytond.tools import reduce_ids, grouped_slice
-from trytond.pyson import Eval, If, PYSONEncoder, Bool
+from trytond.pyson import Eval, If, PYSONEncoder, Bool, Date
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 from trytond import backend
@@ -34,7 +34,11 @@ __all__ = [
         'UpdateChart',
         'UpdateChartStart',
         'ContextAnalyticAccount',
+        'ContextAnalyticAccountConsolidated',
         'OpenChartAccount',
+        'PrintFinancialIndicatorStart',
+        'PrintFinancialIndicator',
+        'FinancialIndicator'
     ]  
 
 __metaclass__ = PoolMeta
@@ -61,7 +65,7 @@ class OpenChartAccount(Wizard):
         action['pyson_context'] = PYSONEncoder().encode({
                 'start_date': self.start.start_date,
                 'end_date': self.start.end_date,
-                })
+                }) 
         return action, {}
 
     def transition_open_(self):
@@ -73,6 +77,7 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
     __name__ = 'analytic_account.account'
 
     template = fields.Many2One('analytic_account.account.template', 'Template')
+    is_consolidated = fields.Boolean('Consolidated Indicator')
     is_current_capital = fields.Boolean('Current Capital')
     is_current_asset = fields.Boolean('Current Asset')
     is_recommended_capital = fields.Boolean('Recommended Capital')
@@ -85,7 +90,6 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
             digits=(16, Eval('currency_digits', 2))
         ),
         'get_financial_indicator')
-
     custom_balance = fields.Function(fields.Numeric('Custom Balance',
         digits=(16, Eval('currency_digits', 1)), depends=['currency_digits']),
         'get_custom_balance')
@@ -120,12 +124,27 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
         today = Date.today()
         company = Transaction().context.get('company')
         balance = Decimal('0.0') 
+        transaction = Transaction()
+        context = Transaction().context
+        total_cash = Decimal('0.0')
 
-        accounts = AccountType.search([('company','=',company),
-            ('name','=','10. Efectivo y Equivalencias de Efectivo')])
-        if len(accounts)==1: 
-            balance = accounts[0].amount * Decimal('1.0')
-
+        if self.is_consolidated: 
+            companies = context.get('companies',[])
+            for company in context.get('companies', []):
+                with transaction.set_context(company=company['id']):
+                    cash = Decimal('0.0')
+                    accounts = AccountType.search([('company','=',company['id']),
+                        ('name','=','10. Efectivo y Equivalencias de Efectivo')
+                        ])
+                    if len(accounts)==1: 
+                        cash = accounts[0].amount * Decimal('1.0')
+                total_cash += cash
+            return total_cash
+        else: 
+            accounts = AccountType.search([('company','=',company),
+                ('name','=','10. Efectivo y Equivalencias de Efectivo')])
+            if len(accounts)==1: 
+                balance = accounts[0].amount * Decimal('1.0')
         return balance
 
     def get_current_asset(self):
@@ -135,28 +154,64 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
 
         today = Date.today()
         company = Transaction().context.get('company')
-        current_asset = Decimal('0.0') 
 
-        current_assets = AccountType.search([('company','=',company),
-            ('name','=','1) ACTIVOS CORRIENTES')])
-        if len(current_assets)==1: 
-            current_asset = current_assets[0].amount * Decimal('1.0')
-            
+        transaction = Transaction()
+        context = Transaction().context
+        total_current_asset = current_asset = Decimal('0.0')
+
+        today = Date.today()
+        company = Transaction().context.get('company')
+
+        if self.is_consolidated: 
+            companies = context.get('companies',[])
+            for company in context.get('companies', []):
+                with transaction.set_context(company=company['id']):
+                    current_asset = Decimal('0.0')
+                    current_assets = AccountType.search([('company','=',company['id']),
+                        ('name','=','1) ACTIVOS CORRIENTES')
+                        ])
+                    if len(current_assets)==1: 
+                        current_asset = current_assets[0].amount * Decimal('1.0')
+                total_current_asset += current_asset
+            return total_current_asset
+        else: 
+            current_assets = AccountType.search([('company','=',company),
+                ('name','=','1) ACTIVOS CORRIENTES')])
+            if len(current_assets)==1: 
+                current_asset = current_assets[0].amount * Decimal('1.0')            
         return current_asset
 
     def get_current_liability(self):
         pool = Pool()
         Date = pool.get('ir.date')
         AccountType = pool.get('account.account.type')
+        today = Date.today()
+        liability = Decimal('0.0')
+        transaction = Transaction()
+        context = Transaction().context
+        total_liability = liability = Decimal('0.0')
 
         today = Date.today()
         company = Transaction().context.get('company')
-        current_liability = Decimal('0.0')  
 
-        current_liabilities = AccountType.search([('company','=',company),
-            ('name','=','3) PASIVOS CORRIENTES')])
-        if len(current_liabilities)==1: 
-            current_liability = current_liabilities[0].amount * Decimal('1.0')
+        if self.is_consolidated: 
+            companies = context.get('companies',[])
+            for company in context.get('companies', []):
+                with transaction.set_context(company=company['id']):
+                    liability = Decimal('0.0')
+                    liabilities = AccountType.search([('company','=',company['id']),
+                        ('name','=','3) PASIVOS CORRIENTES')
+                        ])
+                    if len(liabilities)==1: 
+                        liability = liabilities[0].amount * Decimal('1.0')
+                total_liability += liability
+            return total_liability
+        else:
+            current_liability = Decimal('0.0')  
+            current_liabilities = AccountType.search([('company','=',company),
+                ('name','=','3) PASIVOS CORRIENTES')])
+            if len(current_liabilities)==1: 
+                current_liability = current_liabilities[0].amount * Decimal('1.0')
             
         return current_liability
 
@@ -164,59 +219,121 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
         pool = Pool()
         Date = pool.get('ir.date')
         AccountType = pool.get('account.account.type')
-
         today = Date.today()
-        company = Transaction().context.get('company')
-        Decimal('0.0') 
+        revenue = Decimal('0.0')
+        transaction = Transaction()
+        context = Transaction().context
+        total_revenue = revenue = Decimal('0.0')
 
-        revenues = AccountType.search([('company','=',company),
-            ('name','=','INGRESOS FINANCIEROS')])
-        if len(revenues)==1: 
-            revenue = revenues[0].amount * Decimal('1.0')
-            
+        if self.is_consolidated: 
+            companies = context.get('companies',[])
+            for company in context.get('companies', []):
+                with transaction.set_context(company=company['id']):
+                    revenue = Decimal('0.0')
+                    revenues = AccountType.search([('company','=',company['id']),
+                        ('name','=','INGRESOS FINANCIEROS')
+                        ])
+                    if len(revenues)==1: 
+                        revenue = revenues[0].amount * Decimal('1.0')
+                total_revenue += revenue
+            return total_revenue
+        else: 
+            revenue = Decimal('0.0')
+            company = Transaction().context.get('company')
+            revenues = AccountType.search([('company','=',company),
+                ('name','=','INGRESOS FINANCIEROS')])
+            if len(revenues)==1: 
+                revenue = revenues[0].amount * Decimal('1.0')
         return revenue
 
     def get_expenses(self):
         pool = Pool()
         Date = pool.get('ir.date')
-        AccountType = pool.get('account.account.type')
-
+        AccountType = pool.get('account.account.type')    
         today = Date.today()
-        company = Transaction().context.get('company')
-        expense = Decimal('0.0') 
+        transaction = Transaction()
+        context = Transaction().context
+        total_expense = expense = Decimal('0.0')
 
-        expenses = AccountType.search([('company','=',company),
-            ('name','=','GASTOS FINANCIEROS')])
-        if len(expenses)==1: 
-            expense = expenses[0].amount * Decimal('1.0')
+        if self.is_consolidated: 
+            companies = context.get('companies',[])
+            for company in context.get('companies', []):
+                with transaction.set_context(company=company['id']):
+                    expense = Decimal('0.0')
+                    expenses = AccountType.search([('company','=',company['id']),
+                        ('name','=','GASTOS FINANCIEROS')
+                        ])
+                    if len(expenses)==1: 
+                        expense = expenses[0].amount * Decimal('1.0')
+                total_expense += expense
+            return total_expense
+        else:
+            company = Transaction().context.get('company')
+            expense = Decimal('0.0') 
+            expenses = AccountType.search([('company','=',company),
+                ('name','=','GASTOS FINANCIEROS')])
+            
+            if len(expenses)==1: 
+                expense = expenses[0].amount * Decimal('1.0')
             
         return expense
 
 
     def get_recommended_capital(self):
-
         pool = Pool()
         Date = pool.get('ir.date')
         Fiscalyear = pool.get('account.fiscalyear')
         Budget = pool.get('account.budget')
 
-        today = Date.today()
-        company = Transaction().context.get('company')
+        today = Date.today()        
+
+        transaction = Transaction()
+        context = Transaction().context
+        company = context.get('company')
         balance = Decimal('0.0')
 
-        fiscalyears = Fiscalyear.search([('company','=',company),
-            ('start_date','<=',today),
-            ('end_date','>=',today)])
-        fiscalyear = None 
-        if len(fiscalyears)==1: 
-            fiscalyear = fiscalyears[0].id
+        if self.is_consolidated:
+            companies = context.get('companies',[])
+            for company in context.get('companies', []):
+                total_amount = Decimal('0.0')
+                with transaction.set_context(company=company['id']):
+                    fiscalyears = Fiscalyear.search([('company','=',company['id']),
+                        ('start_date','<=',today),
+                        ('end_date','>=',today)])
+                    fiscalyear = None 
+                    if len(fiscalyears)==1: 
+                        fiscalyear = fiscalyears[0].id
 
-        budgets = Budget.search([('fiscalyear','=',fiscalyear),
-            ('company','=',company),
-            ('parent','=',None)])
+                    budgets = Budget.search([('fiscalyear','=',fiscalyear),
+                        ('company','=',company['id']),
+                        ('parent','=',None)])
+                    if len(budgets)==1: 
+                        budget = Budget(budgets[0].id)
+                        balance += budget.children[1].amount * Decimal('0.15')
+            balance *= -1
+        else:
+            fiscalyear = Transaction().context.get('fiscalyear')
+            if fiscalyear is not None: 
+                fiscalyears = Fiscalyear.search([('company','=',company),
+                    ('id','=',fiscalyear) ])
+            else:
+                fiscalyears = Fiscalyear.search([('company','=',company),
+                    ('start_date','<=',today),
+                    ('end_date','>=',today)])
 
-        if len(budgets)==1: 
-            balance = budgets[0].amount * Decimal('0.15')
+            fiscalyear = None 
+            if len(fiscalyears)==1: 
+                fiscalyear = fiscalyears[0].id
+
+            budgets = Budget.search([('fiscalyear','=',fiscalyear),
+                ('company','=',company),
+                ('parent','=',None)])
+
+            if len(budgets)==1: 
+                budget = Budget(budgets[0].id)
+                balance = budget.children[1].amount * Decimal('0.15')
+                balance *= -1
+
         return balance
 
     def get_difference_between_childs(self):
@@ -229,50 +346,10 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
 
     @classmethod
     def get_custom_balance(cls, accounts, name):
-        pool = Pool()
-        Line = pool.get('analytic_account.line')
-        MoveLine = pool.get('account.move.line')
-        cursor = Transaction().connection.cursor()
-        table = cls.__table__()
-        line = Line.__table__()
-        move_line = MoveLine.__table__()
-
-        ids = [a.id for a in accounts]
-        childs = cls.search([('parent', 'child_of', ids)])
-        all_ids = {}.fromkeys(ids + [c.id for c in childs]).keys()
-
-        id2account = {}
-        all_accounts = cls.browse(all_ids)
-        for account in all_accounts:
-            id2account[account.id] = account
-
-        line_query = Line.query_get(line)
-        cursor.execute(*table.join(line, 'LEFT',
-                condition=table.id == line.account
-                ).join(move_line, 'LEFT',
-                condition=move_line.id == line.move_line
-                ).select(table.id,
-                Sum(Coalesce(line.debit, 0) - Coalesce(line.credit, 0)),
-                where=(table.type != 'view')
-                & table.id.in_(all_ids)
-                & (table.active == True) & line_query,
-                group_by=table.id))
-        account_sum = defaultdict(Decimal)
-        for account_id, value in cursor.fetchall():
-            account_sum.setdefault(account_id, Decimal('0.0'))
-            # SQLite uses float for SUM
-            if not isinstance(value, Decimal):
-                value = Decimal(str(value))
-            account_sum[account_id] += value
-
+        
         balances = {}
         for account in accounts:
             balance = Decimal()
-            childs = cls.search([
-                    ('parent', 'child_of', [account.id]),
-                    ])
-            for child in childs:
-                balance += account_sum[child.id]
             if account.is_current_capital == True:
                 balance = account.get_difference_between_childs()
             elif account.is_recommended_capital == True: 
@@ -1240,6 +1317,41 @@ class UpdateChart(Wizard):
 
         return 'succeed'
 
+class ContextAnalyticAccountConsolidated(ModelView):
+    'Context Analytic Account Consolidated'
+    __name__ = 'analytic_account.consolidated_account.context'
+
+    from_date = fields.Date("From Date",
+        domain=[
+            If(Eval('to_date') & Eval('from_date'),
+                ('from_date', '<=', Eval('to_date')),
+                ()),
+            ],
+        depends=['to_date'])
+    to_date = fields.Date("To Date",
+        domain=[
+            If(Eval('from_date') & Eval('to_date'),
+                ('to_date', '>=', Eval('from_date')),
+                ()),
+            ],
+        depends=['from_date'])
+    company = fields.Many2One('company.company', "Company", readonly=True,
+        domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', -1)),
+            ])
+    companies = fields.One2Many('company.company','parent','Companies',
+        domain=([
+            ('parent','child_of',Eval('company')),
+            ('type','=','normal')
+            ]),
+        depends=['company']
+        )
+
+    @classmethod
+    def default_company(cls):
+        return Transaction().context.get('company')
+
 class ContextAnalyticAccount(ModelView):
     'Context Analytic Account'
     __name__ = 'analytic_account.account.context'
@@ -1258,3 +1370,129 @@ class ContextAnalyticAccount(ModelView):
                 ()),
             ],
         depends=['from_date'])
+    company = fields.Many2One('company.company', "Company", readonly=True,
+        domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', -1)),
+            ])
+    fiscalyear = fields.Many2One('account.fiscalyear','Fiscal Year',
+        domain=[
+            ('company', '=', Eval('context', {}).get('company', -1)),
+            ],
+        )
+
+    @classmethod
+    def default_company(cls):
+        return Transaction().context.get('company')
+
+class PrintFinancialIndicatorStart(ModelView):
+    'Financial Indicator Start'
+    __name__ = 'print.financial_indicator.start'
+
+    company = fields.Many2One('company.company', "Company", readonly=True,
+        domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', -1)),
+            ])
+    fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+        help="The fiscalyear on which the new created budget will apply.",
+        required=True, 
+        domain=[
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'])
+
+    @classmethod
+    def default_company(cls):
+        return Transaction().context.get('company')
+
+
+class PrintFinancialIndicator(Wizard):
+    'Financial Indicator Balance'
+    __name__ = 'print.financial_indicator'
+
+    start = StateView('print.financial_indicator.start',
+        'account_financial_indicator.print_financial_indicator_start_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Print', 'print_', 'tryton-print', default=True),
+            ])
+    print_ = StateReport('financial_indicator.report')
+
+    def do_print_(self, action):
+        start_date = self.start.fiscalyear.start_date
+        end_date = self.start.fiscalyear.end_date
+        start_date = Date(start_date.year, start_date.month, start_date.day)
+        end_date = Date(end_date.year, end_date.month, end_date.day)
+        data = {
+            'company': self.start.company.id,
+            'fiscalyear': self.start.fiscalyear.name,
+            'start_date': self.start.fiscalyear.start_date,
+            'end_date': self.start.fiscalyear.end_date,
+            }
+        action['pyson_context'] = PYSONEncoder().encode({
+                #'company': self.start.company.id,
+                'start_date': start_date,
+                'end_date': end_date,
+                })
+        return action, data
+
+class FinancialIndicator(Report):
+    'Financial Indicator Report'
+    __name__ = 'financial_indicator.report'
+
+    @classmethod
+    def get_context(cls, records, data):
+        report_context = super(FinancialIndicator, cls).get_context(records, data)
+
+        pool = Pool()
+        Company = pool.get('company.company')
+        Account = pool.get('analytic_account.account')
+
+        company = Company(data['company'])
+        capital_operativo = liquidez = sosten_propio = 0 
+
+        accounts = Account.search([('type','=','root'),
+            ('company','=',company)])
+
+        if len(accounts)==3: 
+            capital_operativo = Account(accounts[0].id)
+            liquidez = Account(accounts[1].id)
+            sosten_propio = Account(accounts[2].id)
+
+        capital_actual = Account(capital_operativo.childs[0].id)
+        capital_recomendado = Account(capital_operativo.childs[1].id)
+        
+        caja_y_bancos = Account(liquidez.childs[0].id)
+        pasivo_corriente = Account(liquidez.childs[1].id)
+
+        ingresos = Account(sosten_propio.childs[0].id)
+        gastos = Account(sosten_propio.childs[1].id)
+
+        activo_corriente = Account(capital_actual.childs[0].id)
+
+        report_context['company'] = company
+        report_context['digits'] = company.currency.digits
+        report_context['fiscalyear'] = data['fiscalyear']
+        report_context['start_date'] = data['start_date']
+        report_context['end_date'] = data['end_date']
+        
+        report_context['capital_operativo'] = capital_operativo
+        report_context['liquidez'] = liquidez
+        report_context['sosten_propio'] = sosten_propio
+
+        report_context['capital_actual'] = capital_actual
+        report_context['capital_recomendado'] = capital_recomendado
+
+        report_context['caja_y_bancos'] = caja_y_bancos
+        report_context['pasivo_corriente'] = pasivo_corriente
+
+        report_context['activo_corriente'] = activo_corriente
+
+        report_context['ingresos'] = ingresos
+        report_context['gastos'] = gastos
+
+        report_context['indice_capital_operativo'] = round(capital_operativo.financial_indicator,2)
+        report_context['indice_liquidez'] = round(liquidez.financial_indicator,2)
+        report_context['indice_sosten_propio'] = round(sosten_propio.financial_indicator,2)
+
+        return report_context

@@ -3,7 +3,7 @@
 this repository contains the full copyright notices and license terms. -->
 <data>
     <xpath expr="/form/notebook/page[@id=&quot;notes&quot;]" position="after">
-        <page string="Types" id="types">
+        <page string="Types" id="types" col="8">
             <label name="is_current_capital"/>
             <field name="is_current_capital" xexpand="0" width="100"/>
             <label name="is_current_asset"/>
@@ -18,6 +18,8 @@ this repository contains the full copyright notices and license terms. -->
             <field name="is_revenue" xexpand="0" width="100"/>
             <label name="is_expense"/>
             <field name="is_expense" xexpand="0" width="100"/>
+            <label name="is_consolidated"/>
+            <field name="is_consolidated" xexpand="0" width="100"/>
         </page>
     </xpath>
 </data>
