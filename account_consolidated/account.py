@@ -222,7 +222,7 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
 
     del _states
 
-    def _get_level(self, parent=None): 
+    def _get_level(self, parent=None):
         level = 0
         if self.parent:
             level = self.parent.level + 1
@@ -230,19 +230,19 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
 
     def _get_childs_by_order(self, res=None):
         '''Returns the records of all the children computed recursively, and sorted by sequence. Ready for the printing'''
-        
+
         Account = Pool().get('account.account.meta.type')
-        
-        if res is None: 
+
+        if res is None:
             res = []
 
         childs = Account.search([('parent', '=', self.id)], order=[('sequence','ASC')])
-        
+
         if len(childs)>=1:
             for child in childs:
                 res.append(Account(child.id))
                 child._get_childs_by_order(res=res)
-        return res 
+        return res
 
     @classmethod
     def __register__(cls, module_name):
@@ -629,7 +629,7 @@ class ConsolidatedBalanceSheetComparisionContext(ConsolidatedBalanceSheetContext
 class ConsolidatedIncomeStatementContext(ModelView):
     'Income Statement Context'
     __name__ = 'account.consolidated_income_statement.context'
-    
+
     start_period = fields.Many2One('account.period', 'Start Period',
         domain=[
             ('fiscalyear', '=', Eval('fiscalyear')),
@@ -796,7 +796,7 @@ class PrintGeneralBalanceStart(ModelView):
     __name__ = 'print.consolidated_general_balance.start'
 
     company = fields.Many2One('company.company', "Company", readonly=True,
-        required=True, 
+        required=True,
         domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
@@ -807,7 +807,7 @@ class PrintGeneralBalanceStart(ModelView):
             ('type','=','normal')
             ]),
         depends=['company'],
-        required=True, 
+        required=True,
         )
     from_date = fields.Date("From Date",
         required=True,
@@ -827,14 +827,15 @@ class PrintGeneralBalanceStart(ModelView):
         depends=['from_date'])
     account = fields.Many2One('account.account.meta.type', 'Account Plan',
         help="The account meta plan for balance.",
-        required=True, 
+        required=True,
         domain=[
-            ('balance_sheet', '=', True), 
+            ('balance_sheet', '=', True),
             ])
 
     @classmethod
     def default_company(cls):
         return Transaction().context.get('company')
+
 
 class PrintGeneralBalance(Wizard):
     'Print Consolidated General Balance'
@@ -848,71 +849,56 @@ class PrintGeneralBalance(Wizard):
     print_ = StateReport('consolidated_general_balance.report')
 
     def do_print_(self, action):
-        from_date = self.start.from_date
-        to_date = self.start.to_date
-        if from_date is not None and to_date is not None: 
-            from_date = Date(from_date.year, from_date.month, from_date.day)
-            to_date = Date(to_date.year, to_date.month, to_date.day)
-            data = {
-                'company': self.start.company.id,
-                'account': self.start.account.id,
-                #'companies': self.start.companies, 
-                'from_date': self.start.from_date,
-                'to_date': self.start.to_date,
-                }
-            action['pyson_context'] = PYSONEncoder().encode({
-                    'company': self.start.company.id,
-                    #'companies': self.start.companies,
-                    'from_date': from_date, 
-                    'to_date': to_date,
-                    })
-        else: 
-            data = {
-                'company': self.start.company.id,
-                'account': self.start.account.id,
-                #'companies': self.start.companies, 
-                }
-            action['pyson_context'] = PYSONEncoder().encode({
-                    'company': self.start.company.id,
-                    #'companies':list([x.id for x in self.start.companies]),
-                    })
-        return action, data
+        return action, {
+            'company': self.start.company.id,
+            'account': self.start.account.id,
+            'companies': [{'id': x.id} for x in self.start.companies],
+            'from_date': self.start.from_date,
+            'to_date': self.start.to_date,
+            }
 
 class GeneralBalance(Report):
     'Consolidated General Balance Report'
     __name__ = 'consolidated_general_balance.report'
-    
+
     @classmethod
     def _get_records(cls, ids, model, data):
         Account = Pool().get('account.account.meta.type')
 
-        account = Account(data['account'])
-        accounts = account._get_childs_by_order()
-
-        return accounts
+        with Transaction().set_context(
+                from_date=data['from_date'],
+                to_date=data['to_date'],
+                companies=data['companies'],
+                ):
+            account = Account(data['account'])
+            accounts = account._get_childs_by_order()
+            return accounts
 
     @classmethod
     def get_context(cls, records, data):
+        pool = Pool()
+        Company = pool.get('company.company')
         report_context = super(GeneralBalance, cls).get_context(records, data)
-
 
         Company = Pool().get('company.company')
         company = Company(data['company'])
 
         report_context['company'] = company
-        #report_context['companies'] = data['companies']
+        report_context['companies'] = Company.browse(
+            [c['id'] for c in data['companies']])
         report_context['digits'] = company.currency.digits
         report_context['start_date'] = data['from_date']
         report_context['end_date'] = data['to_date']
 
         return report_context
 
+
 class PrintIncomeStatementStart(ModelView):
     'Consollidated Income Statement Start'
     __name__ = 'print.consolidated_income_statement.start'
 
     company = fields.Many2One('company.company', "Company", readonly=True,
-        required=True, 
+        required=True,
         domain=[
             ('id', If(Eval('context', {}).contains('company'), '=', '!='),
                 Eval('context', {}).get('company', -1)),
@@ -926,9 +912,9 @@ class PrintIncomeStatementStart(ModelView):
         )
     account = fields.Many2One('account.account.meta.type', 'Account Plan',
         help="The account plan for balance.",
-        required=True, 
+        required=True,
         domain=[
-            ('income_statement', '=', True), 
+            ('income_statement', '=', True),
             ]
         )
     from_date = fields.Date("From Date",
@@ -962,52 +948,15 @@ class PrintIncomeStatement(Wizard):
     print_ = StateReport('consolidated_income_statement.report')
 
     def do_print_(self, action):
-        from_date = self.start.from_date
-        to_date = self.start.to_date
-        from_date = Date(from_date.year, from_date.month, from_date.day)
-        to_date = Date(to_date.year, to_date.month, to_date.day)
-        data = {
+        return action, {
             'company': self.start.company.id,
             'account': self.start.account.id,
-            'companies': self.start.companies, 
+            'companies': self.start.companies,
             'from_date': self.start.from_date,
             'to_date': self.start.to_date,
             }
-        action['pyson_context'] = PYSONEncoder().encode({
-                'company': self.start.company.id,
-                'companies': self.start.companies,
-                'from_date': from_date, 
-                'to_date': to_date,
-                })
-        return action, data
 
-class IncomeStatement(Report):
+
+class IncomeStatement(GeneralBalance):
     'Consolidated Income Statement Report'
     __name__ = 'consolidated_income_statement.report'
-
-    @classmethod
-    def _get_records(cls, ids, model, data):
-        Account = Pool().get('account.account.meta.type')
-
-        account = Account(data['account'])
-        accounts = account._get_childs_by_order()
-
-        return accounts
-
-    @classmethod
-    def get_context(cls, records, data):
-        report_context = super(IncomeStatement, cls).get_context(records, data)
-
-        pool = Pool()
-        Company = pool.get('company.company')
-        Account = pool.get('account.account.meta.type')
-
-        company = Company(data['company'])
-        
-        report_context['company'] = company
-        report_context['digits'] = company.currency.digits
-        report_context['fiscalyear'] = data['fiscalyear']
-        report_context['start_date'] = data['start_date']
-        report_context['end_date'] = data['end_date']
-
-        return report_context
