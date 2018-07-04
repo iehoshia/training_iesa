@@ -962,4 +962,4 @@ class PrintIncomeStatement(Wizard):
 
 class IncomeStatement(GeneralBalance):
     'Consolidated Income Statement Report'
-    __name__ = 'consolidated_income_statement.report'
+    __name__ = 'consolidated_income_statement.report' 
