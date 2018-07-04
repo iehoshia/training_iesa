@@ -69,7 +69,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">account_tree3</field>
         </record>
         <record model="ir.action.act_window" id="act_account_tree3">
-            <field name="name">Consolidated Financial Indictor</field>
+            <field name="name">Consolidated Financial Indicator</field>
             <field name="res_model">analytic_account.account</field>
             <field name="context_model">analytic_account.consolidated_account.context</field>
             <field name="domain" eval="[('parent', '=', None)]" pyson="1"/>
@@ -79,8 +79,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="view" ref="account_view_tree3"/>
             <field name="act_window" ref="act_account_tree3"/>
         </record>
-        <menuitem parent="account.menu_charts" action="act_account_tree3"
-            icon="tryton-tree" id="menu_item_account_tree3_view1"/>
 
         <record model="ir.rule.group" id="rule_group_analytic_account">
             <field name="model" search="[('model', '=', 'analytic_account.account')]"/>
