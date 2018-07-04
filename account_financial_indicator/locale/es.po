@@ -2,6 +2,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "model:ir.ui.menu,name:menu_index"
+msgid "Financial Indexes"
+msgstr "Índices Financieros"
+
 msgctxt "model:ir.ui.menu,name:menu_open_chart"
 msgid "Analytic Accounts"
 msgstr "Índices Financieros"

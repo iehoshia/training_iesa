@@ -1406,6 +1406,7 @@ class PrintFinancialIndicator(Wizard):
         data = {
             'company': self.start.company.id,
             'fiscalyear': self.start.fiscalyear.name,
+            'fiscalyear_id': self.start.fiscalyear.id,
             'start_date': self.start.fiscalyear.start_date,
             'end_date': self.start.fiscalyear.end_date,
             }
@@ -1427,52 +1428,57 @@ class FinancialIndicator(Report):
         pool = Pool()
         Company = pool.get('company.company')
         Account = pool.get('analytic_account.account')
-
         company = Company(data['company'])
         capital_operativo = liquidez = sosten_propio = 0 
 
-        accounts = Account.search([('type','=','root'),
-            ('company','=',company)])
+        with Transaction().set_context(
+                company=data['company'],
+                fiscalyear=data['fiscalyear_id'],
+                start_date=data['start_date'],
+                end_date=data['end_date'],
+                ): 
+            accounts = Account.search([('type','=','root'),
+                ('company','=',company)])
 
-        if len(accounts)==3: 
-            capital_operativo = Account(accounts[0].id)
-            liquidez = Account(accounts[1].id)
-            sosten_propio = Account(accounts[2].id)
+            if len(accounts)==3: 
+                capital_operativo = Account(accounts[0].id)
+                liquidez = Account(accounts[1].id)
+                sosten_propio = Account(accounts[2].id)
 
-        capital_actual = Account(capital_operativo.childs[0].id)
-        capital_recomendado = Account(capital_operativo.childs[1].id)
-        
-        caja_y_bancos = Account(liquidez.childs[0].id)
-        pasivo_corriente = Account(liquidez.childs[1].id)
+            capital_actual = Account(capital_operativo.childs[0].id)
+            capital_recomendado = Account(capital_operativo.childs[1].id)
+            
+            caja_y_bancos = Account(liquidez.childs[0].id)
+            pasivo_corriente = Account(liquidez.childs[1].id)
 
-        ingresos = Account(sosten_propio.childs[0].id)
-        gastos = Account(sosten_propio.childs[1].id)
+            ingresos = Account(sosten_propio.childs[0].id)
+            gastos = Account(sosten_propio.childs[1].id)
 
-        activo_corriente = Account(capital_actual.childs[0].id)
+            activo_corriente = Account(capital_actual.childs[0].id)
 
-        report_context['company'] = company
-        report_context['digits'] = company.currency.digits
-        report_context['fiscalyear'] = data['fiscalyear']
-        report_context['start_date'] = data['start_date']
-        report_context['end_date'] = data['end_date']
-        
-        report_context['capital_operativo'] = capital_operativo
-        report_context['liquidez'] = liquidez
-        report_context['sosten_propio'] = sosten_propio
+            report_context['company'] = company
+            report_context['digits'] = company.currency.digits
+            report_context['fiscalyear'] = data['fiscalyear']
+            report_context['start_date'] = data['start_date']
+            report_context['end_date'] = data['end_date']
+            
+            report_context['capital_operativo'] = capital_operativo
+            report_context['liquidez'] = liquidez
+            report_context['sosten_propio'] = sosten_propio
 
-        report_context['capital_actual'] = capital_actual
-        report_context['capital_recomendado'] = capital_recomendado
+            report_context['capital_actual'] = capital_actual
+            report_context['capital_recomendado'] = capital_recomendado
 
-        report_context['caja_y_bancos'] = caja_y_bancos
-        report_context['pasivo_corriente'] = pasivo_corriente
+            report_context['caja_y_bancos'] = caja_y_bancos
+            report_context['pasivo_corriente'] = pasivo_corriente
 
-        report_context['activo_corriente'] = activo_corriente
+            report_context['activo_corriente'] = activo_corriente
 
-        report_context['ingresos'] = ingresos
-        report_context['gastos'] = gastos
+            report_context['ingresos'] = ingresos
+            report_context['gastos'] = gastos
 
-        report_context['indice_capital_operativo'] = round(capital_operativo.financial_indicator,2)
-        report_context['indice_liquidez'] = round(liquidez.financial_indicator,2)
-        report_context['indice_sosten_propio'] = round(sosten_propio.financial_indicator,2)
+            report_context['indice_capital_operativo'] = round(capital_operativo.financial_indicator,2)
+            report_context['indice_liquidez'] = round(liquidez.financial_indicator,2)
+            report_context['indice_sosten_propio'] = round(sosten_propio.financial_indicator,2)
 
-        return report_context
+            return report_context

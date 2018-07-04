@@ -27,27 +27,3 @@ class Template(ModelView):
     @classmethod
     def default_company(cls):
         return Transaction().context.get('company')
-
-    @classmethod
-    def default_default_uom(cls):
-        Uom = Pool().get('product.uom') 
-        uoms = Uom.search([('symbol','=','u')])
-        if len(uoms)==1: 
-            return uoms[0].id
-
-    @classmethod
-    def default_default_uom(cls):
-        Uom = Pool().get('product.uom') 
-        uoms = Uom.search([('symbol','=','u')])
-        if len(uoms)==1: 
-            return uoms[0].id
-
-class Service(ModelSQL, ModelView):
-    "Subscription Service"
-    __name__ = 'sale.subscription.service'
-
-    company = fields.Many2One('company.company','Company')
-
-    @classmethod
-    def default_company(cls):
-        return Transaction().context.get('company') 

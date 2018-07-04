@@ -7,15 +7,18 @@ from sql.conditionals import Coalesce
 
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import PoolMeta, Pool
-from trytond.pyson import If, Eval, Bool
+from trytond.pyson import If, Eval, Bool, Date, PYSONEncoder
 from trytond.tools import grouped_slice, reduce_ids
 from trytond.transaction import Transaction
 from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
-    Button
+    Button, StateReport
+from trytond.report import Report
 
 __all__ = [
     'BudgetAccount', 'Budget',  'BudgetPeriod', 'CopyBudgetStart',
-    'CopyBudget', 'DistributePeriodStart', 'DistributePeriod']
+    'CopyBudget', 'DistributePeriodStart', 'DistributePeriod',
+    'PrintBudgetReportStart', 'PrintBudgetReport',
+    'BudgetReport']
 
 __metaclass__ = PoolMeta
 
@@ -214,6 +217,30 @@ class Budget(BudgetMixin):
         help="Add accounts to compute the budget balance.")
     periods = fields.One2Many('account.budget.period', 'budget', "Periods",
         help="Add budget detail for each period.")
+    level = fields.Function(fields.Numeric('Level',digits=(2,0)),
+        '_get_level')
+
+    def _get_level(self, parent=None): 
+        level = 0
+        if self.parent:
+            level = self.parent.level + 1
+        return  level
+
+    def _get_childs_by_order(self, res=None):
+        '''Returns the records of all the children computed recursively, and sorted. Ready for the printing'''
+        
+        Budget = Pool().get('account.budget')
+        
+        if res is None: 
+            res = []
+
+        childs = Budget.search([('parent', '=', self.id)], order=[('id','ASC')])
+        
+        if len(childs)>=1:
+            for child in childs:
+                res.append(Budget(child.id))
+                child._get_childs_by_order(res=res)
+        return res 
 
     @classmethod
     def _childs_domain(cls):
@@ -511,3 +538,98 @@ class DistributePeriod(Wizard):
                 ])
         budget.distribute(self.start.method, periods)
         return 'end'
+
+class PrintBudgetReportStart(ModelView):
+    'Print Budget Report Start'
+    __name__ = 'print.budget_report.start'
+
+    company = fields.Many2One('company.company', "Company", required=True,
+        domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', -1)),
+            ], select=True,
+        help="Select the company that the budget belong to.")
+    fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+        required=True, 
+        help="The fiscalyear on which the new created budget will apply.",
+        domain=[
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'])
+    budget = fields.Many2One('account.budget', 'Budget Account',
+        required=True, 
+        help="The budget on which the new report will apply.",
+        domain=[
+            ('company', '=', Eval('company')),
+            ('fiscalyear', '=', Eval('fiscalyear')),
+            ('parent', '=', None),
+            ],
+        depends=['company','fiscalyear'])
+
+    @classmethod
+    def default_company(cls):
+        return Transaction().context.get('company')
+
+class PrintBudgetReport(Wizard): 
+    'Print Budget Report'
+    __name__ = 'print.budget_report'
+
+    start = StateView('print.budget_report.start',
+        'account_budget.print_budget_report_start_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Print', 'print_', 'tryton-print', default=True),
+            ])
+    print_ = StateReport('budget.report')
+
+    def do_print_(self, action):
+        start_date = self.start.fiscalyear.start_date
+        end_date = self.start.fiscalyear.end_date
+        fiscalyear = self.start.fiscalyear.id
+        start_date = Date(start_date.year, start_date.month, start_date.day)
+        end_date = Date(end_date.year, end_date.month, end_date.day)
+        data = {
+            'company': self.start.company.id,
+            'budget': self.start.budget.id,
+            'fiscalyear': self.start.fiscalyear.name,
+            'start_date': self.start.fiscalyear.start_date,
+            'end_date': self.start.fiscalyear.end_date,
+            }
+        action['pyson_context'] = PYSONEncoder().encode({
+                'company': self.start.company.id,
+                'fiscalyear': self.start.fiscalyear.id,
+                })
+        if self.start.fiscalyear:
+            action['name'] += ' - %s' % self.start.fiscalyear.rec_name
+        return action, data
+
+class BudgetReport(Report):
+    'Budget Report'
+    __name__ = 'budget.report'
+    
+    @classmethod
+    def _get_records(cls, ids, model, data):
+        Budget = Pool().get('account.budget')
+        with Transaction().set_context(
+                company=data['company'],
+                fiscalyear=data['fiscalyear'],
+                ): 
+            budget = Budget(data['budget'])
+            budgets = budget._get_childs_by_order()
+            return budgets
+
+    @classmethod
+    def get_context(cls, records, data):
+        report_context = super(BudgetReport, cls).get_context(records, data)
+        pool = Pool()
+        Company = pool.get('company.company')
+        Budget = pool.get('account.budget')
+
+        company = Company(data['company'])
+        report_context['company'] = company
+        report_context['digits'] = company.currency.digits
+        report_context['budget'] = Budget(data['budget'])
+        report_context['fiscalyear'] = data['fiscalyear']
+        report_context['start_date'] = data['start_date']
+        report_context['end_date'] = data['end_date']
+
+        return report_context

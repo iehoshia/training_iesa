@@ -29,14 +29,12 @@ this repository contains the full copyright notices and license terms. -->
             <field name="type">form</field>
             <field name="name">print_income_statement_start</field>
         </record>
-
         <record model="ir.action.report" id="report_income_statement">
             <field name="name">Income Statement</field>
             <field name="model">account.account.type</field>
             <field name="report_name">income_statement.report</field>
             <field name="report">account_report/income_statement.fodt</field>
         </record>
-
         <record model="ir.action.wizard" id="wizard_print_income_statement">
             <field name="name">Print Income Statement</field>
             <field name="wiz_name">print.income_statement</field>

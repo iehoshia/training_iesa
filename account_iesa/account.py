@@ -370,6 +370,13 @@ class Payment(Workflow, ModelView, ModelSQL):
             #('invoice_date',) + tuple(clause[1:]),
             ]
 
+    def get_rec_name(self, name):
+        if self.number:
+            return self.number
+        elif self.description:
+            return '[%s]' % self.description
+        return '(%s)' % self.id
+
     @staticmethod
     def default_state():
         return 'draft'
@@ -613,6 +620,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         date = self.invoice_date
         amount = self.amount
         description = self.number
+        origin = self 
         lines = []
         
         for line in self.lines: 

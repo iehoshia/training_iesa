@@ -2,6 +2,14 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "model:ir.action,name:wizard_print_general_balance"
+msgid "Print General Balance"
+msgstr "Imprimir Balance General"
+
+msgctxt "model:ir.action,name:wizard_print_income_statement"
+msgid "Print Income Statement"
+msgstr "Imprimir Pérdidas y Ganancias"
+
 msgctxt "model:ir.ui.menu,name:menu_print_general_balance"
 msgid "Print General Balance"
 msgstr "Imprimir Balance General"

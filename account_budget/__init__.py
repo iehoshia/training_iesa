@@ -10,8 +10,13 @@ def register():
         BudgetPeriod,
         CopyBudgetStart,
         DistributePeriodStart,
+        PrintBudgetReportStart, 
         module='account_budget', type_='model')
     Pool.register(
         CopyBudget,
         DistributePeriod,
+        PrintBudgetReport, 
         module='account_budget', type_='wizard')
+    Pool.register(
+        BudgetReport,
+        module='account_report', type_='report')

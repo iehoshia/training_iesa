@@ -82,13 +82,6 @@ this repository contains the full copyright notices and license terms. -->
         <menuitem parent="account.menu_charts" action="act_account_tree3"
             icon="tryton-tree" id="menu_item_account_tree3_view1"/>
 
-        <record model="ir.action.wizard" id="act_open_chart">
-            <field name="name">Open Chart of Analytic Accounts</field>
-            <field name="wiz_name">financial_indicator.open_chart</field>
-        </record>
-        <menuitem parent="account.menu_charts" action="act_account_tree2"
-            icon="tryton-tree" id="menu_open_chart"/>
-
         <record model="ir.rule.group" id="rule_group_analytic_account">
             <field name="model" search="[('model', '=', 'analytic_account.account')]"/>
             <field name="global_p" eval="True"/>

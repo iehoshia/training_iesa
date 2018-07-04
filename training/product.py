@@ -6,6 +6,7 @@
 from trytond.model import ModelView, fields, ModelSQL
 from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Eval
+
 __all__ = ['Template']
 
 class Template:

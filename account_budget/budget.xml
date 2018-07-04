@@ -152,5 +152,23 @@ this repository contains the full copyright notices and license terms. -->
             <field name="wiz_name">account.budget.distribute_period</field>
             <field name="name">Distribute Budget over Periods</field>
         </record>
+
+        <record model="ir.ui.view" id="print_budget_report_start_form">
+            <field name="model">print.budget_report.start</field>
+            <field name="type">form</field>
+            <field name="name">print_budget_report_start</field>
+        </record>
+        <record model="ir.action.report" id="report_account_budget">
+            <field name="name">Budget</field>
+            <field name="model">account.budget</field>
+            <field name="report_name">budget.report</field>
+            <field name="report">account_budget/budget.fodt</field>
+        </record>
+        <record model="ir.action.wizard" id="wizard_print_budget_report">
+            <field name="name">Print Budget</field>
+            <field name="wiz_name">print.budget_report</field>
+        </record>
+        <menuitem parent="menu_budget" action="wizard_print_budget_report"
+            id="menu_print_budget_report" icon="tryton-print" sequence="20"/>
     </data>
 </tryton>

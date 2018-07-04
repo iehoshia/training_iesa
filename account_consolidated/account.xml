@@ -259,9 +259,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">Income Statement</field>
             <field name="res_model">account.account.meta.type</field>
             <field name="context_model">account.consolidated_income_statement.context</field>
-            <!--<field name="context_domain"
-                eval="[('company', '=', Eval('company', -1))]"
-                pyson="1"/>-->
             <field name="domain"
                 eval="[('income_statement', '=', True), ['OR', ('parent', '=', None), ('parent.income_statement', '=', False)]]"
                 pyson="1"/>
@@ -298,6 +295,24 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <menuitem parent="account.menu_reporting" action="wizard_print_consolidated_general_balance"
             id="menu_print_consolidated_general_balance" icon="tryton-print" sequence="200"/>
+
+        <record model="ir.ui.view" id="print_consolidated_income_statement_start_form">
+            <field name="model">print.consolidated_income_statement.start</field>
+            <field name="type">form</field>
+            <field name="name">print_income_statement_start</field>
+        </record>
+        <record model="ir.action.report" id="report_consolidated_income_statement">
+            <field name="name">Consolidated Income Statement</field>
+            <field name="model">account.account.meta.type</field>
+            <field name="report_name">consolidated_income_statement.report</field>
+            <field name="report">account_consolidated/income_statement.fodt</field>
+        </record>
+        <record model="ir.action.wizard" id="wizard_print_consolidated_income_statement">
+            <field name="name">Print Consolidated Income Statement</field>
+            <field name="wiz_name">print.consolidated_income_statement</field>
+        </record>
+        <menuitem parent="account.menu_reporting" action="wizard_print_consolidated_income_statement"
+            id="menu_print_consolidated_income_statement" icon="tryton-print" sequence="210"/>
 
     </data>
 </tryton>

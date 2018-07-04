@@ -20,20 +20,14 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">Assets</field>
             <field name="res_model">product.template</field>
             <field name="domain" pyson="1"
-                eval="[('company', '=', Eval('context', {}).get('company', -1)), 
-
-                    ('type','=','assets')]"/>
+                eval="[
+                    ('company', '=', Eval('context', {}).get('company', -1)), 
+                    ('type','=','assets'),
+                    ('depreciable','=','True'),
+                    ]"/>
         </record>
 
-        <!--
-        <record model="ir.action.act_window.view" id="act_template_view_form">
-            <field name="sequence" eval="1"/>
-            <field name="view" ref="template_view_form"/>
-            <field name="act_window" ref="act_asset_form"/>
-        </record>
-        -->
-
-        <menuitem parent="product.menu_configuration" action="act_asset_form"
+        <menuitem parent="training.menu_configuracion_training" action="act_asset_form"
             id="menu_assets" icon="tryton-list"/>
     </data>
 </tryton>

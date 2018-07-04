@@ -99,11 +99,15 @@ class GeneralBalance(Report):
     @classmethod
     def _get_records(cls, ids, model, data):
         Account = Pool().get('account.account.type')
+        with Transaction().set_context(
+                from_date=data['start_date'],
+                to_date=data['end_date'],
+                company=data['company'],
+                ): 
+            account = Account(data['account'])
+            accounts = account._get_childs_by_order()
 
-        account = Account(data['account'])
-        accounts = account._get_childs_by_order()
-
-        return accounts
+            return accounts
 
     @classmethod
     def get_context(cls, records, data):
@@ -177,39 +181,12 @@ class PrintIncomeStatement(Wizard):
             'end_date': self.start.fiscalyear.end_date,
             }
         action['pyson_context'] = PYSONEncoder().encode({
-                #'company': self.start.company.id,
+                'company': self.start.company.id,
                 'start_date': start_date,
                 'end_date': end_date,
                 })
         return action, data
 
-class IncomeStatement(Report):
+class IncomeStatement(GeneralBalance):
     'Income Statement Report'
     __name__ = 'income_statement.report'
-
-    @classmethod
-    def _get_records(cls, ids, model, data):
-        Account = Pool().get('account.account.type')
-
-        account = Account(data['account'])
-        accounts = account._get_childs_by_order()
-
-        return accounts
-
-    @classmethod
-    def get_context(cls, records, data):
-        report_context = super(IncomeStatement, cls).get_context(records, data)
-
-        pool = Pool()
-        Company = pool.get('company.company')
-        Account = pool.get('account.account.type')
-
-        company = Company(data['company'])
-
-        report_context['company'] = company
-        report_context['digits'] = company.currency.digits
-        report_context['fiscalyear'] = data['fiscalyear']
-        report_context['start_date'] = data['start_date']
-        report_context['end_date'] = data['end_date']
-
-        return report_context

@@ -6,6 +6,10 @@ msgctxt "field:sale.subscription,student:"
 msgid "Student"
 msgstr "Estudiante"
 
+msgctxt "field:product.template,is_enrolment:"
+msgid "Enrolment"
+msgstr "Matrícula"
+
 msgctxt "field:sale.subscription,enrolment:"
 msgid "Enrolment"
 msgstr "Inscripción"
