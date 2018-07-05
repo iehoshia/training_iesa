@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form col="6" cursor="party">
+    <group id="parties" colspan="2" col="6">
+        <label name="number"/>
+        <field name="number" colspan="3" readonly="1"/>
+        <label name="date"/>
+        <field name="date"/>
+        <label name="party"/>
+        <field name="party" colspan="5"/>
+    </group>
+    <group id="account" colspan="4" col="4" yfill="1">
+        <label name="account"/>
+        <field name="account"/>
+        <label name="journal"/>
+        <field name="journal" widget="selection"/>
+        <label name="amount"/>
+        <field name="amount" xalign="1.0" />
+        <label name="ticket"/>
+        <field name="ticket"/>
+        <label name="reference"/>
+        <field name="reference" colspan="3"/>
+        <label name="description"/>
+        <field name="description" colspan="3"/>
+    </group>
+    <group id="lines" colspan="6" col="6">
+        <field name="lines" colspan="6"/>
+    </group>
+    <notebook colspan="6">
+        <page string="Payment History" id="invoice" col="6">
+            <group col="6" colspan="6" id="state_buttons">
+                <group col="2" colspan="2" id="state">
+                    <label name="state"/>
+                    <field name="state"/>
+                </group>
+                <group col="4" colspan="4" id="buttons">
+                    <button name="cancel"/>
+                    <button name="draft"/>
+                    <button name="quote"/>
+                    <button name="post"/>
+                </group>
+            </group>
+        </page>
+        <page string="Other Info" id="info" col="6">
+            <label name="company"/>
+            <field name="company" readonly="1"/>
+            <label name="accounting_date"/>
+            <field name="accounting_date" readonly="1"/>
+            <label name="currency"/>
+            <field name="currency" readonly="1"/>
+            <label name="move"/>
+            <field name="move"/>
+            <separator name="comment" colspan="6"/>
+            <field name="comment" colspan="6"/>
+        </page>
+    </notebook>
+    <group id="lines" colspan="6" col="6">
+        <field name="existing_move_lines" colspan="6"
+            view_ids="account_expense.expense_lines_view_tree"/>
+    </group>
+</form> 

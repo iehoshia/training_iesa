@@ -619,15 +619,16 @@ class Payment(Workflow, ModelView, ModelSQL):
         journal = self.journal 
         date = self.invoice_date
         amount = self.amount
-        description = self.number
+        description = self.number + ' ' + self.description
         origin = self 
         lines = []
         
         for line in self.lines: 
+            description = line.description or self.description
             if line.account.party_required:
-                new_line = MoveLine(description=line.description, account=line.account, party=line.party)
+                new_line = MoveLine(description=description, account=line.account, party=line.party)
             else:
-                new_line = MoveLine(description=line.description, account=line.account)
+                new_line = MoveLine(description=description, account=line.account)
             new_line.debit, new_line.credit = 0, line.amount
             lines.append(new_line)
         

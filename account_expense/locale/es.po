@@ -1,0 +1,191 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:account.iesa.expense,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:account.iesa.expense,company_party:"
+msgid "Company Party"
+msgstr "Colegio"
+
+msgctxt "field:account.iesa.expense,number:"
+msgid "Number"
+msgstr "Número de Recibo"
+
+msgctxt "field:account.iesa.expense,reference:"
+msgid "Reference"
+msgstr "Factura de Referencia"
+
+msgctxt "field:account.iesa.expense,description:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "field:account.iesa.expense,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:account.iesa.expense,date:"
+msgid "Expense Date"
+msgstr "Fecha de Gasto"
+
+msgctxt "field:account.iesa.expense,accounting_date:"
+msgid "Accounting Date"
+msgstr "Fecha de Contabilización"
+
+msgctxt "field:account.iesa.expense,party:"
+msgid "Party"
+msgstr "Encargado"
+
+msgctxt "field:account.iesa.expense,party_lang:"
+msgid "Party Lang"
+msgstr "Lenguaje"
+
+msgctxt "field:account.iesa.expense,currency:"
+msgid "Currency"
+msgstr "Moneda"
+
+msgctxt "field:account.iesa.expense,currency_digits:"
+msgid "Currency Digits"
+msgstr "Dígitos de la Moneda"
+
+msgctxt "field:account.iesa.expense,currency_date:"
+msgid "Currency Date"
+msgstr "Fecha de la Moneda"
+
+msgctxt "field:account.iesa.expense,journal:"
+msgid "Journal"
+msgstr "Diario"
+
+msgctxt "field:account.iesa.expense,move:"
+msgid "Move"
+msgstr "Asiento"
+
+msgctxt "field:account.iesa.expense,account:"
+msgid "Account"
+msgstr "Cuenta de Pago"
+
+msgctxt "field:account.iesa.expense,invoices:"
+msgid "Invoices"
+msgstr "Cobros"
+
+msgctxt "field:account.iesa.expense,amount:"
+msgid "Amount"
+msgstr "Monto a pagar"
+
+msgctxt "field:account.iesa.expense,amount_receivable:"
+msgid "Balance"
+msgstr "Balance"
+
+msgctxt "field:account.iesa.expense,comment:"
+msgid "Comment"
+msgstr "Comentario"
+
+msgctxt "field:account.iesa.expense,ticket:"
+msgid "Ticket"
+msgstr "Cheque"
+
+msgctxt "field:account.iesa.expense,receipt:"
+msgid "Receipt"
+msgstr "Recibo"
+
+msgctxt "field:account.iesa.expense,third_party:"
+msgid "Third Party"
+msgstr "Encargado"
+
+msgctxt "field:account.iesa.expense,expense_lines:"
+msgid "Payment Lines"
+msgstr "Historial de cuenta"
+
+msgctxt "field:account.iesa.expense,lines:"
+msgid "Payment Lines"
+msgstr "Líneas de Pago"
+
+msgctxt "field:account.iesa.expense,existing_move_lines:"
+msgid "Payment Moves"
+msgstr "Historial de Pagos"
+
+msgctxt "field:account.iesa.expense.line,party:"
+msgid "Party"
+msgstr "Encargado"
+
+msgctxt "field:account.iesa.expense.line,amount:"
+msgid "Amount"
+msgstr "Monto a Pagar"
+
+msgctxt "field:account.iesa.expense.line,account:"
+msgid "Account"
+msgstr "Cuenta"
+
+msgctxt "field:account.iesa.expense.line,description:"
+msgid "Description"
+msgstr "Descripción"
+
+msgctxt "view:account.iesa.expense:"
+msgid "Payment History"
+msgstr "Pagos"
+
+msgctxt "view:account.iesa.expense:"
+msgid "Other Info"
+msgstr "Información Adicional"
+
+msgctxt "view:account.operating.capital:"
+msgid "Recommended Capital"
+msgstr "Capital Recomendado"
+
+msgctxt "view:account.operating.capital:"
+msgid "Operative Capital"
+msgstr "Capital Operativo"
+
+msgctxt "view:account.liquidity:"
+msgid "Current Capital"
+msgstr "Capital Actual"
+
+msgctxt "model:ir.action,name:act_iesa_expense_form"
+msgid "Expenses"
+msgstr "Gastos"
+
+msgctxt "model:ir.ui.menu,name:menu_expense_form"
+msgid "Expenses"
+msgstr "Gastos"
+
+msgctxt "model:ir.model.button,string:expense_post_button"
+msgid "Post"
+msgstr "Contabilizar"
+
+msgctxt "model:ir.model.button,string:expense_cancel_button"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "model:ir.model.button,string:expense_quote_button"
+msgid "Quote"
+msgstr "Enumerar"
+
+msgctxt "model:ir.model.button,string:expense_draft_button"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:account.iesa.expense,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:account.iesa.expense,state:"
+msgid "Canceled"
+msgstr "Cancelado"
+
+msgctxt "selection:account.iesa.expense,state:"
+msgid "Quotation"
+msgstr "Enumerado"
+
+msgctxt "selection:account.iesa.expense,state:"
+msgid "Posted"
+msgstr "Contabilizado"
+
+msgctxt "error:account.iesa.expense:"
+msgid "You can not post expense \"%s\" because it is an unbalanced."
+msgstr "No puede contabilizar el recibo \"%s\" porque está descuadrado."
+
+msgctxt "model:account.iesa.expense,name:"
+msgid "Account Expense"
+msgstr "Gasto"

@@ -461,6 +461,7 @@ class Subscription(ModelSQL, ModelView):
             invoice_address=self.student.address_get(type='invoice'),
             currency=self.currency,
             invoice_date=invoice_date,
+            accounting_date=invoice_date, 
             reference='MAT: '+self.number, 
             description=mes_actual(invoice_date),
             account=self.party.account_receivable,
@@ -515,6 +516,7 @@ class Subscription(ModelSQL, ModelView):
             reference='MAT: '+str(self.number),
             description='INS - '+ str(self.registration_date.year),
             invoice_date=self.registration_date,
+            accounting_date=self.registration_date,
             is_enrolment=True, 
             subscription_origin=self, 
             )

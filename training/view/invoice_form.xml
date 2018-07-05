@@ -9,9 +9,10 @@
     <xpath expr="//field[@name='company']" position="replace_attributes">
     	<field name="company" readonly="1"/>
     </xpath>
+    <!--
     <xpath expr="//button[@name='pay']" position="replace">
-    </xpath>
-        <xpath expr="//page[@id='payment']" position="replace">
+    </xpath>-->
+    <xpath expr="//page[@id='payment']" position="replace">
     </xpath>
     <!--
     <xpath expr="//field[@name='taxes']" position="replace">

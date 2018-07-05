@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="expense_lines_view_tree">
+            <field name="model">account.move.line</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="20"/>
+            <field name="name">expense_lines_tree</field>
+        </record> 
+
+        <record model="ir.ui.view" id="move_line_view_tree">
+            <field name="model">account.move.line</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">move_line_tree</field>
+        </record> 
+        <record model="ir.ui.view" id="move_line_view_form">
+            <field name="model">account.move.line</field>
+            <field name="type">form</field>
+            <field name="priority" eval="20"/>
+            <field name="name">move_line_form</field>
+        </record> 
+        
+        <record model="ir.ui.view" id="iesa_expense_view_form">
+            <field name="model">account.iesa.expense</field>
+            <field name="type">form</field>
+            <field name="name">iesa_expense_form</field>
+        </record>
+        <record model="ir.ui.view" id="iesa_expense_view_tree">
+            <field name="model">account.iesa.expense</field>
+            <field name="type">tree</field>
+            <field name="name">iesa_expense_tree</field>
+        </record>
+        <record model="ir.action.act_window" id="act_iesa_expense_form">
+            <field name="name">Expenses</field>
+            <field name="res_model">account.iesa.expense</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_iesa_expense_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="iesa_expense_view_tree"/>
+            <field name="act_window" ref="act_iesa_expense_form"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_iesa_expense_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="iesa_expense_view_form"/>
+            <field name="act_window" ref="act_iesa_expense_form"/>
+        </record>
+
+        <menuitem parent="training.menu_training" action="act_iesa_expense_form"
+            id="menu_expense_form" sequence="3"
+            icon="tryton-currency"/>
+
+        <record model="ir.model.access" id="access_iesa_expense">
+            <field name="model" search="[('model', '=', 'account.iesa.expense')]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_iesa_expense_account">
+            <field name="model" search="[('model', '=', 'account.iesa.expense')]"/>
+            <field name="group" ref="account.group_account"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        
+        <record model="ir.model.button" id="expense_post_button">
+            <field name="name">post</field>
+            <field name="string">Post</field>
+            <field name="model" search="[('model', '=', 'account.iesa.expense')]"/>
+        </record>
+        <record model="ir.model.button" id="expense_cancel_button">
+            <field name="name">cancel</field>
+            <field name="string">Cancel</field>
+            <field name="model" search="[('model', '=', 'account.iesa.expense')]"/>
+        </record>
+        <record model="ir.model.button" id="expense_draft_button">
+            <field name="name">draft</field>
+            <field name="string">Draft</field>
+            <field name="model" search="[('model', '=', 'account.iesa.expense')]"/>
+        </record>
+        <record model="ir.model.button" id="expense_quote_button">
+            <field name="name">quote</field>
+            <field name="string">Quotation</field>
+            <field name="model" search="[('model', '=', 'account.iesa.expense')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+            id="expense_post_button_group_account">
+            <field name="button" ref="expense_post_button"/>
+            <field name="group" ref="account.group_account"/>
+        </record>
+
+        <record model="ir.action.report" id="report_iesa_expense">
+            <field name="name">Expense</field>
+            <field name="model">account.iesa.expense</field>
+            <field name="report_name">account.iesa.expense.report</field>
+            <field name="report">account_expense/expense.fodt</field>
+            <field name="single" eval="True"/>
+        </record>
+        <record model="ir.action.keyword" id="report_expense_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">account.iesa.expense,-1</field>
+            <field name="action" ref="report_iesa_expense"/>
+        </record>
+
+        <record model="ir.sequence.type" id="sequence_type_account_expense_iesa">
+            <field name="name">Expense</field>
+            <field name="code">account.expense</field>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_account_expense_iesa_group_admin">
+            <field name="sequence_type" ref="sequence_type_account_expense_iesa"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="sequence_type_account_expense_iesa_group_account_admin">
+            <field name="sequence_type" ref="sequence_type_account_expense_iesa"/>
+            <field name="group" ref="account.group_account_admin"/>
+        </record>
+
+        <record model="ir.rule.group" id="rule_group_iesa_expense">
+            <field name="model" search="[('model', '=', 'account.iesa.expense')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_expense1">
+            <field name="domain"
+                eval="[('company', '=', Eval('user', {}).get('company', None))]"
+                pyson="1"/>
+            <field name="rule_group" ref="rule_group_iesa_expense"/>
+        </record>
+
+        <record model="ir.ui.view" id="iesa_expense_line_view_tree">
+            <field name="model">account.iesa.expense.line</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">iesa_expense_line_tree</field>
+        </record>
+        <record model="ir.ui.view" id="iesa_expense_line_view_form">
+            <field name="model">account.iesa.expense.line</field>
+            <field name="type">form</field>
+            <field name="priority" eval="10"/>
+            <field name="name">iesa_expense_line_form</field>
+        </record>
+        
+    </data>
+</tryton>
