@@ -132,7 +132,8 @@ class Move(ModelSQL, ModelView):
             ('post_number',) + tuple(clause[1:]),
             ('description',) + tuple(clause[1:]),
             ('journal',) + tuple(clause[1:]),
-            (cls._rec_name,) + tuple(clause[1:]),
+            ('origin',) + tuple(clause[1:]),
+            (cls._rec_name,) + tuple(clause[1:]), 
             ]
 
     '''class AccountMoveReport(Report):
@@ -619,7 +620,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         journal = self.journal 
         date = self.invoice_date
         amount = self.amount
-        description = self.number + ' ' + self.description
+        move_description = self.number + ' ' + self.description
         origin = self 
         lines = []
         
@@ -646,7 +647,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         period_id = Period.find(self.company.id, date=date)
 
         move = Move(journal=journal, period=period_id, date=date,
-            company=self.company, lines=lines, origin=self, description=description)
+            company=self.company, lines=lines, origin=self, description=move_description)
         move.save()
         Move.post([move])
 
