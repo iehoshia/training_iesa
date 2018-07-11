@@ -82,7 +82,7 @@ class Expense(Workflow, ModelView, ModelSQL):
     reference = fields.Char('Reference', size=None, states=_STATES,
         depends=_DEPENDS)
     description = fields.Char('Description', size=None, states=_STATES,
-        depends=_DEPENDS)
+        depends=_DEPENDS, required=True)
     state = fields.Selection(STATES, 'State', readonly=True)
     date = fields.Date('Expense Date',
         states={
@@ -322,7 +322,8 @@ class Expense(Workflow, ModelView, ModelSQL):
         journal = self.journal 
         date = self.date
         amount = self.amount
-        description = self.number
+        description = self.number + ' - ' + self.description + ' - ' + self.reference
+        ticket = self.ticket
         origin = self 
         lines = []
 

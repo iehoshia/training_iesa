@@ -14,6 +14,10 @@ msgctxt "model:ir.ui.menu,name:menu_print_financial_indicator"
 msgid "Print Financial Indicator"
 msgstr "Índices Financieros"
 
+msgctxt "model:ir.ui.menu,name:menu_consolidated_index"
+msgid "Consolidated Financial Indicator"
+msgstr "Índices Financieros Consolidados"
+
 msgctxt "model:ir.action,name:wizard_print_financial_indicator"
 msgid "Print Financial Indicator"
 msgstr "Imprimir Índices Financieros"
@@ -21,6 +25,10 @@ msgstr "Imprimir Índices Financieros"
 msgctxt "model:ir.action,name:act_account_tree2"
 msgid "Analytic Accounts"
 msgstr "Índices Financieros"
+
+msgctxt "model:ir.action,name:act_account_tree3"
+msgid "Consolidated Financial Indicator"
+msgstr "Índices Financieros Consolidados"
 
 msgctxt "field:analytic_account.account.context,fiscalyear:"
 msgid "Fiscal Year"

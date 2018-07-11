@@ -79,6 +79,9 @@ this repository contains the full copyright notices and license terms. -->
             <field name="view" ref="account_view_tree3"/>
             <field name="act_window" ref="act_account_tree3"/>
         </record>
+        <menuitem parent="menu_index" action="act_account_tree3"
+            id="menu_consolidated_index" icon="tryton-list"/>
+
 
         <record model="ir.rule.group" id="rule_group_analytic_account">
             <field name="model" search="[('model', '=', 'analytic_account.account')]"/>

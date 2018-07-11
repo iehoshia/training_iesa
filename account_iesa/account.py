@@ -42,7 +42,8 @@ __all__ = [
     'PaymentMoveLine',
     'GeneralLedger',
     'PaymentLine',
-    'PaymentReceipt'
+    'PaymentReceipt',
+    'GeneralLedgerLine', 
     ]  
 __metaclass__ = PoolMeta
 
@@ -89,10 +90,29 @@ class Move(ModelSQL, ModelView):
                 'invisible': ~Eval('is_third_party', True),
                 }, depends=_MOVE_DEPENDS,
         )
-    amount = fields.Function(fields.Numeric('Amount',
+    amount = fields.Function(fields.Numeric('Total Amount',
             digits=(16, 2)),'get_amount')
     amount_in_letters = fields.Function(fields.Numeric('Amount in Letters'),
         'get_amount_in_letters')
+    ticket = fields.Char('Ticket')
+
+    @classmethod
+    def __setup__(cls):
+        super(Move, cls).__setup__()
+        cls._order = [
+            ('post_date', 'ASC'),
+            ('post_number','DESC'),
+            ('id', 'ASC'),
+            ]
+        cls.description.states={'readonly':False}
+        
+    # TODO need to erase
+    @classmethod
+    def check_modify(cls, moves):
+        'Check posted moves for modifications.'
+        for move in moves:
+            if move.state == 'tmp':
+                cls.raise_user_error('modify_posted_move', (move.rec_name,))
 
     @classmethod
     def _get_origin(cls):
@@ -109,18 +129,14 @@ class Move(ModelSQL, ModelView):
             return amount 
         return amount 
 
+    def get_ticket(self, name):
+        if self.origin: 
+            if self.origin.ticket:
+                return self.origin.ticket 
+
     def get_amount_in_letters(self, name):
         amount_in_letters = numero_a_moneda(self.amount)
         return amount_in_letters
-
-    @classmethod
-    def __setup__(cls):
-        super(Move, cls).__setup__()
-        cls._order = [
-            ('post_date', 'ASC'),
-            ('post_number','DESC'),
-            ('id', 'ASC'),
-            ]
 
     @classmethod
     def search_rec_name(cls, name, clause):
@@ -307,6 +323,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         states=_STATES, )
     subscriber = fields.Many2One('party.party','Subscriber',
         states=_STATES, 
+        required=True, 
         domain=['AND', 
                 [('is_subscriber', '=', True)],
                 [('company', '=', Eval('context', {}).get('company', -1))],
@@ -608,7 +625,6 @@ class Payment(Workflow, ModelView, ModelSQL):
             pay_wizard.transition_choice()
             pay_wizard.transition_pay()
             pay_wizard.do_print_()
-            print "PAY: " + str(pay_wizard) 
 
     def get_move(self):
 
@@ -620,7 +636,8 @@ class Payment(Workflow, ModelView, ModelSQL):
         journal = self.journal 
         date = self.invoice_date
         amount = self.amount
-        move_description = self.number + ' ' + self.description
+        move_description = self.number + ' - ' + self.description
+        ticket =  self.ticket
         origin = self 
         lines = []
         
@@ -647,7 +664,8 @@ class Payment(Workflow, ModelView, ModelSQL):
         period_id = Period.find(self.company.id, date=date)
 
         move = Move(journal=journal, period=period_id, date=date,
-            company=self.company, lines=lines, origin=self, description=move_description)
+            company=self.company, lines=lines, origin=self, description=move_description,
+            ticket=ticket)
         move.save()
         Move.post([move])
 
@@ -674,7 +692,6 @@ class Payment(Workflow, ModelView, ModelSQL):
             total_amount = payment.amount
             current_amount = 0
 
-            print "LINES: " + str(payment.lines)
             for line in payment.lines: 
                 current_amount += line.amount 
             balance = total_amount - current_amount
@@ -892,8 +909,6 @@ class GeneralLedger(Report):
 
         report_context['accounts'] = records
 
-        print "REPORT CONTEXT: " + str(report_context)
-
         return report_context
 
 class PaymentReceipt(Report):
@@ -914,19 +929,66 @@ class PaymentReceipt(Report):
             amount = record.amount
 
         amount_on_letters = numero_a_moneda(amount)
-
-        #report_context['amount'] = data['amount'] 
-        #report_context['party'] = data['party'] 
-        #report_context['date'] = data['date'] 
-        #report_context['number'] = data['number'] 
-        #report_context['journal'] = data['journal'] 
-        #report_context['is_ticket'] = data['is_ticket']
-        #report_context['ticket'] = data['ticket']
-        #report_context['third_party'] = data['third_party']
-        #report_context['description'] = data['description'] 
-        #report_context['product'] = data['product'] 
-        #report_context['product2'] = data['product2'] 
-        #report_context['month'] = data['month'] 
         report_context['amount_on_letters'] = amount_on_letters
         
         return report_context
+
+class GeneralLedgerLine(ModelSQL, ModelView):
+    __metaclass__ = PoolMeta
+    'General Ledger Line'
+    __name__ = 'account.general_ledger.line'
+
+    move_ticket = fields.Char('Ticket')
+    post_number = fields.Char('Post Number')
+
+    @classmethod
+    def table_query(cls):
+        pool = Pool()
+        Line = pool.get('account.move.line')
+        Move = pool.get('account.move')
+        LedgerAccount = pool.get('account.general_ledger.account')
+        Account = pool.get('account.account')
+        transaction = Transaction()
+        database = transaction.database
+        context = transaction.context
+        line = Line.__table__()
+        move = Move.__table__()
+        account = Account.__table__()
+        columns = []
+        for fname, field in cls._fields.iteritems():
+            if hasattr(field, 'set'):
+                continue
+            field_line = getattr(Line, fname, None)
+            if fname == 'balance':
+                if database.has_window_functions():
+                    w_columns = [line.account]
+                    if context.get('party_cumulate', False):
+                        w_columns.append(line.party)
+                    column = Sum(line.debit - line.credit,
+                        window=Window(w_columns,
+                            order_by=[move.date.asc, line.id])).as_('balance')
+                else:
+                    column = (line.debit - line.credit).as_('balance')
+            elif fname == 'move_description':
+                column = Column(move, 'description').as_(fname)
+            elif fname == 'move_ticket':
+                column = Column(move, 'ticket').as_(fname)
+            elif fname == 'post_number':
+                column = Column(move, 'post_number').as_(fname)
+            elif fname == 'party_required':
+                column = Column(account, 'party_required').as_(fname)
+            elif (not field_line
+                    or fname == 'state'
+                    or isinstance(field_line, fields.Function)):
+                column = Column(move, fname).as_(fname)
+            else:
+                column = Column(line, fname).as_(fname)
+            columns.append(column)
+        start_period_ids = set(LedgerAccount.get_period_ids('start_balance'))
+        end_period_ids = set(LedgerAccount.get_period_ids('end_balance'))
+        period_ids = list(end_period_ids.difference(start_period_ids))
+        with Transaction().set_context(periods=period_ids):
+            line_query, fiscalyear_ids = Line.query_get(line)
+        return line.join(move, condition=line.move == move.id
+            ).join(account, condition=line.account == account.id
+                ).select(*columns, where=line_query)

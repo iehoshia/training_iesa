@@ -20,6 +20,7 @@ def register():
         Configuration, 
         ConfigurationSequence, 
         PaymentLine, 
+        GeneralLedgerLine, 
         module='account_iesa', type_='model')
 #    Pool.register(
 #        CopyBudget,

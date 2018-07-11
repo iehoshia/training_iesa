@@ -42,14 +42,11 @@ __all__ = ['Subscription',
 
 __metaclass__ = PoolMeta
 
-#_YEAR = datetime.datetime.now().year
-#_NOW = datetime.datetime.now()
 _DOMAIN = []
 
 def allmonth(year):
     list = []
     for i in range(0,-2,-1):
-        #print str(i)
         d = date(year-i, 1, 1)                    # January 1st
         f = date(year-i, 1, 1)                    # January 1st
         d += timedelta( (5 - d.weekday() + 7) % 7)  # First Sunday
@@ -94,7 +91,6 @@ def fecha_inicio_mes(mes):
             anhio = mes.replace(digit,' ')
             anhio = anhio.replace('-',' ')
             break
-    #print digit
     mes = mes_numero(digit)
     dias = digit * 7
     anhio = int(anhio)
@@ -111,7 +107,6 @@ def fecha_fin_mes(mes):
             anhio = mes.replace(digit,' ')
             anhio = anhio.replace('-',' ')
             break
-    #print digit
     mes = mes_numero(digit)
     anhio = int(anhio)
 
@@ -135,7 +130,6 @@ class SubscriptionContext(ModelView):
     "Subscription Context"
     __name__ = 'sale.subscription.context' 
 
-    #horario = fields.Many2One('training.horario','Horario') # schedule
     student = fields.Many2One('party.party','Student', # student
         domain=['AND', 
                 [('is_student', '=', True)],
@@ -220,7 +214,6 @@ class Subscription(ModelSQL, ModelView):
         )
 
     unit_price_enrolment = fields.Numeric("Enrolment Price", 
-        #digits=price_digits,
         digits=(16,2),
         required=True,  
         states={'readonly': Eval('state') != 'draft',},
@@ -281,9 +274,6 @@ class Subscription(ModelSQL, ModelView):
 
         if self.enrolment:
             context['uom'] = self.enrolment.default_uom.id
-        #elif self.service:
-        #    context['uom'] = self.service.sale_uom.id
-        # TODO tax
         return context
 
     @classmethod 
@@ -297,42 +287,6 @@ class Subscription(ModelSQL, ModelView):
             ]
         cls.lines.required=True
         cls.end_date.required=True
-        #cls.invoice_address.required=False 
-
-        '''cls._buttons.update({
-                'cancel': {
-                    'invisible': (~Eval('state').in_(['draft', 'validated'])
-                        & ~((Eval('state') == 'posted')
-                            & (Eval('type') == 'in'))),
-                    'help': 'Cancel the invoice',
-                    },
-                'draft': {
-                    'invisible': (~Eval('state').in_(['cancel', 'validated'])
-                        | ((Eval('state') == 'cancel') & Eval('cancel_move'))),
-                    'icon': If(Eval('state') == 'cancel', 'tryton-clear',
-                        'tryton-go-previous'),
-                    },
-                'validate_invoice': {
-                    'pre_validate':
-                        ['OR',
-                            ('invoice_date', '!=', None),
-                            ('type', '!=', 'in'),
-                        ],
-                    'invisible': Eval('state') != 'draft',
-                    },
-                'post': {
-                    'pre_validate':
-                        ['OR',
-                            ('invoice_date', '!=', None),
-                            ('type', '!=', 'in'),
-                        ],
-                    'invisible': ~Eval('state').in_(['draft', 'validated']),
-                    },
-                'pay': {
-                    'invisible': Eval('state') != 'posted',
-                    },
-                })
-                '''
         cls._buttons.update({
                 'cancel': {
                     'invisible': ~Eval('state').in_(['draft', 'quotation']),
@@ -351,7 +305,6 @@ class Subscription(ModelSQL, ModelView):
                             ('lines', '!=', []),
                         ],
                     'invisible': Eval('state') != 'draft',
-                    #'readonly': ~Eval('lines', []),
                     'icon': 'tryton-go-next',
                     },
                 'run': {
@@ -368,49 +321,9 @@ class Subscription(ModelSQL, ModelView):
     def get_receivable_payable(self, name):
         amount = self.student.receivable
         return amount  
-        '''Party = Pool().get('party.party')
-        for subscription in subscriptions:
-            if subscription.party:
-                party = Party(subscription.party)
-                print int(party)
-                #amount = int(party.receivable.value)
-                amount = 0 
-                result = {
-                    'receivable': amount,
-                }
-                for key in result.keys():
-                    if key not in names:
-                        del result[key]
-                return result
-            else: 
-                amount = 0 
-                result = {
-                    'receivable': amount,
-                }
-                return result '''
-
+        
     def get_grade(self, name):
         return self.lines[0].service.id if self.lines else None
-        #for subscription in subscriptions:
-        #    if subscription.lines:
-        #        for line in subscription.lines:
-        #            if line.service:
-        #                return line.service.id
-
-    '''@classmethod
-    def get_amount(cls, subscriptions, names):
-        amount = {}
-        for subscription in subscriptions:
-            amount[subscription.id] = sum(
-                    (line.unit_price for line in subscription.lines), _ZERO)
-
-        result = {
-            'amount': amount,
-            }
-        for key in result.keys():
-            if key not in names:
-                del result[key] 
-        return result''' 
 
     def get_amount(self, name):
         amount = Decimal('0.0')
@@ -432,21 +345,9 @@ class Subscription(ModelSQL, ModelView):
         print "PARTY ID: " + str(address.id) +"ADDRESS:  " + str(address.city) + "PARTY: " + str(address.party)
         print "PARTY ADDRESSES:  " + str(party.addresses)
         return address
-    '''
-    def _create_party_address(self, party): 
-        pool = Pool()
-        Party = pool.get('party.party')
-        PartyAddress = pool.get('party.address')
-
-        address = PartyAddress(party=party, 
-                city="Guatemala")
-        address.save()
-        print "PARTY ID: " + str(address.id) +"ADDRESS:  " + str(address.city) + "PARTY: " + str(address.party)
-        print "PARTY ADDRESSES:  " + str(party.addresses)
-        return address'''
 
     def _get_invoice(self, invoice_date=None):
-        #print "PASS get_invoice: " 
+
         pool = Pool()
         Date = pool.get('ir.date')
         Invoice = pool.get('account.invoice')
@@ -475,13 +376,11 @@ class Subscription(ModelSQL, ModelView):
     def _check_enrolment(cls, party=None, reference=None):
         pool = Pool()
         Invoice = pool.get('account.invoice')
-        #print "PARTY: " + str(party) + " REFERENCE: " + str(reference)
         invoices = Invoice.search([
             ('party','=',party),
             ('reference','=',reference),
             ('is_enrolment','=',True),
             ])
-        #print "INV: " + str(invoices)
         if invoices:
             return True
         return False 
@@ -494,11 +393,6 @@ class Subscription(ModelSQL, ModelView):
         Uom = pool.get('product.uom')
         AccountConfiguration = pool.get('account.configuration')
         account_config = AccountConfiguration(1)
-
-        #if account_config is None: 
-        #    self.raise_user_error('missing_account_enrolment')
-
-        #print str(account_config.get_multivalue('default_enrolment_account'))
 
         pool = Pool()
         Invoice = pool.get('account.invoice')
@@ -532,8 +426,6 @@ class Subscription(ModelSQL, ModelView):
         invoice.account = default_enrolment_account
         invoice.save()
         invoice.update_taxes([invoice])
-
-        print 'INVOICE: ' + str(invoice)
 
         line = InvoiceLine()
         line.invoice_type = 'out'
@@ -669,10 +561,6 @@ class Subscription(ModelSQL, ModelView):
             subscription.state = 'running'
             start_date = subscription.start_date
             state = subscription.state
-            #parties = Party.search(['id','=',subscription.party.id])
-            #for party in parties:
-            #    Party.write([party],
-            #        {'is_subscriber':True})
             if not subscription.next_invoice_date: 
                 subscription.next_invoice_date = (
                     subscription.compute_next_invoice_date())
@@ -686,8 +574,6 @@ class Subscription(ModelSQL, ModelView):
             enrolment = subscription.enrolment
         Line.save(lines) 
         cls.save(subscriptions) 
-        #print (subscriptions)
-        #print('STATE: ' + str(state))
         Line.generate_consumption(
             date=start_date)
         Subscription.generate_invoice(date=start_date, party=party, enrolment=enrolment)
@@ -731,18 +617,6 @@ class Subscription(ModelSQL, ModelView):
     def process(cls, subscriptions):
         super(Subscription, cls).process(subscriptions)
 
-    #@fields.depends('student','party')
-    #def on_change_student(self):
-    #    if self.student and not self.party:
-    #        self.party = self.party
-    #        self.invoice_address = self.student.address_get(type='invoice')
-    #        self.payment_term = self.student.customer_payment_term
-        #else: 
-        #    self.party = None 
-        #    self.invoice_address= None 
-        #    self.payment_term = None 
-        #    self.invoice_recurrence = None 
-
     @classmethod
     def default_invoice_recurrence(cls):
         Recurrence = Pool().get('sale.subscription.recurrence.rule.set')
@@ -760,17 +634,13 @@ class Subscription(ModelSQL, ModelView):
     @classmethod
     def search(cls, domain, offset=0, limit=None, order=None, count=False,
             query=False):
-        #pool = Pool() 
-        #Subscription = pool.get('sale.subscription')
         transaction = Transaction().context 
-        #horario = transaction.get('horario')
+        
         student = transaction.get('student')
         subscriber = transaction.get('subscriber')
         course = transaction.get('course')
         
         domain = domain[:]
-        #if horario is not None: 
-        #    domain = [domain, ('horario','=',horario)]
         if student is not None: 
             domain = [domain, ('student','=',student)]
         if subscriber is not None: 
@@ -849,7 +719,6 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
                 ('subscription.state', '=', 'running'),
                 ( 'company','=',company)
                 ])
-        print "REMAININGS: " + str(remainings)
         consumptions = []
         subscription_ids = set()
         while remainings:
@@ -1102,13 +971,8 @@ class OverdueReport(Report):
                     ('state','in',['running','closed']),
                 ]
 
-        #clause = [clause,
-        #            ('party.receivable','>=',amount)
-        #        ]
-        
         subscriptions = Subscription.search(clause)
 
-        #report_context['amount'] = data['amount']
         report_context['date'] = data['date']
         report_context['user'] = data['user']
         
@@ -1124,7 +988,6 @@ class PrintGradeOverdueReportStart(ModelView):
     
     date = fields.Date('Current Date', required=True,
         readonly=True)
-    #amount = fields.Numeric('Amount', required=True)
     user = fields.Many2One('res.user','User',
         required=True, 
         readonly=True, 
@@ -1166,7 +1029,6 @@ class PrintGradeOverdueReport(Wizard):
         data = {
             'date': self.start.date,
             'user': self.start.user.name,
-            #'amount': self.start.amount, 
             'grade': self.start.grade.id, 
             }
         return action, data
@@ -1190,7 +1052,6 @@ class GradeOverdueReport(Report):
         clause = ''
         clause = clause[:]
         company = Transaction().context.get('company')
-        #amount = data['amount']
         grade = data['grade']
 
         start_date = date(date.today().year, 1, 1)
@@ -1207,13 +1068,8 @@ class GradeOverdueReport(Report):
                     ('end_date','<=',end_date),
                     ('state','in',['running','closed']),
                 ]
-
-        #clause = [clause,
-        #            ('party.receivable','>=',amount)
-        #        ]
             
         return Subscription.search(clause,
-            #order=['party']
             )
 
     @classmethod
@@ -1245,18 +1101,12 @@ class GradeOverdueReport(Report):
         clause = [clause,
                     ('grade','=',grade)
                 ]
-
-        #clause = [clause,
-        #            ('party.receivable','>=',amount)
-        #        ]
         
         subscriptions = Subscription.search(clause)
 
         report_context['date'] = data['date']
         report_context['user'] = data['user']
-        #report_context['amount'] = data['amount']
         report_context['grade'] = grade_name
-        
         report_context['total'] = sum((x.student.receivable for x in subscriptions))
         
         return report_context

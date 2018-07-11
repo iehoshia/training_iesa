@@ -4,18 +4,20 @@
         	view_ids="account_iesa.move_line_view_form_move,account_iesa.move_line_view_form_move"/>-->
         <field name="lines" colspan="4" 
         	view_ids="account_iesa.move_line_view_tree"/>
-		<!--<label name="amount"/>
-		<field name="amount"/>-->
 	</xpath>
 
 	
 
     <xpath expr="/form/field[@name=&quot;description&quot;]" position="after">
+        <label name="amount"/>
+        <field name="amount"/>
+        <label name="ticket"/>
+        <field name="ticket"/>
         <!--
     	<label name="is_third_party"/>
     	<field name="is_third_party"/>
     	<label name="third_party"/>
     	<field name="third_party"/>
-    -->
+        -->
     </xpath>
 </data>

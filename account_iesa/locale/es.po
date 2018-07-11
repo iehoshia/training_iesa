@@ -214,6 +214,10 @@ msgctxt "model:account.iesa.payment,name:menu_operative_capital"
 msgid "Payment IESA"
 msgstr "Recibo"
 
+msgctxt "model:ir.action,name:report_general_ledger"
+msgid "General Ledger"
+msgstr "Libro Mayor"
+
 msgctxt "model:ir.action,name:act_account_move"
 msgid "Account Moves"
 msgstr "Asientos Contables"
