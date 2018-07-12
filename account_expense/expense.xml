@@ -3,6 +3,13 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data>
+        <!-- Icons -->
+        <!-- Create the Expense icon -->
+        <record model="ir.ui.icon" id="expense_icon">
+          <field name="name">expense_icon</field>
+          <field name="path">icons/expense_icon.svg</field>
+        </record>
+
         <record model="ir.ui.view" id="expense_lines_view_tree">
             <field name="model">account.move.line</field>
             <field name="type">tree</field>
@@ -50,7 +57,7 @@ this repository contains the full copyright notices and license terms. -->
 
         <menuitem parent="training.menu_training" action="act_iesa_expense_form"
             id="menu_expense_form" sequence="3"
-            icon="tryton-currency"/>
+            icon="expense_icon"/>
 
         <record model="ir.model.access" id="access_iesa_expense">
             <field name="model" search="[('model', '=', 'account.iesa.expense')]"/>

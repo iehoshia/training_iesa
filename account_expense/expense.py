@@ -138,8 +138,10 @@ class Expense(Workflow, ModelView, ModelSQL):
         required=True)
     receipt = fields.Char('Receipt')
     party = fields.Many2One('party.party','Party',
+        required=True, 
         states=_STATES, 
         domain=[('company', '=', Eval('context', {}).get('company', -1))],
+        help='The party that generate the expense',
     )
 
     @classmethod

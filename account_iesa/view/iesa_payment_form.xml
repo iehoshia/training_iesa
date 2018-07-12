@@ -2,23 +2,24 @@
 <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
 this repository contains the full copyright notices and license terms. -->
 <form col="6" cursor="subscriber">
-    <group id="parties" colspan="2" col="6">
+    <group id="parties" colspan="3" col="4">
         <label name="number"/>
-        <field name="number" colspan="3" readonly="1"/>
-        <label name="invoice_date"/>
-        <field name="invoice_date"/>
-        <label name="subscriber"/>
-        <field name="subscriber" colspan="5"/>
-    </group>
-    <group id="invoice" colspan="4" col="4" yfill="1">
+        <field name="number" readonly="1"/>
         <label name="journal"/>
         <field name="journal" widget="selection"/>
+        <label name="invoice_date"/>
+        <field name="invoice_date"/>
+        <label name="is_third_party"/>
+        <field name="is_third_party" width="25"/>
+        <label name="subscriber"/>
+        <field name="subscriber" colspan="3"/>
+    </group>
+    <group id="invoice" colspan="3" col="4" yfill="1">
         <label name="amount"/>
         <field name="amount" xalign="1.0" />
         <label name="ticket"/>
         <field name="ticket"/>
-        <label name="is_third_party"/>
-        <field name="is_third_party" width="25"/>
+        <newline/>
         <label name="description"/>
         <field name="description" colspan="3"/>
     </group>

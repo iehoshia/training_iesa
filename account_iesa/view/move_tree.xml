@@ -3,6 +3,8 @@
 	</xpath>
 	<xpath expr="/tree/field[@name=&quot;date&quot;]" position="replace">
 	</xpath>
+	<xpath expr="/tree/field[@name=&quot;origin&quot;]" position="replace">
+	</xpath>
 	<xpath expr="/tree/button[@name=&quot;post&quot;]" position="replace_attributes">
 		<button name="post" tree_invisible="1"/>
 	</xpath>
