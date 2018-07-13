@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>        
+        <record model="ir.ui.icon" id="asset_icon">
+          <field name="name">asset_icon</field>
+          <field name="path">icons/asset_icon.svg</field>
+        </record>
+
+        <record model="ir.ui.view" id="create_asset_start_view_form">
+            <field name="model">create.asset.start</field>
+            <field name="type">form</field>
+            <field name="name">create_asset_start_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="create_asset_view_form">
+            <field name="model">create.asset.form</field>
+            <field name="type">form</field>
+            <field name="name">create_asset_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="create_asset_end_view_form">
+            <field name="model">create.asset.end</field>
+            <field name="type">form</field>
+            <field name="name">create_asset_end_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_create_asset">
+            <field name="name">Create Asset</field>
+            <field name="wiz_name">create.asset</field>
+        </record>
+        <menuitem parent="training.menu_configuracion_training"
+            action="wizard_create_asset" id="menu_create_asset"
+            sequence="100"/>
+
+        <record model="ir.action.act_window" id="act_open_created_asset">
+            <field name="name">Assets</field>
+            <field name="res_model">account.asset</field>
+            <field
+                name="domain"
+                eval="[('company', '=', Eval('company', -1))]"
+                pyson="1"/>
+        </record>
+
+        <record model="ir.action.act_window" id="act_asset_form">
+            <field name="name">Assets</field>
+            <field name="res_model">account.asset</field>
+            <field name="domain" pyson="1"
+                eval="[
+                    ('company', '=', Eval('context', {}).get('company', -1)), 
+                    ]"/>
+        </record>
+
+        <menuitem parent="training.menu_training" action="act_asset_form"
+            id="menu_assets" icon="asset_icon" sequence="70"/>
+
+    </data>
+</tryton>

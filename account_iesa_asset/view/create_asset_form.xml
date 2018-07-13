@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form cursor="name">
+    <group id="template" col="6" colspan="4">
+        <label name="company"/>
+        <field name="company"/>
+        <newline/>
+        <separator id="template" string="Asset Info" colspan="6"/>
+        <label name="name"/>
+        <field name="name"/>
+        <label name="code"/>
+        <field name="code"/>
+        <label name="unit"/>
+        <field name="unit"/>
+        <label name="value"/>
+        <field name="value"/>
+        <label name="residual_value"/>
+        <field name="residual_value"/>
+        <newline/>
+        <separator id="date" string="Asset Date Depreciation" colspan="6"/>
+        <label name="purchase_date"/>
+        <field name="purchase_date"/>
+        <label name="start_date"/>
+        <field name="start_date"/>
+        <label name="end_date"/>
+        <field name="end_date"/>
+    </group>
+    <group id="account" col="4" colspan="6">
+        <separator id="account" string="Asset Account" colspan="4"/>
+        <label name="account_depreciation"/>
+        <field name="account_depreciation"/>
+        <label name="account_asset"/>
+        <field name="account_asset"/>
+        <label name="account_journal"/>
+        <field name="account_journal" widget="selection"/>
+    </group>
+</form> 
