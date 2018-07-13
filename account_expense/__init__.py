@@ -10,6 +10,7 @@ def register():
     	Move, 
         Expense, 
         ExpenseLine, 
+        ExpenseContext, 
         ExpenseMoveLine, 
         ExpenseMoveReference,
         Configuration,

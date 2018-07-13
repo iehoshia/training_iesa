@@ -44,7 +44,6 @@ this repository contains the full copyright notices and license terms. -->
 
         <record model="ir.ui.view" id="invoice_view_tree">
             <field name="model">account.invoice</field>
-            <!--<field name="inherit" ref="account_invoice.invoice_view_tree"/> -->
             <field name="type">tree</field>
             <field name="priority" eval="20"/>
             <field name="name">invoice_tree</field>
@@ -136,10 +135,19 @@ this repository contains the full copyright notices and license terms. -->
             <field name="type">tree</field>
             <field name="name">iesa_payment_tree</field>
         </record>
+        <record model="ir.ui.view" id="iesa_payment_context_view_form">
+            <field name="model">account.iesa.payment.context</field>
+            <field name="type">form</field>
+            <field name="name">iesa_payment_context_form</field>
+        </record> 
 
         <record model="ir.action.act_window" id="act_iesa_payment_form">
             <field name="name">Payments</field>
             <field name="res_model">account.iesa.payment</field>
+            <field name="context_model">account.iesa.payment.context</field>
+            <field name="domain"
+                eval="[('company', '=', Eval('context', {}).get('company', -1))]"
+                pyson="1"/>
         </record>
         <record model="ir.action.act_window.view" id="act_iesa_payment_form_view1">
             <field name="sequence" eval="10"/>

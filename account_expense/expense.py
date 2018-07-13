@@ -34,6 +34,7 @@ __all__ = [
     'Move',
     'Expense',
     'ExpenseLine',
+    'ExpenseContext', 
     'ExpenseMoveLine',
     'ExpenseMoveReference',
     'ExpenseReport'
@@ -157,6 +158,12 @@ class Expense(Workflow, ModelView, ModelSQL):
                 'amount_can_not_be_zero': ('Amount to Pay can not be zero.'),
                 'post_unbalanced_expense': ('You can not post expense "%s" because '
                     'it is an unbalanced.'),
+                'modify_expense': ('You can not modify expense "%s" because '
+                    'it is posted or cancelled.'),
+                'delete_cancel': ('Expense "%s" must be cancelled before '
+                    'deletion.'),
+                'delete_numbered': ('The numbered expense "%s" can not be '
+                    'deleted.'),
                 })
         cls._transitions |= set((
                 ('draft', 'canceled'),
@@ -191,6 +198,29 @@ class Expense(Workflow, ModelView, ModelSQL):
                 })
 
     @classmethod
+    def search(cls, domain, offset=0, limit=None, order=None, count=False,
+            query=False):
+        transaction = Transaction().context 
+        
+        party = transaction.get('party')
+        date = transaction.get('date')
+        
+        domain = domain[:]
+        if party is not None: 
+            domain = [domain, ('party','=',party)]
+        if date is not None:  
+            domain = [domain, ('date','=',date)] 
+
+        records = super(Expense, cls).search(domain, offset=offset, limit=limit,
+             order=order, count=count, query=query)
+
+        if Transaction().user:
+            # Clear the cache as it was not cleaned for confidential 
+            cache = Transaction().get_cache()
+            cache.pop(cls.__name__, None)
+        return records
+
+    @classmethod
     def search_rec_name(cls, name, clause):
         if clause[1].startswith('!') or clause[1].startswith('not '):
             bool_op = 'AND'
@@ -200,6 +230,7 @@ class Expense(Workflow, ModelView, ModelSQL):
             ('number',) + tuple(clause[1:]),
             ('description',) + tuple(clause[1:]),
             ('party',) + tuple(clause[1:]),
+            ('ticket',) + tuple(clause[1:]),
             ]
 
     def get_rec_name(self, name):
@@ -410,6 +441,27 @@ class Expense(Workflow, ModelView, ModelSQL):
             expense.state = 'posted'
             expense.save()
 
+    @classmethod
+    def check_modify(cls, expenses):
+        '''
+        Check if the payments can be modified
+        '''
+        for expense in expenses:
+            if (expense.state in ('posted', 'cancel') ):
+                cls.raise_user_error('modify_expense', (expense.rec_name,))
+
+    @classmethod
+    def delete(cls, expenses):
+        cls.check_modify(expenses)
+        # Cancel before delete
+        cls.cancel(expenses)
+        for expense in expenses:
+            if expense.state != 'canceled':
+                cls.raise_user_error('delete_cancel', (expense.rec_name,))
+            if payment.number:
+                cls.raise_user_error('delete_numbered', (expense.rec_name,))
+        super(Expense, cls).delete(expenses)
+
 class ExpenseMoveReference(ModelView, ModelSQL):
     'Expense Move Reference'
     __name__ = 'account.iesa.expense.move.line'
@@ -589,3 +641,15 @@ class ExpenseReport(Report):
         report_context['amount_on_letters'] = amount_on_letters
         
         return report_context
+
+class ExpenseContext(ModelView):
+    'Expense Context'
+    __name__ = 'account.iesa.expense.context'
+
+    date = fields.Date('Date')
+    party = fields.Many2One('party.party','Party',
+        domain=[
+            ('company', '=', Eval('context', {}).get('company', -1))],
+        help='The party that generate the expense',
+    )
+

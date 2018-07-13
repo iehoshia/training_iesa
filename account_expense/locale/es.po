@@ -2,6 +2,14 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "field:account.iesa.expense.context,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:account.iesa.expense.context,party:"
+msgid "Party"
+msgstr "Encargado"
+
 msgctxt "field:account.iesa.expense,company:"
 msgid "Company"
 msgstr "Colegio"

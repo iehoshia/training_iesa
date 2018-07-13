@@ -6,6 +6,14 @@ msgctxt "field:product.template,company:"
 msgid "Company"
 msgstr "Colegio"
 
+msgctxt "field:account.iesa.payment.context,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:account.iesa.payment.context,party:"
+msgid "Party"
+msgstr "Encargado"
+
 msgctxt "field:account.operating.capital,company:"
 msgid "Company"
 msgstr "Colegio"

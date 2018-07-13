@@ -42,6 +42,7 @@ __all__ = [
     'PaymentMoveLine',
     'GeneralLedger',
     'PaymentLine',
+    'PaymentContext',
     'PaymentReceipt',
     'GeneralLedgerLine', 
     ]  
@@ -376,6 +377,29 @@ class Payment(Workflow, ModelView, ModelSQL):
                     'depends': ['state'],
                     },
                 })
+
+    @classmethod
+    def search(cls, domain, offset=0, limit=None, order=None, count=False,
+            query=False):
+        transaction = Transaction().context 
+        
+        party = transaction.get('party')
+        date = transaction.get('date')
+        
+        domain = domain[:]
+        if party is not None: 
+            domain = [domain, ('subscriber','=',party)]
+        if date is not None:  
+            domain = [domain, ('invoice_date','=',date)] 
+
+        records = super(Payment, cls).search(domain, offset=offset, limit=limit,
+             order=order, count=count, query=query)
+
+        if Transaction().user:
+            # Clear the cache as it was not cleaned for confidential 
+            cache = Transaction().get_cache()
+            cache.pop(cls.__name__, None)
+        return records
 
     @classmethod
     def delete(cls, payments):
@@ -1028,3 +1052,14 @@ class GeneralLedgerLine(ModelSQL, ModelView):
         return line.join(move, condition=line.move == move.id
             ).join(account, condition=line.account == account.id
                 ).select(*columns, where=line_query)
+
+class PaymentContext(ModelView):
+    'Payment Context'
+    __name__ = 'account.iesa.payment.context'
+
+    date = fields.Date('Date')
+    party = fields.Many2One('party.party','Party',
+        domain=[
+            ('company', '=', Eval('context', {}).get('company', -1))],
+        help='The party that generate the expense',
+    )

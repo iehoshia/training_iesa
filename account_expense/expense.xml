@@ -16,18 +16,10 @@ this repository contains the full copyright notices and license terms. -->
             <field name="priority" eval="20"/>
             <field name="name">expense_lines_tree</field>
         </record> 
-
-        <record model="ir.ui.view" id="move_line_view_tree">
-            <field name="model">account.move.line</field>
-            <field name="type">tree</field>
-            <field name="priority" eval="10"/>
-            <field name="name">move_line_tree</field>
-        </record> 
-        <record model="ir.ui.view" id="move_line_view_form">
-            <field name="model">account.move.line</field>
+        <record model="ir.ui.view" id="iesa_expense_context_view_form">
+            <field name="model">account.iesa.expense.context</field>
             <field name="type">form</field>
-            <field name="priority" eval="20"/>
-            <field name="name">move_line_form</field>
+            <field name="name">iesa_expense_context_form</field>
         </record> 
         
         <record model="ir.ui.view" id="iesa_expense_view_form">
@@ -40,23 +32,27 @@ this repository contains the full copyright notices and license terms. -->
             <field name="type">tree</field>
             <field name="name">iesa_expense_tree</field>
         </record>
-        <record model="ir.action.act_window" id="act_iesa_expense_form">
+        <record model="ir.action.act_window" id="act_iesa_expense_tree">
             <field name="name">Expenses</field>
             <field name="res_model">account.iesa.expense</field>
+            <field name="context_model">account.iesa.expense.context</field>
+            <field name="context_domain"
+                eval="[('company', '=', Eval('company', -1))]"
+                pyson="1"/>
         </record>
         <record model="ir.action.act_window.view" id="act_iesa_expense_form_view1">
             <field name="sequence" eval="10"/>
             <field name="view" ref="iesa_expense_view_tree"/>
-            <field name="act_window" ref="act_iesa_expense_form"/>
+            <field name="act_window" ref="act_iesa_expense_tree"/>
         </record>
         <record model="ir.action.act_window.view" id="act_iesa_expense_form_view2">
             <field name="sequence" eval="20"/>
             <field name="view" ref="iesa_expense_view_form"/>
-            <field name="act_window" ref="act_iesa_expense_form"/>
+            <field name="act_window" ref="act_iesa_expense_tree"/>
         </record>
 
-        <menuitem parent="training.menu_training" action="act_iesa_expense_form"
-            id="menu_expense_form" sequence="3"
+        <menuitem parent="training.menu_training" action="act_iesa_expense_tree"
+            id="menu_expense_tree" sequence="3"
             icon="expense_icon"/>
 
         <record model="ir.model.access" id="access_iesa_expense">
