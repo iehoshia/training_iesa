@@ -150,11 +150,11 @@ msgctxt "view:account.liquidity:"
 msgid "Current Capital"
 msgstr "Capital Actual"
 
-msgctxt "model:ir.action,name:act_iesa_expense_form"
+msgctxt "model:ir.action,name:act_iesa_expense_tree"
 msgid "Expenses"
 msgstr "Gastos"
 
-msgctxt "model:ir.ui.menu,name:menu_expense_form"
+msgctxt "model:ir.ui.menu,name:menu_expense_tree"
 msgid "Expenses"
 msgstr "Gastos"
 
