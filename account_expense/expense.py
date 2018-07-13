@@ -432,14 +432,19 @@ class Expense(Workflow, ModelView, ModelSQL):
         Invoice = pool.get('account.invoice')
         Currency = pool.get('currency.currency')
         Date = pool.get('ir.date')
-
-        for expense in expenses: 
-            move = None
+        
+        expenses_ids = cls.browse([e for e in expenses])
+        for expense in expenses_ids: 
             move = expense.get_move()
             expense.accounting_date = Date.today()
-            expense.move = move
+            moves = []
+            if move != expense.move: 
+                expense.move = move
+                moves.append(move)
+            if moves:
+                Move.save(moves)
             expense.state = 'posted'
-            expense.save()
+        cls.save(expenses_ids)
 
     @classmethod
     def check_modify(cls, expenses):

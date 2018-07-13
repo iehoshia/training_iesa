@@ -788,7 +788,6 @@ class Payment(Workflow, ModelView, ModelSQL):
             if moves:
                 Move.save(moves)
             payment.state = 'posted'
-            #payment.save()
         cls.save(payments_ids)
 
 class PaymentMoveReference(ModelView, ModelSQL):
