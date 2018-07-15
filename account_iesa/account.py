@@ -145,16 +145,6 @@ class Move(ModelSQL, ModelView):
             (cls._rec_name,) + tuple(clause[1:]), 
             ]
 
-    '''class AccountMoveReport(Report):
-    __name__ = 'account.move'
-
-    @classmethod
-    def get_context(cls, records, data):
-        context = super(InvoiceReport, cls).get_context(records, data)
-        context['invoice'] = context['record']
-        return context
-    '''
-
 class AnalyticAccountContext(ModelSQL, ModelView):
     'Analytic Account Context'
     __name__ = 'analytic_account.account.context'
@@ -423,7 +413,6 @@ class Payment(Workflow, ModelView, ModelSQL):
             ('number',) + tuple(clause[1:]),
             ('description',) + tuple(clause[1:]),
             ('subscriber',) + tuple(clause[1:]),
-            #('invoice_date',) + tuple(clause[1:]),
             ]
 
     def get_rec_name(self, name):
