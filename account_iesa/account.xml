@@ -109,14 +109,31 @@ this repository contains the full copyright notices and license terms. -->
             <field name="domain"
                 eval="[('company', '=', Eval('context', {}).get('company', -1))]"
                 pyson="1"/>
-            <field name="search_value"
+            <!--<field name="search_value"
                 eval="[('create_date', '>=', DateTime(hour=0, minute=0, second=0, microsecond=0, delta_years=-1))]"
-                pyson="1"/>
+                pyson="1"/>-->
+        </record>
+
+        <record model="ir.action.act_window.domain"
+            id="act_account_move_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('state', '=', 'draft')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_account_move"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_account_move_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_account_move"/>
         </record>
 
         <menuitem parent="menu_account" sequence="4"
-            action="act_account_move" id="menuitem_account_move"
-            icon="tryton-list"/>
+            action="act_account_move" id="menuitem_account_move_form"
+            icon="tryton-list"
+            />
 
         
         <record model="ir.ui.view" id="iesa_payment_view_tree_invoice">
@@ -149,6 +166,38 @@ this repository contains the full copyright notices and license terms. -->
                 eval="[('company', '=', Eval('context', {}).get('company', -1))]"
                 pyson="1"/>
         </record>
+
+        <record model="ir.action.act_window.domain"
+            id="act_iesa_payment_form_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('state', '=', 'draft')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_iesa_payment_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_iesa_payment_form_quotation">
+            <field name="name">Quotation</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain" eval="[('state', '=', 'quotation')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_iesa_payment_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_iesa_payment_form_posted">
+            <field name="name">Posted</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain" eval="[('state', '=', 'posted')]" pyson="1"/>
+            <field name="act_window" ref="act_iesa_payment_form"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_iesa_payment_form_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_iesa_payment_form"/>
+        </record>
+
         <record model="ir.action.act_window.view" id="act_iesa_payment_form_view1">
             <field name="sequence" eval="10"/>
             <field name="view" ref="iesa_payment_view_tree"/>

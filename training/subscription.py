@@ -545,6 +545,76 @@ class Subscription(ModelSQL, ModelView):
         cls.save(subscriptions)
 
     @classmethod
+    def generate_global_invoice(cls, date=None, party=None, enrolment=None):
+        pool = Pool()
+        Date = pool.get('ir.date')
+        Consumption = pool.get('sale.subscription.line.consumption')
+        Invoice = pool.get('account.invoice')
+        InvoiceLine = pool.get('account.invoice.line')
+        Subscription = pool.get('sale.subscription')
+
+        if date is None:
+            date = Date.today()
+
+        consumptions = Consumption.search([
+                ('invoice_line', '=', None),
+                ('line.subscription.next_invoice_date', '<=', date),
+                ('line.subscription.state', 'in', ['running', 'closed']),
+                ],
+            order=[
+                ('line.subscription.id', 'DESC'),
+                ])
+
+        def keyfunc(consumption):
+            return consumption.line.subscription
+        invoices = {}
+        lines = {}
+
+        if consumptions:
+            invoice_date = consumptions[0].date
+        for subscription, consumptions in groupby(consumptions, key=keyfunc):
+            invoices[subscription] = invoice = subscription._get_invoice(
+                invoice_date)
+            lines[subscription] = Consumption.get_invoice_lines(
+                consumptions, invoice)
+
+        all_invoices = invoices.values()
+        
+        Invoice.save(all_invoices)
+
+        all_invoice_lines = []
+        for subscription, invoice in invoices.iteritems():
+            invoice_lines, _ = lines[subscription]
+            for line in invoice_lines:
+                line.invoice = invoice
+            all_invoice_lines.extend(invoice_lines)
+        InvoiceLine.save(all_invoice_lines)
+
+        all_consumptions = []
+        for values in lines.itervalues():
+            for invoice_line, consumptions in zip(*values):
+                for consumption in consumptions:
+                    assert not consumption.invoice_line
+                    consumption.invoice_line = invoice_line
+                    all_consumptions.append(consumption)
+        Consumption.save(all_consumptions)
+
+        Invoice.update_taxes(all_invoices)
+
+        subscriptions = cls.search([
+                ('next_invoice_date', '<=', date),
+                ])
+
+        for subscription in subscriptions:
+            if subscription.state == 'running':
+                while subscription.next_invoice_date <= date:
+                    subscription.next_invoice_date = (
+                        subscription.compute_next_invoice_date())
+            else:
+                subscription.next_invoice_date = None
+        cls.save(subscriptions)
+
+    @classmethod
     @ModelView.button
     @Workflow.transition('running')
     @process_opportunity
@@ -742,6 +812,46 @@ class Line(sequence_ordered(), ModelSQL, ModelView):
         Consumption = pool.get('sale.subscription.line.consumption')
         company = Transaction().context.get('company')
         return Consumption(line=self, quantity=self.quantity, date=date,company=company)
+
+    @classmethod
+    def generate_global_consumption(cls, date=None):
+        pool = Pool()
+        Date = pool.get('ir.date')
+        Consumption = pool.get('sale.subscription.line.consumption')
+        Subscription = pool.get('sale.subscription')
+
+        if date is None:
+            date = Date.today()
+
+        remainings = all_lines = cls.search([
+                ('consumption_recurrence', '!=', None),
+                ('next_consumption_date_delayed', '<=', date),
+                ('subscription.state', '=', 'running'),
+                ])
+
+        consumptions = []
+        subscription_ids = set()
+        while remainings:
+            lines, remainings = remainings, []
+            for line in lines:
+                consumptions.append(
+                    line.get_global_consumption(line.next_consumption_date))
+                line.next_consumption_date = (
+                    line.compute_next_consumption_date())
+                line.consumed = True
+                if line.next_consumption_date is None:
+                    subscription_ids.add(line.subscription.id)
+                elif line.get_next_consumption_date_delayed() <= date:
+                    remainings.append(line)
+
+        Consumption.save(consumptions)
+        cls.save(all_lines)
+        Subscription.process(Subscription.browse(list(subscription_ids)))
+
+    def get_global_consumption(self, date):
+        pool = Pool()
+        Consumption = pool.get('sale.subscription.line.consumption')
+        return Consumption(line=self, quantity=self.quantity, date=date)
 
     @classmethod
     def generate_consumption_monthly(cls, party=None, date=None):

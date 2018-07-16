@@ -8,4 +8,8 @@ this repository contains the full copyright notices and license terms. -->
         string="Your asset have been successfull created for your company."
         id="create"
         yalign="0.0" xalign="0.0" xexpand="1"/>
+    <label name="company"/>
+    <field name="company" readonly="1"/>   
+    <label name="created_asset"/>
+    <field name="created_asset" readonly="1"/>
 </form>

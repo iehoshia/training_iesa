@@ -141,7 +141,6 @@ class Move(ModelSQL, ModelView):
             ('post_number',) + tuple(clause[1:]),
             ('description',) + tuple(clause[1:]),
             ('journal',) + tuple(clause[1:]),
-            ('origin',) + tuple(clause[1:]),
             (cls._rec_name,) + tuple(clause[1:]), 
             ]
 

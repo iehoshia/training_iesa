@@ -90,6 +90,9 @@ class CreateAssetForm(ModelSQL, ModelView):
     account_journal = fields.Many2One('account.journal', 'Journal',
         domain=[('type', '=', 'asset')],
         required=True)
+    created_asset = fields.Many2One('account.asset','Asset',
+        domain=[('company','=',Eval('company',-1))]
+        )
 
     @staticmethod
     def default_purchase_date():
@@ -128,19 +131,13 @@ class CreateAssetEnd(ModelSQL, ModelView):
     'Create Asset End'
     __name__ = 'create.asset.end'
     company = fields.Many2One('company.company', 'Company', required=True)
-    asset = fields.Many2One('account.asset','Asset',
+    created_asset = fields.Many2One('account.asset','Asset',
         domain=[('company','=',Eval('company',-1))]
         )
 
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
-
-    @staticmethod
-    def default_asset():
-        asset = Transaction().context.get('created_asset_id')
-        if asset: 
-            return asset.id 
 
 class CreateAsset(Wizard):
     'Create Asset'
@@ -162,7 +159,7 @@ class CreateAsset(Wizard):
         'account_iesa_asset.create_asset_end_view_form', [
             Button('OK', 'open_created', 'tryton-ok', default=True),
             ])
-    open_created = StateAction('account_iesa_asset.act_open_created_asset')
+    open_created = StateAction('account_iesa_asset.act_open_created_asset_tree')
     
 
     @classmethod
@@ -201,9 +198,15 @@ class CreateAsset(Wizard):
         asset.purchase_date = self.asset.purchase_date
         asset.start_date = self.asset.start_date 
         asset.end_date =self.asset.end_date
+        asset.company = self.asset.company.id
         asset.save() 
 
         if asset:
+            self.asset.created_asset = asset.id 
             return 'created'
         return 'created' 
 
+    def default_created(self, fields):
+        return {
+            'created_asset': self.asset.created_asset.id,
+            }

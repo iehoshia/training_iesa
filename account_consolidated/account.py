@@ -419,7 +419,7 @@ class CreateChart(Wizard):
         company = self.account.company
         # Skip access rule
         with transaction.set_user(0):
-            accounts = Account.search([('company', '=', company.id)], limit=1)
+            accounts = Account.search([()])
         if accounts:
             self.raise_user_error('account_chart_exists')
 

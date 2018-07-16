@@ -197,3 +197,19 @@ msgstr "No puede contabilizar el recibo \"%s\" porque está descuadrado."
 msgctxt "model:account.iesa.expense,name:"
 msgid "Account Expense"
 msgstr "Gasto"
+
+msgctxt "model:ir.action.act_window.domain,name:act_iesa_expense_tree_draft"
+msgid "Draft"
+msgstr "Borradores"
+
+msgctxt "model:ir.action.act_window.domain,name:act_iesa_expense_tree_quotation"
+msgid "Quotation"
+msgstr "Enumerados"
+
+msgctxt "model:ir.action.act_window.domain,name:act_iesa_expense_tree_posted"
+msgid "Posted"
+msgstr "Contabilizados"
+
+msgctxt "model:ir.action.act_window.domain,name:act_iesa_expense_tree_all"
+msgid "All"
+msgstr "Todos"

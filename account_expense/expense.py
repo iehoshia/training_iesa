@@ -432,7 +432,7 @@ class Expense(Workflow, ModelView, ModelSQL):
         Invoice = pool.get('account.invoice')
         Currency = pool.get('currency.currency')
         Date = pool.get('ir.date')
-        
+
         expenses_ids = cls.browse([e for e in expenses])
         for expense in expenses_ids: 
             move = expense.get_move()
@@ -657,4 +657,3 @@ class ExpenseContext(ModelView):
             ('company', '=', Eval('context', {}).get('company', -1))],
         help='The party that generate the expense',
     )
-

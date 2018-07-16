@@ -62,6 +62,14 @@ msgctxt "field:create.asset.form,account_journal:"
 msgid "Journal"
 msgstr "Diario"
 
+msgctxt "field:create.asset.end,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:create.asset.end,created_asset:"
+msgid "Asset"
+msgstr "Activo Creado"
+
 msgctxt "model:ir.ui.menu,name:menu_assets"
 msgid "Assets"
 msgstr "Activos"
@@ -70,10 +78,59 @@ msgctxt "model:ir.ui.menu,name:menu_create_asset"
 msgid "Create Asset"
 msgstr "Crear Activo"
 
-msgctxt "model:ir.action,name:act_asset_form"
+msgctxt "model:ir.action,name:act_asset_tree"
+msgid "Assets"
+msgstr "Activos"
+
+msgctxt "model:ir.action,name:act_open_created_asset_tree"
 msgid "Assets"
 msgstr "Activos"
 
 msgctxt "model:ir.action,name:wizard_create_asset"
 msgid "Create Asset"
 msgstr "Crear Activo"
+
+msgctxt "view:create.asset.form:"
+msgid "Asset Info"
+msgstr "Información del Activo"
+
+msgctxt "view:create.asset.form:"
+msgid "Asset Date Depreciation"
+msgstr "Fechas de Depreciación del Activo"
+
+msgctxt "view:create.asset.form:"
+msgid "Asset Account"
+msgstr "Cuentas Contables de Depreciación"
+
+msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_draft"
+msgid "Draft"
+msgstr "Borradores"
+
+msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_running"
+msgid "Running"
+msgstr "Activos"
+
+msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_closed"
+msgid "Closed"
+msgstr "Depreciados"
+
+msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_all"
+msgid "All"
+msgstr "Todos"
+
+msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_draft"
+msgid "Draft"
+msgstr "Borradores"
+
+msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_running"
+msgid "Running"
+msgstr "Activos"
+
+msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_closed"
+msgid "Closed"
+msgstr "Depreciados"
+
+msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_all"
+msgid "All"
+msgstr "Todos"
+            

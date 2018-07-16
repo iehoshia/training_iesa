@@ -262,7 +262,7 @@ msgctxt "model:ir.ui.menu,name:menu_account"
 msgid "Account Moves"
 msgstr "Asientos Contables"
 
-msgctxt "model:ir.ui.menu,name:menuitem_account_move"
+msgctxt "model:ir.ui.menu,name:menuitem_account_move_form"
 msgid "Account Moves"
 msgstr "Asientos Contables"
 
@@ -313,3 +313,27 @@ msgstr "Imprimir Índices Financieros"
 msgctxt "model:ir.action,name:act_account_tree2"
 msgid "Analytic Accounts"
 msgstr "Índices Financieros"
+
+msgctxt "model:ir.action.act_window.domain,name:act_iesa_payment_form_draft"
+msgid "Draft"
+msgstr "Borradores"
+
+msgctxt "model:ir.action.act_window.domain,name:act_iesa_payment_form_quotation"
+msgid "Quotation"
+msgstr "Enumerados"
+
+msgctxt "model:ir.action.act_window.domain,name:act_iesa_payment_form_posted"
+msgid "Posted"
+msgstr "Contabilizados"
+
+msgctxt "model:ir.action.act_window.domain,name:act_iesa_payment_form_all"
+msgid "All"
+msgstr "Todos"
+
+msgctxt "model:ir.action.act_window.domain,name:act_account_move_draft"
+msgid "Draft"
+msgstr "Borradores"
+
+msgctxt "model:ir.action.act_window.domain,name:act_account_move_all"
+msgid "All"
+msgstr "Todos"

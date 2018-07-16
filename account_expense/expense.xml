@@ -51,6 +51,37 @@ this repository contains the full copyright notices and license terms. -->
             <field name="act_window" ref="act_iesa_expense_tree"/>
         </record>
 
+        <record model="ir.action.act_window.domain"
+            id="act_iesa_expense_tree_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('state', '=', 'draft')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_iesa_expense_tree"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_iesa_expense_tree_quotation">
+            <field name="name">Quotation</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain" eval="[('state', '=', 'quotation')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_iesa_expense_tree"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_iesa_expense_tree_posted">
+            <field name="name">Posted</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain" eval="[('state', '=', 'posted')]" pyson="1"/>
+            <field name="act_window" ref="act_iesa_expense_tree"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+            id="act_iesa_expense_tree_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_iesa_expense_tree"/>
+        </record>
+
         <menuitem parent="training.menu_training" action="act_iesa_expense_tree"
             id="menu_expense_tree" sequence="3"
             icon="expense_icon"/>
