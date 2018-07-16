@@ -52,4 +52,4 @@ class ConfigurationSequence:
             return ModelData.get_id(
                 'account_iesa', 'sequence_payment')
         except KeyError:
-            return None
+            return None 

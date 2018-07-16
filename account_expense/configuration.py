@@ -39,8 +39,7 @@ class ConfigurationSequence:
     iesa_expense_sequence = fields.Many2One(
         'ir.sequence', "Expense IESA Sequence", required=True,
         domain=[
-            ('company', 'in',
-                    [Eval('context', {}).get('company', -1), None]),
+            ('company', 'in', [Eval('company', -1), None]),
             ('code', '=', 'account.iesa.expense'),
             ],
         depends=['company'])
@@ -51,8 +50,7 @@ class ConfigurationSequence:
         ModelData = pool.get('ir.model.data') 
         try:
             model = ModelData.get_id(
-                'account_iesa', 'sequence_expense') 
-            print "MODEL: " + str(model)
+                'account_expense', 'sequence_expense') 
             return model 
         except KeyError:
             return None

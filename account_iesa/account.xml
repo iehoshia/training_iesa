@@ -20,7 +20,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="view" ref="account_capital_view_form"/>
             <field name="act_window" ref="act_operative_capital"/>
         </record>
-
         
         <record model="ir.ui.view" id="payment_lines_view_tree">
             <field name="model">account.move.line</field>
