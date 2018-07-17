@@ -26,6 +26,14 @@ msgctxt "field:account.move,third_party:"
 msgid "Party"
 msgstr "Persona"
 
+msgctxt "field:account.move,amount:"
+msgid "Amount"
+msgstr "Monto de Asiento"
+
+msgctxt "field:account.move,ticket:"
+msgid "Ticket"
+msgstr "Boleta"
+
 msgctxt "field:account.iesa.payment,company:"
 msgid "Company"
 msgstr "Colegio"

@@ -508,15 +508,21 @@ class Payment(Workflow, ModelView, ModelSQL):
                     line.account = default_account_receivable.id
                     amount = 0 if subscription.student.receivable <= 0 else subscription.student.receivable
                     line.amount = amount
+                    description = self.description if self.description is not None else ''
+                    line.description = description
                     lines.append(line)
                     parties.append(subscription.student.id)
                     amount_receivable += amount
                 self.lines = lines
                 self.amount_receivable = amount_receivable
+                # TODO add date future 
+                print "PARTIES: " + str(parties)
                 invoices = Invoice.search([('party','in',parties),
-                    ('state','=','processing')])
+                    ('state','=','posted'),
+                    ])
                 if invoices is not None: 
                     self.invoices = invoices
+                # TODO add moves 
                 moves = MoveLine.search([('party','in',parties),
                     ('state','=','valid')])
                 if moves is not None: 
@@ -537,9 +543,13 @@ class Payment(Workflow, ModelView, ModelSQL):
     def on_change_is_third_party(self, name=None):
         self.__on_change_is_third_party_subscriber()
 
-    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company')
+    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','description')
     def on_change_subscriber(self, name=None):
-        self.__on_change_is_third_party_subscriber()        
+        self.__on_change_is_third_party_subscriber()
+
+    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','description')
+    def on_change_description(self, name=None):
+        self.__on_change_is_third_party_subscriber()
 
     @fields.depends('subscriber','invoices','lines')
     def get_invoices(self, name=None):

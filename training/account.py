@@ -378,32 +378,9 @@ class Invoice(ModelSQL,ModelView):
         self.invoice_address = None
         self.__get_account_payment_term()
 
-        print "WE ARE HERE AFTER __get_account_payment_term: " + str(self.account)
-
         if self.party:
             self.invoice_address = self.party.address_get(type='invoice')
-            print "WE ARE HERE BEFORE INVOICE ADDRESS: " + str(self.invoice_address)
             self.party_tax_identifier = self.party.tax_identifier
-            print "WE ARE HERE BEFORE INVOICE TAX: " + str(self.party_tax_identifier)
-        print "WE ARE HERE FINISHING"
-
-    '''
-    @fields.depends('party', 'payment_term', 'type', 'company')
-    def on_change_party(self):
-        pool = Pool()
-        Subscription = pool.get('sale.subscription')
-
-        self.invoice_address = None
-        self.__get_account_payment_term()
-
-
-        if self.party:
-            address = self.party.address_get(type='invoice')
-            if address is None: 
-                self._create_party_address(self.party)
-            self.invoice_address = self.party.address_get(type='invoice')
-            self.party_tax_identifier = self.party.tax_identifier
-    '''
 
 class MoveLine(ModelSQL, ModelView):
     'Account Move Line'

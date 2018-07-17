@@ -24,11 +24,11 @@ this repository contains the full copyright notices and license terms. -->
         <label name="description"/>
         <field name="description" colspan="3"/>
     </group>
-    <group id="lines" colspan="6" col="6">
-        <field name="lines" colspan="6"/>
-    </group>
     <notebook colspan="6">
         <page string="Payment History" id="invoice" col="6">
+            <group id="lines" colspan="6" col="6" yfill="1" yexpand="1">
+                <field name="lines" colspan="6"/>
+            </group>
             <group col="6" colspan="6" id="state_buttons">
                 <group col="2" colspan="2" id="state">
                     <label name="state"/>
@@ -40,6 +40,12 @@ this repository contains the full copyright notices and license terms. -->
                     <button name="quote"/>
                     <button name="post"/>
                 </group>
+            </group>
+        </page>
+        <page string="Historial" id="info" col="6">
+            <group id="existing_lines" colspan="6" col="6" yfill="1" yexpand="1">
+                <field name="existing_move_lines" colspan="6"
+                    view_ids="account_expense.expense_lines_view_tree"/>
             </group>
         </page>
         <page string="Other Info" id="info" col="6">
@@ -55,8 +61,5 @@ this repository contains the full copyright notices and license terms. -->
             <field name="comment" colspan="6"/>
         </page>
     </notebook>
-    <group id="lines" colspan="6" col="6">
-        <field name="existing_move_lines" colspan="6"
-            view_ids="account_expense.expense_lines_view_tree"/>
-    </group>
+    
 </form> 

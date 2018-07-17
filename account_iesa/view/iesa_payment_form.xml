@@ -23,24 +23,36 @@ this repository contains the full copyright notices and license terms. -->
         <label name="description"/>
         <field name="description" colspan="3"/>
     </group>
-    <group id="lines" colspan="6" col="6">
-        <field name="lines" colspan="6"/>
-        <label name="amount_receivable"/>
-        <field name="amount_receivable" colspan="3" readonly="1"/>
-    </group>
     <notebook colspan="6">
         <page string="Payment History" id="invoice" col="6">
+            <group id="lines" colspan="6" col="6" yexpand="1" yfill="1">
+                <field name="lines" colspan="6" />
+            </group>
             <group col="6" colspan="6" id="state_buttons">
-                <group col="2" colspan="2" id="state">
+                <group col="4" colspan="3" id="state">
+                    <label name="amount_receivable"/>
+                    <field name="amount_receivable" readonly="1"/>
                     <label name="state"/>
                     <field name="state"/>
                 </group>
-                <group col="4" colspan="4" id="buttons">
+                <group col="4" colspan="3" id="buttons">
                     <button name="cancel"/>
                     <button name="draft"/>
                     <button name="quote"/>
                     <button name="post"/>
                 </group>
+            </group>
+        </page>
+        <page string="Historial de Cuenta" id="info" col="6">
+            <group id="lines" colspan="6" col="6" yexpand="1" yfill="1">
+                <field name="existing_move_lines" colspan="6"
+                    view_ids="account_iesa.payment_lines_view_tree"/>
+            </group>
+        </page>
+        <page string="Historial de Cobros" id="info" col="6">
+            <group id="invoices" yexpand="1" yfill="1">
+                <field name="invoices" colspan="6" 
+                    view_ids="account_iesa.invoice_view_tree"/>
             </group>
         </page>
         <page string="Other Info" id="info" col="6">
@@ -56,10 +68,5 @@ this repository contains the full copyright notices and license terms. -->
             <field name="comment" colspan="6"/>
         </page>
     </notebook>
-    <group id="lines" colspan="6" col="6">
-        <field name="existing_move_lines" colspan="6"
-            view_ids="account_iesa.payment_lines_view_tree"/>
-        <field name="invoices" colspan="6" 
-            view_ids="account_iesa.invoice_view_tree"/>
-    </group>
+    
 </form> 

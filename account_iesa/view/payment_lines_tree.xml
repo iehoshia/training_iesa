@@ -6,6 +6,7 @@ this repository contains the full copyright notices and license terms. -->
     <field name="move"/>
     <field name="origin"/>
     <field name="description"/>
+    <field name="party"/>
     <field name="date"/>
     <field name="credit" string="CreditInverseStr" sum="CreditInverse"/>
     <field name="debit" string="DebitInverseStr" sum="DebitInverse"/>

@@ -46,6 +46,10 @@ msgctxt "field:account.budget,company:"
 msgid "Company"
 msgstr "Colegio"
 
+msgctxt "field:account.budget,type:"
+msgid "Type"
+msgstr "Debe/Haber"
+
 msgctxt "field:account.budget.period,name:"
 msgid "Name"
 msgstr "Nombre"
@@ -89,6 +93,22 @@ msgstr "Año Fiscal"
 msgctxt "field:print.budget_report.start,budget:"
 msgid "Budget"
 msgstr "Presupuesto"
+
+msgctxt "field:account.budget.copy.start,name:"
+msgid "Name"
+msgstr "Nombre del Presupuesto"
+
+msgctxt "field:account.budget.copy.start,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "Año Fiscal"
+
+msgctxt "field:account.budget.copy.start,zero_amounts:"
+msgid "Zero Amounts"
+msgstr "Montos en Cero"
+
+msgctxt "field:account.budget.distribute_period.start,method:"
+msgid "Distribution Method"
+msgstr "Método de Distribución"
 
 msgctxt "wizard_button:account.budget.distribute_period,start,distribute:"
 msgid "Distribute"
@@ -154,6 +174,14 @@ msgctxt "model:ir.action,name:act_budget_balance"
 msgid "Budget Balance"
 msgstr "Presupuesto Ejecutado"
 
+msgctxt "model:ir.action,name:wizard_copy_budget"
+msgid "Copy Budget"
+msgstr "Copiar Presupuesto"
+
+msgctxt "model:ir.action,name:wizard_distribute_periods"
+msgid "Distribute Budget over Periods"
+msgstr "Distribuir Presupuesto en Periodos"
+
 msgctxt "model:ir.action,name:wizard_print_budget_report"
 msgid "Print Budget"
 msgstr "Imprimir Presupuesto"
@@ -161,3 +189,15 @@ msgstr "Imprimir Presupuesto"
 msgctxt "model:ir.action.wizard,name:wizard_distribute_periods"
 msgid "Distribute Budget over Periods"
 msgstr "Distribuir Presupuesto en los Períodos"
+
+msgctxt "selection:account.budget,type:"
+msgid "Debit"
+msgstr "Debe"
+
+msgctxt "selection:account.budget,type:"
+msgid "Credit"
+msgstr "Haber"
+
+msgctxt "selection:account.budget.distribute_period.start,method:"
+msgid "Linear"
+msgstr "Lineal"
