@@ -6,7 +6,7 @@ msgctxt "field:sale.subscription,lines:sale_subscription"
 msgid "Lines"
 msgstr "Grados"
 
-msgctxt "field:sale.subscription,party:sale_subscription"
+msgctxt "field:sale.subscription,party:sale_subscription."
 msgid "Party"
 msgstr "Encargado"
 

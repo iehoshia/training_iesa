@@ -12,6 +12,10 @@ def register():
         Template, 
         Service,
         Move,  
+        GeneralLedgerAccountContext,
+        BalanceSheetContext,
+        IncomeStatementContext,
+        PrintGeneralJournalStart,
         InvoiceLine,
         PaymentParty,
         Payment, 
@@ -22,13 +26,14 @@ def register():
         PaymentLine, 
         PaymentContext, 
         GeneralLedgerLine, 
+        PrintPaymentReportStart, 
         module='account_iesa', type_='model')
-#    Pool.register(
-#        CopyBudget,
-#        DistributePeriod,
-#        module='account_budget', type_='wizard')
+    Pool.register(
+        PrintPaymentReportWizard,
+        module='account_budget', type_='wizard')
     Pool.register(
         AccountMoveReport,
         GeneralLedger,
         PaymentReceipt,
+        PrintPaymentReport,
         module='account_iesa', type_='report')

@@ -385,6 +385,15 @@ class Subscription(ModelSQL, ModelView):
             return True
         return False 
 
+    def compute_next_invoice_date(self):
+        start_date = self.invoice_start_date or self.start_date
+        date = self.next_invoice_date or self.start_date
+        rruleset = self.invoice_recurrence.rruleset(start_date)
+        dt = datetime.datetime.combine(date, datetime.time())
+        inc = (start_date == date) and not self.next_invoice_date
+        next_date = rruleset.after(dt, inc=inc)
+        return next_date.date()
+
     def create_enrolment_invoice(self):
         'Create and return an enrolment invoice'
         pool = Pool()

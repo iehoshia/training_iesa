@@ -2,7 +2,8 @@
 # this repository contains the full copyright notices and license terms.
 from decimal import Decimal
 import datetime
-from datetime import date
+import calendar 
+from datetime import timedelta, date  
 
 import operator
 from functools import wraps
@@ -13,21 +14,17 @@ from sql import Column, Null, Window, Literal
 from sql.aggregate import Sum, Max
 from sql.conditionals import Coalesce, Case
 
-#from trytond.model import (
-#    ModelSingleton, ModelView, ModelSQL, DeactivableMixin, fields, Unique,
-#    sequence_ordered, tree)
 from trytond.model import (ModelSingleton, DeactivableMixin, 
     ModelView, ModelSQL, DeactivableMixin, fields,
     Unique, Workflow, sequence_ordered) 
 from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
-    Button
+    Button, StateReport
 from trytond.report import Report
 from trytond.tools import reduce_ids, grouped_slice
-from trytond.pyson import Eval, If, PYSONEncoder, Bool, Not 
+from trytond.pyson import Eval, If, PYSONEncoder, Bool, Not, Date
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 from trytond.report import Report
-
 
 from trytond import backend
 
@@ -35,6 +32,10 @@ from numero_letras import numero_a_moneda
 
 __all__ = [
     'Move',
+    'GeneralLedgerAccountContext',
+    'BalanceSheetContext',
+    'IncomeStatementContext',
+    'PrintGeneralJournalStart',
     'AccountMoveReport',
     'PaymentParty',
     'Payment',
@@ -45,6 +46,9 @@ __all__ = [
     'PaymentContext',
     'PaymentReceipt',
     'GeneralLedgerLine', 
+    'PrintPaymentReportStart',
+    'PrintPaymentReportWizard',
+    'PrintPaymentReport',
     ]  
 __metaclass__ = PoolMeta
 
@@ -76,6 +80,47 @@ STATES = [
     ('quotation', 'Quotation'),
     ('canceled', 'Canceled'),
     ]
+
+_YEAR = datetime.datetime.now().year
+_NOW = datetime.datetime.now()
+
+def month_number_spanish(number):
+    switcher = {
+        0: "Enero",
+        1: "Febrero",
+        2: "Marzo",
+        3: "Abril",
+        4: "Mayo",
+        5: "Junio",
+        6: "Julio",
+        7: "Agosto",
+        8: "Septiembre",
+        9: "Octubre",
+        10: "Noviembre",
+        11: "Diciembre",
+    }
+    return switcher.get(number, "None")
+
+def month_name(number):
+    Date = Pool().get('ir.date')
+    today = Date.today()
+    month = date.month
+    return month
+
+def allmonth(year):
+    list = []
+    for i in range(0,12):    
+        label = month_number_spanish(i) + ' - ' +str(year)
+        list.append( (i,label) ) 
+    return list 
+
+def first_day_month(date):
+    first_day =  date.replace(day=1)
+    return first_day
+
+def last_day_month(date):
+    last_day = date.replace(day = calendar.monthrange(date.year, date.month)[1])
+    return last_day
 
 class Move(ModelSQL, ModelView):
     'Account Move'
@@ -144,6 +189,42 @@ class Move(ModelSQL, ModelView):
             (cls._rec_name,) + tuple(clause[1:]), 
             ]
 
+class GeneralLedgerAccountContext(ModelView):
+    'General Ledger Account Context'
+    __name__ = 'account.general_ledger.account.context'
+
+    @classmethod
+    def default_posted(cls):
+        return True
+
+class BalanceSheetContext(ModelView):
+    'Balance Sheet Context'
+    __name__ = 'account.balance_sheet.context'
+
+    @staticmethod
+    def default_posted():
+        return True
+
+    @classmethod
+    def default_posted(cls):
+        return True
+
+class IncomeStatementContext(ModelView):
+    'Income Statement Context'
+    __name__ = 'account.income_statement.context'
+
+    @classmethod
+    def default_posted(cls):
+        return True
+
+class PrintGeneralJournalStart(ModelView):
+    'Print General Journal'
+    __name__ = 'account.move.print_general_journal.start'
+
+    @classmethod
+    def default_posted(cls):
+        return True
+
 class AnalyticAccountContext(ModelSQL, ModelView):
     'Analytic Account Context'
     __name__ = 'analytic_account.account.context'
@@ -188,7 +269,6 @@ class AccountMoveReport(Report):
         report_context['to_date'] = context.get('to_date')
 
         return report_context
-
 
 class PaymentParty(ModelSQL, ModelView):
     'Payment - Party'
@@ -373,13 +453,17 @@ class Payment(Workflow, ModelView, ModelSQL):
         transaction = Transaction().context 
         
         party = transaction.get('party')
-        date = transaction.get('date')
+        from_date = transaction.get('from_date')
+        to_date = transaction.get('to_date')
         
         domain = domain[:]
         if party is not None: 
             domain = [domain, ('subscriber','=',party)]
-        if date is not None:  
-            domain = [domain, ('invoice_date','=',date)] 
+        if from_date is not None:
+            domain = [domain, ('invoice_date','>=',from_date)]
+        if to_date is not None:
+            domain = [domain, ('invoice_date','<=',to_date)] 
+
 
         records = super(Payment, cls).search(domain, offset=offset, limit=limit,
              order=order, count=count, query=query)
@@ -1054,9 +1138,196 @@ class PaymentContext(ModelView):
     'Payment Context'
     __name__ = 'account.iesa.payment.context'
 
-    date = fields.Date('Date')
+    #date = fields.Date('Date')
     party = fields.Many2One('party.party','Party',
         domain=[
             ('company', '=', Eval('context', {}).get('company', -1))],
         help='The party that generate the expense',
     )
+    from_date = fields.Date("From Date",
+        domain=[
+            If(Eval('to_date') & Eval('from_date'),
+                ('from_date', '<=', Eval('to_date')),
+                ()),
+            ],
+        depends=['to_date'])
+    to_date = fields.Date("To Date",
+        domain=[
+            If(Eval('from_date') & Eval('to_date'),
+                ('to_date', '>=', Eval('from_date')),
+                ()),
+            ],
+        depends=['from_date'])
+    company = fields.Many2One('company.company', 'Company', required=True,
+        states=_STATES, select=True, domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', -1)),
+            ],
+        depends=_DEPENDS)
+
+    @staticmethod
+    def default_company():
+        return Transaction().context.get('company')
+
+class PrintPaymentReportStart(ModelView):
+    'Print Payment Report Start'
+    __name__ = 'print.payment.report.start'
+    
+    party = fields.Many2One('party.party','Party',
+        domain=[
+            ('company', '=', Eval('context', {}).get('company', -1))],
+        help='The party that generate the payment',
+    )
+    date = fields.Date('Date', required=True,
+        readonly=True)
+    month = fields.Selection(allmonth(_YEAR), 'Month',
+        sort=False)
+    from_date = fields.Date("From Date",
+        domain=[
+            If(Eval('to_date') & Eval('from_date'),
+                ('from_date', '<=', Eval('to_date')),
+                ()),
+            ],
+        depends=['to_date'],
+        required=True,)
+    to_date = fields.Date("To Date",
+        domain=[
+            If(Eval('from_date') & Eval('to_date'),
+                ('to_date', '>=', Eval('from_date')),
+                ()),
+            ],
+        depends=['from_date'],
+        required=True,)
+
+    @classmethod
+    def default_month(cls):
+        Date = Pool().get('ir.date')
+        today = Date.today()
+        month = today.month
+        return month
+
+    @classmethod
+    def default_from_date(cls):
+        Date = Pool().get('ir.date')
+        today = Date.today()
+        date = datetime.date(today.year, today.month,1)
+        first_day = first_day_month(date)
+        return first_day
+
+    @classmethod
+    def default_to_date(cls):
+        Date = Pool().get('ir.date')
+        today = Date.today()
+        date = datetime.date(today.year, today.month,1)
+        last_day = last_day_month(date)
+        return last_day
+
+    @fields.depends('month', 'from_date','to_date')
+    def on_change_month(self):
+        Date = Pool().get('ir.date')
+        today = Date.today()
+        month = int(self.month+1)
+        date = datetime.date(today.year, month,1)
+        self.from_date = first_day_month(date)
+        self.to_date =  last_day_month(date)
+
+    @staticmethod
+    def default_date():
+        Date = Pool().get('ir.date')
+        return Date.today()
+
+class PrintPaymentReportWizard(Wizard):
+    'Print Payment Report Wizard'
+    __name__ = 'print.payment.report.wizard'
+    
+    start = StateView('print.payment.report.start',
+        'account_iesa.print_payment_report_start', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Ok', 'print_', 'tryton-print', default=True),
+            ])
+    print_ = StateReport('account.iesa.payment.report.print')
+
+    def do_print_(self, action):
+        if self.start.party: 
+            data = {
+                    'from_date': self.start.from_date,
+                    'to_date': self.start.to_date,
+                    'date': self.start.date,
+                    'party':self.start.party.id, 
+                    } 
+        else: 
+            data = {
+                    'from_date': self.start.from_date,
+                    'to_date': self.start.to_date,
+                    'date': self.start.date,
+                    } 
+        return action, data
+
+class PrintPaymentReport(Report):
+    'Print Payment Report Group'
+    __name__ = 'account.iesa.payment.report.print'
+
+    @classmethod
+    def _get_records(cls, ids, model, data):
+
+        pool = Pool()
+        Payment = pool.get('account.iesa.payment')
+        Company = pool.get('company.company')
+        company = Company(Transaction().context['company'])
+        from_date = data['from_date']
+        to_date = data['to_date']
+        from_date = datetime.date(from_date.year, from_date.month, from_date.day)
+        to_date = datetime.date(to_date.year, to_date.month, to_date.day)
+
+        clause = [
+            ('invoice_date','>=',from_date),
+            ('invoice_date','<=',to_date),
+            ('company','=',company),
+            ('state','!=','canceled')
+        ]
+        
+        if 'party' in data:
+            clause.append(('subscriber','=',data['party']))
+
+        print "CLAUSE: " + str(clause)
+        
+        return Payment.search(clause,
+                order=[
+                    ('number', 'ASC'),
+                ]
+            )
+
+    @classmethod
+    def get_context(cls, records, data):
+        pool = Pool()
+        Payment = pool.get('account.iesa.payment')
+        Party = pool.get('party.party')
+        Company = pool.get('company.company')
+        company = Company(Transaction().context['company'])
+
+        from_date = data['from_date']
+        to_date = data['to_date']
+        from_date = datetime.date(from_date.year, from_date.month, from_date.day)
+        to_date = datetime.date(to_date.year, to_date.month, to_date.day)
+        report_context = super(PrintPaymentReport, cls).get_context(records, data)
+
+        clause = [
+                ('invoice_date','>=',from_date),
+                ('invoice_date','<=',to_date),
+                ('company','=',company)
+        ]
+
+        if 'party' in data:
+            clause.append(('subscriber','=',data['party']))
+        
+        records = Payment.search(clause,
+                order=[('number', 'ASC')])
+
+        payments = Payment.search(clause)
+
+        report_context['company'] = company
+        report_context['from_date'] = data['to_date']
+        report_context['to_date']  = data['from_date']
+        report_context['total'] = sum((x.amount for x in records))
+
+        return report_context

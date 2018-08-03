@@ -360,7 +360,7 @@ class Expense(Workflow, ModelView, ModelSQL):
         origin = self 
         lines = []
 
-        credit_line = MoveLine(description=self.description, )
+        credit_line = MoveLine(description=self.description)
         credit_line.debit, credit_line.credit = 0, self.amount
         credit_line.account = self.account
         

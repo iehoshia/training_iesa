@@ -52,11 +52,15 @@ class PrintGeneralBalanceStart(ModelView):
             ('balance_sheet', '=', True), 
             ],
         depends=['company'])
+    omit_zero = fields.Boolean('Omit Zero')
 
     @classmethod
     def default_company(cls):
         return Transaction().context.get('company')
 
+    @classmethod
+    def default_omit_zero(cls):
+        return True
 
 class PrintGeneralBalance(Wizard):
     'Print General Balance'
@@ -79,8 +83,10 @@ class PrintGeneralBalance(Wizard):
             'company': self.start.company.id,
             'account': self.start.account.id,
             'fiscalyear': self.start.fiscalyear.name,
+            'fiscalyear_id': self.start.fiscalyear.id,
             'start_date': self.start.fiscalyear.start_date,
             'end_date': self.start.fiscalyear.end_date,
+            'omit_zero': self.start.omit_zero, 
             }
         action['pyson_context'] = PYSONEncoder().encode({
                 'company': self.start.company.id,
@@ -99,23 +105,34 @@ class GeneralBalance(Report):
     @classmethod
     def _get_records(cls, ids, model, data):
         Account = Pool().get('account.account.type')
+        omit_zero = data['omit_zero']
         with Transaction().set_context(
-                from_date=data['start_date'],
-                to_date=data['end_date'],
+                #from_date=data['start_date'],
+                #to_date=data['end_date'],
+                date=data['end_date'],
                 company=data['company'],
+                fiscalyear=data['fiscalyear_id'],
+                cumulate=True,
+                posted=True, 
                 ): 
             account = Account(data['account'])
             accounts = account._get_childs_by_order()
-
+            accounts_omit_zero = []
+            if omit_zero: 
+                for account in accounts: 
+                    if account.level < 4: 
+                        accounts_omit_zero.append(account)
+                    elif account.level >=4 and account.amount != 0: 
+                        accounts_omit_zero.append(account)
+                    #print "ACCOUNT NAME: " + account.name + " ACCOUNT: " + str(account.level)
+                return accounts_omit_zero
             return accounts
 
     @classmethod
     def get_context(cls, records, data):
         report_context = super(GeneralBalance, cls).get_context(records, data)
 
-
         Company = Pool().get('company.company')
-
         company = Company(data['company'])
 
         report_context['company'] = company
@@ -152,10 +169,15 @@ class PrintIncomeStatementStart(ModelView):
             ],
         depends=['company'])
 
+    omit_zero = fields.Boolean('Omit Zero')
+
     @classmethod
     def default_company(cls):
         return Transaction().context.get('company')
 
+    @classmethod
+    def default_omit_zero(cls):
+        return True
 
 class PrintIncomeStatement(Wizard):
     'Income Statement Balance'
@@ -179,6 +201,7 @@ class PrintIncomeStatement(Wizard):
             'fiscalyear': self.start.fiscalyear.name,
             'start_date': self.start.fiscalyear.start_date,
             'end_date': self.start.fiscalyear.end_date,
+            'omit_zero': self.start.omit_zero,
             }
         action['pyson_context'] = PYSONEncoder().encode({
                 'company': self.start.company.id,
@@ -190,3 +213,27 @@ class PrintIncomeStatement(Wizard):
 class IncomeStatement(GeneralBalance):
     'Income Statement Report'
     __name__ = 'income_statement.report'
+
+    @classmethod
+    def _get_records(cls, ids, model, data):
+        Account = Pool().get('account.account.type')
+        omit_zero = data['omit_zero']
+        with Transaction().set_context(
+                from_date=data['start_date'],
+                to_date=data['end_date'],
+                company=data['company'],
+                cumulate=True,
+                posted=True, 
+                ): 
+            account = Account(data['account'])
+            accounts = account._get_childs_by_order()
+            accounts_omit_zero = []
+            if omit_zero: 
+                for account in accounts: 
+                    if account.level < 4: 
+                        accounts_omit_zero.append(account)
+                    elif account.level >=4 and account.amount != 0: 
+                        accounts_omit_zero.append(account)
+                    #print "ACCOUNT NAME: " + account.name + " ACCOUNT: " + str(account.level)
+                return accounts_omit_zero
+            return accounts

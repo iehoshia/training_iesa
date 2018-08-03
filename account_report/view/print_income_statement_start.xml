@@ -8,4 +8,6 @@ this repository contains the full copyright notices and license terms. -->
     <field name="fiscalyear" widget="selection"/>
     <label name="account"/>
     <field name="account" widget="selection"/>
+    <label name="omit_zero"/>
+    <field name="omit_zero"/>
 </form>

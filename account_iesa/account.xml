@@ -272,7 +272,7 @@ this repository contains the full copyright notices and license terms. -->
         <!-- PAYMENTS -->
 
         <record model="ir.action.report" id="report_iesa_payment">
-            <field name="name">Payment</field>
+            <field name="name">Recibo</field>
             <field name="model">account.iesa.payment</field>
             <field name="report_name">account.iesa.payment.report</field>
             <field name="report">account_iesa/payment.fodt</field>
@@ -380,6 +380,63 @@ this repository contains the full copyright notices and license terms. -->
             <field name="inherit" ref="account.move_view_form"/> 
             <field name="name">move_form</field>
         </record> 
+
+        <record model="ir.ui.view" id="print_payment_report_start">
+            <field name="model">print.payment.report.start</field>
+            <field name="type">form</field>
+            <field name="name">payment_report_start</field>
+        </record>
+        <record model="ir.action.report" id="print_payment_report">
+            <field name="name">Payment Report</field>
+            <field name="model">account.iesa.payment</field>
+            <field name="report_name">account.iesa.payment.report.print</field>
+            <field name="report">account_iesa/payment_report.fodt</field>
+        </record>
+        <record model="ir.action.wizard" id="act_iesa_payment_report_print">
+            <field name="name">Payment Report</field>
+            <field name="wiz_name">print.payment.report.wizard</field>
+        </record>
+        <menuitem parent="training.menu_reporting_training" action="act_iesa_payment_report_print"
+            id="menu_iesa_payment_report" icon="tryton-print"/>
+
+        <record model="ir.ui.view" id="account_balance_sheet_view_tree">
+            <field name="model">account.account.type</field>
+            <field name="type">tree</field>
+            <field name="field_childs">childs</field>
+            <field name="name">account_balance_sheet_tree</field>
+        </record>
+        <record model="ir.action.act_window" id="act_account_balance_sheet_tree">
+            <field name="name">Balance Sheet</field>
+            <field name="res_model">account.account.type</field>
+            <field name="context_model">account.balance_sheet.comparision.context</field>
+            <field name="context_domain"
+                eval="[('company', '=', Eval('company', -1))]"
+                pyson="1"/>
+            <field name="domain"
+                eval="[('balance_sheet', '=', True), ['OR', ('parent', '=', None), ('parent.balance_sheet', '=', False)]]"
+                pyson="1"/>
+            <field name="context" eval="{'cumulate': True,
+                'posted':True}" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_balance_sheet_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_balance_sheet_view_tree"/>
+            <field name="act_window" ref="act_account_balance_sheet_tree"/>
+        </record>
+        <menuitem parent="account.menu_reporting" action="act_account_balance_sheet_tree"
+            id="menu_open_balance_sheet" sequence="1"/>
+
+        <record model="ir.ui.view" id="balance_sheet_comparision_context_view_form">
+            <field name="model">account.balance_sheet.comparision.context</field>
+            <field name="inherit" ref="account.balance_sheet_comparision_context_view_form"/> 
+            <field name="name">balance_sheet_context_comparision_form</field>
+        </record> 
+
+        <record model="ir.ui.menu" id="account.menu_open_balance_sheet">
+            <field name="active" eval="False"/>
+        </record>
+
+        
         
     </data>
 </tryton>

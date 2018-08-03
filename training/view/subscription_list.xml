@@ -10,9 +10,9 @@
     	<!--<field name="asesor" tree_invisible="1"/>-->
         <field name="student"/>
         <field name="grade"/>
-    	<field name="receivable" sum="Total"/>
+    	<field name="amount" sum="Total"/>
     </xpath>
-    <xpath expr="/tree/field[@name=&quot;receivable&quot;]" position="after">
+    <xpath expr="/tree/field[@name=&quot;amount&quot;]" position="after">
     	<!--<field name="horario"/>-->
     	<!--<field name="asesor" tree_invisible="1"/>-->
     	<button name="cancel" string="Cancel" tree_invisible="1"/>

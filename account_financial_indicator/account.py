@@ -161,11 +161,18 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
 
         today = Date.today()
         company = Transaction().context.get('company')
+        to_date = Transaction().context.get('to_date')
 
         if self.is_consolidated: 
             companies = context.get('companies',[])
+            date = today if to_date is None else to_date
             for company in context.get('companies', []):
-                with transaction.set_context(company=company['id']):
+                with transaction.set_context(company=company['id'],
+                        posted=True, 
+                        cumulate=True, 
+                        date=date, 
+                        to_date=date, 
+                        from_date=None):
                     current_asset = Decimal('0.0')
                     current_assets = AccountType.search([('company','=',company['id']),
                         ('name','=','1) ACTIVOS CORRIENTES')
@@ -175,10 +182,18 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
                 total_current_asset += current_asset
             return total_current_asset
         else: 
-            current_assets = AccountType.search([('company','=',company),
-                ('name','=','1) ACTIVOS CORRIENTES')])
-            if len(current_assets)==1: 
-                current_asset = current_assets[0].amount * Decimal('1.0')            
+            date = today if to_date is None else to_date
+            with transaction.set_context(
+                    posted=True, 
+                    cumulate=True, 
+                    date=date, 
+                    to_date=date, 
+                    from_date=None, 
+                    ):
+                current_assets = AccountType.search([('company','=',company),
+                    ('name','=','1) ACTIVOS CORRIENTES')])
+                if len(current_assets)==1: 
+                    current_asset = current_assets[0].amount * Decimal('1.0')            
         return current_asset
 
     def get_current_liability(self):
@@ -191,13 +206,20 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
         context = Transaction().context
         total_liability = liability = Decimal('0.0')
 
-        today = Date.today()
         company = Transaction().context.get('company')
+        to_date = Transaction().context.get('to_date')
 
         if self.is_consolidated: 
             companies = context.get('companies',[])
+            date = today if to_date is None else to_date
             for company in context.get('companies', []):
-                with transaction.set_context(company=company['id']):
+                with transaction.set_context(company=company['id']
+                        posted=True, 
+                        cumulate=True, 
+                        date=date, 
+                        to_date=date, 
+                        from_date=None,
+                    ):
                     liability = Decimal('0.0')
                     liabilities = AccountType.search([('company','=',company['id']),
                         ('name','=','3) PASIVOS CORRIENTES')
@@ -207,11 +229,19 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
                 total_liability += liability
             return total_liability
         else:
-            current_liability = Decimal('0.0')  
-            current_liabilities = AccountType.search([('company','=',company),
-                ('name','=','3) PASIVOS CORRIENTES')])
-            if len(current_liabilities)==1: 
-                current_liability = current_liabilities[0].amount * Decimal('1.0')
+            current_liability = Decimal('0.0') 
+            date = today if to_date is None else to_date
+            with transaction.set_context(
+                    posted=True, 
+                    cumulate=True, 
+                    date=date, 
+                    to_date=date, 
+                    from_date=None, 
+                    ):
+                current_liabilities = AccountType.search([('company','=',company),
+                    ('name','=','3) PASIVOS CORRIENTES')])
+                if len(current_liabilities)==1: 
+                    current_liability = current_liabilities[0].amount * Decimal('1.0')
             
         return current_liability
 
@@ -1365,6 +1395,13 @@ class ContextAnalyticAccount(ModelView):
     def default_company(cls):
         return Transaction().context.get('company')
 
+    @fields.depends('from_date','to_date','fiscalyear')
+    def on_change_fiscalyear(self):
+        if self.fiscalyear: 
+            self.from_date = self.fiscalyear.start_date
+            self.to_date = self.fiscalyear.end_date
+
+
 class PrintFinancialIndicatorStart(ModelView):
     'Financial Indicator Start'
     __name__ = 'print.financial_indicator.start'
@@ -1433,9 +1470,9 @@ class FinancialIndicator(Report):
 
         with Transaction().set_context(
                 company=data['company'],
-                fiscalyear=data['fiscalyear_id'],
-                start_date=data['start_date'],
-                end_date=data['end_date'],
+                date=data['end_date'],
+                cumulate=True,
+                posted=True, 
                 ): 
             accounts = Account.search([('type','=','root'),
                 ('company','=',company)])
@@ -1450,9 +1487,6 @@ class FinancialIndicator(Report):
             
             caja_y_bancos = Account(liquidez.childs[0].id)
             pasivo_corriente = Account(liquidez.childs[1].id)
-
-            ingresos = Account(sosten_propio.childs[0].id)
-            gastos = Account(sosten_propio.childs[1].id)
 
             activo_corriente = Account(capital_actual.childs[0].id)
 
@@ -1471,14 +1505,26 @@ class FinancialIndicator(Report):
 
             report_context['caja_y_bancos'] = caja_y_bancos
             report_context['pasivo_corriente'] = pasivo_corriente
-
             report_context['activo_corriente'] = activo_corriente
-
-            report_context['ingresos'] = ingresos
-            report_context['gastos'] = gastos
 
             report_context['indice_capital_operativo'] = round(capital_operativo.financial_indicator,2)
             report_context['indice_liquidez'] = round(liquidez.financial_indicator,2)
-            report_context['indice_sosten_propio'] = round(sosten_propio.financial_indicator,2)
 
-            return report_context
+        with Transaction().set_context(
+                company=data['company'],                
+                start_date=data['start_date'],
+                end_date=data['end_date'],
+                cumulate=True,
+                posted=True, 
+                ): 
+            accounts = Account.search([('type','=','root'),
+                ('company','=',company)])
+            if len(accounts)==3: 
+                sosten_propio = Account(accounts[2].id)
+            ingresos = Account(sosten_propio.childs[0].id)
+            gastos = Account(sosten_propio.childs[1].id)
+            report_context['ingresos'] = ingresos
+            report_context['gastos'] = gastos
+            report_context['indice_sosten_propio'] = round(sosten_propio.financial_indicator,2)
+        
+        return report_context

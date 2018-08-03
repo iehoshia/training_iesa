@@ -6,9 +6,13 @@ msgctxt "field:product.template,company:"
 msgid "Company"
 msgstr "Colegio"
 
-msgctxt "field:account.iesa.payment.context,date:"
-msgid "Date"
-msgstr "Fecha"
+msgctxt "field:account.iesa.payment.context,from_date:"
+msgid "From Date"
+msgstr "Desde la Fecha"
+
+msgctxt "field:account.iesa.payment.context,to_date:"
+msgid "To Date"
+msgstr "Hasta la Fecha"
 
 msgctxt "field:account.iesa.payment.context,party:"
 msgid "Party"
@@ -46,9 +50,33 @@ msgctxt "field:account.iesa.payment,subscriber:"
 msgid "Subscriber"
 msgstr "Encargado"
 
+msgctxt "field:print.payment.report.start,party:"
+msgid "Party"
+msgstr "Encargado"
+
+msgctxt "field:print.payment.report.start,date:"
+msgid "Date"
+msgstr "Fecha de Impresión"
+
+msgctxt "field:print.payment.report.start,from_date:"
+msgid "From Date"
+msgstr "Desde la Fecha"
+
+msgctxt "field:print.payment.report.start,to_date:"
+msgid "To Date"
+msgstr "Hasta la Fecha"
+
+msgctxt "field:print.payment.report.start,month:"
+msgid "Month"
+msgstr "Mes"
+
 msgctxt "model:analytic_account.open_chart.start,name:"
 msgid "Open Chart of Analytic Accounts"
 msgstr "Índices Financieros"
+
+msgctxt "model:ir.ui.menu,name:menu_open_balance_sheet"
+msgid "Balance Sheet"
+msgstr "Balance de situación"
 
 msgctxt "model:ir.ui.menu,name:menu_open_chart"
 msgid "Open Chart of Accounts"
@@ -262,6 +290,18 @@ msgctxt "model:ir.action,name:act_move_template_form"
 msgid "Account Move Template"
 msgstr "Plantilla de asiento contable"
 
+msgctxt "model:ir.action,name:print_payment_report"
+msgid "Payment Report"
+msgstr "Recibos"
+
+msgctxt "model:ir.action,name:act_iesa_payment_report_print"
+msgid "Payment Report"
+msgstr "Recibos"
+
+msgctxt "model:ir.ui.menu,name:menu_iesa_payment_report"
+msgid "Payment Report"
+msgstr "Recibos"
+
 msgctxt "model:ir.ui.menu,name:menu_move_template_form"
 msgid "Account Move Template"
 msgstr "Plantilla de asiento contable"
@@ -345,3 +385,7 @@ msgstr "Borradores"
 msgctxt "model:ir.action.act_window.domain,name:act_account_move_all"
 msgid "All"
 msgstr "Todos"
+
+msgctxt "model:ir.action,name:act_account_balance_sheet_tree"
+msgid "Balance Sheet"
+msgstr "Balance de situación"
