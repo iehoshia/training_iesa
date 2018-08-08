@@ -329,6 +329,45 @@ class Invoice(ModelSQL,ModelView):
                 'missing_account_payable': ('Missing account payable.'),
                 'missing_account_receivable': ('Missing account receivable.'),
                 })
+        cls._buttons.update({
+                'cancel': {
+                    'invisible': (~Eval('state').in_(['draft', 'validated'])
+                        & ~((Eval('state') == 'posted')
+                            & (Eval('type') == 'in'))),
+                    'help': 'Cancel the invoice',
+                    'depends': ['state', 'type'],
+                    },
+                'draft': {
+                    'invisible': (~Eval('state').in_(['cancel', 'validated'])
+                        | ((Eval('state') == 'cancel')
+                            & Eval('cancel_move', -1))),
+                    'icon': If(Eval('state') == 'cancel', 'tryton-clear',
+                        'tryton-go-previous'),
+                    'depends': ['state'],
+                    },
+                'validate_invoice': {
+                    'pre_validate':
+                        ['OR',
+                            ('invoice_date', '!=', None),
+                            ('type', '!=', 'in'),
+                        ],
+                    'invisible': Eval('state') != 'draft',
+                    'depends': ['state'],
+                    },
+                'post': {
+                    'pre_validate':
+                        ['OR',
+                            ('invoice_date', '!=', None),
+                            ('type', '!=', 'in'),
+                        ],
+                    'invisible': Eval('state') == 'posted',
+                    'depends': ['state'],
+                    },
+                'pay': {
+                    'invisible': Eval('state') != 'posted',
+                    'depends': ['state'],
+                    },
+                })
 
     def _create_party_address(self, party): 
         pool = Pool()

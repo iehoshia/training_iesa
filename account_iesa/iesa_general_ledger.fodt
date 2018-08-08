@@ -4,21 +4,21 @@
  <office:meta><meta:generator>LibreOffice/6.0.3.2$Windows_X86_64 LibreOffice_project/8f48d515416608e3a835360314dac7e47fd0b821</meta:generator><meta:creation-date>2008-06-07T15:26:41</meta:creation-date><dc:date>2008-08-27T17:03:36</dc:date><meta:editing-cycles>1</meta:editing-cycles><meta:editing-duration>PT0S</meta:editing-duration><meta:document-statistic meta:table-count="3" meta:image-count="0" meta:object-count="0" meta:page-count="2" meta:paragraph-count="47" meta:word-count="144" meta:character-count="1722" meta:non-whitespace-character-count="1621"/><meta:user-defined meta:name="Info 1"/><meta:user-defined meta:name="Info 2"/><meta:user-defined meta:name="Info 3"/><meta:user-defined meta:name="Info 4"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">31750</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">14640</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">28688</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">12173</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">11314</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">12774</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">4223</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">7313</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">18748</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">31750</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">14640</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">28686</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">43921</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">25952</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -83,7 +83,7 @@
    <config:config-item config:name="UnxForceZeroExtLeading" config:type="boolean">false</config:config-item>
    <config:config-item config:name="UseOldPrinterMetrics" config:type="boolean">false</config:config-item>
    <config:config-item config:name="TabAtLeftIndentForParagraphsInList" config:type="boolean">false</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">4385314</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">4403881</config:config-item>
    <config:config-item config:name="MsWordCompTrailingBlanks" config:type="boolean">false</config:config-item>
    <config:config-item config:name="MathBaselineAlignment" config:type="boolean">false</config:config-item>
    <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
@@ -330,16 +330,19 @@
    </style:table-properties>
   </style:style>
   <style:style style:name="Tabla1.A" style:family="table-column">
-   <style:table-column-properties style:column-width="2.193cm" style:rel-column-width="1243*"/>
+   <style:table-column-properties style:column-width="1.896cm" style:rel-column-width="1075*"/>
   </style:style>
   <style:style style:name="Tabla1.B" style:family="table-column">
-   <style:table-column-properties style:column-width="2.196cm" style:rel-column-width="1245*"/>
+   <style:table-column-properties style:column-width="3.11cm" style:rel-column-width="1763*"/>
+  </style:style>
+  <style:style style:name="Tabla1.C" style:family="table-column">
+   <style:table-column-properties style:column-width="2.293cm" style:rel-column-width="1300*"/>
   </style:style>
   <style:style style:name="Tabla1.E" style:family="table-column">
-   <style:table-column-properties style:column-width="2.619cm" style:rel-column-width="1485*"/>
+   <style:table-column-properties style:column-width="2.711cm" style:rel-column-width="1537*"/>
   </style:style>
   <style:style style:name="Tabla1.F" style:family="table-column">
-   <style:table-column-properties style:column-width="6.174cm" style:rel-column-width="3500*"/>
+   <style:table-column-properties style:column-width="5.271cm" style:rel-column-width="2988*"/>
   </style:style>
   <style:style style:name="Tabla1.1" style:family="table-row">
    <style:table-row-properties fo:keep-together="auto"/>
@@ -662,6 +665,13 @@
    <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="0042238f" officeooo:paragraph-rsid="0042238f"/>
   </style:style>
+  <style:style style:name="P51" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
+   <style:text-properties fo:font-size="9pt" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
+  </style:style>
+  <style:style style:name="P52" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
+  </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties officeooo:rsid="0037c304"/>
   </style:style>
@@ -749,7 +759,8 @@
    <text:p text:style-name="P35"><text:placeholder text:placeholder-type="text">&lt;for each=&quot;account in accounts&quot;&gt;</text:placeholder></text:p>
    <table:table table:name="Tabla1" table:style-name="Tabla1">
     <table:table-column table:style-name="Tabla1.A"/>
-    <table:table-column table:style-name="Tabla1.B" table:number-columns-repeated="3"/>
+    <table:table-column table:style-name="Tabla1.B"/>
+    <table:table-column table:style-name="Tabla1.C" table:number-columns-repeated="2"/>
     <table:table-column table:style-name="Tabla1.E"/>
     <table:table-column table:style-name="Tabla1.F"/>
     <table:table-row table:style-name="Tabla1.1">
@@ -848,7 +859,7 @@
      <table:covered-table-cell/>
      <table:covered-table-cell/>
      <table:table-cell table:style-name="Tabla1.E8" office:value-type="string">
-      <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;format_currency(account.start_balance, user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P51"><text:placeholder text:placeholder-type="text">&lt;format_currency(account.start_balance, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.F8" office:value-type="string">
       <text:p text:style-name="P41"/>
@@ -872,20 +883,19 @@
       <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;line.post_number&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.C10" office:value-type="string">
-      <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;format_currency(line.debit, user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P51"><text:placeholder text:placeholder-type="text">&lt;format_currency(line.debit, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.D10" office:value-type="string">
-      <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;format_currency(line.credit, user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P51"><text:placeholder text:placeholder-type="text">&lt;format_currency(line.credit, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.E10" office:value-type="string">
-      <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;format_currency(line.balance, user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P51"><text:placeholder text:placeholder-type="text">&lt;format_currency(line.balance, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.F10" office:value-type="string">
       <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;line.move_description or line.description or &apos;&apos;&gt;</text:placeholder></text:p>
       <text:p text:style-name="P42">Boleta: <text:placeholder text:placeholder-type="text">&lt;line.move_ticket or &apos;&apos;&gt;</text:placeholder></text:p>
      </table:table-cell>
     </table:table-row>
-    <text:soft-page-break/>
     <table:table-row table:style-name="Tabla1.1">
      <table:table-cell table:style-name="Tabla1.A11" table:number-columns-spanned="6" office:value-type="string">
       <text:p text:style-name="Text_20_body"><text:placeholder text:placeholder-type="text">&lt;/for&gt;</text:placeholder></text:p>
@@ -896,19 +906,20 @@
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
+    <text:soft-page-break/>
     <table:table-row table:style-name="Tabla1.1">
      <table:table-cell table:style-name="Tabla1.A12" table:number-columns-spanned="2" office:value-type="string">
       <text:p text:style-name="P47">Total</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:table-cell table:style-name="Tabla1.C12" office:value-type="string">
-      <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;format_currency(account.end_debit - account.start_debit, user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P51"><text:placeholder text:placeholder-type="text">&lt;format_currency(account.end_debit - account.start_debit, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.D12" office:value-type="string">
-      <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;format_currency(account.end_credit - account.start_credit, user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P51"><text:placeholder text:placeholder-type="text">&lt;format_currency(account.end_credit - account.start_credit, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.E12" office:value-type="string">
-      <text:p text:style-name="P41"><text:placeholder text:placeholder-type="text">&lt;format_currency((account.end_debit - account.end_credit) - (account.start_debit - account.start_credit), user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P51"><text:placeholder text:placeholder-type="text">&lt;format_currency((account.end_debit - account.end_credit) - (account.start_debit - account.start_credit), user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.F12" office:value-type="string">
       <text:p text:style-name="P41"/>
@@ -922,7 +933,7 @@
      <table:covered-table-cell/>
      <table:covered-table-cell/>
      <table:table-cell table:style-name="Tabla1.E13" office:value-type="string">
-      <text:p text:style-name="Table_20_Contents"><text:placeholder text:placeholder-type="text">&lt;format_currency(account.end_balance, user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P52"><text:placeholder text:placeholder-type="text">&lt;format_currency(account.end_balance, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla1.F13" office:value-type="string">
       <text:p text:style-name="Table_20_Contents"/>

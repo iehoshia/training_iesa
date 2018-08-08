@@ -1,0 +1,227 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "model:ir.action,name:act_account_meta_type_template_tree"
+msgid "Account Meta Type Templates"
+msgstr "Plantilla de Meta Cuentas"
+
+msgctxt "model:ir.action,name:wizard_create_chart"
+msgid "Create Chart of Accounts from Meta Template"
+msgstr "Crear Plan de Cuentas Meta"
+
+msgctxt "model:ir.action,name:wizard_update_chart"
+msgid "Update Chart of Accounts from Meta Template"
+msgstr "Actualizar Plan de Cuentas Meta"
+
+msgctxt "model:ir.action,name:act_account_consolidated_balance_sheet"
+msgid "Consolidated Balance Sheet"
+msgstr "Balance Consolidado"
+
+msgctxt "model:ir.action,name:act_account_meta_type_tree"
+msgid "Account Meta Types"
+msgstr "Árbol de Meta Cuentas"
+
+msgctxt "model:ir.action,name:act_account_meta_type_list"
+msgid "Account Meta Types"
+msgstr "Lista de Meta Cuentas"
+
+msgctxt "model:ir.action,name:act_account_income_statement"
+msgid "Income Statement"
+msgstr "Pérdidas y Ganancias Consolidadas"
+
+msgctxt "model:ir.action,name:wizard_print_consolidated_income_statement"
+msgid "Print Consolidated Income Statement"
+msgstr "Pérdidas y Ganancias Consolidadas"
+
+msgctxt "model:ir.action,name:wizard_print_consolidated_general_balance"
+msgid "Print Consolidated General Balance"
+msgstr "Balance General Consolidado"
+
+msgctxt "model:ir.ui.menu,name:menu_account_meta_type_tree"
+msgid "Account Meta Type Templates"
+msgstr "Árbol de Meta Cuentas"
+
+msgctxt "model:ir.ui.menu,name:menu_account_meta_type_list"
+msgid "Account Meta Type Templates"
+msgstr "Lista de Meta Cuentas"
+
+msgctxt "model:ir.ui.menu,name:menu_account_meta_type_template_tree"
+msgid "Account Meta Type Templates"
+msgstr "Plantilla de Tipo de Meta Cuentas"
+
+msgctxt "model:ir.ui.menu,name:menu_create_chart"
+msgid "Create Chart of Accounts from Meta Template"
+msgstr "Crear Plan de Cuentas Meta"
+
+msgctxt "model:ir.ui.menu,name:menu_update_chart"
+msgid "Update Chart of Accounts from Meta Template"
+msgstr "Actualizar Plan de Cuentas Meta"
+
+msgctxt "model:ir.ui.menu,name:menu_open_balance_sheet"
+msgid "Consolidated Balance Sheet"
+msgstr "Balance Consolidado"
+
+msgctxt "model:ir.ui.menu,name:menu_open_income_statement"
+msgid "Income Statement"
+msgstr "Pérdidas y Ganancias Consolidadas"
+
+msgctxt "model:ir.ui.menu,name:menu_print_consolidated_general_balance"
+msgid "Print Consolidated General Balance"
+msgstr "Balance General Consolidado"
+
+msgctxt "model:ir.ui.menu,name:menu_print_consolidated_income_statement"
+msgid "Print Consolidated Income Statement"
+msgstr "Pérdidas y Ganancias Consolidadas"
+
+msgctxt "field:account.account.meta.type.template,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.account.meta.type.template,sequence:"
+msgid "Sequence"
+msgstr "Secuencia"
+
+msgctxt "field:account.account.meta.type.template,parent:"
+msgid "Parent"
+msgstr "Padre"
+
+msgctxt "field:account.account.meta.type.template,display_balance:"
+msgid "Display Balance"
+msgstr "Mostrar saldo"
+
+msgctxt "field:account.account.meta.type.template,balance_sheet:"
+msgid "Balance Sheet"
+msgstr "Balance de Situación"
+
+msgctxt "field:account.account.meta.type.template,income_statement:"
+msgid "Income Statement"
+msgstr "Pérdidas y Ganancias"
+
+msgctxt "field:account.meta.create_chart.account,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:account.meta.create_chart.account,account_template:"
+msgid "Account Template"
+msgstr "Plantilla de Cuentas"
+
+msgctxt "field:account.meta.update_chart.start,account:"
+msgid "Root Account"
+msgstr "Cuenta Raíz"
+
+msgctxt "field:account.consolidated_balance_sheet.context,company:"
+msgid "Company" 
+msgstr "Colegio"
+
+msgctxt "field:account.consolidated_balance_sheet.context,from_date:"
+msgid "From Date"
+msgstr "Fecha Inicial"
+
+msgctxt "field:account.consolidated_balance_sheet.context,to_date:"
+msgid "To Date"
+msgstr "Fecha Final"
+
+msgctxt "field:account.consolidated_balance_sheet.context,companies:"
+msgid "Companies"
+msgstr "Colegios"
+
+msgctxt "field:account.consolidated_income_statement.context,company:"
+msgid "Company" 
+msgstr "Colegio"
+
+msgctxt "field:account.consolidated_income_statement.context,from_date:"
+msgid "From Date"
+msgstr "Fecha Inicial"
+
+msgctxt "field:account.consolidated_income_statement.context,to_date:"
+msgid "To Date"
+msgstr "Fecha Final"
+
+msgctxt "field:account.consolidated_income_statement.context,companies:"
+msgid "Companies"
+msgstr "Colegios"
+
+msgctxt "field:account.account.meta.type,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.account.meta.type,sequence:"
+msgid "Sequence"
+msgstr "Secuencia"
+
+msgctxt "field:account.account.meta.type,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:account.account.meta.type,parent:"
+msgid "Parent"
+msgstr "Padre"
+
+msgctxt "field:account.account.meta.type,display_balance:"
+msgid "Display Balance"
+msgstr "Mostrar Saldo" 
+
+msgctxt "field:account.account.meta.type,template_override:"
+msgid "Override Template"
+msgstr "Sobreescribir plantilla"
+
+msgctxt "field:account.account.meta.type,balance_sheet:" 
+msgid "Balance Sheet"
+msgstr "Balance de Situación"
+
+msgctxt "field:account.account.meta.type,income_statement:"
+msgid "Income Statement"
+msgstr "Pérdidas y Ganancias"
+
+msgctxt "field:account.account.meta.type,amount:"
+msgid "Amount"
+msgstr "Monto"
+
+msgctxt "field:print.consolidated_general_balance.start,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:print.consolidated_general_balance.start,companies:"
+msgid "Companies"
+msgstr "Colegios"
+
+msgctxt "field:print.consolidated_general_balance.start,from_date:"
+msgid "From Date"
+msgstr "Desde la Fecha"
+
+msgctxt "field:print.consolidated_general_balance.start,to_date:"
+msgid "To Date"
+msgstr "Hasta la Fecha"
+
+msgctxt "field:print.consolidated_general_balance.start,account:"
+msgid "Account"
+msgstr "Plan de Cuentas"
+
+msgctxt "field:print.consolidated_income_statement.start,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:print.consolidated_income_statement.start,companies:"
+msgid "Companies"
+msgstr "Colegios"
+
+msgctxt "field:print.consolidated_income_statement.start,from_date:"
+msgid "From Date"
+msgstr "Desde la Fecha"
+
+msgctxt "field:print.consolidated_income_statement.start,to_date:"
+msgid "To Date"
+msgstr "Hasta la Fecha"
+
+msgctxt "field:print.consolidated_income_statement.start,account:"
+msgid "Account"
+msgstr "Plan de Cuentas"
+
+msgctxt "view:account.meta.create_chart.start:"
+msgid ""
+"You can now create a chart of account for your company by selecting a chart "
+"of account template."
+msgstr ""
+"Ahora puede crear un plan contable para su empresa seleccionando una "
+"plantilla de plan contable." 

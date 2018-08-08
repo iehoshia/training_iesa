@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:generator>LibreOffice/6.0.3.2$Windows_X86_64 LibreOffice_project/8f48d515416608e3a835360314dac7e47fd0b821</meta:generator><meta:creation-date>2012-11-15T15:00:35</meta:creation-date><meta:editing-cycles>1</meta:editing-cycles><meta:editing-duration>P0D</meta:editing-duration><meta:document-statistic meta:table-count="2" meta:image-count="1" meta:object-count="0" meta:page-count="1" meta:paragraph-count="12" meta:word-count="25" meta:character-count="263" meta:non-whitespace-character-count="250"/><meta:user-defined meta:name="Info 1"/><meta:user-defined meta:name="Info 2"/><meta:user-defined meta:name="Info 3"/><meta:user-defined meta:name="Info 4"/></office:meta>
+ <office:meta><meta:generator>LibreOffice/6.0.3.2$Windows_X86_64 LibreOffice_project/8f48d515416608e3a835360314dac7e47fd0b821</meta:generator><meta:creation-date>2012-11-15T15:00:35</meta:creation-date><meta:editing-cycles>1</meta:editing-cycles><meta:editing-duration>P0D</meta:editing-duration><meta:document-statistic meta:table-count="2" meta:image-count="1" meta:object-count="0" meta:page-count="1" meta:paragraph-count="12" meta:word-count="27" meta:character-count="296" meta:non-whitespace-character-count="281"/><meta:user-defined meta:name="Info 1"/><meta:user-defined meta:name="Info 2"/><meta:user-defined meta:name="Info 3"/><meta:user-defined meta:name="Info 4"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
    <config:config-item config:name="ViewAreaTop" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">28688</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">11402</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">11314</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">6897</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">5533</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">20338</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">8795</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
      <config:config-item config:name="VisibleTop" config:type="long">0</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">28686</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">11400</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">11312</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -83,7 +83,7 @@
    <config:config-item config:name="UnxForceZeroExtLeading" config:type="boolean">false</config:config-item>
    <config:config-item config:name="UseOldPrinterMetrics" config:type="boolean">false</config:config-item>
    <config:config-item config:name="TabAtLeftIndentForParagraphsInList" config:type="boolean">false</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">4221071</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">4350653</config:config-item>
    <config:config-item config:name="MsWordCompTrailingBlanks" config:type="boolean">false</config:config-item>
    <config:config-item config:name="MathBaselineAlignment" config:type="boolean">false</config:config-item>
    <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
@@ -397,258 +397,266 @@
    <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
    <style:text-properties officeooo:paragraph-rsid="0036cc2e"/>
   </style:style>
-  <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color"/>
+  <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
+   <style:text-properties officeooo:paragraph-rsid="00407ef4"/>
   </style:style>
   <style:style style:name="P29" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+   <style:text-properties style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color"/>
   </style:style>
-  <style:style style:name="P30" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1"/>
+  <style:style style:name="P30" style:family="paragraph" style:parent-style-name="Heading_20_1">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
   </style:style>
   <style:style style:name="P31" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="001ba80b"/>
-  </style:style>
-  <style:style style:name="P32" style:family="paragraph" style:parent-style-name="Standard" style:master-page-name="">
-   <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" style:page-number="auto" fo:break-before="page"/>
    <style:text-properties style:font-name="Liberation Sans1"/>
+  </style:style>
+  <style:style style:name="P32" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="001ba80b"/>
   </style:style>
   <style:style style:name="P33" style:family="paragraph" style:parent-style-name="Standard" style:master-page-name="">
    <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" style:page-number="auto" fo:break-before="page"/>
-   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="001ba80b"/>
+   <style:text-properties style:font-name="Liberation Sans1"/>
   </style:style>
-  <style:style style:name="P34" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
+  <style:style style:name="P34" style:family="paragraph" style:parent-style-name="Standard" style:master-page-name="">
+   <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" style:page-number="auto" fo:break-before="page"/>
+   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="001ba80b"/>
   </style:style>
   <style:style style:name="P35" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
-   <style:text-properties officeooo:paragraph-rsid="0020411c"/>
   </style:style>
   <style:style style:name="P36" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
-   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="0020411c"/>
+   <style:text-properties officeooo:paragraph-rsid="0020411c"/>
   </style:style>
   <style:style style:name="P37" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:break-before="page"/>
+   <style:paragraph-properties fo:margin-left="11.28cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
+   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="0020411c"/>
   </style:style>
   <style:style style:name="P38" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties officeooo:paragraph-rsid="00257920"/>
+   <style:paragraph-properties fo:break-before="page"/>
   </style:style>
   <style:style style:name="P39" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties officeooo:paragraph-rsid="00267ece"/>
+   <style:text-properties officeooo:paragraph-rsid="00257920"/>
   </style:style>
   <style:style style:name="P40" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties officeooo:paragraph-rsid="002a3269"/>
+   <style:text-properties officeooo:paragraph-rsid="00267ece"/>
   </style:style>
   <style:style style:name="P41" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties style:text-underline-style="none" officeooo:paragraph-rsid="002a3269"/>
+   <style:text-properties officeooo:paragraph-rsid="002a3269"/>
   </style:style>
   <style:style style:name="P42" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties style:text-underline-style="none" officeooo:paragraph-rsid="0031176b"/>
+   <style:text-properties style:text-underline-style="none" officeooo:paragraph-rsid="002a3269"/>
   </style:style>
   <style:style style:name="P43" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties officeooo:paragraph-rsid="0035b5f8"/>
+   <style:text-properties style:text-underline-style="none" officeooo:paragraph-rsid="0031176b"/>
   </style:style>
   <style:style style:name="P44" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+   <style:text-properties officeooo:paragraph-rsid="0035b5f8"/>
   </style:style>
   <style:style style:name="P45" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
   </style:style>
   <style:style style:name="P46" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="001ba80b"/>
+   <style:text-properties style:font-name="Liberation Sans1"/>
   </style:style>
   <style:style style:name="P47" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
+   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="001ba80b"/>
   </style:style>
   <style:style style:name="P48" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
+  </style:style>
+  <style:style style:name="P49" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
   </style:style>
-  <style:style style:name="P49" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="justify" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
-  </style:style>
   <style:style style:name="P50" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="justify" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
   </style:style>
   <style:style style:name="P51" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0038bb4f" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
   </style:style>
   <style:style style:name="P52" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="8.75pt" style:font-size-complex="10pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0038bb4f" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
   </style:style>
   <style:style style:name="P53" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="8.75pt" style:font-size-complex="10pt"/>
+  </style:style>
+  <style:style style:name="P54" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" fo:font-style="italic" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="0023c9df" officeooo:paragraph-rsid="0036cc2e" style:font-size-asian="10pt" style:font-style-asian="italic" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="italic" style:font-weight-complex="normal"/>
   </style:style>
-  <style:style style:name="P54" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P55" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="26pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="22.75pt" style:font-size-complex="26pt"/>
   </style:style>
-  <style:style style:name="P55" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P56" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="35pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="30.6000003814697pt" style:font-size-complex="35pt"/>
   </style:style>
-  <style:style style:name="P56" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P57" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="6pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="5.25pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P57" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P58" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" style:text-underline-style="none" fo:font-weight="bold" officeooo:paragraph-rsid="0035b5f8" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P58" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P59" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8"/>
   </style:style>
-  <style:style style:name="P59" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P60" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e"/>
   </style:style>
-  <style:style style:name="P60" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P61" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="9pt" style:text-underline-style="none" officeooo:rsid="00391799" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="7.84999990463257pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P61" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P62" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="7.84999990463257pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P62" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P63" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="9pt" style:text-underline-style="none" officeooo:rsid="003cc7ca" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P63" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P64" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P64" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P65" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="justify" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P65" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
-  </style:style>
   <style:style style:name="P66" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
   <style:style style:name="P67" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="20pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="17.5pt" style:font-size-complex="20pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
   <style:style style:name="P68" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="22pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="19.25pt" style:font-size-complex="22pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="20pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="17.5pt" style:font-size-complex="20pt"/>
   </style:style>
   <style:style style:name="P69" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="16pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="14pt" style:font-size-complex="16pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="22pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="19.25pt" style:font-size-complex="22pt"/>
   </style:style>
   <style:style style:name="P70" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="15pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="13.1000003814697pt" style:font-size-complex="15pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="16pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="14pt" style:font-size-complex="16pt"/>
   </style:style>
   <style:style style:name="P71" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="13pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="11.3500003814697pt" style:font-size-complex="13pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="15pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="13.1000003814697pt" style:font-size-complex="15pt"/>
   </style:style>
   <style:style style:name="P72" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:rsid="00391799" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10.5pt" style:font-size-complex="12pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="13pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="11.3500003814697pt" style:font-size-complex="13pt"/>
   </style:style>
   <style:style style:name="P73" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:rsid="00391799" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10.5pt" style:font-size-complex="12pt"/>
   </style:style>
   <style:style style:name="P74" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0038bb4f" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
   </style:style>
   <style:style style:name="P75" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="2pt" style:text-underline-style="none" officeooo:rsid="00391799" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="1.75pt" style:font-size-complex="2pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0038bb4f" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
   </style:style>
   <style:style style:name="P76" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="2pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="1.75pt" style:font-size-complex="2pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="2pt" style:text-underline-style="none" officeooo:rsid="00391799" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="1.75pt" style:font-size-complex="2pt"/>
   </style:style>
   <style:style style:name="P77" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="33pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="28.8500003814697pt" style:font-size-complex="33pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="2pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="1.75pt" style:font-size-complex="2pt"/>
   </style:style>
   <style:style style:name="P78" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="3pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="33pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="28.8500003814697pt" style:font-size-complex="33pt"/>
   </style:style>
   <style:style style:name="P79" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="8pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="3pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
   </style:style>
   <style:style style:name="P80" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="17pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="14.8500003814697pt" style:font-size-complex="17pt"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="8pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
   </style:style>
   <style:style style:name="P81" style:family="paragraph" style:parent-style-name="Standard">
-   <loext:graphic-properties draw:fill="none"/>
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
-   <style:text-properties officeooo:rsid="0023c9df" officeooo:paragraph-rsid="0036cc2e"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="17pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="14.8500003814697pt" style:font-size-complex="17pt"/>
   </style:style>
   <style:style style:name="P82" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
-   <style:text-properties officeooo:paragraph-rsid="0036cc2e"/>
+   <style:text-properties officeooo:rsid="0023c9df" officeooo:paragraph-rsid="0036cc2e"/>
   </style:style>
   <style:style style:name="P83" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
-   <style:text-properties officeooo:rsid="00398d54" officeooo:paragraph-rsid="00398d54"/>
+   <style:text-properties officeooo:paragraph-rsid="0036cc2e"/>
   </style:style>
   <style:style style:name="P84" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
-   <style:text-properties officeooo:rsid="00398d54" officeooo:paragraph-rsid="0039dd53"/>
+   <style:text-properties officeooo:rsid="00398d54" officeooo:paragraph-rsid="00398d54"/>
   </style:style>
   <style:style style:name="P85" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
-   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="002b8730"/>
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties officeooo:rsid="00398d54" officeooo:paragraph-rsid="0039dd53"/>
   </style:style>
   <style:style style:name="P86" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
+   <style:text-properties style:font-name="Liberation Sans1" officeooo:paragraph-rsid="002b8730"/>
   </style:style>
   <style:style style:name="P87" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
+  </style:style>
+  <style:style style:name="P88" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
    <style:text-properties style:font-name="Liberation Serif2" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e"/>
   </style:style>
-  <style:style style:name="P88" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P89" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8"/>
   </style:style>
-  <style:style style:name="P89" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="end" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
-  </style:style>
   <style:style style:name="P90" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="end" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
   </style:style>
   <style:style style:name="P91" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10pt" style:text-underline-style="none" officeooo:paragraph-rsid="0035b5f8" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
+  </style:style>
+  <style:style style:name="P92" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
   </style:style>
-  <style:style style:name="P92" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P93" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="end" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P94" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <style:text-properties style:font-name="Liberation Serif2" fo:font-size="12pt" style:text-underline-style="none" officeooo:paragraph-rsid="0036cc2e" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
@@ -731,6 +739,12 @@
   </style:style>
   <style:style style:name="T27" style:family="text">
    <style:text-properties fo:font-weight="normal" officeooo:rsid="00398d54" style:font-weight-asian="normal" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="T28" style:family="text">
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="10.5pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="0023c9df" style:font-size-asian="10.5pt" style:font-weight-asian="bold" style:font-size-complex="10.5pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="T29" style:family="text">
+   <style:text-properties style:font-name="Liberation Serif2" fo:font-size="11pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="0023c9df" style:font-size-asian="11pt" style:font-weight-asian="bold" style:font-size-complex="11pt" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="fr1" style:family="graphic" style:parent-style-name="Graphics">
    <style:graphic-properties style:horizontal-pos="center" style:horizontal-rel="paragraph" style:mirror="none" fo:clip="rect(0cm, 0cm, 0cm, 0cm)" draw:luminance="0%" draw:contrast="0%" draw:red="0%" draw:green="0%" draw:blue="0%" draw:gamma="100%" draw:color-inversion="false" draw:image-opacity="100%" draw:color-mode="standard"/>
@@ -1690,21 +1704,21 @@
     <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
     <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
    </text:sequence-decls>
-   <text:p text:style-name="P87"/>
+   <text:p text:style-name="P88"/>
    <table:table table:name="Tabla10" table:style-name="Tabla10">
     <table:table-column table:style-name="Tabla10.A"/>
     <table:table-row>
      <table:table-cell table:style-name="Tabla10.A1" office:value-type="string">
-      <text:p text:style-name="P83"><text:span text:style-name="T15">Grad</text:span><text:span text:style-name="T23">o</text:span><text:span text:style-name="T15">:</text:span> <text:placeholder text:placeholder-type="text">&lt;grade&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P84"><text:span text:style-name="T15">Grad</text:span><text:span text:style-name="T23">o</text:span><text:span text:style-name="T15">:</text:span> <text:placeholder text:placeholder-type="text">&lt;grade&gt;</text:placeholder></text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Tabla10.A2" office:value-type="string">
-      <text:p text:style-name="P84"><text:span text:style-name="T18">Fecha de impresión</text:span><text:span text:style-name="T24">: </text:span><text:placeholder text:placeholder-type="text">&lt;date&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P85"><text:span text:style-name="T18">Fecha de impresión</text:span><text:span text:style-name="T24">: </text:span><text:placeholder text:placeholder-type="text">&lt;date&gt;</text:placeholder></text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
-   <text:p text:style-name="P59"/>
+   <text:p text:style-name="P60"/>
    <table:table table:name="Tabla9" table:style-name="Tabla9">
     <table:table-column table:style-name="Tabla9.A"/>
     <table:table-column table:style-name="Tabla9.B"/>
@@ -1722,43 +1736,43 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Tabla9.A2" office:value-type="string">
-      <text:p text:style-name="P74"/>
+      <text:p text:style-name="P75"/>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla9.B2" table:number-columns-spanned="2" office:value-type="string">
-      <text:p text:style-name="P74"><text:placeholder text:placeholder-type="text">&lt;for each=&quot;subscription in records&quot;&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P75"><text:placeholder text:placeholder-type="text">&lt;for each=&quot;subscription in records&quot;&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Tabla9.A2" office:value-type="string">
-      <text:list xml:id="list3759374774" text:style-name="L1">
+      <text:list xml:id="list4229262685" text:style-name="L1">
        <text:list-item>
-        <text:p text:style-name="P92"/>
+        <text:p text:style-name="P94"/>
        </text:list-item>
       </text:list>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla9.A2" office:value-type="string">
-      <text:p text:style-name="P73"><text:placeholder text:placeholder-type="text">&lt;subscription.student.name&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P74"><text:placeholder text:placeholder-type="text">&lt;subscription.student.name&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla9.B2" office:value-type="string">
-      <text:p text:style-name="P91"><text:placeholder text:placeholder-type="text">&lt;format_currency(subscription.student.receivable, subscription.student.lang, subscription.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P93"><text:placeholder text:placeholder-type="text">&lt;format_currency(subscription.student.receivable, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Tabla9.A2" office:value-type="string">
-      <text:p text:style-name="P51"/>
+      <text:p text:style-name="P52"/>
      </table:table-cell>
      <table:table-cell table:style-name="Tabla9.B2" table:number-columns-spanned="2" office:value-type="string">
-      <text:p text:style-name="P51"><text:placeholder text:placeholder-type="text">&lt;/for&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P52"><text:placeholder text:placeholder-type="text">&lt;/for&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:covered-table-cell/>
     </table:table-row>
    </table:table>
-   <text:p text:style-name="P50"/>
-   <text:p text:style-name="P50"/>
-   <text:p text:style-name="P27"><text:span text:style-name="T20">TOTAL: </text:span><text:span text:style-name="T27">Q</text:span><text:span text:style-name="T20"> </text:span><text:span text:style-name="T19"><text:placeholder text:placeholder-type="text">&lt;total&gt;</text:placeholder></text:span></text:p>
+   <text:p text:style-name="P51"/>
+   <text:p text:style-name="P51"/>
+   <text:p text:style-name="P28"><text:span text:style-name="T20">TOTAL: </text:span><text:span text:style-name="T27">Q</text:span><text:span text:style-name="T20"> </text:span><text:span text:style-name="T29"><text:placeholder text:placeholder-type="text">&lt;format_currency(total, user.language, company.currency)&gt;</text:placeholder></text:span></text:p>
    <text:p text:style-name="P26"/>
-   <text:p text:style-name="P53">Impreso por<text:span text:style-name="T24">: </text:span><text:span text:style-name="T19"><text:placeholder text:placeholder-type="text">&lt;user&gt;</text:placeholder></text:span></text:p>
+   <text:p text:style-name="P54">Impreso por<text:span text:style-name="T24">: </text:span><text:span text:style-name="T19"><text:placeholder text:placeholder-type="text">&lt;user&gt;</text:placeholder></text:span></text:p>
   </office:text>
  </office:body>
 </office:document>

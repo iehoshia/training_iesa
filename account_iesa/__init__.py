@@ -30,6 +30,7 @@ def register():
         module='account_iesa', type_='model')
     Pool.register(
         PrintPaymentReportWizard,
+        CancelMoves,
         module='account_budget', type_='wizard')
     Pool.register(
         AccountMoveReport,

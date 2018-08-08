@@ -6,8 +6,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="company" readonly="1"/>
     <label name="account"/>
     <field name="account" widget="selection" colspan="3"/>
-    <label name="from_date"/>
-    <field name="from_date"/>
+    <!--<label name="from_date"/>
+    <field name="from_date"/>-->
     <label name="to_date"/>
     <field name="to_date"/>
     <field name="companies" widget="many2many" colspan="10"/>

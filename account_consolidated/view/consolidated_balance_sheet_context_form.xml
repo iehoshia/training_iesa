@@ -5,8 +5,8 @@ this repository contains the full copyright notices and license terms. -->
 	<group id="date-company" colspan="4" col="6">
 	    <label name="company"/>
 	    <field name="company" readonly="1"/>
-		<label name="from_date"/>
-	    <field name="from_date"/>
+		<!--<label name="from_date"/>
+	    <field name="from_date"/>-->
 	    <label name="to_date"/>
 	    <field name="to_date"/>
 	</group>

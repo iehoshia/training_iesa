@@ -213,7 +213,7 @@ class Account(DeactivableMixin, ModelSQL, ModelView):
             companies = context.get('companies',[])
             date = today if to_date is None else to_date
             for company in context.get('companies', []):
-                with transaction.set_context(company=company['id']
+                with transaction.set_context(company=company['id'],
                         posted=True, 
                         cumulate=True, 
                         date=date, 

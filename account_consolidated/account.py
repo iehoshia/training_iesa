@@ -303,7 +303,8 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
             set(end_period_ids).difference(set(start_period_ids)))
 
         for company in context.get('companies', []):
-            with transaction.set_context(company=company['id']):
+            with transaction.set_context(company=company['id'],
+                    posted=True, cumulate=True):
                 accounts = Account.search([
                         ('company', '=', company['id']),
                         ('type.meta_type', 'in', [t.id for t in childs]),
@@ -810,7 +811,7 @@ class PrintGeneralBalanceStart(ModelView):
         required=True,
         )
     from_date = fields.Date("From Date",
-        required=True,
+        required=False,
         domain=[
             If(Eval('to_date') & Eval('from_date'),
                 ('from_date', '<=', Eval('to_date')),
@@ -866,9 +867,12 @@ class GeneralBalance(Report):
         Account = Pool().get('account.account.meta.type')
 
         with Transaction().set_context(
-                from_date=data['from_date'],
+                #from_date=data['from_date'],
                 to_date=data['to_date'],
                 companies=data['companies'],
+                posted=True, 
+                cumulate=True, 
+
                 ):
             account = Account(data['account'])
             accounts = account._get_childs_by_order()
@@ -963,3 +967,19 @@ class PrintIncomeStatement(Wizard):
 class IncomeStatement(GeneralBalance):
     'Consolidated Income Statement Report'
     __name__ = 'consolidated_income_statement.report'
+
+    @classmethod
+    def _get_records(cls, ids, model, data):
+        Account = Pool().get('account.account.meta.type')
+
+        with Transaction().set_context(
+                from_date=data['from_date'],
+                to_date=data['to_date'],
+                companies=data['companies'],
+                posted=True, 
+                cumulate=True, 
+
+                ):
+            account = Account(data['account'])
+            accounts = account._get_childs_by_order()
+            return accounts

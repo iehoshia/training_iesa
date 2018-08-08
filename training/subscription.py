@@ -308,10 +308,21 @@ class Subscription(ModelSQL, ModelView):
                     'icon': 'tryton-go-next',
                     },
                 'run': {
-                    'invisible': Eval('state') != 'quotation',
+                    'invisible': Eval('state') == 'running',
                     'icon': 'tryton-go-next',
                     },
                 })
+        cls._transitions |= set((
+                ('draft', 'canceled'),
+                ('draft', 'quotation'),
+                ('draft', 'running'),
+                ('quotation', 'canceled'),
+                ('quotation', 'draft'),
+                ('quotation', 'running'),
+                ('running', 'draft'),
+                ('running', 'closed'),
+                ('canceled', 'draft'),
+                ))
         cls._error_messages.update({
                 'missing_account_enrolment': (
                     "You need to define an enrolment account."),
@@ -628,6 +639,7 @@ class Subscription(ModelSQL, ModelView):
     @Workflow.transition('running')
     @process_opportunity
     def run(cls, subscriptions):
+        cls.set_number(subscriptions)
         pool = Pool()
         Line = pool.get('sale.subscription.line')
         Subscription = pool.get('sale.subscription')

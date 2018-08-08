@@ -32,6 +32,7 @@ from numero_letras import numero_a_moneda
 
 __all__ = [
     'Move',
+    'CancelMoves',
     'GeneralLedgerAccountContext',
     'BalanceSheetContext',
     'IncomeStatementContext',
@@ -183,11 +184,33 @@ class Move(ModelSQL, ModelView):
         else:
             bool_op = 'OR'
         return [bool_op,
+            ('number',) + tuple(clause[1:]),
             ('post_number',) + tuple(clause[1:]),
             ('description',) + tuple(clause[1:]),
             ('journal',) + tuple(clause[1:]),
             (cls._rec_name,) + tuple(clause[1:]), 
             ]
+
+class CancelMoves(Wizard):
+    'Cancel Moves'
+    __name__ = 'account.move.cancel'
+
+    def transition_cancel(self):
+        pool = Pool()
+        Move = pool.get('account.move')
+        Line = pool.get('account.move.line')
+
+        moves = Move.browse(Transaction().context['active_ids'])
+        for move in moves:
+            default = self.default_cancel(move)
+            cancel_move = move.cancel(default=default)
+            to_reconcile = defaultdict(list)
+            for line in move.lines + cancel_move.lines:
+                if line.account.reconcile:
+                    to_reconcile[line.account, line.party].append(line)
+            for lines in to_reconcile.values():
+                Line.reconcile(lines)
+        return 'end'
 
 class GeneralLedgerAccountContext(ModelView):
     'General Ledger Account Context'
@@ -479,11 +502,13 @@ class Payment(Workflow, ModelView, ModelSQL):
         cls.check_modify(payments)
         # Cancel before delete
         cls.cancel(payments)
+        PaymentLine = Pool().get('account.iesa.payment.line')
         for payment in payments:
             if payment.state != 'canceled':
                 cls.raise_user_error('delete_cancel', (payment.rec_name,))
             if payment.number:
                 cls.raise_user_error('delete_numbered', (payment.rec_name,))
+        PaymentLine.delete([l for p in payment for l in p.lines])
         super(Payment, cls).delete(payments)
 
     @classmethod
@@ -942,6 +967,15 @@ class PaymentLine(ModelView, ModelSQL):
     currency_digits = fields.Function(fields.Integer('Currency Digits'),
         'on_change_with_currency_digits')
     company = fields.Many2One('company.company','Company')
+
+    @classmethod
+    def __setup__(cls):
+        super(PaymentLine, cls).__setup__()
+        cls.__rpc__.update({
+                'on_write': RPC(instantiate=0),
+                })
+        cls._order[0] = ('id', 'DESC')
+
 
     @fields.depends('account')
     def on_change_with_party_required(self, name=None):

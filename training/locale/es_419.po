@@ -1,0 +1,344 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:sale.subscription,student:"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "field:product.template,is_enrolment:"
+msgid "Enrolment"
+msgstr "Matrícula"
+
+msgctxt "field:sale.subscription,enrolment:"
+msgid "Enrolment"
+msgstr "Inscripción"
+
+msgctxt "field:sale.subscription,unit_price_enrolment:"
+msgid "Enrolment Price"
+msgstr "Precio de Inscripción"
+
+msgctxt "field:sale.subscription,section:"
+msgid "Section"
+msgstr "Sección"
+
+msgctxt "field:sale.subscription,origin:"
+msgid "Origin"
+msgstr "Origen"
+
+msgctxt "field:sale.subscription,invoices:"
+msgid "Invoices"
+msgstr "Cobros"
+
+msgctxt "field:party.party,dob:"
+msgid "Date of Birth"
+msgstr "Fecha de Nacimiento"
+
+msgctxt "field:party.party,payment_lines:"
+msgid "Payment History"
+msgstr "Historial de Pagos"
+
+msgctxt "field:party.party,age:"
+msgid "Age"
+msgstr "Edad"
+
+msgctxt "field:party.party,sex:"
+msgid "Sex"
+msgstr "Sexo"
+
+msgctxt "field:party.party,license:"
+msgid "License"
+msgstr "Carné"
+
+msgctxt "field:party.party,civil_status:"
+msgid "Civil Status"
+msgstr "Estado Civil"
+
+msgctxt "field:party.party,scholarship:"
+msgid "Scholarship"
+msgstr "Escolaridad"
+
+msgctxt "field:party.party,profession:"
+msgid "Profession"
+msgstr "Profesión"
+
+msgctxt "field:party.party,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:party.party,is_subscriber:"
+msgid "Subscriber"
+msgstr "Suscriptor"
+
+msgctxt "field:party.party,is_student:"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "field:party.party,invoices:"
+msgid "Invoices"
+msgstr "Cobros"
+
+msgctxt "field:party.party,subscriptions:"
+msgid "Subscriptions"
+msgstr "Matrículas"
+
+msgctxt "field:party.party,subscriptions_student:"
+msgid "Subscriptions"
+msgstr "Matrículas"
+
+msgctxt "field:sale.subscription,receivable:"
+msgid "Receivable"
+msgstr "Por cobrar"
+
+msgctxt "field:sale.subscription,grade:"
+msgid "Grade"
+msgstr "Grado"
+
+msgctxt "field:sale.subscription.context,student:"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "field:sale.subscription.context,subscriber:"
+msgid "Subscriber"
+msgstr "Encargado"
+
+msgctxt "field:sale.subscription.context,course:"
+msgid "Grade"
+msgstr "Grado"
+
+msgctxt "field:overdue.report.print.start,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:overdue.report.print.start,amount:"
+msgid "Amount"
+msgstr "Monto de Mora"
+
+msgctxt "field:overdue.report.print.start,user:"
+msgid "User"
+msgstr "Usuario"
+
+
+msgctxt "field:grade.overdue.report.print.start,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:grade.overdue.report.print.start,amount:"
+msgid "Amount"
+msgstr "Monto de Mora"
+
+msgctxt "field:grade.overdue.report.print.start,user:"
+msgid "User"
+msgstr "Usuario"
+
+msgctxt "field:grade.overdue.report.print.start,grade:"
+msgid "Grade"
+msgstr "Grado"
+
+msgctxt "field:account.move.line,ticket:"
+msgid "Ticket"
+msgstr "Boleta/Cheque"
+
+msgctxt "field:account.move.line,third_party:"
+msgid "Third Party"
+msgstr "Encargado"
+
+msgctxt "field:account.move.line,receipt:"
+msgid "Receipt"
+msgstr "Recibo"
+
+msgctxt "field:account.invoice.pay.start,receipt:"
+msgid "Receipt"
+msgstr "No. de Recibo"
+
+msgctxt "field:account.invoice.pay.start,ticket:"
+msgid "Ticket"
+msgstr "Boleta"
+
+msgctxt "field:account.invoice.pay.start,third_party:"
+msgid "Party"
+msgstr "Encargado"
+
+msgctxt "field:account.invoice.pay.start,is_ticket:"
+msgid "Bank Deposit"
+msgstr "Depósito Bancario"
+
+msgctxt "field:account.invoice,enrolment:"
+msgid "Enrolment"
+msgstr "Inscripción"
+
+msgctxt "field:sale.subscription.create_invoice.start,party:"
+msgid "Party"
+msgstr "Estudiante"
+
+msgctxt "view:sale.subscription:"
+msgid "Invoices"
+msgstr "Cobros"
+
+msgctxt "view:party.party:"
+msgid "Payment History"
+msgstr "Historial de Pagos"
+
+msgctxt "view:account.move.line:"
+msgid "InverseCredit"
+msgstr "Debe"
+
+msgctxt "view:account.move.line:"
+msgid "InverseDebit"
+msgstr "Haber"
+
+msgctxt "view:party.party:"
+msgid "School Notes"
+msgstr "Calificaciones escolares"
+
+msgctxt "view:party.party:"
+msgid "Under construction"
+msgstr "En construcción"
+
+msgctxt "view:party.party:"
+msgid "Subscriptions"
+msgstr "Matrículas"
+
+msgctxt "view:party.party:"
+msgid "Invoices"
+msgstr "Cobros"
+
+msgctxt "model:ir.ui.menu,name:menu_training"
+msgid "College"
+msgstr "Colegio"
+
+msgctxt "model:ir.ui.menu,name:menu_configuracion_training"
+msgid "Configuration"
+msgstr "Configuración"
+
+msgctxt "model:ir.ui.menu,name:menuitem_course"
+msgid "Grades"
+msgstr "Grados"
+
+msgctxt "model:ir.ui.menu,name:menuitem_grade"
+msgid "Grades Recurrence"
+msgstr "Recurrencias"
+
+msgctxt "model:ir.ui.menu,name:menuitem_subscriber"
+msgid "Subscribers"
+msgstr "Encargados"
+
+msgctxt "model:ir.ui.menu,name:menuitem_student"
+msgid "Students"
+msgstr "Estudiantes"
+
+msgctxt "model:ir.ui.menu,name:menuitem_subscription"
+msgid "Enrollments"
+msgstr "Matrículas"
+
+msgctxt "model:ir.ui.menu,name:menuitem_invoice"
+msgid "Invoices"
+msgstr "Cobros"
+
+msgctxt "model:ir.ui.menu,name:menuitem_calendar"
+msgid "Calendar"
+msgstr "Agenda"
+
+msgctxt "model:ir.ui.menu,name:menu_reporting_training"
+msgid "Reporting"
+msgstr "Reportes"
+
+msgctxt "model:ir.ui.menu,name:menu_overdue_report_print"
+msgid "Print Overdue Report"
+msgstr "Solvencias"
+
+msgctxt "model:ir.ui.menu,name:menu_grade_overdue_report_print"
+msgid "Print Grade Overdue Report"
+msgstr "Solvencias por Grado"
+
+msgctxt "model:ir.action,name:act_course"
+msgid "Grades"
+msgstr "Grados"
+
+msgctxt "model:ir.action,name:act_grade"
+msgid "Grades Recurrence"
+msgstr "Recurrencias"
+
+msgctxt "model:ir.action,name:act_subscriber"
+msgid "Subscribers"
+msgstr "Encargados"
+
+msgctxt "model:ir.action,name:act_student"
+msgid "Students"
+msgstr "Estudiantes"
+
+msgctxt "model:ir.action,name:act_invoice"
+msgid "Invoices"
+msgstr "Cobros"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_out_domain_draft"
+msgid "Draft"
+msgstr "Borradores"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_out_domain_validated"
+msgid "Validated"
+msgstr "Validados"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_out_domain_posted"
+msgid "Posted"
+msgstr "Contabilizados"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_invoice_out_domain_all"
+msgid "All"
+msgstr "Todos"
+
+msgctxt "model:ir.action,name:act_subscription"
+msgid "Enrollments"
+msgstr "Matrículas"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_subscription_form_domain_draft"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_subscription_form_domain_quotation"
+msgid "Quotation"
+msgstr "En Revisión"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_subscription_form_domain_running"
+msgid "Running"
+msgstr "Activas"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_subscription_form_domain_all"
+msgid "All"
+msgstr "Todas"
+
+msgctxt "model:ir.action,name:act_meeting"
+msgid "Calendar"
+msgstr "Agenda"
+
+msgctxt "model:ir.ui.menu,name:menuitem_create_invoice"
+msgid "Create Subscription Invoices"
+msgstr "Crear Cobros de Matrículas"
+
+msgctxt "model:ir.ui.menu,name:menuitem_line_consumption_create"
+msgid "Create Line Consumptions"
+msgstr "Crear Cobros Mensuales"
+
+msgctxt "view:sale.subscription.create_invoice.start:"
+msgid "Create Subscription Invoices for date"
+msgstr "Crear Cobro Anual" 
+
+msgctxt "model:ir.action,name:wizard_overdue_report_print"
+msgid "Print Overdue Report"
+msgstr "Solvencias"
+
+msgctxt "model:ir.action,name:wizard_grade_overdue_report_print"
+msgid "Print Grade Overdue Report"
+msgstr "Solvencias por Grado"
+
+msgctxt "model:res.group,name:group_college"
+msgid "College"
+msgstr "Colegio"

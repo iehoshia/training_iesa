@@ -1,0 +1,136 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "view:create.asset.start:"
+msgid ""
+"You can now create an asset for your company."
+msgstr ""
+"Ahora puedes crear una activo para el colegio."
+
+msgctxt "view:create.asset.end:"
+msgid ""
+"Your asset have been successfull created for your company."
+msgstr ""
+"El activo ha sido creado exitosamente para tu colegio."
+
+msgctxt "field:create.asset.form,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:create.asset.form,name:"
+msgid "Name"
+msgstr "Nombre del Activo"
+
+msgctxt "field:create.asset.form,code:"
+msgid "Code"
+msgstr "Código"
+
+msgctxt "field:create.asset.form,unit:"
+msgid "Unit"
+msgstr "Unidad"
+
+msgctxt "field:create.asset.form,value:"
+msgid "Value"
+msgstr "Valor de Compra"
+
+msgctxt "field:create.asset.form,residual_value:"
+msgid "Residual Value"
+msgstr "Valor Residual"
+
+msgctxt "field:create.asset.form,purchase_date:"
+msgid "Purchase Date"
+msgstr "Fecha de Compra"
+
+msgctxt "field:create.asset.form,start_date:"
+msgid "Start Date"
+msgstr "Fecha Inicial de Depreciación"
+
+msgctxt "field:create.asset.form,end_date:"
+msgid "End Date"
+msgstr "Fecha Final de Depreciación"
+
+msgctxt "field:create.asset.form,account_depreciation:"
+msgid "Account Accumulated Depreciation"
+msgstr "Cuenta de Depreciación Acumulada"
+
+msgctxt "field:create.asset.form,account_asset:"
+msgid "Account Depreciation"
+msgstr "Cuenta de Depreciación"
+
+msgctxt "field:create.asset.form,account_journal:"
+msgid "Journal"
+msgstr "Diario"
+
+msgctxt "field:create.asset.end,company:"
+msgid "Company"
+msgstr "Colegio"
+
+msgctxt "field:create.asset.end,created_asset:"
+msgid "Asset"
+msgstr "Activo Creado"
+
+msgctxt "model:ir.ui.menu,name:menu_assets"
+msgid "Assets"
+msgstr "Activos"
+
+msgctxt "model:ir.ui.menu,name:menu_create_asset"
+msgid "Create Asset"
+msgstr "Crear Activo"
+
+msgctxt "model:ir.action,name:act_asset_tree"
+msgid "Assets"
+msgstr "Activos"
+
+msgctxt "model:ir.action,name:act_open_created_asset_tree"
+msgid "Assets"
+msgstr "Activos"
+
+msgctxt "model:ir.action,name:wizard_create_asset"
+msgid "Create Asset"
+msgstr "Crear Activo"
+
+msgctxt "view:create.asset.form:"
+msgid "Asset Info"
+msgstr "Información del Activo"
+
+msgctxt "view:create.asset.form:"
+msgid "Asset Date Depreciation"
+msgstr "Fechas de Depreciación del Activo"
+
+msgctxt "view:create.asset.form:"
+msgid "Asset Account"
+msgstr "Cuentas Contables de Depreciación"
+
+msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_draft"
+msgid "Draft"
+msgstr "Borradores"
+
+msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_running"
+msgid "Running"
+msgstr "Activos"
+
+msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_closed"
+msgid "Closed"
+msgstr "Depreciados"
+
+msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_all"
+msgid "All"
+msgstr "Todos"
+
+msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_draft"
+msgid "Draft"
+msgstr "Borradores"
+
+msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_running"
+msgid "Running"
+msgstr "Activos"
+
+msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_closed"
+msgid "Closed"
+msgstr "Depreciados"
+
+msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_all"
+msgid "All"
+msgstr "Todos"
+            

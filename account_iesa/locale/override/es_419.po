@@ -1,0 +1,11 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:account.invoice,invoice_date:account_invoice."
+msgid "Invoice Date"
+msgstr "Fecha Cobro"
+
+msgctxt "model:account.invoice,name:account_invoice."
+msgid "Factura"
+msgstr "Cobro"
