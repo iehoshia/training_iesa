@@ -25,6 +25,7 @@ from trytond.pyson import Eval, If, PYSONEncoder, Bool, Not, Date
 from trytond.transaction import Transaction
 from trytond.pool import Pool, PoolMeta
 from trytond.report import Report
+from trytond.rpc import RPC
 
 from trytond import backend
 
@@ -588,75 +589,76 @@ class Payment(Workflow, ModelView, ModelSQL):
         return moves
 
     def __on_change_is_third_party_subscriber(self): 
-        pool = Pool()
-        Subscription = pool.get('sale.subscription')
-        Line = pool.get('account.iesa.payment.line')
-        Invoice = pool.get('account.invoice')
-        MoveLine = pool.get('account.move.line')
-        AccountConfiguration = pool.get('account.configuration')
-        account_config = AccountConfiguration(1)
-        default_account_receivable = account_config.get_multivalue('default_account_receivable')
+        if self.state == 'draft': 
+            pool = Pool()
+            Subscription = pool.get('sale.subscription')
+            Line = pool.get('account.iesa.payment.line')
+            Invoice = pool.get('account.invoice')
+            MoveLine = pool.get('account.move.line')
+            AccountConfiguration = pool.get('account.configuration')
+            account_config = AccountConfiguration(1)
+            default_account_receivable = account_config.get_multivalue('default_account_receivable')
 
-        self.lines = []
-        self.existing_move_lines = []
-        self.invoices = []
-        self.amount_receivable = 0
+            self.lines = []
+            self.existing_move_lines = []
+            self.invoices = []
+            self.amount_receivable = 0
 
-        if self.subscriber is not None and self.is_third_party is False:
-            party_id = self.subscriber.id
-            subscriptions = Subscription.search([('party','=',party_id)])
-            lines = []
-            parties = []
-            amount_receivable = 0
-            if subscriptions is not None: 
-                for subscription in subscriptions:
-                    line = Line()
-                    line.party = subscription.student.id
-                    line.payment_state = 'draft'
-                    line.company = subscription.company.id
-                    line.account = default_account_receivable.id
-                    amount = 0 if subscription.student.receivable <= 0 else subscription.student.receivable
-                    line.amount = amount
-                    description = self.description if self.description is not None else ''
-                    line.description = description
-                    lines.append(line)
-                    parties.append(subscription.student.id)
-                    amount_receivable += amount
-                self.lines = lines
-                self.amount_receivable = amount_receivable
-                # TODO add date future 
-                print "PARTIES: " + str(parties)
-                invoices = Invoice.search([('party','in',parties),
-                    ('state','=','posted'),
-                    ])
-                if invoices is not None: 
-                    self.invoices = invoices
-                # TODO add moves 
-                moves = MoveLine.search([('party','in',parties),
-                    ('state','=','valid')])
-                if moves is not None: 
-                    self.existing_move_lines = moves
-        if self.subscriber is not None and self.is_third_party is True: 
-            party_id = self.subscriber.id
-            lines = []
-            line = Line()
-            line.party = party_id
-            line.payment_state = 'draft'
-            line.company = self.company.id
-            line.account = default_account_receivable.id
-            line.amount = 0
-            lines.append(line)
-            self.lines = lines 
+            if self.subscriber is not None and self.is_third_party is False:
+                party_id = self.subscriber.id
+                subscriptions = Subscription.search([('party','=',party_id)])
+                lines = []
+                parties = []
+                amount_receivable = 0
+                if subscriptions is not None: 
+                    for subscription in subscriptions:
+                        line = Line()
+                        line.party = subscription.student.id
+                        line.payment_state = 'draft'
+                        line.company = subscription.company.id
+                        line.account = default_account_receivable.id
+                        amount = 0 if subscription.student.receivable <= 0 else subscription.student.receivable
+                        line.amount = amount
+                        description = self.description if self.description is not None else ''
+                        line.description = description
+                        lines.append(line)
+                        parties.append(subscription.student.id)
+                        amount_receivable += amount
+                    self.lines = lines
+                    self.amount_receivable = amount_receivable
+                    # TODO add date future 
+                    print "PARTIES: " + str(parties)
+                    invoices = Invoice.search([('party','in',parties),
+                        ('state','=','posted'),
+                        ])
+                    if invoices is not None: 
+                        self.invoices = invoices
+                    # TODO add moves 
+                    moves = MoveLine.search([('party','in',parties),
+                        ('state','=','valid')])
+                    if moves is not None: 
+                        self.existing_move_lines = moves
+            if self.subscriber is not None and self.is_third_party is True: 
+                party_id = self.subscriber.id
+                lines = []
+                line = Line()
+                line.party = party_id
+                line.payment_state = 'draft'
+                line.company = self.company.id
+                line.account = default_account_receivable.id
+                line.amount = 0
+                lines.append(line)
+                self.lines = lines 
 
-    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company')
+    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','state')
     def on_change_is_third_party(self, name=None):
-        self.__on_change_is_third_party_subscriber()
+        self.__on_change_is_third_party_subscriber() 
 
-    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','description')
+    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','description','state')
     def on_change_subscriber(self, name=None):
         self.__on_change_is_third_party_subscriber()
 
-    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','description')
+    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','description','state')
     def on_change_description(self, name=None):
         self.__on_change_is_third_party_subscriber()
 
