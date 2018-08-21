@@ -14,7 +14,20 @@ from trytond.transaction import Transaction
 
 __all__ = [
     'Type',
+    'Template',
     ]
+
+class Template(ModelSQL, ModelView):
+    'Account Type'
+    __name__ = 'account.account.type.template'
+
+    type_display_balance = fields.Selection([('debit','Debit'),
+            ('credit','Credit')],
+            'Type')
+
+    @staticmethod
+    def default_type_display_balance():
+        return 'debit'
 
 class Type(ModelSQL, ModelView):
     'Account Type'
@@ -22,6 +35,11 @@ class Type(ModelSQL, ModelView):
 
     level = fields.Function(fields.Numeric('Level',digits=(2,0)),
         '_get_level')
+    custom_amount = fields.Function(fields.Numeric('Custom Amount',
+        digits=(2,0)), '_get_custom_amount')
+    type_display_balance = fields.Selection([('debit','Debit'),
+        ('credit','Credit')],
+        'Type')
 
     def _get_level(self, parent=None): 
         level = 0
@@ -44,3 +62,15 @@ class Type(ModelSQL, ModelView):
                 res.append(Account(child.id))
                 child._get_childs_by_order(res=res)
         return res 
+
+    def _get_custom_amount(self, name):
+        amount = 0
+        if self.type_display_balance == 'credit':
+            amount  = - self.amount
+        else:
+            amount  = self.amount
+        return amount
+
+    @staticmethod
+    def default_type_display_balance():
+        return 'debit'

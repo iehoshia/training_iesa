@@ -19,7 +19,6 @@ def register():
         SaleOpportunityLine,
         SaleMeeting, 
         Service, 
-        #Move, 
         Template, 
         Invoice, 
         Configuration, 
@@ -30,7 +29,6 @@ def register():
         GradeOverdueReportTable, 
         CreateSubscriptionInvoiceStart,
         PayInvoiceStart,
-        MoveLine, 
         module='training', type_='model')
 
     Pool.register(

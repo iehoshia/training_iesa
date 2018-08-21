@@ -33,6 +33,8 @@ from numero_letras import numero_a_moneda
 
 __all__ = [
     'Move',
+    'MoveLine',
+    'GeneralJournal',
     'CancelMoves',
     'GeneralLedgerAccountContext',
     'BalanceSheetContext',
@@ -153,6 +155,7 @@ class Move(ModelSQL, ModelView):
             ('post_number','DESC'),
             ('id', 'ASC'),
             ]
+        cls.lines.context = {'description':Eval('description')}
 
     @classmethod
     def _get_origin(cls):
@@ -191,6 +194,45 @@ class Move(ModelSQL, ModelView):
             ('journal',) + tuple(clause[1:]),
             (cls._rec_name,) + tuple(clause[1:]), 
             ]
+
+class MoveLine(ModelSQL, ModelView):
+    'Account Move Line'
+    __name__ = 'account.move.line'
+
+    _states = {
+        'readonly': Eval('move_state') == 'posted',
+        }
+    _depends = ['move_state']
+
+    ticket = fields.Char('Ticket', states=_states, depends=_depends)
+    third_party = fields.Char('Third Party', states=_states, depends=_depends)
+    receipt = fields.Char('Receipt', states=_states, depends=_depends)
+
+    @classmethod 
+    def __setup__(cls): 
+        super(MoveLine, cls).__setup__() 
+
+    @staticmethod
+    def default_description():
+        description = Transaction().context.get('description')
+        return description
+
+class GeneralJournal(Report):
+    __name__ = 'account.move.general_journal'
+
+    @classmethod
+    def _get_records(cls, ids, model, data):
+        Move = Pool().get('account.move')
+
+        clause = [
+            ('date', '>=', data['from_date']),
+            ('date', '<=', data['to_date']),
+            ('period.fiscalyear.company', '=', data['company']),
+            ]
+        if data['posted']:
+            clause.append(('state', '=', 'posted'))
+        return Move.search(clause,
+                order=[('post_number', 'ASC'), ('date', 'ASC')])
 
 class CancelMoves(Wizard):
     'Cancel Moves'
@@ -305,10 +347,6 @@ class PaymentParty(ModelSQL, ModelView):
     party = fields.Many2One('party.party', 
             'Party', ondelete='CASCADE',
             required=True, select=True,
-            #domain=['AND',
-            #        [('company','=',Eval('context', {}).get('company', -1) )],
-            #        [('is_student','=',True)]
-            #]
             )
 
 class Payment(Workflow, ModelView, ModelSQL):
@@ -356,6 +394,11 @@ class Payment(Workflow, ModelView, ModelSQL):
             ('company', '=', Eval('company', -1)),
             ],
         depends=['company'])
+    cancel_move = fields.Many2One('account.move', 'Cancel Move', readonly=True,
+        domain=[
+            ('company', '=', Eval('company', -1)),
+            ],
+        depends=['company'])
     account = fields.Many2One('account.account', 'Account', 
         required=False,
         states=_STATES, depends=_DEPENDS + ['type', 'company'],
@@ -369,7 +412,8 @@ class Payment(Workflow, ModelView, ModelSQL):
     lines = fields.One2Many('account.iesa.payment.line','payment', 
         'Payment Lines',
         required=True,
-        states=_STATES, depends=_DEPENDS+['company'],
+        states=_STATES, depends=_DEPENDS+['company','description'],
+        context={'description':Eval('description')},
         domain=[
             ('company', '=', Eval('company', -1)),
         ])
@@ -497,20 +541,6 @@ class Payment(Workflow, ModelView, ModelSQL):
             cache = Transaction().get_cache()
             cache.pop(cls.__name__, None)
         return records
-
-    @classmethod
-    def delete(cls, payments):
-        cls.check_modify(payments)
-        # Cancel before delete
-        cls.cancel(payments)
-        PaymentLine = Pool().get('account.iesa.payment.line')
-        for payment in payments:
-            if payment.state != 'canceled':
-                cls.raise_user_error('delete_cancel', (payment.rec_name,))
-            if payment.number:
-                cls.raise_user_error('delete_numbered', (payment.rec_name,))
-        PaymentLine.delete([l for p in payment for l in p.lines])
-        super(Payment, cls).delete(payments)
 
     @classmethod
     def search_rec_name(cls, name, clause):
@@ -647,6 +677,8 @@ class Payment(Workflow, ModelView, ModelSQL):
                 line.company = self.company.id
                 line.account = default_account_receivable.id
                 line.amount = 0
+                description = self.description if self.description is not None else ''
+                line.description = description
                 lines.append(line)
                 self.lines = lines 
 
@@ -656,10 +688,6 @@ class Payment(Workflow, ModelView, ModelSQL):
 
     @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','description','state')
     def on_change_subscriber(self, name=None):
-        self.__on_change_is_third_party_subscriber()
-
-    @fields.depends('subscriber','lines','existing_move_lines','is_third_party','company','description','state')
-    def on_change_description(self, name=None):
         self.__on_change_is_third_party_subscriber()
 
     @fields.depends('subscriber','invoices','lines')
@@ -840,7 +868,45 @@ class Payment(Workflow, ModelView, ModelSQL):
     @ModelView.button
     @Workflow.transition('canceled')
     def cancel(cls, payments):
-        pass
+        pool = Pool()
+        Move = pool.get('account.move')
+        Line = pool.get('account.move.line')
+
+        cancel_moves = []
+        delete_moves = []
+        to_save = []
+        for payment in payments:
+            if payment.move:
+                if payment.move.state == 'draft':
+                    delete_moves.append(payment.move)
+                elif not payment.cancel_move:
+                    payment.cancel_move = payment.move.cancel()
+                    to_save.append(payment)
+                    cancel_moves.append(payment.cancel_move)
+        if cancel_moves:
+            Move.save(cancel_moves)
+        cls.save(to_save)
+        if delete_moves:
+            Move.delete(delete_moves)
+        if cancel_moves:
+            Move.post(cancel_moves)
+        # Write state before reconcile to prevent payment to go to paid state
+        cls.write(payments, {
+                'state': 'canceled',
+                })
+        # Reconcile lines to pay with the cancellation ones if possible
+        for payment in payments:
+            if not payment.move or not payment.cancel_move:
+                continue
+            to_reconcile = []
+            for line in payment.move.lines + payment.cancel_move.lines:
+                if line.account == payment.account:
+                    if line.reconciliation:
+                        break
+                    to_reconcile.append(line)
+            else:
+                if to_reconcile:
+                    Line.reconcile(to_reconcile)
 
     @classmethod
     @ModelView.button
@@ -898,6 +964,21 @@ class Payment(Workflow, ModelView, ModelSQL):
                 Move.save(moves)
             payment.state = 'posted'
         cls.save(payments_ids)
+
+    @classmethod
+    def delete(cls, payments):
+        cls.check_modify(payments)
+        # Cancel before delete
+        cls.cancel(payments)
+        PaymentLine = Pool().get('account.iesa.payment.line')
+        for payment in payments:
+            if payment.state != 'canceled':
+                cls.raise_user_error('delete_cancel', (payment.rec_name,))
+            if payment.number:
+                cls.raise_user_error('delete_numbered', (payment.rec_name,))
+        PaymentLine.delete([l for p in payments for l in p.lines])
+
+        super(Payment, cls).delete(payments)
 
 class PaymentMoveReference(ModelView, ModelSQL):
     'Payment Move Reference'
@@ -978,7 +1059,6 @@ class PaymentLine(ModelView, ModelSQL):
                 })
         cls._order[0] = ('id', 'DESC')
 
-
     @fields.depends('account')
     def on_change_with_party_required(self, name=None):
         if self.account:
@@ -1001,6 +1081,11 @@ class PaymentLine(ModelView, ModelSQL):
     def default_company():
         return Transaction().context.get('company')
 
+    @staticmethod
+    def default_description():
+        description = Transaction().context.get('description') or ''
+        return description
+        
     @staticmethod
     def default_account():
         AccountConfiguration = Pool().get('account.configuration')
@@ -1178,7 +1263,7 @@ class PaymentContext(ModelView):
     party = fields.Many2One('party.party','Party',
         domain=[
             ('company', '=', Eval('context', {}).get('company', -1))],
-        help='The party that generate the expense',
+        help='The party that generate the payment',
     )
     from_date = fields.Date("From Date",
         domain=[

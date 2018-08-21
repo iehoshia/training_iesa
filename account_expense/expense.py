@@ -113,10 +113,16 @@ class Expense(Workflow, ModelView, ModelSQL):
             ('company', '=', Eval('company', -1)),
             ],
         depends=['company'])
+    cancel_move = fields.Many2One('account.move', 'Cancel Move', readonly=True,
+        domain=[
+            ('company', '=', Eval('company', -1)),
+            ],
+        depends=['company'])
     lines = fields.One2Many('account.iesa.expense.line','expense', 
         'Expense Lines',
         required=True,
         states=_STATES, depends=_DEPENDS+['company'],
+        context={'description':Eval('description')},
         domain=[
             ('company', '=', Eval('company', -1)),
         ])
@@ -390,7 +396,45 @@ class Expense(Workflow, ModelView, ModelSQL):
     @ModelView.button
     @Workflow.transition('canceled')
     def cancel(cls, expenses):
-        pass
+        pool = Pool()
+        Move = pool.get('account.move')
+        Line = pool.get('account.move.line')
+
+        cancel_moves = []
+        delete_moves = []
+        to_save = []
+        for expense in expenses:
+            if expense.move:
+                if expense.move.state == 'draft':
+                    delete_moves.append(expense.move)
+                elif not expense.cancel_move:
+                    expense.cancel_move = expense.move.cancel()
+                    to_save.append(expense)
+                    cancel_moves.append(expense.cancel_move)
+        if cancel_moves:
+            Move.save(cancel_moves)
+        cls.save(to_save)
+        if delete_moves:
+            Move.delete(delete_moves)
+        if cancel_moves:
+            Move.post(cancel_moves)
+        # Write state before reconcile to prevent payment to go to paid state
+        cls.write(expenses, {
+                'state': 'canceled',
+                })
+        # Reconcile lines to pay with the cancellation ones if possible
+        for expense in expenses:
+            if not expense.move or not expense.cancel_move:
+                continue
+            to_reconcile = []
+            for line in expense.move.lines + expense.cancel_move.lines:
+                if line.account == expense.account:
+                    if line.reconciliation:
+                        break
+                    to_reconcile.append(line)
+            else:
+                if to_reconcile:
+                    Line.reconcile(to_reconcile)
 
     @classmethod
     @ModelView.button
@@ -429,7 +473,7 @@ class Expense(Workflow, ModelView, ModelSQL):
         Move = pool.get('account.move')
         Line = pool.get('account.move.line')
         Period = pool.get('account.period')
-        Invoice = pool.get('account.invoice')
+        
         Currency = pool.get('currency.currency')
         Date = pool.get('ir.date')
 
@@ -547,7 +591,6 @@ class ExpenseLine(ModelView, ModelSQL):
         if default_account_receivable: 
             return default_account_receivable.id
         return None
-        
 
     @staticmethod
     def default_amount():
@@ -571,6 +614,11 @@ class ExpenseLine(ModelView, ModelSQL):
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
+
+    @staticmethod
+    def default_description():
+        description = Transaction().context.get('description') or ''
+        return description
 
     @fields.depends('currency')
     def on_change_with_currency_digits(self, name=None):

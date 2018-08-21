@@ -49,8 +49,8 @@ class AccountTypeTemplate(sequence_ordered(), ModelSQL, ModelView):
             res['income_statement'] = self.income_statement
         if not type or type.display_balance != self.display_balance:
             res['display_balance'] = self.display_balance
-        #if not type or type.meta_type != self.meta_type:
-        #    res['meta_type'] = self.meta_type
+        if not type or type.type_display_balance != self.type_display_balance:
+            res['type_display_balance'] = self.type_display_balance
         if not type or type.template != self:
             res['template'] = self.id
         return res

@@ -11,6 +11,8 @@ this repository contains the full copyright notices and license terms. -->
     <newline/>
     <label name="display_balance"/>
     <field name="display_balance"/>
+    <label name="type_display_balance"/>
+    <field name="type_display_balance"/>
     <newline/>
     <label name="balance_sheet"/>
     <field name="balance_sheet"/>

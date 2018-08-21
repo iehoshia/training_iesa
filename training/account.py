@@ -40,7 +40,6 @@ __all__ = [
     'PayInvoice',
     'InvoiceReportReceipt',
     'PayInvoiceStart',
-    'MoveLine',
     ] 
 
 __metaclass__ = PoolMeta

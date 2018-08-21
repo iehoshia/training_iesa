@@ -88,12 +88,9 @@ class TypeTemplate(sequence_ordered(), ModelSQL, ModelView):
         ('debit-credit', 'Debit - Credit'),
         ('credit-debit', 'Credit - Debit'),
         ], 'Display Balance', required=True)
-
-    @classmethod
-    def __register__(cls, module_name):
-        TableHandler = backend.get('TableHandler')
-        table = TableHandler(cls, module_name)
-        super(TypeTemplate, cls).__register__(module_name)
+    type_display_balance = fields.Selection([('debit','Debit'),
+            ('credit','Credit')],
+            'Type')
 
     @classmethod
     def validate(cls, records):
@@ -111,6 +108,10 @@ class TypeTemplate(sequence_ordered(), ModelSQL, ModelView):
     @staticmethod
     def default_display_balance():
         return 'debit-credit'
+
+    @staticmethod
+    def default_type_display_balance():
+        return 'debit'
 
     def get_rec_name(self, name):
         if self.parent:
@@ -133,6 +134,8 @@ class TypeTemplate(sequence_ordered(), ModelSQL, ModelView):
             res['income_statement'] = self.income_statement
         if not type or type.display_balance != self.display_balance:
             res['display_balance'] = self.display_balance
+        if not type or type.type_display_balance != self.type_display_balance:
+            res['type_display_balance'] = self.type_display_balance
         if not type or type.template != self:
             res['template'] = self.id
         return res
@@ -219,6 +222,11 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
         depends=['template'])
     level = fields.Function(fields.Numeric('Level',digits=(2,0)),
         '_get_level')
+    type_display_balance = fields.Selection([('debit','Debit'),
+            ('credit','Credit')],
+            'Type')
+    custom_amount = fields.Function(fields.Numeric('Custom Amount',
+        digits=(2,0)), '_get_custom_amount')
 
     del _states
 
@@ -227,6 +235,14 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
         if self.parent:
             level = self.parent.level + 1
         return  level
+
+    def _get_custom_amount(self, name):
+        amount = 0
+        if self.type_display_balance == 'credit':
+            amount  = - self.amount
+        else:
+            amount  = self.amount
+        return amount
 
     def _get_childs_by_order(self, res=None):
         '''Returns the records of all the children computed recursively, and sorted by sequence. Ready for the printing'''
@@ -245,16 +261,6 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
         return res
 
     @classmethod
-    def __register__(cls, module_name):
-        TableHandler = backend.get('TableHandler')
-        table = TableHandler(cls, module_name)
-
-        super(Type, cls).__register__(module_name)
-
-        # Migration from 2.4: drop required on sequence
-        table.not_null_action('sequence', action='remove')
-
-    @classmethod
     def validate(cls, types):
         super(Type, cls).validate(types)
         cls.check_recursion(types, rec_name='name')
@@ -270,6 +276,10 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
     @staticmethod
     def default_display_balance():
         return 'debit-credit'
+
+    @staticmethod
+    def default_type_display_balance():
+        return 'debit'
 
     @classmethod
     def default_template_override(cls):
@@ -347,10 +357,11 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
             ]
 
     def get_rec_name(self, name):
-        if self.parent:
-            return self.parent.get_rec_name(name) + '\\' + self.name
-        else:
-            return self.name
+        #if self.parent:
+        #    return self.parent.get_rec_name(name) + '\\' + self.name
+        #else:
+        #    return self.name
+        return self.name
 
     @classmethod
     def delete(cls, types):

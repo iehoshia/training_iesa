@@ -12,6 +12,7 @@ def register():
         Template, 
         Service,
         Move,  
+        MoveLine, 
         GeneralLedgerAccountContext,
         BalanceSheetContext,
         IncomeStatementContext,
@@ -37,4 +38,5 @@ def register():
         GeneralLedger,
         PaymentReceipt,
         PrintPaymentReport,
+        GeneralJournal,
         module='account_iesa', type_='report')

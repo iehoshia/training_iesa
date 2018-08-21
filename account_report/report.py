@@ -124,7 +124,6 @@ class GeneralBalance(Report):
                         accounts_omit_zero.append(account)
                     elif account.level >=4 and account.amount != 0: 
                         accounts_omit_zero.append(account)
-                    #print "ACCOUNT NAME: " + account.name + " ACCOUNT: " + str(account.level)
                 return accounts_omit_zero
             return accounts
 
@@ -234,6 +233,5 @@ class IncomeStatement(GeneralBalance):
                         accounts_omit_zero.append(account)
                     elif account.level >=4 and account.amount != 0: 
                         accounts_omit_zero.append(account)
-                    #print "ACCOUNT NAME: " + account.name + " ACCOUNT: " + str(account.level)
                 return accounts_omit_zero
             return accounts

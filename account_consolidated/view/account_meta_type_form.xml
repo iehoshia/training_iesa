@@ -12,6 +12,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="parent"/>
     <label name="display_balance"/>
     <field name="display_balance"/>
+    <label name="type_display_balance"/>
+    <field name="type_display_balance"/>
     <label name="template_override"/>
     <field name="template_override"/>
     <newline/>

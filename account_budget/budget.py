@@ -40,6 +40,39 @@ class BalanceMixin:
             digits=(16, Eval('currency_digits', 2)),
             depends=['currency_digits']),
         'get_difference')
+    type = fields.Selection([('debit','Debit'),
+        ('credit','Credit')],
+        'Type')
+    custom_amount = fields.Function(fields.Numeric('Custom Amount',
+        digits=(2,0)), '_get_custom_amount')
+    custom_balance = fields.Function(fields.Numeric('Custom Balance',
+        digits=(2,0)), '_get_custom_balance')
+    custom_difference = fields.Function(fields.Numeric('Custom Difference',
+        digits=(2,0)), '_get_custom_difference')
+
+    def _get_custom_amount(self, name):
+        amount = 0
+        if self.type == 'credit':
+            amount  = - self.amount
+        else:
+            amount  = self.amount
+        return amount
+
+    def _get_custom_balance(self, name):
+        balance = 0
+        if self.type == 'credit':
+            balance  = - self.balance
+        else:
+            balance  = self.balance
+        return balance
+
+    def _get_custom_difference(self, name):
+        difference = 0
+        if self.type == 'credit':
+            difference  = - self.difference
+        else:
+            difference  = self.difference
+        return difference
 
     def on_change_with_currency(self, name=None):
         raise NotImplementedError
@@ -93,9 +126,6 @@ class BudgetMixin(BalanceMixin, ModelSQL, ModelView):
         help="Make the budget belong to the company.")
     left = fields.Integer("Left", required=True, select=True)
     right = fields.Integer("Right", required=True, select=True)
-    type = fields.Selection([('debit','Debit'),
-        ('credit','Credit')],
-        'Type')
 
     @classmethod
     def _childs_domain(cls):

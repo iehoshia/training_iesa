@@ -9,6 +9,7 @@ def register():
         PrintGeneralBalanceStart,
         PrintIncomeStatementStart,
         Type, 
+        Template,
         module='account_report', type_='model')
     Pool.register(
         PrintGeneralBalance,

@@ -5,5 +5,7 @@ this repository contains the full copyright notices and license terms. -->
     <xpath expr="/form/field[@name=&quot;income_statement&quot;]" position="after">
     	<label name="level"/>
     	<field name="level"/>
+    	<label name="type_display_balance"/>
+    	<field name="type_display_balance"/>
     </xpath>
 </data>
