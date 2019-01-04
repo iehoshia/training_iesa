@@ -93,6 +93,11 @@ class CreateAssetForm(ModelSQL, ModelView):
     created_asset = fields.Many2One('account.asset','Asset',
         domain=[('company','=',Eval('company',-1))]
         )
+    cash_journal = fields.Many2One('account.journal', 'Cash Journal',
+        domain=[('type', 'in', ['cash','statement']) ],
+        required=True)
+    ticket = fields.Char('Ticket', required=True)
+    receipt = fields.Char('Receipt', required=True)
 
     @staticmethod
     def default_purchase_date():
@@ -134,6 +139,9 @@ class CreateAssetEnd(ModelSQL, ModelView):
     created_asset = fields.Many2One('account.asset','Asset',
         domain=[('company','=',Eval('company',-1))]
         )
+    move = fields.Many2One('account.move','Move',
+        domain=[('company','=',Eval('company',-1))]
+        )
 
     @staticmethod
     def default_company():
@@ -165,6 +173,10 @@ class CreateAsset(Wizard):
     @classmethod
     def __setup__(cls):
         super(CreateAsset, cls).__setup__()
+        cls._error_messages.update({
+                'missing_account_receivable': ('Missing Account Revenue.'),
+                'missing_account_credit': ('Missing Account Credit.'),
+                })
 
     def transition_create_asset(self):
         pool = Pool()
@@ -172,6 +184,8 @@ class CreateAsset(Wizard):
         Product = pool.get('product.product')
         ProductTemplate = pool.get('product.template')
         Asset = pool.get('account.asset')
+        Expense = pool.get('account.iesa.expense')
+        ExpenseLine = pool.get('account.iesa.expensa.line')
 
         asset_product = Product()
         asset_template = ProductTemplate()
@@ -200,6 +214,39 @@ class CreateAsset(Wizard):
         asset.end_date =self.asset.end_date
         asset.company = self.asset.company.id
         asset.save() 
+
+        '''
+        move = Move()
+        journal = self.asset.cash_journal 
+        date = self.asset.purchase_date
+        amount = self.asset.value
+        description = self.asset.name + ' - ' + self.asset.code + 
+        ticket = self.asset.ticket + ' / ' + self.asset.receipt
+        lines = []
+
+        credit_line = MoveLine(description=self.asset.name)
+        credit_line.debit, credit_line.credit = 0, self.asset.value
+        credit_line.account = self.cash_journal.debit_account
+        
+        if not credit_line.account:
+            self.raise_user_error('missing_account_credit')
+
+        lines.append(credit_line)
+        
+        for line in self.lines: 
+            if line.account.party_required:
+                new_line = MoveLine(description=line.description, account=line.account, party=line.party)
+            else:
+                new_line = MoveLine(description=line.description, account=line.account)
+            new_line.debit, new_line.credit = line.amount, 0
+            lines.append(new_line)
+
+        period_id = Period.find(self.company.id, date=date)
+
+        move = Move(journal=journal, period=period_id, date=date,
+            company=self.company, lines=lines, origin=self, description=description)
+        move.save()
+        '''
 
         if asset:
             self.asset.created_asset = asset.id 

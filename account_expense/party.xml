@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="party_view_tree">
+            <field name="model">party.party</field>
+            <field name="inherit" ref="party.party_view_tree"/>
+            <field name="name">party_tree</field>
+        </record>
+        <record model="ir.ui.view" id="party_view_form">
+            <field name="model">party.party</field>
+            <field name="inherit" ref="party.party_view_form"/>
+            <field name="name">party_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_iesa_party_tree">
+            <field name="name">Providers</field>
+            <field name="res_model">party.party</field>
+            <field name="domain" eval="[ 'AND', 
+                    [('is_provider', '=', True),], 
+                    [('company', '=', Eval('context', {}).get('company', -1))],
+             ]" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_party_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="party_view_tree"/>
+            <field name="act_window" ref="act_iesa_party_tree"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_party_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="party_view_form"/>
+            <field name="act_window" ref="act_iesa_party_tree"/>
+        </record>
+
+        <menuitem parent="training.menu_training" action="act_iesa_party_tree"
+            id="menu_party_tree" sequence="4"
+            icon="tryton-list"/>  
+
+    </data>
+</tryton>

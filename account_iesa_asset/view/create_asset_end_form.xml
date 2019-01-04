@@ -12,4 +12,6 @@ this repository contains the full copyright notices and license terms. -->
     <field name="company" readonly="1"/>   
     <label name="created_asset"/>
     <field name="created_asset" readonly="1"/>
+    <label name="move"/>
+    <field name="move" readonly="1"/>
 </form>

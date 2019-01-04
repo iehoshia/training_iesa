@@ -60,7 +60,19 @@ msgstr "Cuenta de Depreciación"
 
 msgctxt "field:create.asset.form,account_journal:"
 msgid "Journal"
-msgstr "Diario"
+msgstr "Diario de Activo"
+
+msgctxt "field:create.asset.form,cash_journal:"
+msgid "Cash Journal"
+msgstr "Diario de Compra"
+
+msgctxt "field:create.asset.form,ticket:"
+msgid "Ticket"
+msgstr "Factura de Compra"
+
+msgctxt "field:create.asset.form,receipt:"
+msgid "Receipt"
+msgstr "Número de Cheque"
 
 msgctxt "field:create.asset.end,company:"
 msgid "Company"
@@ -102,6 +114,10 @@ msgctxt "view:create.asset.form:"
 msgid "Asset Account"
 msgstr "Cuentas Contables de Depreciación"
 
+msgctxt "view:create.asset.form:"
+msgid "Account Journal"
+msgstr "Información Contable de Compra de Activo"
+
 msgctxt "model:ir.action.act_window.domain,name:act_asset_form_domain_draft"
 msgid "Draft"
 msgstr "Borradores"
@@ -133,4 +149,27 @@ msgstr "Depreciados"
 msgctxt "model:ir.action.act_window.domain,name:act_open_created_asset_tree_domain_all"
 msgid "All"
 msgstr "Todos"
-            
+
+msgctxt "wizard_button:create.asset,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:create.asset,start,asset:"
+msgid "OK"
+msgstr "Aceptar" 
+
+msgctxt "wizard_button:create.asset,asset,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:create.asset,asset,asset:"
+msgid "OK"
+msgstr "Aceptar" 
+
+msgctxt "wizard_button:create.asset,created,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:create.asset,created,open_created:"
+msgid "OK"
+msgstr "Aceptar" 

@@ -308,7 +308,8 @@ class Subscription(ModelSQL, ModelView):
                     'icon': 'tryton-go-next',
                     },
                 'run': {
-                    'invisible': Eval('state') == 'running',
+                    #'invisible': Eval('state') == 'running',
+                    'invisible': Eval('state').in_(['running', 'canceled']),
                     'icon': 'tryton-go-next',
                     },
                 })
@@ -1084,11 +1085,11 @@ class OverdueReport(Report):
 
         pool = Pool()
         Subscription = pool.get('sale.subscription')
+        Company = pool.get('company.company')
+        company = Transaction().context.get('company')
 
         clause = ''
         clause = clause[:]
-        company = Transaction().context.get('company')
-        #amount = data['amount']
 
         start_date = date(date.today().year, 1, 1)
         end_date =  date(date.today().year, 12, 31)
@@ -1105,8 +1106,7 @@ class OverdueReport(Report):
         subscriptions = Subscription.search(clause)
 
         report_context['date'] = data['date']
-        report_context['user'] = data['user']
-        
+        report_context['company'] = Company(company)
         report_context['total'] = sum((x.student.receivable for x in subscriptions))
         
         return report_context
@@ -1209,6 +1209,7 @@ class GradeOverdueReport(Report):
 
         pool = Pool()
         Subscription = pool.get('sale.subscription')
+        Company = pool.get('company.company')
         Grade = pool.get('sale.subscription.service')
 
         clause = ''
@@ -1236,7 +1237,8 @@ class GradeOverdueReport(Report):
         subscriptions = Subscription.search(clause)
 
         report_context['date'] = data['date']
-        report_context['user'] = data['user']
+        #report_context['user'] = data['user']
+        report_context['company'] = Company(company)
         report_context['grade'] = grade_name
         report_context['total'] = sum((x.student.receivable for x in subscriptions))
         

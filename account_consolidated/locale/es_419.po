@@ -225,3 +225,27 @@ msgid ""
 msgstr ""
 "Ahora puede crear un plan contable para su empresa seleccionando una "
 "plantilla de plan contable." 
+
+msgctxt "wizard_button:print.consolidated_general_balance,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:print.consolidated_general_balance,start,print_:"
+msgid "Print"
+msgstr "Imprimir" 
+
+msgctxt "wizard_button:print.consolidated_income_statement,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:print.consolidated_income_statement,start,print_:"
+msgid "Print"
+msgstr "Imprimir" 
+
+msgctxt "model:ir.action,name:report_consolidated_general_balance"
+msgid "Consolidated General Balance"
+msgstr "Balance General Consolidado"
+
+msgctxt "model:ir.action,name:report_consolidated_income_statement"
+msgid "Consolidated Income Statement"
+msgstr "Estado de Pérdidas y Ganancias Consolidado"

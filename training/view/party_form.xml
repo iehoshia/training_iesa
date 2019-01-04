@@ -25,11 +25,13 @@
                 <label name="code"/>
                 <field name="code"/>
                 <label name="dpi"/> 
-                <field name="dpi"/>
+                <field name="dpi"/> 
                 <label name="company"/>
                 <field name="company" readonly="1"/>
                 <label name="license"/>
                 <field name="license"/>
+                <label name="lang"/>  
+                <field name="lang"/>
 
             </group>
             <group col ="1" colspan="1" string="Avatar" id="person_picture">
@@ -58,6 +60,10 @@
                     view_ids="party.address_view_form,party.address_view_tree_sequence"/>
             <field name="contact_mechanisms" colspan="2"
                     view_ids="party.contact_mechanism_view_tree_sequence"/>
+            <group col="2" colspan="4" id="lang">
+                <label name="lang"/>
+                <field name="lang" widget="selection" xexpand="0"/>
+            </group>
         </page>
         
         <page string="Subscriptions" id="subscription" col="2">

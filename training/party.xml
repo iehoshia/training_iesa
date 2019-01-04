@@ -446,7 +446,6 @@
             <field name="act_window" ref="act_student"/>
         </record>
 
-        
         <menuitem parent="menu_training" sequence="2"
             action="act_student" id="menuitem_student"
             icon="student_icon"/>

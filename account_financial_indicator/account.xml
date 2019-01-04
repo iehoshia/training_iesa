@@ -82,7 +82,6 @@ this repository contains the full copyright notices and license terms. -->
         <menuitem parent="menu_index" action="act_account_tree3"
             id="menu_consolidated_index" icon="tryton-list"/>
 
-
         <record model="ir.rule.group" id="rule_group_analytic_account">
             <field name="model" search="[('model', '=', 'analytic_account.account')]"/>
             <field name="global_p" eval="True"/>
@@ -116,5 +115,24 @@ this repository contains the full copyright notices and license terms. -->
             id="menu_open_chart" icon="tryton-list"/>
         <menuitem parent="menu_index" action="wizard_print_financial_indicator"
             id="menu_print_financial_indicator" icon="tryton-print"/> 
+
+
+        <record model="ir.ui.view" id="print_consolidated_financial_indicator_start_form">
+            <field name="model">print.consolidated_financial_indicator.start</field>
+            <field name="type">form</field>
+            <field name="name">print_consolidated_financial_indicator_start</field>
+        </record>
+        <record model="ir.action.report" id="report_consolidated_financial_indicator">
+            <field name="name">Consolidated Financial Indicator</field>
+            <field name="model">analytic_account.account</field>
+            <field name="report_name">consolidated_financial_indicator.report</field>
+            <field name="report">account_financial_indicator/financial_indicator.fodt</field>
+        </record>
+        <record model="ir.action.wizard" id="wizard_print_consolidated_financial_indicator">
+            <field name="name">Print Consolidated Financial Indicator</field>
+            <field name="wiz_name">print.consolidated_financial_indicator</field>
+        </record>
+        <menuitem parent="menu_index" action="wizard_print_consolidated_financial_indicator"
+            id="menu_print_consolidated_financial_indicator" icon="tryton-print"/> 
     </data>
 </tryton>

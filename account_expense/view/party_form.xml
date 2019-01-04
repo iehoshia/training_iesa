@@ -1,0 +1,7 @@
+<data>    
+
+    <xpath expr="/form/group[@id=&quot;checkboxes&quot;]/field[@name=&quot;active&quot;]" position="after">
+                <label name="is_provider"/>
+                <field name="is_provider" xexpand="0" width="25"/>
+    </xpath> 
+</data>

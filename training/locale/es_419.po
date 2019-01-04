@@ -342,3 +342,27 @@ msgstr "Solvencias por Grado"
 msgctxt "model:res.group,name:group_college"
 msgid "College"
 msgstr "Colegio"
+
+msgctxt "wizard_button:grade.overdue.report.print,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:grade.overdue.report.print,start,print_:"
+msgid "Print"
+msgstr "Imprimir" 
+
+msgctxt "wizard_button:overdue.report.print,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:overdue.report.print,start,print_:"
+msgid "Print"
+msgstr "Imprimir" 
+
+msgctxt "model:ir.action,name:print_overdue_report"
+msgid "Print Overdue Report"
+msgstr "Solvencias"
+
+msgctxt "model:ir.action,name:print_grade_overdue_report"
+msgid "Print Grade Overdue Report"
+msgstr "Solvencias por Grado"

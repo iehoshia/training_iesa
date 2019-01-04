@@ -17,13 +17,16 @@ def register():
         ContextAnalyticAccount, 
         ContextAnalyticAccountConsolidated,
         PrintFinancialIndicatorStart, 
+        PrintConsolidatedFinancialIndicatorStart, 
         module='account_financial_indicator', type_='model')
     Pool.register(
         CreateChart,
         UpdateChart,
         OpenChartAccount,
         PrintFinancialIndicator, 
+        PrintConsolidatedFinancialIndicator,
         module='account_financial_indicator', type_='wizard')
     Pool.register(
         FinancialIndicator, 
+        ConsolidatedFinancialIndicator,
         module='account_financial_indicator', type_='report')

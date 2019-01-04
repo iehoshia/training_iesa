@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
 this repository contains the full copyright notices and license terms. -->
-<form col="2">
+<form col="6">
     <label name="company"/>
     <field name="company" readonly="1"/>
-    <label name="fiscalyear"/>
-    <field name="fiscalyear" widget="selection"/>
+    <label name="to_date"/>
+    <field name="to_date"/>
+    <newline/>
     <label name="account"/>
-    <field name="account" widget="selection"/>
+    <field name="account" widget="selection" colspan="3"/>
+	<newline/>
     <label name="omit_zero"/>
     <field name="omit_zero"/>
 </form>

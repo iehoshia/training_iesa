@@ -205,9 +205,10 @@ class Invoice(ModelSQL,ModelView):
             Move.save(moves)
         cls.save(invoices)
         Move.post([i.move for i in invoices if i.move.state != 'posted'])
-        for invoice in invoices:
-            if invoice.type == 'out':
-                invoice.print_invoice()
+        # PARCHE
+        #for invoice in invoices:
+        #    if invoice.type == 'out': 
+        #        invoice.print_invoice()
                 
                 #invoice.save()
 
@@ -359,9 +360,10 @@ class Invoice(ModelSQL,ModelView):
                             ('invoice_date', '!=', None),
                             ('type', '!=', 'in'),
                         ],
-                    'invisible': Eval('state') == 'posted',
+                    'invisible': Eval('state') == 'posted', 
+                    #'invisible': Eval('state').in_(['posted', 'canceled']), 
                     'depends': ['state'],
-                    },
+                    }, 
                 'pay': {
                     'invisible': Eval('state') != 'posted',
                     'depends': ['state'],

@@ -28,10 +28,12 @@ def register():
         PaymentContext, 
         GeneralLedgerLine, 
         PrintPaymentReportStart, 
+        CancelPaymentsDefault, 
         module='account_iesa', type_='model')
     Pool.register(
         PrintPaymentReportWizard,
         CancelMoves,
+        CancelPayments, 
         module='account_budget', type_='wizard')
     Pool.register(
         AccountMoveReport,

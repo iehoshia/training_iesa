@@ -53,6 +53,8 @@ __all__ = [
     'PrintPaymentReportStart',
     'PrintPaymentReportWizard',
     'PrintPaymentReport',
+    'CancelPayments',
+    'CancelPaymentsDefault',
     ]  
 __metaclass__ = PoolMeta
 
@@ -150,12 +152,14 @@ class Move(ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(Move, cls).__setup__()
-        cls._order = [
+        cls._order = [ 
             ('post_date', 'ASC'),
             ('post_number','DESC'),
             ('id', 'ASC'),
             ]
         cls.lines.context = {'description':Eval('description')}
+        # TODO TO ERASE
+        #cls.post_number.readonly = False 
 
     @classmethod
     def _get_origin(cls):
@@ -194,6 +198,15 @@ class Move(ModelSQL, ModelView):
             ('journal',) + tuple(clause[1:]),
             (cls._rec_name,) + tuple(clause[1:]), 
             ]
+ 
+    '''
+    @classmethod
+    def check_modify(cls, moves):
+        'Check posted moves for modifications.'
+        for move in moves:
+            if move.state == 'posteded':
+                cls.raise_user_error('modify_posted_move', (move.rec_name,))
+    '''
 
 class MoveLine(ModelSQL, ModelView):
     'Account Move Line'
@@ -207,6 +220,16 @@ class MoveLine(ModelSQL, ModelView):
     ticket = fields.Char('Ticket', states=_states, depends=_depends)
     third_party = fields.Char('Third Party', states=_states, depends=_depends)
     receipt = fields.Char('Receipt', states=_states, depends=_depends)
+
+    @fields.depends('move', 'debit', 'credit', '_parent_move.lines')
+    def on_change_move(self):
+        #if self.move and not self.debit and not self.credit:
+        #    total = sum(l.debit - l.credit
+        #        for l in getattr(self.move, 'lines', []))
+        #    self.debit = -total if total < 0 else Decimal(0)
+        #s    self.credit = total if total > 0 else Decimal(0)
+        self.debit = 0 
+        self.credit = 0 
 
     @classmethod 
     def __setup__(cls): 
@@ -1185,6 +1208,8 @@ class PaymentReceipt(Report):
     def get_context(cls, records, data):
 
         report_context = super(PaymentReceipt, cls).get_context(records, data)
+        Company = Pool().get('company.company')
+        company = Transaction().context.get('company')
 
         amount = 0
         for record in records: 
@@ -1192,6 +1217,7 @@ class PaymentReceipt(Report):
 
         amount_on_letters = numero_a_moneda(amount)
         report_context['amount_on_letters'] = amount_on_letters
+        report_context['company'] = Company(company)
         
         return report_context
 
@@ -1324,7 +1350,7 @@ class PrintPaymentReportStart(ModelView):
     def default_month(cls):
         Date = Pool().get('ir.date')
         today = Date.today()
-        month = today.month
+        month = int(today.month) - 1
         return month
 
     @classmethod
@@ -1364,7 +1390,7 @@ class PrintPaymentReportWizard(Wizard):
     start = StateView('print.payment.report.start',
         'account_iesa.print_payment_report_start', [
             Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Ok', 'print_', 'tryton-print', default=True),
+            Button('Print', 'print_', 'tryton-print', default=True),
             ])
     print_ = StateReport('account.iesa.payment.report.print')
 
@@ -1452,3 +1478,51 @@ class PrintPaymentReport(Report):
         report_context['total'] = sum((x.amount for x in records))
 
         return report_context
+
+class CancelPayments(Wizard):
+    'Cancel Payments'
+    __name__ = 'account.iesa.payment.cancel'
+    start_state = 'default'
+    default = StateView('account.iesa.payment.cancel.default',
+        'account_iesa.payment_cancel_default_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('OK', 'cancel', 'tryton-ok', default=True),
+            ])
+    cancel = StateTransition()
+
+    def default_cancel(self, move):
+        default = {}
+        if self.default.description:
+            default['description'] = self.default.description
+        return default
+
+    def transition_cancel(self):
+        pool = Pool()
+        Payment = pool.get('account.iesa.payment')
+        Move = pool.get('account.move')
+        Line = pool.get('account.move.line')
+
+        payments = Payment.browse(Transaction().context['active_ids'])
+        for payment in payments: 
+            move = payment.move
+            if move is not None: 
+                moves = Move.browse([move])
+                for move in moves:
+                    default = self.default_cancel(move)
+                    cancel_move = move.cancel(default=default)
+                    to_reconcile = defaultdict(list)
+                    for line in move.lines + cancel_move.lines:
+                        if line.account.reconcile:
+                            to_reconcile[(line.account, line.party)].append(line)
+                    for lines in to_reconcile.values():
+                        Line.reconcile(lines)
+        # Write state before reconcile to prevent payment to go to paid state
+        Payment.write(payments, {
+                'state': 'canceled',
+                })
+        return 'end'
+
+class CancelPaymentsDefault(ModelView):
+    'Cancel Payments'
+    __name__ = 'account.iesa.payment.cancel.default'
+    description = fields.Char('Description')

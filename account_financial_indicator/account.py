@@ -2,6 +2,7 @@
 # this repository contains the full copyright notices and license terms.
 from decimal import Decimal
 import datetime
+from datetime import datetime
 import operator
 from functools import wraps
 from collections import defaultdict
@@ -38,7 +39,10 @@ __all__ = [
         'OpenChartAccount',
         'PrintFinancialIndicatorStart',
         'PrintFinancialIndicator',
-        'FinancialIndicator'
+        'FinancialIndicator',
+        'PrintConsolidatedFinancialIndicatorStart',
+        'PrintConsolidatedFinancialIndicator',
+        'ConsolidatedFinancialIndicator',
     ]  
 
 __metaclass__ = PoolMeta
@@ -70,7 +74,6 @@ class OpenChartAccount(Wizard):
 
     def transition_open_(self):
         return 'end'
-
 
 class Account(DeactivableMixin, ModelSQL, ModelView):
     'Analytic Account'
@@ -759,7 +762,7 @@ class AnalyticAccountEntry(ModelView, ModelSQL):
     __name__ = 'analytic.account.entry'
     
     template = fields.Many2One('analytic.account.entry.template', 'Template')
-    companies = fields.Many2One('company.company','Companies',required=True)
+    companies = fields.Many2One('company.company', 'Companies', required=True)
 
     @classmethod
     def __setup__(cls):
@@ -1091,7 +1094,6 @@ class UpdateChartStart(ModelView):
         if len(accounts) == 1: 
             return accounts[0].id
 
-
 class UpdateChart(Wizard):
     'Update Chart'
     __name__ = 'account.update_chart'
@@ -1362,6 +1364,15 @@ class ContextAnalyticAccountConsolidated(ModelView):
     def default_company(cls):
         return Transaction().context.get('company')
 
+    @classmethod
+    def default_from_date(cls):
+        return datetime.today().replace(day=1,month=1)
+
+    @classmethod
+    def default_to_date(cls):
+        Date = Pool().get('ir.date')
+        return Date.today()
+
 class ContextAnalyticAccount(ModelView):
     'Context Analytic Account'
     __name__ = 'analytic_account.account.context'
@@ -1395,12 +1406,20 @@ class ContextAnalyticAccount(ModelView):
     def default_company(cls):
         return Transaction().context.get('company')
 
+    @classmethod
+    def default_from_date(cls):
+        return datetime.today().replace(day=1,month=1)
+
+    @classmethod
+    def default_to_date(cls):
+        Date = Pool().get('ir.date')
+        return Date.today()
+
     @fields.depends('from_date','to_date','fiscalyear')
     def on_change_fiscalyear(self):
         if self.fiscalyear: 
             self.from_date = self.fiscalyear.start_date
             self.to_date = self.fiscalyear.end_date
-
 
 class PrintFinancialIndicatorStart(ModelView):
     'Financial Indicator Start'
@@ -1413,16 +1432,40 @@ class PrintFinancialIndicatorStart(ModelView):
             ])
     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
         help="The fiscalyear on which the new created budget will apply.",
-        required=True, 
+        required=False, 
         domain=[
             ('company', '=', Eval('company')),
             ],
         depends=['company'])
+    from_date = fields.Date("From Date",
+        required=False,
+        domain=[
+            If(Eval('to_date') & Eval('from_date'),
+                ('from_date', '<=', Eval('to_date')),
+                ()),
+            ],
+        depends=['to_date'])
+    to_date = fields.Date("To Date",
+        required=True,
+        domain=[
+            If(Eval('from_date') & Eval('to_date'),
+                ('to_date', '>=', Eval('from_date')),
+                ()),
+            ],
+        depends=['from_date'])
+
+    @classmethod
+    def default_from_date(cls):
+        return datetime.today().replace(day=1,month=1)
+
+    @classmethod
+    def default_to_date(cls):
+        Date = Pool().get('ir.date')
+        return Date.today()
 
     @classmethod
     def default_company(cls):
         return Transaction().context.get('company')
-
 
 class PrintFinancialIndicator(Wizard):
     'Financial Indicator Balance'
@@ -1436,16 +1479,16 @@ class PrintFinancialIndicator(Wizard):
     print_ = StateReport('financial_indicator.report')
 
     def do_print_(self, action):
-        start_date = self.start.fiscalyear.start_date
-        end_date = self.start.fiscalyear.end_date
+        start_date = self.start.from_date
+        end_date = self.start.to_date
         start_date = Date(start_date.year, start_date.month, start_date.day)
         end_date = Date(end_date.year, end_date.month, end_date.day)
         data = {
             'company': self.start.company.id,
-            'fiscalyear': self.start.fiscalyear.name,
-            'fiscalyear_id': self.start.fiscalyear.id,
-            'start_date': self.start.fiscalyear.start_date,
-            'end_date': self.start.fiscalyear.end_date,
+            #'fiscalyear': self.start.fiscalyear.name,
+            #'fiscalyear_id': self.start.fiscalyear.id,
+            'start_date': self.start.from_date,
+            'end_date': self.start.to_date,
             }
         action['pyson_context'] = PYSONEncoder().encode({
                 #'company': self.start.company.id,
@@ -1492,7 +1535,7 @@ class FinancialIndicator(Report):
 
             report_context['company'] = company
             report_context['digits'] = company.currency.digits
-            report_context['fiscalyear'] = data['fiscalyear']
+            #report_context['fiscalyear'] = data['fiscalyear']
             report_context['start_date'] = data['start_date']
             report_context['end_date'] = data['end_date']
             
@@ -1519,6 +1562,172 @@ class FinancialIndicator(Report):
                 ): 
             accounts = Account.search([('type','=','root'),
                 ('company','=',company)])
+            if len(accounts)==3: 
+                sosten_propio = Account(accounts[2].id)
+            ingresos = Account(sosten_propio.childs[0].id)
+            gastos = Account(sosten_propio.childs[1].id)
+            report_context['ingresos'] = ingresos
+            report_context['gastos'] = gastos
+            report_context['indice_sosten_propio'] = round(sosten_propio.financial_indicator,2)
+        
+        return report_context
+
+class PrintConsolidatedFinancialIndicatorStart(ModelView):
+    'Consolidated Financial Indicator Start'
+    __name__ = 'print.consolidated_financial_indicator.start'
+
+    company = fields.Many2One('company.company', "Company", readonly=True,
+        domain=[
+            ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+                Eval('context', {}).get('company', -1)),
+            ])
+    companies = fields.One2Many('company.company','parent','Companies',
+        domain=([
+            ('parent','child_of',Eval('company')),
+            ('type','=','normal')
+            ]),
+        required=True, 
+        depends=['company']
+        )
+    fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+        help="The fiscalyear on which the new created budget will apply.",
+        required=False, 
+        domain=[
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'])
+    from_date = fields.Date("From Date",
+        required=False,
+        domain=[
+            If(Eval('to_date') & Eval('from_date'),
+                ('from_date', '<=', Eval('to_date')),
+                ()),
+            ],
+        depends=['to_date'])
+    to_date = fields.Date("To Date",
+        required=True,
+        domain=[
+            If(Eval('from_date') & Eval('to_date'),
+                ('to_date', '>=', Eval('from_date')),
+                ()),
+            ],
+        depends=['from_date'])
+
+    @classmethod
+    def default_from_date(cls):
+        return datetime.today().replace(day=1,month=1)
+
+    @classmethod
+    def default_to_date(cls):
+        Date = Pool().get('ir.date')
+        return Date.today()
+
+    @classmethod
+    def default_company(cls):
+        return Transaction().context.get('company')
+
+class PrintConsolidatedFinancialIndicator(Wizard):
+    'Consolidated Financial Indicator'
+    __name__ = 'print.consolidated_financial_indicator'
+
+    start = StateView('print.consolidated_financial_indicator.start',
+        'account_financial_indicator.print_consolidated_financial_indicator_start_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Print', 'print_', 'tryton-print', default=True),
+            ])
+    print_ = StateReport('consolidated_financial_indicator.report')
+
+    def do_print_(self, action):
+        start_date = self.start.from_date
+        end_date = self.start.to_date
+        start_date = Date(start_date.year, start_date.month, start_date.day)
+        end_date = Date(end_date.year, end_date.month, end_date.day)
+        data = {
+            'company': self.start.company.id,
+            'companies': [{'id': x.id} for x in self.start.companies],
+            #'fiscalyear': self.start.fiscalyear.name,
+            #'fiscalyear_id': self.start.fiscalyear.id,
+            'start_date': self.start.from_date,
+            'end_date': self.start.to_date,
+            }
+        action['pyson_context'] = PYSONEncoder().encode({
+                #'company': self.start.company.id,
+                'start_date': start_date,
+                'end_date': end_date,
+                })
+        return action, data
+
+class ConsolidatedFinancialIndicator(Report):
+    'Consolidated Financial Indicator Report'
+    __name__ = 'consolidated_financial_indicator.report'
+
+    @classmethod
+    def get_context(cls, records, data):
+        report_context = super(ConsolidatedFinancialIndicator, cls).get_context(records, data)
+
+        pool = Pool()
+        Company = pool.get('company.company')
+        Account = pool.get('analytic_account.account')
+        company = Company(data['company'])
+        capital_operativo = liquidez = sosten_propio = 0 
+
+        with Transaction().set_context(
+                #company=data['company'],
+                date=data['end_date'],
+                companies=data['companies'],
+                cumulate=True,
+                posted=True, 
+                ): 
+            accounts = Account.search([
+                ('type','=','root'),
+                #('company','=',company)
+                ])
+
+            if len(accounts)==3: 
+                capital_operativo = Account(accounts[0].id)
+                liquidez = Account(accounts[1].id)
+                sosten_propio = Account(accounts[2].id)
+
+            capital_actual = Account(capital_operativo.childs[0].id)
+            capital_recomendado = Account(capital_operativo.childs[1].id)
+            
+            caja_y_bancos = Account(liquidez.childs[0].id)
+            pasivo_corriente = Account(liquidez.childs[1].id)
+
+            activo_corriente = Account(capital_actual.childs[0].id)
+
+            report_context['company'] = company
+            report_context['digits'] = company.currency.digits
+            #report_context['fiscalyear'] = data['fiscalyear']
+            report_context['start_date'] = data['start_date']
+            report_context['end_date'] = data['end_date']
+            
+            report_context['capital_operativo'] = capital_operativo
+            report_context['liquidez'] = liquidez
+            report_context['sosten_propio'] = sosten_propio
+
+            report_context['capital_actual'] = capital_actual
+            report_context['capital_recomendado'] = capital_recomendado
+
+            report_context['caja_y_bancos'] = caja_y_bancos
+            report_context['pasivo_corriente'] = pasivo_corriente
+            report_context['activo_corriente'] = activo_corriente
+
+            report_context['indice_capital_operativo'] = round(capital_operativo.financial_indicator,2)
+            report_context['indice_liquidez'] = round(liquidez.financial_indicator,2)
+
+        with Transaction().set_context(
+                #company=data['company'],                
+                start_date=data['start_date'],
+                end_date=data['end_date'],
+                cumulate=True,
+                posted=True, 
+                companies=data['companies'],
+                ): 
+            accounts = Account.search([
+                ('type','=','root'),
+                #('company','=',company)
+                ])
             if len(accounts)==3: 
                 sosten_propio = Account(accounts[2].id)
             ingresos = Account(sosten_propio.childs[0].id)

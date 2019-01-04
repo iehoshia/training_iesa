@@ -2,6 +2,7 @@
 # this repository contains the full copyright notices and license terms.
 from decimal import Decimal
 import datetime
+from datetime import datetime
 import operator
 from functools import wraps
 
@@ -848,6 +849,25 @@ class PrintGeneralBalanceStart(ModelView):
     def default_company(cls):
         return Transaction().context.get('company')
 
+    @classmethod
+    def default_from_date(cls):
+        return datetime.today().replace(day=1,month=1)
+
+    @classmethod
+    def default_to_date(cls):
+        Date = Pool().get('ir.date')
+        return Date.today() 
+
+    @classmethod
+    def default_account(cls):
+        Account = Pool().get('account.account.meta.type')
+        company = Transaction().context.get('company')
+        accounts = Account.search([
+            ('balance_sheet', '=', True),
+            ])
+        if len(accounts)==1: 
+            return accounts[0].id
+
 
 class PrintGeneralBalance(Wizard):
     'Print Consolidated General Balance'
@@ -953,6 +973,25 @@ class PrintIncomeStatementStart(ModelView):
     @classmethod
     def default_company(cls):
         return Transaction().context.get('company')
+
+    @classmethod
+    def default_from_date(cls):
+        return datetime.today().replace(day=1,month=1)
+
+    @classmethod
+    def default_to_date(cls):
+        Date = Pool().get('ir.date')
+        return Date.today()
+
+    @classmethod
+    def default_account(cls):
+        Account = Pool().get('account.account.meta.type')
+        company = Transaction().context.get('company')
+        accounts = Account.search([
+            ('income_statement', '=', True),
+            ])
+        if len(accounts)==1: 
+            return accounts[0].id
 
 class PrintIncomeStatement(Wizard):
     'Income Statement Balance'

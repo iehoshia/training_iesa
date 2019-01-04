@@ -37,7 +37,9 @@ __all__ = [
     'ExpenseContext', 
     'ExpenseMoveLine',
     'ExpenseMoveReference',
-    'ExpenseReport'
+    'ExpenseReport',
+    'CancelExpenses',
+    'CancelExpensesDefault',
     ]  
 __metaclass__ = PoolMeta
 
@@ -101,7 +103,7 @@ class Expense(Workflow, ModelView, ModelSQL):
         'on_change_with_currency_date')
     journal = fields.Many2One('account.journal', 'Journal', required=True,
         states=_STATES, depends=_DEPENDS,
-        domain=[('type', '=', 'cash')])
+        domain=[('type', 'in', ['cash', 'statement'])]) 
     account = fields.Many2One('account.account', 'Account', 
         required=False,
         states=_STATES, depends=_DEPENDS + ['company'],
@@ -142,12 +144,15 @@ class Expense(Workflow, ModelView, ModelSQL):
                 )
     comment = fields.Text('Comment', states=_STATES, depends=_DEPENDS)
     ticket = fields.Char('Ticket',  states=_STATES, 
-        required=True)
+        required=False)
     receipt = fields.Char('Receipt')
     party = fields.Many2One('party.party','Party',
         required=True, 
         states=_STATES, 
-        domain=[('company', '=', Eval('context', {}).get('company', -1))],
+        domain=['AND',
+            [('company', '=', Eval('context', {}).get('company', -1))],
+            [('is_provider','=',True)],
+        ],
         help='The party that generate the expense',
     )
 
@@ -303,6 +308,13 @@ class Expense(Workflow, ModelView, ModelSQL):
         moves = []
         return moves
 
+    @fields.depends('journal', 'account', 'ticket')
+    def on_change_journal(self, name=None):
+        self.account = None
+        if self.journal: 
+            Sequence = Pool().get('ir.sequence') 
+            self.account = self.journal.debit_account.id
+
     @fields.depends('lines','existing_move_lines')
     def on_change_lines (self, name=None):
         found_invoices = []
@@ -392,6 +404,7 @@ class Expense(Workflow, ModelView, ModelSQL):
 
         return move
 
+
     @classmethod
     @ModelView.button
     @Workflow.transition('canceled')
@@ -418,7 +431,7 @@ class Expense(Workflow, ModelView, ModelSQL):
             Move.delete(delete_moves)
         if cancel_moves:
             Move.post(cancel_moves)
-        # Write state before reconcile to prevent payment to go to paid state
+        # Write state before reconcile to prevent expense to go to paid state
         cls.write(expenses, {
                 'state': 'canceled',
                 })
@@ -493,7 +506,7 @@ class Expense(Workflow, ModelView, ModelSQL):
     @classmethod
     def check_modify(cls, expenses):
         '''
-        Check if the payments can be modified
+        Check if the expenses can be modified
         '''
         for expense in expenses:
             if (expense.state in ('posted', 'cancel') ):
@@ -507,8 +520,9 @@ class Expense(Workflow, ModelView, ModelSQL):
         for expense in expenses:
             if expense.state != 'canceled':
                 cls.raise_user_error('delete_cancel', (expense.rec_name,))
-            if payment.number:
+            if expense.number:
                 cls.raise_user_error('delete_numbered', (expense.rec_name,))
+        ExpenseLine.delete([l for e in expenses for l in e.lines])
         super(Expense, cls).delete(expenses)
 
 class ExpenseMoveReference(ModelView, ModelSQL):
@@ -544,7 +558,8 @@ class ExpenseLine(ModelView, ModelSQL):
     party = fields.Many2One('party.party','Party',
         required=True, 
         domain=['AND',
-            [('company','=',Eval('company',-1))],
+            [('company', '=', Eval('context', {}).get('company', -1))],
+            [('is_provider','=',True)],
         ],
         states={
             'readonly': _states['readonly'],
@@ -566,6 +581,10 @@ class ExpenseLine(ModelView, ModelSQL):
     currency_digits = fields.Function(fields.Integer('Currency Digits'),
         'on_change_with_currency_digits')
     company = fields.Many2One('company.company','Company')
+
+    #@staticmethod
+    #def default_party():  
+
 
     @fields.depends('account')
     def on_change_with_party_required(self, name=None):
@@ -705,3 +724,51 @@ class ExpenseContext(ModelView):
             ('company', '=', Eval('context', {}).get('company', -1))],
         help='The party that generate the expense',
     )
+
+class CancelExpenses(Wizard):
+    'Cancel Expenses'
+    __name__ = 'account.iesa.expense.cancel'
+    start_state = 'default'
+    default = StateView('account.iesa.expense.cancel.default',
+        'account_expense.expense_cancel_default_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('OK', 'cancel', 'tryton-ok', default=True),
+            ])
+    cancel = StateTransition()
+
+    def default_cancel(self, move):
+        default = {}
+        if self.default.description:
+            default['description'] = self.default.description
+        return default
+
+    def transition_cancel(self):
+        pool = Pool()
+        Expense = pool.get('account.iesa.expense')
+        Move = pool.get('account.move')
+        Line = pool.get('account.move.line')
+
+        expenses = Expense.browse(Transaction().context['active_ids'])
+        for expense in expenses: 
+            move = expense.move
+            if move is not None: 
+                moves = Move.browse([move])
+                for move in moves:
+                    default = self.default_cancel(move)
+                    cancel_move = move.cancel(default=default)
+                    to_reconcile = defaultdict(list)
+                    for line in move.lines + cancel_move.lines:
+                        if line.account.reconcile:
+                            to_reconcile[(line.account, line.party)].append(line)
+                    for lines in to_reconcile.values():
+                        Line.reconcile(lines)
+        # Write state before reconcile to prevent expense to go to paid state
+        Expense.write(expenses, {
+                'state': 'canceled',
+                })
+        return 'end'
+
+class CancelExpensesDefault(ModelView):
+    'Cancel Expenses'
+    __name__ = 'account.iesa.expense.cancel.default'
+    description = fields.Char('Description')

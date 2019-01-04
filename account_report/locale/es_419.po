@@ -4,15 +4,15 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "model:ir.action,name:wizard_print_general_balance"
 msgid "Print General Balance"
-msgstr "Imprimir Balance General"
+msgstr "Imprimir Balance de Situación"
 
 msgctxt "model:ir.action,name:wizard_print_income_statement"
 msgid "Print Income Statement"
-msgstr "Imprimir Pérdidas y Ganancias"
+msgstr "Imprimir Estado de Pérdidas y Ganancias"
 
 msgctxt "model:ir.ui.menu,name:menu_print_general_balance"
 msgid "Print General Balance"
-msgstr "Imprimir Balance General"
+msgstr "Imprimir Balance de Situación"
 
 msgctxt "model:ir.ui.menu,name:menu_print_income_statement"
 msgid "Print Income Statement"
@@ -21,6 +21,10 @@ msgstr "Imprimir Estado de Resultados"
 msgctxt "field:print.general_balance.start,company:"
 msgid "Company"
 msgstr "Colegio"
+
+msgctxt "field:print.general_balance.start,to_date:"
+msgid "Date"
+msgstr "A la fecha"
 
 msgctxt "field:print.general_balance.start,fiscalyear:"
 msgid "Fiscal Year"
@@ -42,6 +46,14 @@ msgctxt "field:print.income_statement.start,fiscalyear:"
 msgid "Fiscal Year"
 msgstr "Año Fiscal"
 
+msgctxt "field:print.income_statement.start,start_date:"
+msgid "Start Date"
+msgstr "Fecha Inicial"
+
+msgctxt "field:print.income_statement.start,end_date:"
+msgid "End Date"
+msgstr "Fecha Final"
+
 msgctxt "field:print.income_statement.start,account:"
 msgid "Account Plan"
 msgstr "Plan Contable"
@@ -49,3 +61,27 @@ msgstr "Plan Contable"
 msgctxt "field:print.income_statement.start,omit_zero:"
 msgid "Omit Zero"
 msgstr "Omitir Cuenta con Saldo Cero"
+
+msgctxt "wizard_button:print.general_balance,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:print.general_balance,start,print_:"
+msgid "Print"
+msgstr "Imprimir" 
+
+msgctxt "wizard_button:print.income_statement,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:print.income_statement,start,print_:"
+msgid "Print"
+msgstr "Imprimir" 
+
+msgctxt "model:ir.action,name:report_general_balance"
+msgid "General Balance"
+msgstr "Balance General"
+
+msgctxt "model:ir.action,name:report_income_statement"
+msgid "Income Statement"
+msgstr "Estado de Pérdidas y Ganancias"

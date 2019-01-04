@@ -2,6 +2,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "field:account.iesa.payment.cancel.default,description:"
+msgid "Description"
+msgstr "Descripción"
+
 msgctxt "field:product.template,company:"
 msgid "Company"
 msgstr "Colegio"
@@ -258,6 +262,10 @@ msgctxt "model:account.iesa.payment,name:menu_operative_capital"
 msgid "Payment IESA"
 msgstr "Recibo"
 
+msgctxt "model:ir.action,name:act_cancel_payments"
+msgid "Cancel Payments"
+msgstr "Anular Recibo" 
+
 msgctxt "model:ir.action,name:report_general_ledger"
 msgid "General Ledger"
 msgstr "Libro Mayor"
@@ -382,6 +390,10 @@ msgctxt "model:ir.action.act_window.domain,name:act_account_move_draft"
 msgid "Draft"
 msgstr "Borradores"
 
+msgctxt "model:ir.action.act_window.domain,name:act_account_move_posted"
+msgid "Posted"
+msgstr "Contabilizados"
+
 msgctxt "model:ir.action.act_window.domain,name:act_account_move_all"
 msgid "All"
 msgstr "Todos"
@@ -389,3 +401,11 @@ msgstr "Todos"
 msgctxt "model:ir.action,name:act_account_balance_sheet_tree"
 msgid "Balance Sheet"
 msgstr "Balance de situación"
+
+msgctxt "wizard_button:print.payment.report.wizard,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:print.payment.report.wizard,start,print_:"
+msgid "Print"
+msgstr "Imprimir" 

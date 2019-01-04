@@ -40,7 +40,7 @@ msgstr "Padre"
 
 msgctxt "field:account.budget,children:"
 msgid "Children"
-msgstr "Hijos"
+msgstr "Catálogo"
 
 msgctxt "field:account.budget,company:"
 msgid "Company"
@@ -136,7 +136,7 @@ msgstr "Diferencia"
 
 msgctxt "view:account.budget:"
 msgid "Children"
-msgstr "Hijos"
+msgstr "Catálogo"
 
 msgctxt "view:account.budget:"
 msgid "Periods"
@@ -201,3 +201,15 @@ msgstr "Haber"
 msgctxt "selection:account.budget.distribute_period.start,method:"
 msgid "Linear"
 msgstr "Lineal"
+
+msgctxt "model:ir.action,name:report_account_budget"
+msgid "Budget"
+msgstr "Presupuesto"
+
+msgctxt "wizard_button:print.budget_report,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:print.budget_report,start,print_:"
+msgid "Print"
+msgstr "Imprimir" 

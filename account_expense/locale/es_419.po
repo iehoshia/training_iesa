@@ -2,6 +2,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "field:party.party,is_provider:"
+msgid "Provider"
+msgstr "Proveedor"
+
 msgctxt "field:account.iesa.expense.context,date:"
 msgid "Date"
 msgstr "Fecha"
@@ -44,7 +48,7 @@ msgstr "Fecha de Contabilización"
 
 msgctxt "field:account.iesa.expense,party:"
 msgid "Party"
-msgstr "Encargado"
+msgstr "Pago a la Orden de"
 
 msgctxt "field:account.iesa.expense,party_lang:"
 msgid "Party Lang"
@@ -116,7 +120,7 @@ msgstr "Historial de Pagos"
 
 msgctxt "field:account.iesa.expense.line,party:"
 msgid "Party"
-msgstr "Encargado"
+msgstr "Pago a la orden de"
 
 msgctxt "field:account.iesa.expense.line,amount:"
 msgid "Amount"
@@ -154,9 +158,17 @@ msgctxt "model:ir.action,name:act_iesa_expense_tree"
 msgid "Expenses"
 msgstr "Gastos"
 
+msgctxt "model:ir.action,name:act_iesa_party_tree"
+msgid "Providers"
+msgstr "Personal / Proveedores"
+
 msgctxt "model:ir.ui.menu,name:menu_expense_tree"
 msgid "Expenses"
 msgstr "Gastos"
+
+msgctxt "model:ir.ui.menu,name:menu_party_tree"
+msgid "Providers"
+msgstr "Personal / Proveedores"
 
 msgctxt "model:ir.model.button,string:expense_post_button"
 msgid "Post"
@@ -213,3 +225,15 @@ msgstr "Contabilizados"
 msgctxt "model:ir.action.act_window.domain,name:act_iesa_expense_tree_all"
 msgid "All"
 msgstr "Todos"
+
+msgctxt "wizard_button:account.iesa.expense.cancel,default,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:account.iesa.expense.cancel,default,cancel:"
+msgid "OK"
+msgstr "Aceptar" 
+
+msgctxt "model:ir.action,name:act_cancel_expenses"
+msgid "Cancel Expenses"
+msgstr "Anular Gasto"

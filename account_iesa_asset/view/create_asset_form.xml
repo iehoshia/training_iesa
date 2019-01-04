@@ -6,6 +6,7 @@ this repository contains the full copyright notices and license terms. -->
         <label name="company"/>
         <field name="company"/>
         <newline/>
+        <separator id="template_line" colspan="6"/>
         <separator id="template" string="Asset Info" colspan="6"/>
         <label name="name"/>
         <field name="name"/>
@@ -18,6 +19,7 @@ this repository contains the full copyright notices and license terms. -->
         <label name="residual_value"/>
         <field name="residual_value"/>
         <newline/>
+        <separator id="date_line" colspan="6"/>
         <separator id="date" string="Asset Date Depreciation" colspan="6"/>
         <label name="purchase_date"/>
         <field name="purchase_date"/>
@@ -27,6 +29,7 @@ this repository contains the full copyright notices and license terms. -->
         <field name="end_date"/>
     </group>
     <group id="account" col="4" colspan="6">
+        <separator id="account_line" colspan="6"/>
         <separator id="account" string="Asset Account" colspan="4"/>
         <label name="account_depreciation"/>
         <field name="account_depreciation"/>
@@ -34,5 +37,15 @@ this repository contains the full copyright notices and license terms. -->
         <field name="account_asset"/>
         <label name="account_journal"/>
         <field name="account_journal" widget="selection"/>
+    </group>
+    <group id="account_journal" col="6" colspan="6">
+        <separator id="account_journal_line" colspan="6"/>
+        <separator id="account_journal" string="Account Journal" colspan="6"/>
+        <label name="cash_journal"/>
+        <field name="cash_journal" widget="selection"/>
+        <label name="ticket"/>
+        <field name="ticket"/>
+        <label name="receipt"/>
+        <field name="receipt" />
     </group>
 </form> 
