@@ -1,24 +1,22 @@
 <?xml version="1.0"?>
 <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
 this repository contains the full copyright notices and license terms. -->
-<form col="6" cursor="description">
-    <group id="parties" colspan="3" col="4">
+<form col="4" cursor="description">
+    <group id="parties" colspan="4" col="6">
         <label name="number"/>
         <field name="number" readonly="1"/>
-        <label name="journal"/>
-        <field name="journal" widget="selection"/>
         <label name="invoice_date"/>
         <field name="invoice_date"/>
+        <label name="payment_method"/>
+        <field name="payment_method" widget="selection"/>
         <label name="is_third_party"/>
         <field name="is_third_party" width="25"/>
         <label name="description"/>
         <field name="description" colspan="3"/>
-    </group>
-    <group id="invoice" colspan="3" col="4" yfill="1">
         <label name="subscriber"/>
         <field name="subscriber" colspan="3"/>
         <label name="amount"/>
-        <field name="amount" xalign="1.0" />
+        <field name="amount" xalign="1.0"/>
         <label name="ticket"/>
         <field name="ticket"/>
         <newline/>
@@ -30,8 +28,10 @@ this repository contains the full copyright notices and license terms. -->
             </group>
             <group col="6" colspan="6" id="state_buttons">
                 <group col="4" colspan="3" id="state">
+                    <!--
                     <label name="amount_receivable"/>
                     <field name="amount_receivable" readonly="1"/>
+                    -->
                     <label name="state"/>
                     <field name="state"/>
                 </group>
@@ -43,6 +43,7 @@ this repository contains the full copyright notices and license terms. -->
                 </group>
             </group>
         </page>
+        <!--
         <page string="Historial de Cuenta" id="info" col="6">
             <group id="lines" colspan="6" col="6" yexpand="1" yfill="1">
                 <field name="existing_move_lines" colspan="6"
@@ -55,6 +56,7 @@ this repository contains the full copyright notices and license terms. -->
                     view_ids="account_iesa.invoice_view_tree"/>
             </group>
         </page>
+        -->
         <page string="Other Info" id="info" col="6">
             <label name="company"/>
             <field name="company" readonly="1"/>

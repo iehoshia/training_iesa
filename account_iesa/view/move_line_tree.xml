@@ -7,5 +7,6 @@ this repository contains the full copyright notices and license terms. -->
     <field name="description"/>
     <field name="party"/>
     <field name="debit" sum="D: "/>
-    <field name="credit" sum="H: "/>
+    <field name="credit" sum="C: "/>
+    <field name="company_id" tree_invisible="1"/>
 </tree>

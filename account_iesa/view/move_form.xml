@@ -9,11 +9,12 @@
 	
 
     <xpath expr="/form/field[@name=&quot;description&quot;]" position="after">
+        <!--
         <label name="amount"/>
         <field name="amount"/>
         <label name="ticket"/>
         <field name="ticket"/>
-        <!--
+        
     	<label name="is_third_party"/>
     	<field name="is_third_party"/>
     	<label name="third_party"/>

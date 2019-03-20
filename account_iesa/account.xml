@@ -74,17 +74,19 @@ this repository contains the full copyright notices and license terms. -->
 
         <!-- CHEQUES -->
 
+        <!--
         <record model="ir.action.report" id="report_check">
             <field name="name">Imprimir Cheque</field>
             <field name="model">account.move</field>
             <field name="report_name">account.move.check</field>
             <field name="report">account_iesa/check.fodt</field>
         </record>
+        
         <record model="ir.action.keyword" id="report_account_check_keyword">
             <field name="keyword">form_print</field>
             <field name="model">account.move,-1</field>
             <field name="action" ref="report_check"/>
-        </record>
+        </record>-->
 
         <record model="ir.action.report" id="report_account_move">
             <field name="name">Imprimir Asiento</field>
@@ -100,7 +102,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <menuitem name="Account Moves" parent="training.menu_training"
-            id="menu_account" sequence="0" icon="tryton-spreadsheet"/>
+            id="menu_account" sequence="0"/>
 
         <record model="ir.action.act_window" id="act_account_move">
             <field name="name">Account Moves</field>
@@ -134,7 +136,6 @@ this repository contains the full copyright notices and license terms. -->
             icon="tryton-list"
             />
 
-        
         <record model="ir.ui.view" id="iesa_payment_view_tree_invoice">
             <field name="model">account.invoice</field>
             <field name="type">tree</field>
@@ -209,7 +210,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <menuitem parent="training.menu_training" action="act_iesa_payment_form"
-            id="menu_payment_form" sequence="3"
+            id="menu_payment_form" sequence="5"
             icon="tryton-currency"/>
 
         <record model="ir.model.access" id="access_iesa_payment">

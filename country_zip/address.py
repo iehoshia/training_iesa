@@ -7,8 +7,7 @@ from trytond.pool import Pool, PoolMeta
 __all__ = ['Address']
 
 
-class Address:
-    __metaclass__ = PoolMeta
+class Address(metaclass=PoolMeta):
     __name__ = 'party.address'
 
     @staticmethod

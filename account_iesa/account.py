@@ -12,7 +12,7 @@ from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 from sql import Column, Null, Window, Literal
 from sql.aggregate import Sum, Max
-from sql.conditionals import Coalesce, Case
+from sql.conditionals import Coalesce, Case 
 
 from trytond.model import (ModelSingleton, DeactivableMixin, 
     ModelView, ModelSQL, DeactivableMixin, fields,
@@ -29,7 +29,7 @@ from trytond.rpc import RPC
 
 from trytond import backend
 
-from numero_letras import numero_a_moneda
+from .numero_letras import numero_a_moneda
 
 __all__ = [
     'Move',
@@ -148,6 +148,7 @@ class Move(ModelSQL, ModelView):
         'get_amount_in_letters')
     ticket = fields.Char('Ticket',
         states=_MOVE_STATES, depends=_MOVE_DEPENDS)
+    party = fields.Many2One('party.party','Party')
 
     @classmethod
     def __setup__(cls):
@@ -192,12 +193,38 @@ class Move(ModelSQL, ModelView):
         else:
             bool_op = 'OR'
         return [bool_op,
-            ('number',) + tuple(clause[1:]),
             ('post_number',) + tuple(clause[1:]),
             ('description',) + tuple(clause[1:]),
             ('journal',) + tuple(clause[1:]),
             (cls._rec_name,) + tuple(clause[1:]), 
             ]
+
+    def _cancel_default(self):
+        'Return default dictionary to cancel move'
+        pool = Pool()
+        Date = pool.get('ir.date')
+        Period = pool.get('account.period')
+
+        default = {
+            'origin': str(self),
+            }
+        if self.period.state == 'close':
+            self.raise_user_warning('%s.cancel' % self,
+                'period_cancel', self.rec_name)
+            date = Date.today()
+            period_id = Period.find(self.company.id, date=date)
+            default.update({
+                    'date': date,
+                    'period': period_id,
+                    })
+        default['lines.credit'] = lambda data: data['debit'] 
+        default['lines.debit'] = lambda data: data['credit'] 
+        default['lines.amount_second_currency'] = (
+            lambda data: data['amount_second_currency'] * -1
+            if data['amount_second_currency']
+            else data['amount_second_currency'])
+        default['lines.tax_lines.amount'] = lambda data: data['amount'] * -1
+        return default
  
     '''
     @classmethod
@@ -220,20 +247,36 @@ class MoveLine(ModelSQL, ModelView):
     ticket = fields.Char('Ticket', states=_states, depends=_depends)
     third_party = fields.Char('Third Party', states=_states, depends=_depends)
     receipt = fields.Char('Receipt', states=_states, depends=_depends)
+    company_id = fields.Many2One('company.company', 'Company',
+            required=False, 
+            states=_states, 
+            depends=_depends)
 
-    @fields.depends('move', 'debit', 'credit', '_parent_move.lines')
-    def on_change_move(self):
+    #@fields.depends('move', 'debit', 'credit', '_parent_move.lines')
+    #def on_change_move(self):
         #if self.move and not self.debit and not self.credit:
         #    total = sum(l.debit - l.credit
         #        for l in getattr(self.move, 'lines', []))
         #    self.debit = -total if total < 0 else Decimal(0)
         #s    self.credit = total if total > 0 else Decimal(0)
-        self.debit = 0 
-        self.credit = 0 
+        #self.debit = 0 
+        #self.credit = 0 
 
     @classmethod 
     def __setup__(cls): 
         super(MoveLine, cls).__setup__() 
+        cls.party.domain=[
+            ('company','=',Eval('company_id'))
+        ]
+        #cls.party.domain=[
+        #    ('id', If(Eval('context', {}).contains('company'), '=', '!='),
+        #        Eval('context', {}).get('company', -1)),
+        #    ]
+        cls.party.depends.extend(['company_id'])
+
+    @staticmethod
+    def default_company_id():
+        return Transaction().context.get('company')
 
     @staticmethod
     def default_description():
@@ -402,16 +445,24 @@ class Payment(Workflow, ModelView, ModelSQL):
     invoice_address = fields.Many2One('party.address', 'Invoice Address',
         required=False, states=_STATES, depends=['state'],
         )
-
     currency = fields.Many2One('currency.currency', 'Currency', required=True,
         states=_STATES, depends=_DEPENDS)
     currency_digits = fields.Function(fields.Integer('Currency Digits'),
         'on_change_with_currency_digits')
     currency_date = fields.Function(fields.Date('Currency Date'),
         'on_change_with_currency_date')
-    journal = fields.Many2One('account.journal', 'Journal', required=True,
-        states=_STATES, depends=_DEPENDS,
-        domain=[('type', '=', 'cash')])
+    #journal = fields.Many2One('account.journal', 'Journal', required=False,
+    #    states=_STATES, depends=_DEPENDS,
+    #    domain=[('type', '=', 'cash')])
+    payment_method = fields.Many2One('account.invoice.payment.method', "Payment Method",  required=True,
+        domain=[
+            ('company', '=', Eval('company')),
+            #('debit_account', '!=', Eval('account')),
+            #('credit_account', '!=', Eval('account')),
+            ],
+        states=_STATES,
+        depends=_DEPENDS + ['company', 'account'], 
+        )
     move = fields.Many2One('account.move', 'Move', readonly=True,
         domain=[
             ('company', '=', Eval('company', -1)),
@@ -538,6 +589,22 @@ class Payment(Workflow, ModelView, ModelSQL):
                     },
                 })
 
+    
+    @classmethod
+    def copy(cls, payments, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('number', None)
+        #default.setdefault('ticket', None)
+        #default.setdefault('reference', None)
+        default.setdefault('state', cls.default_state())
+        default.setdefault('accounting_date', None)
+        default.setdefault('move', None)
+        default.setdefault('cancel_move', None)
+        return super(Payment,cls).copy(payments, default=default)
+
     @classmethod
     def search(cls, domain, offset=0, limit=None, order=None, count=False,
             query=False):
@@ -564,6 +631,7 @@ class Payment(Workflow, ModelView, ModelSQL):
             cache = Transaction().get_cache()
             cache.pop(cls.__name__, None)
         return records
+    
 
     @classmethod
     def search_rec_name(cls, name, clause):
@@ -608,12 +676,14 @@ class Payment(Workflow, ModelView, ModelSQL):
         return Transaction().context.get('company')
 
     @staticmethod
-    def default_journal():
+    def default_payment_method():
         pool = Pool()
-        Journal = pool.get('account.journal')
-        journals = Journal.search([('name','=','Caja')])
-        if len(journals)==1: 
-            return journals[0].id
+        company_id = Transaction().context.get('company')
+        PaymentMethod = pool.get('account.invoice.payment.method')
+        payments = PaymentMethod.search([('name','=','Caja'),
+            ('company','=',company_id) ])
+        if len(payments)==1: 
+            return payments[0].id 
 
     @staticmethod
     def default_is_third_party():
@@ -626,11 +696,11 @@ class Payment(Workflow, ModelView, ModelSQL):
         if len(payment_terms) == 1:
             return payment_terms[0].id
 
-    @classmethod
-    def default_invoice_date(cls):
-        pool = Pool()
-        Date = pool.get('ir.date')
-        return Date.today()
+    #@classmethod
+    #def default_invoice_date(cls):
+    #    pool = Pool()
+    #    Date = pool.get('ir.date')
+    #    return Date.today()
 
     def get_incoming_moves(self, name):
         moves = []
@@ -659,7 +729,8 @@ class Payment(Workflow, ModelView, ModelSQL):
 
             if self.subscriber is not None and self.is_third_party is False:
                 party_id = self.subscriber.id
-                subscriptions = Subscription.search([('party','=',party_id)])
+                subscriptions = Subscription.search([('party','=',party_id),
+                    ('state','=','running')])
                 lines = []
                 parties = []
                 amount_receivable = 0
@@ -680,7 +751,7 @@ class Payment(Workflow, ModelView, ModelSQL):
                     self.lines = lines
                     self.amount_receivable = amount_receivable
                     # TODO add date future 
-                    print "PARTIES: " + str(parties)
+                    #print "PARTIES: " + str(parties)
                     invoices = Invoice.search([('party','in',parties),
                         ('state','=','posted'),
                         ])
@@ -722,6 +793,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         moves = []
         return moves
 
+    '''
     @fields.depends('lines','invoices','existing_move_lines')
     def on_change_lines (self, name=None):
         found_invoices = []
@@ -743,8 +815,7 @@ class Payment(Workflow, ModelView, ModelSQL):
             if found_moves is not None: 
                 self.existing_move_lines = found_moves 
             self.amount_receivable = amount_receivable
-
-
+    '''
 
     def __get_account_payment_term(self):
         '''
@@ -771,19 +842,6 @@ class Payment(Workflow, ModelView, ModelSQL):
     def on_change_with_currency_date(self, name=None):
         Date = Pool().get('ir.date')
         return self.invoice_date or Date.today()
-
-    #@fields.depends('parties')
-    #def on_change_with_party_lang(self, name=None):
-    #    Config = Pool().get('ir.configuration')
-    #    if self.party:
-    #        if self.party.lang:
-    #            return self.party.lang.code
-    #    return Config.get_language()
-
-    #@fields.depends('company')
-    #def on_change_with_company_party(self, name=None):
-    #    if self.company:
-    #        return self.company.party.id
 
     @classmethod
     def set_number(cls, payments):
@@ -816,31 +874,6 @@ class Payment(Workflow, ModelView, ModelSQL):
             if (payment.state in ('posted', 'cancel') ):
                 cls.raise_user_error('modify_payment', (payment.rec_name,))
 
-    def _pay_invoice_wizard(self, invoice, amount_to_pay):
-        PayWizard = Pool().get('account.invoice.pay', type='wizard')
-        pool = Pool()
-        start = pool.get('account.invoice.pay.start')
-        ask = pool.get('account.invoice.pay.ask')
-        
-        with Transaction().set_context(current_invoice=invoice):
-            session_id, _, _ = PayWizard.create()
-            pay_wizard = PayWizard(session_id)
-            start.journal = self.journal
-            start.currency = self.currency 
-            start.amount = amount_to_pay
-            start.date = self.invoice_date 
-            start.description = self.description
-            start.third_party = self.description
-            start.ticket = self.description
-            start.receipt = self.description
-            ask.type = 'partial'
-            ask.amount = amount_to_pay
-            pay_wizard.start = start 
-            pay_wizard.ask=ask 
-            pay_wizard.transition_choice()
-            pay_wizard.transition_pay()
-            pay_wizard.do_print_()
-
     def get_move(self):
 
         pool = Pool()
@@ -848,11 +881,12 @@ class Payment(Workflow, ModelView, ModelSQL):
         MoveLine = pool.get('account.move.line')
         Period = pool.get('account.period')
         
-        journal = self.journal 
+        journal = self.payment_method.journal
         date = self.invoice_date
         amount = self.amount
         move_description = self.number + ' - ' + self.description
         ticket =  self.ticket
+        party = self.subscriber
         origin = self 
         lines = []
         
@@ -867,11 +901,10 @@ class Payment(Workflow, ModelView, ModelSQL):
         
         credit_line = MoveLine(description=self.description, )
         credit_line.debit, credit_line.credit = self.amount, 0
-        account_journal = 'debit_account'
-        credit_line.account = getattr(journal, account_journal)
+        credit_line.account = self.payment_method.debit_account
         
         if not credit_line.account:
-            self.raise_user_error('missing_%s' % account_journal,
+            self.raise_user_error('missing_%s' % payment_method.debit_account,
                 (journal.rec_name,))
 
         lines.append(credit_line)
@@ -880,7 +913,7 @@ class Payment(Workflow, ModelView, ModelSQL):
 
         move = Move(journal=journal, period=period_id, date=date, state='draft', 
             company=self.company, lines=lines, origin=self, description=move_description,
-            ticket=ticket)
+            ticket=ticket, party=party)
         move.save()
         if move.state != 'posted':
             Move.post([move])
@@ -955,8 +988,8 @@ class Payment(Workflow, ModelView, ModelSQL):
         cls.set_number(payments)
 
     @classmethod
-    @ModelView.button_action(
-        'account_iesa.report_iesa_payment')
+    #@ModelView.button_action(
+    #    'account_iesa.report_iesa_payment')
     @Workflow.transition('posted')
     def post(cls, payments):
         
@@ -995,7 +1028,7 @@ class Payment(Workflow, ModelView, ModelSQL):
         cls.cancel(payments)
         PaymentLine = Pool().get('account.iesa.payment.line')
         for payment in payments:
-            if payment.state != 'canceled':
+            if payment.state != 'draft':
                 cls.raise_user_error('delete_cancel', (payment.rec_name,))
             if payment.number:
                 cls.raise_user_error('delete_numbered', (payment.rec_name,))
@@ -1044,7 +1077,12 @@ class PaymentLine(ModelView, ModelSQL):
             },
         depends=['payment'] + _depends,
         )
-    description = fields.Char('Description')
+    description = fields.Char('Description',
+        states={
+            'readonly': _states['readonly'],
+            },
+        depends=['expense','_parent_expense','company'] + _depends ,
+    )
     party = fields.Many2One('party.party','Party',
         required=True, 
         domain=['AND',
@@ -1077,10 +1115,19 @@ class PaymentLine(ModelView, ModelSQL):
     @classmethod
     def __setup__(cls):
         super(PaymentLine, cls).__setup__()
-        cls.__rpc__.update({
-                'on_write': RPC(instantiate=0),
-                })
+        #cls.__rpc__.update({
+        #        'on_write': RPC(instantiate=0),
+        #        })
         cls._order[0] = ('id', 'DESC')
+
+    @classmethod
+    def copy(cls, lines, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('payment', None)
+        return super(PaymentLine, cls).copy(lines, default=default)
 
     @fields.depends('account')
     def on_change_with_party_required(self, name=None):
@@ -1228,6 +1275,7 @@ class GeneralLedgerLine(ModelSQL, ModelView):
 
     move_ticket = fields.Char('Ticket')
     post_number = fields.Char('Post Number')
+    move_party = fields.Many2One('party.party', 'Party Move')
 
     @classmethod
     def table_query(cls):
@@ -1243,7 +1291,8 @@ class GeneralLedgerLine(ModelSQL, ModelView):
         move = Move.__table__()
         account = Account.__table__()
         columns = []
-        for fname, field in cls._fields.iteritems():
+        #for fname, field in cls._fields.iteritems():
+        for fname, field in cls._fields.items():
             if hasattr(field, 'set'):
                 continue
             field_line = getattr(Line, fname, None)
@@ -1261,6 +1310,8 @@ class GeneralLedgerLine(ModelSQL, ModelView):
                 column = Column(move, 'description').as_(fname)
             elif fname == 'move_ticket':
                 column = Column(move, 'ticket').as_(fname)
+            elif fname == 'move_party':
+                column = Column(move, 'party').as_(fname)
             elif fname == 'post_number':
                 column = Column(move, 'post_number').as_(fname)
             elif fname == 'party_required':
@@ -1430,13 +1481,13 @@ class PrintPaymentReport(Report):
             ('invoice_date','>=',from_date),
             ('invoice_date','<=',to_date),
             ('company','=',company),
-            ('state','!=','canceled')
+            #('state','!=','canceled')
         ]
         
         if 'party' in data:
             clause.append(('subscriber','=',data['party']))
 
-        print "CLAUSE: " + str(clause)
+        #print "CLAUSE: " + str(clause)
         
         return Payment.search(clause,
                 order=[
@@ -1461,21 +1512,43 @@ class PrintPaymentReport(Report):
         clause = [
                 ('invoice_date','>=',from_date),
                 ('invoice_date','<=',to_date),
-                ('company','=',company)
+                ('company','=',company),
+                #('state','!=','canceled'),
         ]
 
         if 'party' in data:
             clause.append(('subscriber','=',data['party']))
-        
-        records = Payment.search(clause,
+
+        payments = Payment.search(clause,
                 order=[('number', 'ASC')])
 
-        payments = Payment.search(clause)
+        canceled_clause = [
+                ('invoice_date','>=',from_date),
+                ('invoice_date','<=',to_date),
+                ('company','=',company),
+                ('state','=','canceled'),
+        ]
+
+        canceled_payments = Payment.search(canceled_clause,
+                order=[('number', 'ASC')])
 
         report_context['company'] = company
         report_context['from_date'] = data['to_date']
         report_context['to_date']  = data['from_date']
-        report_context['total'] = sum((x.amount for x in records))
+
+        total_amount = 0
+        for x in payments:
+            total_amount += x.amount
+
+        total_canceled = 0
+
+        for x in canceled_payments:
+            total_canceled += x.amount
+
+        total = total_amount - total_canceled
+        report_context['total_amount'] = total_amount
+        report_context['total_canceled'] = total_canceled
+        report_context['total'] = total
 
         return report_context
 
@@ -1504,8 +1577,11 @@ class CancelPayments(Wizard):
 
         payments = Payment.browse(Transaction().context['active_ids'])
         for payment in payments: 
+            cancel_move = None 
+            if payment.state =='canceled': 
+                return 'end'
             move = payment.move
-            if move is not None: 
+            if move is not None : 
                 moves = Move.browse([move])
                 for move in moves:
                     default = self.default_cancel(move)
@@ -1516,10 +1592,18 @@ class CancelPayments(Wizard):
                             to_reconcile[(line.account, line.party)].append(line)
                     for lines in to_reconcile.values():
                         Line.reconcile(lines)
-        # Write state before reconcile to prevent payment to go to paid state
-        Payment.write(payments, {
-                'state': 'canceled',
-                })
+                    Move.save([cancel_move])
+                    Move.post([cancel_move])
+            # Write state before reconcile to prevent payment to go to paid state
+            if cancel_move: 
+                Payment.write(payments, {
+                        'state': 'canceled',
+                        'cancel_move': cancel_move, 
+                        })
+            else: 
+                Payment.write(payments, {
+                        'state': 'canceled',
+                        })
         return 'end'
 
 class CancelPaymentsDefault(ModelView):

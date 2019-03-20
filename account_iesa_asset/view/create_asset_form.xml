@@ -27,16 +27,19 @@ this repository contains the full copyright notices and license terms. -->
         <field name="start_date"/>
         <label name="end_date"/>
         <field name="end_date"/>
+        <label name="description"/>
+        <field name="description"/>
     </group>
     <group id="account" col="4" colspan="6">
         <separator id="account_line" colspan="6"/>
-        <separator id="account" string="Asset Account" colspan="4"/>
-        <label name="account_depreciation"/>
-        <field name="account_depreciation"/>
-        <label name="account_asset"/>
-        <field name="account_asset"/>
+        <separator id="account" string="Asset Account" colspan="4"/> 
+        <label name="product_account"/>
+        <field name="product_account" widget="selection"/>
+        <label name="asset_account"/>
+        <field name="asset_account"/>
+        <!--
         <label name="account_journal"/>
-        <field name="account_journal" widget="selection"/>
+        <field name="account_journal" widget="selection"/>-->
     </group>
     <group id="account_journal" col="6" colspan="6">
         <separator id="account_journal_line" colspan="6"/>
@@ -46,6 +49,10 @@ this repository contains the full copyright notices and license terms. -->
         <label name="ticket"/>
         <field name="ticket"/>
         <label name="receipt"/>
-        <field name="receipt" />
+        <field name="receipt"/>
+        <label name="party"/>
+        <field name="party"/>
+        <label name="purchase_account"/>
+        <field name="purchase_account"/>
     </group>
 </form> 

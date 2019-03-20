@@ -139,10 +139,10 @@ class GeneralBalance(Report):
 
             accounts = account._get_childs_by_order()
             #print "ACCOUNTS: " + str(accounts)
-            print "CUENTA BASE: " + str(account.name)
-            print "ACTIVO: " + str(account.childs[0].name)
+            #print "CUENTA BASE: " + str(account.name)
+            #print "ACTIVO: " + str(account.childs[0].name)
 
-            print "PASIVO: " + str(account.childs[1].name)
+            #print "PASIVO: " + str(account.childs[1].name)
 
             accounts_omit_zero = []
             if omit_zero: 

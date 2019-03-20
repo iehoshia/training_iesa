@@ -10,6 +10,14 @@ msgctxt "field:product.template,company:"
 msgid "Company"
 msgstr "Colegio"
 
+msgctxt "field:account.iesa.payment,payment_method:"
+msgid "Payment Method"
+msgstr "Método de Pago"
+
+msgctxt "field:account.iesa.payment,cancel_move:"
+msgid "Cancel Move"
+msgstr "Asiento de Cancelación"
+
 msgctxt "field:account.iesa.payment.context,from_date:"
 msgid "From Date"
 msgstr "Desde la Fecha"
@@ -188,11 +196,11 @@ msgstr "Encargado"
 
 msgctxt "field:account.iesa.payment,payment_lines:"
 msgid "Payment Lines"
-msgstr "Historial de cuenta"
+msgstr "Estado de Cuenta"
 
 msgctxt "field:account.iesa.payment,lines:"
 msgid "Payment Lines"
-msgstr "Líneas de Pago"
+msgstr "Estado de Cuenta"
 
 msgctxt "field:account.iesa.payment,existing_move_lines:"
 msgid "Payment Moves"
@@ -361,6 +369,10 @@ msgstr "Contabilizado"
 msgctxt "error:account.iesa.payment:"
 msgid "You can not post payment \"%s\" because it is an unbalanced."
 msgstr "No puede contabilizar el recibo \"%s\" porque está descuadrado."
+
+msgctxt "error:account.iesa.payment:"
+msgid "The numbered payment \"%s\" can not be deleted."
+msgstr "No puede eliminar el recibo \"%s\" porque está enumerado."
 
 msgctxt "model:ir.action,name:wizard_print_financial_indicator"
 msgid "Print Financial Indicator"

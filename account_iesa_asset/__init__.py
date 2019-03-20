@@ -3,12 +3,14 @@
 
 from trytond.pool import Pool
 from .asset import *
+from . import product
 
 def register():
     Pool.register(
         CreateAssetStart, 
         CreateAssetForm, 
         CreateAssetEnd,
+        product.ProductCategory, 
         module='account_iesa_asset', type_='model')
     Pool.register(
         CreateAsset,

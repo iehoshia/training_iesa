@@ -14,6 +14,10 @@ msgctxt "field:account.iesa.payment.context,to_date:"
 msgid "To Date"
 msgstr "Hasta la Fecha"
 
+msgctxt "field:account.iesa.payment,payment_method:"
+msgid "Payment Method"
+msgstr "Método de Pago"
+
 msgctxt "field:account.iesa.payment.context,party:"
 msgid "Party"
 msgstr "Encargado"

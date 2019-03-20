@@ -11,8 +11,7 @@ __all__ = ['Configuration', 'ConfigurationCountry']
 default_country = fields.Many2One('country.country', 'Default Country')
 
 
-class Configuration:
-    __metaclass__ = PoolMeta
+class Configuration(metaclass=PoolMeta):
     __name__ = 'party.configuration'
     default_country = fields.MultiValue(default_country)
 

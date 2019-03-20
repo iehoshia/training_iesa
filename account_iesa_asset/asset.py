@@ -55,19 +55,35 @@ class CreateAssetForm(ModelSQL, ModelView):
     unit = fields.Many2One('product.uom', 'Unit', ondelete='RESTRICT',
         required=True
         )
-    account_depreciation = fields.Many2One(
-        'account.account', "Account Accumulated Depreciation",
-        required=True, 
+    product_account = fields.Many2One('product.category', "Product Category",
+        required=True,
+        domain=[('company','=',Eval('company')),
+            ('is_asset_category','=',True), 
+        ],
+        depends=[('company')]
+        )
+ 
+    accummulated_depreciation_account = fields.Many2One(
+        'account.account', "Accumulated Depreciation Account",
+        required=False, 
         domain=[
             ('kind', '=', 'other'),
             ('company', '=', Eval('company', -1)),
             ],
         depends=['company'])
-    account_asset = fields.Many2One(
-        'account.account', "Account Depreciation ",
-        required=True, 
+    depreciation_account = fields.Many2One(
+        'account.account', " Depreciation Account",
+        required=False, 
         domain=[
             ('kind', '=', 'expense'),
+            ('company', '=', Eval('company', -1)),
+            ],
+        depends=['company'])
+    asset_account  = fields.Many2One(
+        'account.account', " Asset Account",
+        required=True, 
+        domain=[
+            ('kind', '=', 'other'),
             ('company', '=', Eval('company', -1)),
             ],
         depends=['company'])
@@ -93,11 +109,33 @@ class CreateAssetForm(ModelSQL, ModelView):
     created_asset = fields.Many2One('account.asset','Asset',
         domain=[('company','=',Eval('company',-1))]
         )
-    cash_journal = fields.Many2One('account.journal', 'Cash Journal',
-        domain=[('type', 'in', ['cash','statement']) ],
+    created_expense = fields.Many2One('account.iesa.expense', 'Expense',
+        domain=[('company','=',Eval('company',-1))]
+        )
+    cash_journal = fields.Many2One('account.invoice.payment.method', 'Cash Journal',
+        domain=[
+            ('company', '=', Eval('company')),
+            ],
         required=True)
     ticket = fields.Char('Ticket', required=True)
     receipt = fields.Char('Receipt', required=True)
+    description = fields.Char('Description', required=True)
+    purchase_account = fields.Many2One(
+        'account.account', "Purchase Account",
+        required=True, 
+        domain=[
+            ('kind', '=', 'other'),
+            ('company', '=', Eval('company', -1)),
+            ],
+        depends=['company'])
+    party = fields.Many2One('party.party','Party',
+        required=True, 
+        domain=['AND',
+            [('company', '=', Eval('context', {}).get('company', -1))],
+            [('is_provider','=',True)],
+        ],
+        help='The party that generate the expense',
+    )
 
     @staticmethod
     def default_purchase_date():
@@ -126,6 +164,12 @@ class CreateAssetForm(ModelSQL, ModelView):
             return journals[0].id
         return None
 
+    @fields.depends('cash_journal', 'purchase_account',)
+    def on_change_cash_journal(self, name=None):
+        self.purchase_account = None
+        if self.cash_journal: 
+            self.purchase_account = self.cash_journal.debit_account.id
+
     @classmethod
     @ModelView.button_action(
         'account_iesa_asset.act_created_asset')
@@ -137,6 +181,9 @@ class CreateAssetEnd(ModelSQL, ModelView):
     __name__ = 'create.asset.end'
     company = fields.Many2One('company.company', 'Company', required=True)
     created_asset = fields.Many2One('account.asset','Asset',
+        domain=[('company','=',Eval('company',-1))]
+        )
+    created_expense = fields.Many2One('account.iesa.expense','Expense',
         domain=[('company','=',Eval('company',-1))]
         )
     move = fields.Many2One('account.move','Move',
@@ -185,7 +232,7 @@ class CreateAsset(Wizard):
         ProductTemplate = pool.get('product.template')
         Asset = pool.get('account.asset')
         Expense = pool.get('account.iesa.expense')
-        ExpenseLine = pool.get('account.iesa.expensa.line')
+        ExpenseLine = pool.get('account.iesa.expense.line') 
 
         asset_product = Product()
         asset_template = ProductTemplate()
@@ -196,9 +243,10 @@ class CreateAsset(Wizard):
         asset_template.default_uom = self.asset.unit 
         asset_template.list_price = self.asset.value 
         asset_template.depreciable = True
-        asset_template.account_asset = self.asset.account_asset
-        asset_template.account_expense = self.asset.account_asset
-        asset_template.account_depreciation = self.asset.account_depreciation
+        #asset_template.account_asset = self.asset.depreciation_account
+        #asset_template.account_expense = self.asset.depreciation_account
+        #asset_template.account_depreciation = self.asset.accummulated_depreciation_account
+        asset_template.account_category  = self.asset.product_account
         asset_template.company = self.asset.company
         asset_template.save()
 
@@ -214,46 +262,39 @@ class CreateAsset(Wizard):
         asset.end_date =self.asset.end_date
         asset.company = self.asset.company.id
         asset.save() 
-
-        '''
-        move = Move()
-        journal = self.asset.cash_journal 
+        
+        journal = self.asset.cash_journal.journal.id
         date = self.asset.purchase_date
         amount = self.asset.value
-        description = self.asset.name + ' - ' + self.asset.code + 
-        ticket = self.asset.ticket + ' / ' + self.asset.receipt
+        description = self.asset.description
+        ticket = self.asset.ticket
+        receipt = self.asset.receipt 
+        party = self.asset.party.id 
+        account = self.asset.purchase_account.id 
+        asset_account = self.asset.asset_account.id 
+
         lines = []
 
-        credit_line = MoveLine(description=self.asset.name)
-        credit_line.debit, credit_line.credit = 0, self.asset.value
-        credit_line.account = self.cash_journal.debit_account
+        expense_line = ExpenseLine(description=description, account=asset_account, party=party, 
+            amount=amount)
+        lines.append(expense_line)
+
+        expense = Expense(
+            journal=journal, amount=amount, date=date, description=description, 
+            ticket=ticket, party=party,account=account, receipt=receipt, 
+            lines=lines, reference=receipt, 
+            )
+        expense.save()
         
-        if not credit_line.account:
-            self.raise_user_error('missing_account_credit')
 
-        lines.append(credit_line)
-        
-        for line in self.lines: 
-            if line.account.party_required:
-                new_line = MoveLine(description=line.description, account=line.account, party=line.party)
-            else:
-                new_line = MoveLine(description=line.description, account=line.account)
-            new_line.debit, new_line.credit = line.amount, 0
-            lines.append(new_line)
-
-        period_id = Period.find(self.company.id, date=date)
-
-        move = Move(journal=journal, period=period_id, date=date,
-            company=self.company, lines=lines, origin=self, description=description)
-        move.save()
-        '''
-
-        if asset:
+        if asset and expense:
             self.asset.created_asset = asset.id 
+            self.asset.created_expense = expense.id
             return 'created'
         return 'created' 
 
     def default_created(self, fields):
         return {
             'created_asset': self.asset.created_asset.id,
+            'created_expense': self.asset.created_expense.id,
             }

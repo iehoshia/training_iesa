@@ -21,7 +21,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="balance_sheet" eval="True"/>
             <field name="display_balance">debit-credit</field>
             <field name="type_display_balance">debit</field>
-         
         </record>
         <record id="iesa_consolidated_pyg" model="account.account.meta.type.template">
             <field name="name">PÉRDIDAS Y GANANCIAS IESA</field>
@@ -128,7 +127,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type_display_balance">credit</field>
         </record>
-        
     </data>
     <data grouped="1">
         <record id="iesa_consolidated_balance_10" model="account.account.meta.type.template">
@@ -2324,10 +2322,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type_display_balance">credit</field>
         </record>
-
-        
     </data>
-
     <data grouped="1">
         <record id="iesa_consolidated_balance_101110" model="account.account.meta.type.template">
             <field name="name">101110. Caja Chica</field>
@@ -2476,32 +2471,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type_display_balance">debit</field>
         </record>
-        <!--
-        <record id="iesa_consolidated_balance_134110" model="account.account.meta.type.template">
-            <field name="name">134110. Inscripciones</field>
-            <field name="parent" ref="iesa_consolidated_balance_134"/>
-            <field name="sequence" eval="134110"/>
-            <field name="display_balance">credit-debit</field>
-        </record>
-        <record id="iesa_consolidated_balance_134120" model="account.account.meta.type.template">
-            <field name="name">134120. Colegiaturas</field>
-            <field name="parent" ref="iesa_consolidated_balance_134"/>
-            <field name="sequence" eval="134120"/>
-            <field name="display_balance">credit-debit</field>
-        </record>
-        <record id="iesa_consolidated_balance_134130" model="account.account.meta.type.template">
-            <field name="name">134130. Derecho a Exámenes</field>
-            <field name="parent" ref="iesa_consolidated_balance_134"/>
-            <field name="sequence" eval="134130"/>
-            <field name="display_balance">credit-debit</field>
-        </record>
-        <record id="iesa_consolidated_balance_134140" model="account.account.meta.type.template">
-            <field name="name">134140. Derecho a Mora</field>
-            <field name="parent" ref="iesa_consolidated_balance_134"/>
-            <field name="sequence" eval="134140"/>
-            <field name="display_balance">credit-debit</field>
-        </record>
-        -->
         <record id="iesa_consolidated_balance_138CAMBI01" model="account.account.meta.type.template">
             <field name="name">138CAMBI01. Cambio de cheque</field>
             <field name="parent" ref="iesa_consolidated_balance_138"/>
@@ -2534,6 +2503,13 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">197110. Transferencias entre Fondos</field>
             <field name="parent" ref="iesa_consolidated_balance_197"/>
             <field name="sequence" eval="197110"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="type_display_balance">debit</field>
+        </record>
+        <record id="iesa_consolidated_balance_201201" model="account.account.meta.type.template">
+            <field name="name">201201. Terrenos</field>
+            <field name="parent" ref="iesa_consolidated_balance_201"/>
+            <field name="sequence" eval="201201"/>
             <field name="display_balance">debit-credit</field>
             <field name="type_display_balance">debit</field>
         </record>
@@ -2586,13 +2562,13 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
             <field name="type_display_balance">debit</field>
         </record>
-        <!-- <record id="iesa_consolidated_balance_338501" model="account.account.meta.type.template">
-            <field name="name">338501. Compensación de Ganancia/Pérdida en Cambios</field>
-            <field name="parent" ref="iesa_balance_338"/>
-            <field name="sequence" eval="338501"/>
+        <record id="iesa_consolidated_balance_338110" model="account.account.meta.type.template">
+            <field name="name">338110. Provisión para Gastos de Obreros</field>
+            <field name="parent" ref="iesa_consolidated_balance_338"/>
+            <field name="sequence" eval="338110"/>
             <field name="display_balance">debit-credit</field>
-        </record> -->
-
+            <field name="type_display_balance">debit</field>
+        </record>
         <record id="iesa_consolidated_balance_358110" model="account.account.meta.type.template">
             <field name="name">358110. Cuentas por Pagar C. P.</field>
             <field name="parent" ref="iesa_consolidated_balance_358"/>
@@ -2600,7 +2576,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
             <field name="type_display_balance">debit</field>
         </record>
-
         <record id="iesa_consolidated_balance_458110" model="account.account.meta.type.template">
             <field name="name">458110. Cuentas por Pagar L. P.</field>
             <field name="parent" ref="iesa_consolidated_balance_458"/>
@@ -2622,7 +2597,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">debit-credit</field>
             <field name="type_display_balance">debit</field>
         </record>
-
         <record id="iesa_consolidated_pyg_621110" model="account.account.meta.type.template">
             <field name="name">621110. Inscripciones</field>
             <field name="parent" ref="iesa_consolidated_pyg_621"/>
@@ -2807,7 +2781,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type_display_balance">credit</field>
         </record>
-        
         <record id="iesa_consolidated_pyg_8153" model="account.account.meta.type.template">
             <field name="name">8153. SEGURO DE SOBREVIVIENTE</field>
             <field name="parent" ref="iesa_consolidated_pyg_815"/>
@@ -2864,8 +2837,10 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type_display_balance">credit</field>
         </record>
+
+
         <record id="iesa_consolidated_pyg_818150" model="account.account.meta.type.template">
-            <field name="name">818150. Jubilación 5%</field>
+            <field name="name">818150. Jubilación 5 (por ciento)</field>
             <field name="parent" ref="iesa_consolidated_pyg_818"/>
             <field name="sequence" eval="818150"/>
             <field name="display_balance">credit-debit</field>
@@ -3151,7 +3126,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type_display_balance">credit</field>
         </record>
-        
         <record id="iesa_consolidated_pyg_9025" model="account.account.meta.type.template">
             <field name="name">9025. REPARACIÓN DE EQUIPOS</field>
             <field name="parent" ref="iesa_consolidated_pyg_902"/>
@@ -3159,7 +3133,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type_display_balance">credit</field>
         </record>
-        
         <record id="iesa_consolidated_pyg_903203" model="account.account.meta.type.template">
             <field name="name">903203. Depreciación de Edificio</field>
             <field name="parent" ref="iesa_consolidated_pyg_903"/>
@@ -3238,9 +3211,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="type_display_balance">credit</field>
         </record>
     </data>
-    
     <data grouped="1">
-        
         <record id="iesa_consolidated_pyg_811110" model="account.account.meta.type.template">
             <field name="name">811110. Salario Empleados</field>
             <field name="parent" ref="iesa_consolidated_pyg_8111"/>
@@ -3276,7 +3247,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="display_balance">credit-debit</field>
             <field name="type_display_balance">credit</field>
         </record>
-
         <record id="iesa_consolidated_pyg_815110" model="account.account.meta.type.template">
             <field name="name">815110. Seguro 4 en 1</field>
             <field name="parent" ref="iesa_consolidated_pyg_8151"/>
@@ -3303,7 +3273,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="parent" ref="iesa_consolidated_pyg_9025"/>
             <field name="sequence" eval="902510"/>
             <field name="display_balance">credit-debit</field>
-z           <field name="type_display_balance">credit</field>
+            <field name="type_display_balance">credit</field>
         </record>
         <record id="iesa_consolidated_pyg_907110" model="account.account.meta.type.template">
             <field name="name">907110. Electricidad</field>
@@ -3387,8 +3357,7 @@ z           <field name="type_display_balance">credit</field>
             <field name="type_display_balance">credit</field>
         </record>
     </data>
-
-        <data grouped="1">
+    <data grouped="1">
         <record id="iesa_balance_1" model="account.account.type.template">
             <field name="name">1) ACTIVOS CORRIENTES</field>
             <field name="parent" ref="iesa_balance_activo"/>
@@ -3462,7 +3431,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="meta_type" ref="iesa_consolidated_pyg_9"/>
             <field name="type_display_balance">credit</field>
         </record>
-        
     </data>
     <data grouped="1">
         <record id="iesa_balance_10" model="account.account.type.template">
@@ -3971,7 +3939,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="type_display_balance">credit</field>
         </record>
     </data>
-
     <data grouped="1">
         <record id="iesa_balance_101" model="account.account.type.template">
             <field name="name">101. EFECTIVO EN CAJA</field>
@@ -5898,7 +5865,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="type_display_balance">credit</field>
         </record>
     </data>
-
     <data grouped="1">
         <record id="iesa_balance_101110" model="account.account.type.template">
             <field name="name">101110. Caja Chica</field>
@@ -6108,6 +6074,14 @@ z           <field name="type_display_balance">credit</field>
             <field name="meta_type" ref="iesa_consolidated_balance_197110"/>
             <field name="type_display_balance">debit</field>
         </record>
+        <record id="iesa_balance_201201" model="account.account.type.template">
+            <field name="name">201201. Terrenos</field>
+            <field name="parent" ref="iesa_balance_201"/>
+            <field name="sequence" eval="201201"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="meta_type" ref="iesa_consolidated_balance_201201"/>
+            <field name="type_display_balance">debit</field>
+        </record>
         <record id="iesa_balance_203203" model="account.account.type.template">
             <field name="name">203203. Edificios</field>
             <field name="parent" ref="iesa_balance_203"/>
@@ -6162,6 +6136,14 @@ z           <field name="type_display_balance">credit</field>
             <field name="sequence" eval="33102"/>
             <field name="display_balance">debit-credit</field>
             <field name="meta_type" ref="iesa_consolidated_balance_CISR01"/>
+            <field name="type_display_balance">credit</field>
+        </record>
+        <record id="iesa_balance_338110" model="account.account.type.template">
+            <field name="name">338110. Provisión para Gastos Obreros</field>
+            <field name="parent" ref="iesa_balance_338"/>
+            <field name="sequence" eval="338110"/>
+            <field name="display_balance">debit-credit</field>
+            <field name="meta_type" ref="iesa_consolidated_balance_338110"/>
             <field name="type_display_balance">credit</field>
         </record>
         <record id="iesa_balance_358110" model="account.account.type.template">
@@ -6469,7 +6451,7 @@ z           <field name="type_display_balance">credit</field>
             <field name="type_display_balance">credit</field>
         </record>
         <record id="iesa_pyg_818150" model="account.account.type.template">
-            <field name="name">818150. Jubilación 5%</field>
+            <field name="name">818150. Jubilación 5 (por ciento)</field>
             <field name="parent" ref="iesa_pyg_818"/>
             <field name="sequence" eval="818150"/>
             <field name="display_balance">credit-debit</field>
@@ -6893,7 +6875,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="type_display_balance">credit</field>
         </record>
     </data>
-
     <data grouped="1">
         <record id="iesa_pyg_811110" model="account.account.type.template">
             <field name="name">811110. Salario Empleados</field>
@@ -7274,50 +7255,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="party_required" eval="True"/>
             <field name="reconcile" eval="True"/>
         </record>
-
-        <!--
-        <record id="pgc_134110_iesa" model="account.account.template">
-            <field name="name">Inscripciones por Cobrar</field>
-            <field name="parent" ref="pgc_1_iesa"/>
-            <field name="code">134110</field>
-            <field name="type" ref="iesa_balance_134110"/>
-            <field name="kind">receivable</field>
-            <field name="deferral" eval="True"/>
-            <field name="party_required" eval="True"/>
-            <field name="reconcile" eval="True"/>
-        </record>
-        <record id="pgc_134120_iesa" model="account.account.template">
-            <field name="name">Colegiaturas por Cobrar</field>
-            <field name="parent" ref="pgc_1_iesa"/>
-            <field name="code">134120</field>
-            <field name="type" ref="iesa_balance_134120"/>
-            <field name="kind">receivable</field>
-            <field name="deferral" eval="True"/>
-            <field name="party_required" eval="True"/>
-            <field name="reconcile" eval="True"/>
-        </record>
-        <record id="pgc_134130_iesa" model="account.account.template">
-            <field name="name">Derecho a Exámenes por Cobrar</field>
-            <field name="parent" ref="pgc_1_iesa"/>
-            <field name="code">134130</field>
-            <field name="type" ref="iesa_balance_134130"/>
-            <field name="kind">receivable</field>
-            <field name="deferral" eval="True"/>
-            <field name="party_required" eval="True"/>
-            <field name="reconcile" eval="True"/>
-        </record>
-        <record id="pgc_134140_iesa" model="account.account.template">
-            <field name="name">Derecho a Mora por Cobrar</field>
-            <field name="parent" ref="pgc_1_iesa"/>
-            <field name="code">134140</field>
-            <field name="type" ref="iesa_balance_134140"/>
-            <field name="kind">receivable</field>
-            <field name="deferral" eval="True"/>
-            <field name="party_required" eval="True"/>
-            <field name="reconcile" eval="True"/>
-        </record>
-        -->
-
         <record id="pgc_138CAMBI01_iesa" model="account.account.template">
             <field name="name">Cambio de cheque</field>
             <field name="parent" ref="pgc_1_iesa"/>
@@ -7365,7 +7302,15 @@ z           <field name="type_display_balance">credit</field>
             <field name="party_required" eval="True"/>
             <field name="reconcile" eval="True"/>
         </record>
-
+        <record id="pgc_201201_iesa" model="account.account.template">
+            <field name="name">Terrenos</field>
+            <field name="parent" ref="pgc_2_iesa"/>
+            <field name="code">201201</field>
+            <field name="kind">other</field>
+            <field name="type" ref="iesa_balance_201201"/>
+            <field name="deferral" eval="True"/>
+            <field name="party_required" eval="False"/>
+        </record>
         <record id="pgc_203203_iesa" model="account.account.template">
             <field name="name">Edificios</field>
             <field name="parent" ref="pgc_2_iesa"/>
@@ -7384,7 +7329,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="True"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_205205_iesa" model="account.account.template">
             <field name="name">Mobiliario y Equipo</field>
             <field name="parent" ref="pgc_2_iesa"/>
@@ -7412,7 +7356,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="True"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_CIGSS01_iesa" model="account.account.template">
             <field name="name">IGSS</field>
             <field name="parent" ref="pgc_3_iesa"/>
@@ -7431,16 +7374,16 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="True"/>
             <field name="party_required" eval="False"/>
         </record>
-        <!-- <record id="pgc_338501_iesa" model="account.account.template">
-            <field name="name">Compensación de Ganancia/Pérdida en Cambios</field>
+        <record id="pgc_338110_iesa" model="account.account.template">
+            <field name="name">Provisión para Gastos Obrero</field>
             <field name="parent" ref="pgc_3_iesa"/>
-            <field name="code">338501</field>
-            <field name="type" ref="iesa_balance_338501"/>
+            <field name="code">338110</field>
+            <field name="type" ref="iesa_balance_338110"/>
             <field name="kind">payable</field>
             <field name="deferral" eval="True"/>
             <field name="party_required" eval="True"/>
             <field name="reconcile" eval="True"/>
-        </record> -->
+        </record>
         <record id="pgc_358110_iesa" model="account.account.template">
             <field name="name">Cuenta por Pagar C. P.</field>
             <field name="parent" ref="pgc_3_iesa"/>
@@ -7452,7 +7395,7 @@ z           <field name="type_display_balance">credit</field>
             <field name="reconcile" eval="True"/>
         </record>
         <record id="pgc_458110_iesa" model="account.account.template">
-            <field name="name">Cta. por Pagar L. P.</field>
+            <field name="name">Cuenta por Pagar L. P.</field>
             <field name="parent" ref="pgc_4_iesa"/>
             <field name="code">458110</field>
             <field name="type" ref="iesa_balance_458110"/>
@@ -7461,7 +7404,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="party_required" eval="True"/>
             <field name="reconcile" eval="True"/>
         </record>
-
         <record id="pgc_500100_iesa" model="account.account.template">
             <field name="name">Saldo del Fondo</field>
             <field name="parent" ref="pgc_5_iesa"/>
@@ -7480,7 +7422,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="True"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_621110_iesa" model="account.account.template">
             <field name="name">Inscripciones</field>
             <field name="parent" ref="pgc_6_iesa"/>
@@ -7535,34 +7476,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-        <!--
-        <record id="pgc_6731_iesa" model="account.account.template">
-            <field name="name">CUOTAS ESCOLARES (DIFERENTES A ENSEÑANZA)</field>
-            <field name="parent" ref="pgc_6_iesa"/>
-            <field name="code">6731</field>
-            <field name="kind">revenue</field>
-            <field name="type" ref="iesa_pyg_6731"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>
-        <record id="pgc_6732_iesa" model="account.account.template">
-            <field name="name">CUOTAS DE CAMPAMENTO</field>
-            <field name="parent" ref="pgc_6_iesa"/>
-            <field name="code">6732</field>
-            <field name="kind">revenue</field>
-            <field name="type" ref="iesa_pyg_6732"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>
-        <record id="pgc_6733_iesa" model="account.account.template">
-            <field name="name">CUOTAS DE CAMPAMENTO JUVENIL</field>
-            <field name="parent" ref="pgc_6_iesa"/>
-            <field name="code">6733</field>
-            <field name="kind">revenue</field>
-            <field name="type" ref="iesa_pyg_6733"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>-->
         <record id="pgc_711110_iesa" model="account.account.template">
             <field name="name">Intereses Ganados</field>
             <field name="parent" ref="pgc_7_iesa"/>
@@ -7581,43 +7494,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-        <!--
-        <record id="pgc_7814_iesa" model="account.account.template">
-            <field name="name">PLAN DB - CONTRIB. PARA OTROS TIPOS DE BENEFICIOS</field>
-            <field name="parent" ref="pgc_7_iesa"/>
-            <field name="code">7814</field>
-            <field name="kind">revenue</field>
-            <field name="type" ref="iesa_pyg_7814"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>
-        <record id="pgc_7815_iesa" model="account.account.template">
-            <field name="name">PLAN DC - INGR. POR CONTRIB. BÁSICA DEL EMPLEADOR</field>
-            <field name="parent" ref="pgc_7_iesa"/>
-            <field name="code">7815</field>
-            <field name="kind">revenue</field>
-            <field name="type" ref="iesa_pyg_7815"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>
-        <record id="pgc_7816_iesa" model="account.account.template">
-            <field name="name">PLAN DC - INGR. POR CONTR. CONJUNTA DEL EMPLEADOR</field>
-            <field name="parent" ref="pgc_7_iesa"/>
-            <field name="code">7816</field>
-            <field name="kind">revenue</field>
-            <field name="type" ref="iesa_pyg_7816"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>
-        <record id="pgc_7817_iesa" model="account.account.template">
-            <field name="name">PLAN DC - INGRESO POR CONTR. VOLUNT. DE EMPLEADOS</field>
-            <field name="parent" ref="pgc_7_iesa"/>
-            <field name="code">7817</field>
-            <field name="kind">revenue</field>
-            <field name="type" ref="iesa_pyg_7817"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>-->
         <record id="pgc_803110_iesa" model="account.account.template">
             <field name="name">Cuentas Malas</field>
             <field name="parent" ref="pgc_8_iesa"/>
@@ -7826,7 +7702,7 @@ z           <field name="type_display_balance">credit</field>
             <field name="parent" ref="pgc_8_iesa"/>
             <field name="code">818120</field>
             <field name="kind">expense</field>
-            <field name="type" ref="iesa_pyg_818120"/>
+            <field name="type" ref="iesa_pyg_818120"/> 
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
@@ -8009,7 +7885,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_890110_iesa" model="account.account.template">
             <field name="name">Gastos Generales</field>
             <field name="parent" ref="pgc_8_iesa"/>
@@ -8128,7 +8003,7 @@ z           <field name="type_display_balance">credit</field>
             <field name="party_required" eval="False"/>
         </record>
         <record id="pgc_890175_iesa" model="account.account.template">
-            <field name="name">Públicidad</field>
+            <field name="name">Publicidad</field>
             <field name="parent" ref="pgc_8_iesa"/>
             <field name="code">890175</field>
             <field name="kind">expense</field>
@@ -8136,7 +8011,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_893110_iesa" model="account.account.template">
             <field name="name">Soporte Técnico</field>
             <field name="parent" ref="pgc_8_iesa"/>
@@ -8146,7 +8020,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_894110_iesa" model="account.account.template">
             <field name="name">Seguro de Edificios</field>
             <field name="parent" ref="pgc_8_iesa"/>
@@ -8165,7 +8038,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_896110_iesa" model="account.account.template">
             <field name="name">Comisiones Bancarias</field>
             <field name="parent" ref="pgc_8_iesa"/>
@@ -8184,37 +8056,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
-        <!--
-        <record id="pgc_9011_iesa" model="account.account.template">
-            <field name="name">RENTA DE TERRENO</field>
-            <field name="parent" ref="pgc_9_iesa"/>
-            <field name="code">9011</field>
-            <field name="kind">expense</field>
-            <field name="type" ref="iesa_pyg_9011"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>
-        <record id="pgc_9012_iesa" model="account.account.template">
-            <field name="name">RENTA DE EDIFICIO</field>
-            <field name="parent" ref="pgc_9_iesa"/>
-            <field name="code">9012</field>
-            <field name="kind">expense</field>
-            <field name="type" ref="iesa_pyg_9012"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>
-        <record id="pgc_9013_iesa" model="account.account.template">
-            <field name="name">RENTA DE EQUIPO</field>
-            <field name="parent" ref="pgc_9_iesa"/>
-            <field name="code">9013</field>
-            <field name="kind">expense</field>
-            <field name="type" ref="iesa_pyg_9013"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>
-        -->
-
         <record id="pgc_9022_iesa" model="account.account.template">
             <field name="name">REPARACIÓN DE MEJORAS DE TERRENOS</field>
             <field name="parent" ref="pgc_9_iesa"/>
@@ -8224,18 +8065,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
-        <!--
-        <record id="pgc_9023_iesa" model="account.account.template">
-            <field name="name">REPARACIÓN DE EDIFICIOS</field>
-            <field name="parent" ref="pgc_9_iesa"/>
-            <field name="code">9023</field>
-            <field name="kind">expense</field>
-            <field name="type" ref="iesa_pyg_9023"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>-->
-
         <record id="pgc_902310_iesa" model="account.account.template">
             <field name="name">Mantenimiento de Edificio</field>
             <field name="parent" ref="pgc_9_iesa"/>
@@ -8245,18 +8074,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
-        <!--
-        <record id="pgc_9025_iesa" model="account.account.template">
-            <field name="name">REPARACIÓN DE EQUIPOS</field>
-            <field name="parent" ref="pgc_9_iesa"/>
-            <field name="code">9025</field>
-            <field name="kind">expense</field>
-            <field name="type" ref="iesa_pyg_9025"/>
-            <field name="deferral" eval="False"/>
-            <field name="party_required" eval="False"/>
-        </record>-->
-
         <record id="pgc_902510_iesa" model="account.account.template">
             <field name="name">Mantenimiento de Equipo</field>
             <field name="parent" ref="pgc_9_iesa"/>
@@ -8284,7 +8101,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_907110_iesa" model="account.account.template">
             <field name="name">Electricidad</field>
             <field name="parent" ref="pgc_9_iesa"/>
@@ -8303,7 +8119,6 @@ z           <field name="type_display_balance">credit</field>
             <field name="deferral" eval="False"/>
             <field name="party_required" eval="False"/>
         </record>
-
         <record id="pgc_995110_iesa" model="account.account.template">
             <field name="name">Transferencia entre Funciones</field>
             <field name="parent" ref="pgc_9_iesa"/>

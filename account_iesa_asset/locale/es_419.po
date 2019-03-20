@@ -18,6 +18,22 @@ msgctxt "field:create.asset.form,company:"
 msgid "Company"
 msgstr "Colegio"
 
+msgctxt "field:create.asset.form,product_account:"
+msgid "Product Category"
+msgstr "Categoría de Depreaciación"
+
+msgctxt "field:create.asset.form,asset_account:"
+msgid "Asset Account"
+msgstr "Cuenta de Activo"
+
+msgctxt "field:create.asset.form,purchase_account:"
+msgid "Purchase Account"
+msgstr "Cuenta de Compra"
+
+msgctxt "field:create.asset.form,party:"
+msgid "Party"
+msgstr "Tercero de Compra"
+
 msgctxt "field:create.asset.form,name:"
 msgid "Name"
 msgstr "Nombre del Activo"
