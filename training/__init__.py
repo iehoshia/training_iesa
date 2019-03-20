@@ -1,55 +1,46 @@
 from trytond.pool import Pool
-from .party import *
-from .subscription import * 
-from .opportunity import * 
-from .service import * 
-#from .move import * 
-from .product import * 
-from .account import * 
+from . import opportunity
+from . import account
+from . import party
+from . import product
+from . import subscription
+from . import service
 
 def register():
     Pool.register(
-        CreateChartProperties, 
-        Party,
-        Subscription,
-        Line, 
-        LineConsumption, 
-        SubscriptionContext, 
-        SaleOpportunity,
-        SaleOpportunityLine,
-        SaleMeeting, 
-        Service, 
-        Template, 
-        Invoice, 
-        Configuration, 
-        ConfigurationDefaultAccount,
-        PrintOverdueReportStart,
-        OverdueReportTable,
-        PrintGradeOverdueReportStart,
-        GradeOverdueReportTable, 
-        CreateSubscriptionInvoiceStart,
-        PayInvoiceStart,
+        account.CreateChartProperties, 
+        party.Party,
+        subscription.Subscription,
+        subscription.Line, 
+        subscription.LineConsumption, 
+        subscription.SubscriptionContext, 
+        opportunity.SaleOpportunity,
+        opportunity.SaleOpportunityLine,
+        opportunity.SaleMeeting, 
+        service.Service, 
+        product.Template, 
+        product.Category, 
+        account.Invoice, 
+        account.Configuration, 
+        account.ConfigurationDefaultAccount,
+        subscription.PrintOverdueReportStart,
+        subscription.OverdueReportTable,
+        subscription.PrintGradeOverdueReportStart,
+        subscription.GradeOverdueReportTable, 
+        subscription.CreateSubscriptionInvoiceStart,
+        account.PayInvoiceStart,
         module='training', type_='model')
-
     Pool.register(
-        PayInvoice,
-        PrintOverdueReport,
-        PrintGradeOverdueReport,
-        CreateLineConsumption, 
-        CreateSubscriptionInvoice, 
-        CreateChart,
-#        ImprimirReporteDistrito,
-#        ImprimirReporteZona,
-#        ImprimirReporteCampo,
-#        ImprimirReporteUnion,
+        account.PayInvoice,
+        subscription.PrintOverdueReport,
+        subscription.PrintGradeOverdueReport,
+        subscription.CreateLineConsumption, 
+        subscription.CreateSubscriptionInvoice, 
+        account.CreateChart,
         module='training', type_='wizard')
-
     Pool.register(
-        InvoiceReportReceipt,
-        OverdueReport,
-        GradeOverdueReport, 
-#        ReporteDistrito,
-#        ReporteZona,
-#        ReporteCampo,
-#        ReporteUnion,
+        account.InvoiceReportReceipt,
+        subscription.OverdueReport,
+        subscription.GradeOverdueReport, 
+        party.PartyStatementReport, 
         module='training', type_='report') 

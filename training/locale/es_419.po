@@ -366,3 +366,7 @@ msgstr "Solvencias"
 msgctxt "model:ir.action,name:print_grade_overdue_report"
 msgid "Print Grade Overdue Report"
 msgstr "Solvencias por Grado"
+
+msgctxt "model:ir.action,name:report_party_statement"
+msgid "Party Statement"
+msgstr "Estado de Cuenta"

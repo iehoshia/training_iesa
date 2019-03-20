@@ -158,7 +158,7 @@
 
         <menuitem name="Reporting" sequence="0" 
             id="menu_reporting_training" parent="training.menu_training"
-            icon="tryton-presentation"/>
+            />
 
         <!-- OVERDUE REPORT -->
 

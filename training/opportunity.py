@@ -201,7 +201,7 @@ class SaleOpportunity(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def default_employee(cls):
-    	User = Pool().get('res.user')
+        User = Pool().get('res.user')
         employee_id = None
         if Transaction().context.get('employee'):
             employee_id = Transaction().context['employee']
@@ -295,11 +295,11 @@ class SaleMeeting(ModelView, ModelSQL):
 
     def get_party(self, name):
         if self.opportunity:
-    	   return self.opportunity.party.id 
+            return self.opportunity.party.id 
 
     @classmethod
     def default_user(cls):
-    	pool = Pool()
+        pool = Pool()
         User = pool.get('res.user')
         cursor = Transaction().connection.cursor()
         user = User(Transaction().user).id
@@ -307,13 +307,13 @@ class SaleMeeting(ModelView, ModelSQL):
 
     @classmethod
     def default_date(cls):
-    	pool = Pool()
-    	Date = pool.get('ir.date')
+        pool = Pool()
+        Date = pool.get('ir.date')
         return Date.today()
 
     @classmethod
     def default_asesor(cls):
-    	User = Pool().get('res.user')
+        User = Pool().get('res.user')
         employee_id = None
         if Transaction().context.get('employee'):
             employee_id = Transaction().context['employee']

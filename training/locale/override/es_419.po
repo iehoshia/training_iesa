@@ -10,6 +10,10 @@ msgctxt "field:sale.subscription,party:sale_subscription."
 msgid "Party"
 msgstr "Encargado"
 
+msgctxt "field:sale.subscription.line.consumption,invoice_line:sale_subscription."
+msgid "Invoice Line"
+msgstr "Línea de cobro"
+
 msgctxt "field:sale.subscription.line,service:sale_subscription"
 msgid "Service"
 msgstr "Grado"

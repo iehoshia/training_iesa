@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:generator>LibreOffice/6.0.3.2$Windows_X86_64 LibreOffice_project/8f48d515416608e3a835360314dac7e47fd0b821</meta:generator><meta:creation-date>2012-11-15T15:00:35</meta:creation-date><meta:editing-cycles>1</meta:editing-cycles><meta:editing-duration>P0D</meta:editing-duration><meta:document-statistic meta:table-count="4" meta:image-count="1" meta:object-count="0" meta:page-count="1" meta:paragraph-count="20" meta:word-count="49" meta:character-count="506" meta:non-whitespace-character-count="453"/><meta:user-defined meta:name="Info 1"/><meta:user-defined meta:name="Info 2"/><meta:user-defined meta:name="Info 3"/><meta:user-defined meta:name="Info 4"/></office:meta>
+ <office:meta><meta:generator>LibreOffice/6.0.3.2$Windows_X86_64 LibreOffice_project/8f48d515416608e3a835360314dac7e47fd0b821</meta:generator><meta:creation-date>2012-11-15T15:00:35</meta:creation-date><meta:editing-cycles>1</meta:editing-cycles><meta:editing-duration>P0D</meta:editing-duration><meta:document-statistic meta:table-count="4" meta:image-count="1" meta:object-count="0" meta:page-count="1" meta:paragraph-count="29" meta:word-count="59" meta:character-count="838" meta:non-whitespace-character-count="779"/><meta:user-defined meta:name="Info 1"/><meta:user-defined meta:name="Info 2"/><meta:user-defined meta:name="Info 3"/><meta:user-defined meta:name="Info 4"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">7</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">26481</config:config-item>
    <config:config-item config:name="ViewAreaHeight" config:type="long">11236</config:config-item>
@@ -14,11 +14,11 @@
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
      <config:config-item config:name="ViewLeft" config:type="long">4239</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">7218</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">4870</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">7</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">0</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">26480</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">11241</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">11234</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -83,7 +83,7 @@
    <config:config-item config:name="UnxForceZeroExtLeading" config:type="boolean">false</config:config-item>
    <config:config-item config:name="UseOldPrinterMetrics" config:type="boolean">false</config:config-item>
    <config:config-item config:name="TabAtLeftIndentForParagraphsInList" config:type="boolean">false</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">5833106</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">6190390</config:config-item>
    <config:config-item config:name="MsWordCompTrailingBlanks" config:type="boolean">false</config:config-item>
    <config:config-item config:name="MathBaselineAlignment" config:type="boolean">false</config:config-item>
    <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
@@ -322,58 +322,76 @@
    <style:table-properties style:width="17.501cm" table:align="margins"/>
   </style:style>
   <style:style style:name="Tabla3.A" style:family="table-column">
-   <style:table-column-properties style:column-width="17.501cm" style:rel-column-width="65535*"/>
+   <style:table-column-properties style:column-width="14.898cm" style:rel-column-width="55785*"/>
+  </style:style>
+  <style:style style:name="Tabla3.B" style:family="table-column">
+   <style:table-column-properties style:column-width="2.604cm" style:rel-column-width="9750*"/>
   </style:style>
   <style:style style:name="Tabla3.A1" style:family="table-cell">
-   <style:table-cell-properties fo:padding="0.097cm" fo:border="0.05pt solid #000000"/>
+   <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
   </style:style>
-  <style:style style:name="Tabla4" style:family="table">
+  <style:style style:name="Tabla3.B1" style:family="table-cell">
+   <style:table-cell-properties fo:padding="0.097cm" fo:border-left="none" fo:border-right="0.05pt solid #000000" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
+  </style:style>
+  <style:style style:name="Tabla2" style:family="table">
    <style:table-properties style:width="17.501cm" table:align="margins"/>
   </style:style>
-  <style:style style:name="Tabla4.A" style:family="table-column">
-   <style:table-column-properties style:column-width="2.402cm" style:rel-column-width="1362*"/>
+  <style:style style:name="Tabla2.A" style:family="table-column">
+   <style:table-column-properties style:column-width="1.893cm" style:rel-column-width="7087*"/>
   </style:style>
-  <style:style style:name="Tabla4.B" style:family="table-column">
-   <style:table-column-properties style:column-width="3.5cm" style:rel-column-width="1984*"/>
+  <style:style style:name="Tabla2.B" style:family="table-column">
+   <style:table-column-properties style:column-width="2.708cm" style:rel-column-width="10138*"/>
   </style:style>
-  <style:style style:name="Tabla4.C" style:family="table-column">
-   <style:table-column-properties style:column-width="6.696cm" style:rel-column-width="3796*"/>
+  <style:style style:name="Tabla2.C" style:family="table-column">
+   <style:table-column-properties style:column-width="5.292cm" style:rel-column-width="19815*"/>
   </style:style>
-  <style:style style:name="Tabla4.D" style:family="table-column">
-   <style:table-column-properties style:column-width="2.3cm" style:rel-column-width="1304*"/>
+  <style:style style:name="Tabla2.D" style:family="table-column">
+   <style:table-column-properties style:column-width="2.401cm" style:rel-column-width="8989*"/>
   </style:style>
-  <style:style style:name="Tabla4.E" style:family="table-column">
-   <style:table-column-properties style:column-width="2.604cm" style:rel-column-width="1476*"/>
+  <style:style style:name="Tabla2.E" style:family="table-column">
+   <style:table-column-properties style:column-width="2.402cm" style:rel-column-width="8996*"/>
   </style:style>
-  <style:style style:name="Tabla4.A1" style:family="table-cell">
+  <style:style style:name="Tabla2.F" style:family="table-column">
+   <style:table-column-properties style:column-width="2.806cm" style:rel-column-width="10510*"/>
+  </style:style>
+  <style:style style:name="Tabla2.A1" style:family="table-cell">
    <style:table-cell-properties fo:background-color="#eeeeee" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000">
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
-  <style:style style:name="Tabla4.E1" style:family="table-cell">
+  <style:style style:name="Tabla2.F1" style:family="table-cell">
    <style:table-cell-properties fo:background-color="#eeeeee" fo:padding="0.097cm" fo:border="0.05pt solid #000000">
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
-  <style:style style:name="Tabla4.A2" style:family="table-cell">
+  <style:style style:name="Tabla2.A2" style:family="table-cell">
+   <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+  </style:style>
+  <style:style style:name="Tabla2.F2" style:family="table-cell">
    <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
   </style:style>
-  <style:style style:name="Tabla4.A3" style:family="table-cell">
+  <style:style style:name="Tabla2.A3" style:family="table-cell">
    <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
   </style:style>
-  <style:style style:name="Tabla4.B3" style:family="table-cell">
+  <style:style style:name="Tabla2.B3" style:family="table-cell">
    <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
   </style:style>
-  <style:style style:name="Tabla4.C3" style:family="table-cell">
+  <style:style style:name="Tabla2.C3" style:family="table-cell">
    <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
   </style:style>
-  <style:style style:name="Tabla4.D3" style:family="table-cell">
+  <style:style style:name="Tabla2.D3" style:family="table-cell">
    <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
   </style:style>
-  <style:style style:name="Tabla4.E3" style:family="table-cell">
+  <style:style style:name="Tabla2.E3" style:family="table-cell">
+   <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+  </style:style>
+  <style:style style:name="Tabla2.F3" style:family="table-cell">
    <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
   </style:style>
-  <style:style style:name="Tabla4.A4" style:family="table-cell">
+  <style:style style:name="Tabla2.A4" style:family="table-cell">
+   <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+  </style:style>
+  <style:style style:name="Tabla2.F4" style:family="table-cell">
    <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
   </style:style>
   <style:style style:name="P1" style:family="paragraph" style:parent-style-name="Header">
@@ -405,295 +423,157 @@
    <style:text-properties officeooo:rsid="004ac6a2" officeooo:paragraph-rsid="004c7e3f"/>
   </style:style>
   <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Header">
-   <style:text-properties fo:font-size="2pt" officeooo:rsid="004ac6a2" officeooo:paragraph-rsid="004ac6a2" style:font-size-asian="1.75pt" style:font-size-complex="2pt"/>
-  </style:style>
-  <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Header">
    <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
    <style:text-properties fo:font-size="7pt" officeooo:paragraph-rsid="004c7e3f" style:font-size-asian="7pt" style:font-size-complex="7pt"/>
   </style:style>
-  <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
   </style:style>
-  <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties fo:font-size="2pt" officeooo:paragraph-rsid="004c7e3f" style:font-size-asian="1.75pt" style:font-size-complex="2pt"/>
   </style:style>
-  <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties fo:font-size="2pt" officeooo:paragraph-rsid="004f842a" style:font-size-asian="1.75pt" style:font-size-complex="2pt"/>
-  </style:style>
-  <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties fo:font-size="4pt" officeooo:paragraph-rsid="004f842a" style:font-size-asian="3.5pt" style:font-size-complex="4pt"/>
   </style:style>
-  <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties officeooo:paragraph-rsid="004c7e3f"/>
   </style:style>
-  <style:style style:name="P16" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties fo:font-size="8pt" officeooo:paragraph-rsid="004c7e3f" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
   </style:style>
+  <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Footer">
+   <style:text-properties officeooo:paragraph-rsid="004c7e3f"/>
+  </style:style>
+  <style:style style:name="P16" style:family="paragraph" style:parent-style-name="Footer">
+   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
+   <style:text-properties officeooo:paragraph-rsid="004c7e3f"/>
+  </style:style>
   <style:style style:name="P17" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties fo:font-size="8pt" officeooo:rsid="004f842a" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
   <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties fo:font-size="8pt" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties fo:color="#ffffff" fo:font-size="8pt" fo:font-weight="bold" officeooo:rsid="0052c695" officeooo:paragraph-rsid="0052c695" style:font-size-asian="8pt" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties fo:color="#1c1c1c" fo:font-size="7.5pt" fo:font-weight="bold" officeooo:rsid="0052c695" officeooo:paragraph-rsid="0052c695" style:font-size-asian="7.5pt" style:font-weight-asian="bold" style:font-size-complex="7.5pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Footer">
-   <style:text-properties officeooo:paragraph-rsid="004c7e3f"/>
-  </style:style>
-  <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Footer">
-   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
-   <style:text-properties officeooo:paragraph-rsid="004c7e3f"/>
-  </style:style>
-  <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:paragraph-properties fo:break-before="page"/>
-   <style:text-properties fo:font-size="6pt" style:font-size-asian="5.25pt" style:font-size-complex="6pt"/>
-  </style:style>
-  <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
-  </style:style>
-  <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="00473ddc" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
-  </style:style>
-  <style:style style:name="P26" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="0051cf3e" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P27" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="0051cf3e" style:font-size-asian="9pt" style:font-weight-asian="bold" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="0051cf3e" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P29" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="004f3eb1" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
-  </style:style>
-  <style:style style:name="P30" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
-  </style:style>
-  <style:style style:name="P31" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="8pt" style:text-underline-style="none" officeooo:paragraph-rsid="004f842a" style:font-size-asian="7pt" style:font-size-complex="8pt"/>
-  </style:style>
-  <style:style style:name="P32" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P33" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="00503bc0" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P34" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="0051cf3e" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P35" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="end" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P36" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="end" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="0051cf3e" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P37" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004e30d2" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P38" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P39" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004e30d2" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P40" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P41" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" fo:font-weight="normal" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P42" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" fo:font-weight="normal" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P43" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P44" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P45" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="0051cf3e" officeooo:paragraph-rsid="0051cf3e" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P46" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P47" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P48" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="P49" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8.5pt" fo:font-weight="bold" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8.5pt" style:font-weight-asian="bold" style:font-size-complex="8.5pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P50" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8.5pt" fo:font-weight="bold" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8.5pt" style:font-weight-asian="bold" style:font-size-complex="8.5pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P51" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8.5pt" fo:font-weight="bold" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8.5pt" style:font-weight-asian="bold" style:font-size-complex="8.5pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P52" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:font-size="9pt" style:font-size-complex="9pt"/>
-  </style:style>
-  <style:style style:name="P53" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:font-size="8pt" officeooo:rsid="004f842a" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
-  </style:style>
-  <style:style style:name="P54" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:font-size="8pt" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f3eb1" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
-  </style:style>
-  <style:style style:name="P55" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:font-size="8pt" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
-  </style:style>
-  <style:style style:name="P56" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:font-size="8pt" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P57" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:font-size="8pt" fo:font-weight="bold" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P58" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:color="#ffffff" fo:font-size="8pt" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P59" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:color="#ffffff" fo:font-size="8pt" fo:font-weight="bold" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f842a" style:font-size-asian="8pt" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P60" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:color="#1c1c1c" fo:font-size="7.5pt" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="004f842a" style:font-size-asian="7.5pt" style:font-weight-asian="bold" style:font-size-complex="7.5pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P61" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:color="#1c1c1c" fo:font-size="7.5pt" fo:font-weight="bold" officeooo:rsid="004f3eb1" officeooo:paragraph-rsid="004f842a" style:font-size-asian="7.5pt" style:font-weight-asian="bold" style:font-size-complex="7.5pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P62" style:family="paragraph" style:parent-style-name="Header">
-   <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
-   <style:text-properties fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="004ac6a2" officeooo:paragraph-rsid="004c7e3f" style:font-size-asian="9pt" style:font-weight-asian="bold" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P63" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8.5pt" fo:font-weight="bold" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="00565693" style:font-size-asian="8.5pt" style:font-weight-asian="bold" style:font-size-complex="8.5pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P64" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties fo:font-size="8pt" fo:font-style="normal" fo:font-weight="bold" officeooo:rsid="005693fc" officeooo:paragraph-rsid="005693fc" style:font-size-asian="8pt" style:font-style-asian="normal" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-style-complex="normal" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="P65" style:family="paragraph" style:parent-style-name="Standard">
-   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
-  </style:style>
-  <style:style style:name="P66" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:rsid="00565693" officeooo:paragraph-rsid="00565693" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P67" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="00565693" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P68" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="00590192" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P69" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005693fc" style:font-size-asian="9pt" style:font-weight-asian="bold" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="005f155d" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
   </style:style>
-  <style:style style:name="P70" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="0057df89" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
   </style:style>
-  <style:style style:name="P71" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
    <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="00590192" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
   </style:style>
-  <style:style style:name="P72" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005921c6" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005f155d" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="P26" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005af3f0" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="P27" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="end" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="00590192" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="end" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005af3f0" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="P29" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="end" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005afb40" style:font-size-asian="9pt" style:font-weight-asian="normal" style:font-size-complex="9pt" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="P30" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005693fc" style:font-size-asian="9pt" style:font-weight-asian="bold" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P31" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005f4d44" style:font-size-asian="9pt" style:font-weight-asian="bold" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P32" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="7pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="00590192" officeooo:paragraph-rsid="005f155d" style:font-size-asian="7pt" style:font-weight-asian="bold" style:font-size-complex="7pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P33" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f842a" officeooo:paragraph-rsid="0057df89" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="P34" style:family="paragraph" style:parent-style-name="Standard">
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:break-before="page"/>
    <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" officeooo:paragraph-rsid="004f842a" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
+  </style:style>
+  <style:style style:name="P35" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="005d33a6" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="P36" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Liberation Sans1" fo:font-size="8.5pt" fo:font-weight="bold" officeooo:rsid="004e30d2" officeooo:paragraph-rsid="00565693" style:font-size-asian="8.5pt" style:font-weight-asian="bold" style:font-size-complex="8.5pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P37" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties fo:font-size="8pt" fo:font-style="normal" fo:font-weight="bold" officeooo:rsid="005693fc" officeooo:paragraph-rsid="005693fc" style:font-size-asian="8pt" style:font-style-asian="normal" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-style-complex="normal" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P38" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties fo:font-size="8pt" fo:font-style="normal" fo:font-weight="bold" officeooo:rsid="005921c6" officeooo:paragraph-rsid="005921c6" style:font-size-asian="8pt" style:font-style-asian="normal" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-style-complex="normal" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P39" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties fo:font-size="8pt" fo:font-style="normal" fo:font-weight="bold" officeooo:rsid="005af3f0" officeooo:paragraph-rsid="005af3f0" style:font-size-asian="8pt" style:font-style-asian="normal" style:font-weight-asian="bold" style:font-size-complex="8pt" style:font-style-complex="normal" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="P40" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
+   <style:text-properties style:font-name="Liberation Serif" fo:font-size="9pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="004f842a" officeooo:paragraph-rsid="005f4d44" style:font-size-asian="9pt" style:font-weight-asian="bold" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="T2" style:family="text">
-   <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="0055b4c7" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
+   <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="005921c6" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="T3" style:family="text">
-   <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="T4" style:family="text">
-   <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="004f842a" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="T5" style:family="text">
    <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="0055b4c7" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
   </style:style>
+  <style:style style:name="T4" style:family="text">
+   <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="T5" style:family="text">
+   <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="005921c6" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
+  </style:style>
   <style:style style:name="T6" style:family="text">
-   <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-weight-complex="normal"/>
+   <style:text-properties fo:font-size="10pt" style:text-underline-style="none" fo:font-weight="bold" officeooo:rsid="0055b4c7" style:font-size-asian="10pt" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="T7" style:family="text">
-   <style:text-properties fo:font-size="13pt" style:text-underline-style="none" fo:font-weight="bold" style:font-size-asian="13pt" style:font-weight-asian="bold" style:font-size-complex="13pt" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="T8" style:family="text">
-   <style:text-properties fo:font-size="13pt" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="13pt" style:font-weight-asian="normal" style:font-size-complex="13pt" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="T9" style:family="text">
-   <style:text-properties style:text-underline-style="none"/>
-  </style:style>
-  <style:style style:name="T10" style:family="text">
-   <style:text-properties style:text-underline-style="none" fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
-  </style:style>
-  <style:style style:name="T11" style:family="text">
-   <style:text-properties style:text-underline-style="none" officeooo:rsid="004e30d2"/>
-  </style:style>
-  <style:style style:name="T12" style:family="text">
-   <style:text-properties style:text-underline-style="none" officeooo:rsid="004f3eb1"/>
-  </style:style>
-  <style:style style:name="T13" style:family="text">
-   <style:text-properties style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="004f3eb1" style:font-weight-asian="normal" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="T14" style:family="text">
    <style:text-properties officeooo:rsid="004c7e3f"/>
   </style:style>
-  <style:style style:name="T15" style:family="text">
+  <style:style style:name="T8" style:family="text">
    <style:text-properties officeooo:rsid="004df5c7"/>
   </style:style>
-  <style:style style:name="T16" style:family="text">
-   <style:text-properties officeooo:rsid="004e30d2"/>
-  </style:style>
-  <style:style style:name="T17" style:family="text">
-   <style:text-properties fo:font-size="9pt" officeooo:rsid="004e30d2" style:font-size-asian="9pt" style:font-size-complex="9pt"/>
-  </style:style>
-  <style:style style:name="T18" style:family="text">
-   <style:text-properties fo:font-size="8pt" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
-  </style:style>
-  <style:style style:name="T19" style:family="text">
-   <style:text-properties fo:font-size="8pt" style:text-underline-style="none" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
-  </style:style>
-  <style:style style:name="T20" style:family="text">
+  <style:style style:name="T9" style:family="text">
    <style:text-properties fo:font-size="8pt" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
   </style:style>
-  <style:style style:name="T21" style:family="text">
+  <style:style style:name="T10" style:family="text">
    <style:text-properties fo:font-size="8pt" fo:font-weight="normal" style:font-size-asian="8pt" style:font-weight-asian="normal" style:font-size-complex="8pt" style:font-weight-complex="normal"/>
   </style:style>
-  <style:style style:name="T22" style:family="text">
+  <style:style style:name="T11" style:family="text">
    <style:text-properties officeooo:rsid="0055b4c7"/>
+  </style:style>
+  <style:style style:name="T12" style:family="text">
+   <style:text-properties officeooo:rsid="005d5349"/>
   </style:style>
   <style:style style:name="fr1" style:family="graphic" style:parent-style-name="Graphics">
    <style:graphic-properties style:vertical-pos="from-top" style:vertical-rel="paragraph" style:horizontal-pos="from-left" style:horizontal-rel="paragraph" style:mirror="none" fo:clip="rect(0cm, 13.698cm, 0cm, 0.06cm)" draw:luminance="0%" draw:contrast="0%" draw:red="0%" draw:green="0%" draw:blue="0%" draw:gamma="100%" draw:color-inversion="false" draw:image-opacity="100%" draw:color-mode="standard"/>
@@ -1589,16 +1469,16 @@
     <text:p text:style-name="P1"/>
     <text:p text:style-name="P2"><draw:line text:anchor-type="paragraph" draw:z-index="1" draw:name="Forma1" draw:style-name="gr1" draw:text-style-name="P3" svg:x1="1.97cm" svg:y1="0.05cm" svg:x2="17.572cm" svg:y2="0.041cm">
       <text:p/>
-     </draw:line><text:span text:style-name="T1"><text:s text:c="21"/></text:span><text:span text:style-name="T2">API Centro de Capacitación</text:span><text:span text:style-name="T1"> <text:tab/><text:tab/></text:span><text:span text:style-name="T2">Estado de Cuenta de Alumnos</text:span></text:p>
+     </draw:line><text:span text:style-name="T1"><text:s text:c="21"/></text:span><text:span text:style-name="T2">Instituciones Educativas de Guatemala</text:span><text:span text:style-name="T1"> <text:tab/><text:tab/></text:span><text:span text:style-name="T3">Estado de Cuenta de Alumno</text:span></text:p>
     <table:table table:name="Tabla1" table:style-name="Tabla1">
      <table:table-column table:style-name="Tabla1.A"/>
      <table:table-column table:style-name="Tabla1.B"/>
      <table:table-row>
       <table:table-cell table:style-name="Tabla1.A1" office:value-type="string">
-       <text:p text:style-name="P16"><text:span text:style-name="T22">Entidad</text:span>: <text:placeholder text:placeholder-type="text">&lt;company.rec_name&gt;</text:placeholder></text:p>
+       <text:p text:style-name="P14"><text:span text:style-name="T11">Entidad</text:span>: <text:placeholder text:placeholder-type="text">&lt;company.rec_name&gt;</text:placeholder></text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Tabla1.A1" office:value-type="string">
-       <text:p text:style-name="P10"><text:span text:style-name="T14">Fecha de impresión</text:span>: <text:placeholder text:placeholder-type="text">&lt;format_date(datetime.date.today(), user.language)&gt;</text:placeholder><text:s/><text:span text:style-name="T14">en</text:span> <text:placeholder text:placeholder-type="text">&lt;datetime.datetime.now().strftime(&apos;%H:%M:%S&apos;)&gt;</text:placeholder></text:p>
+       <text:p text:style-name="P9"><text:span text:style-name="T7">Fecha de impresión</text:span>: <text:placeholder text:placeholder-type="text">&lt;format_date(datetime.date.today(), user.language)&gt;</text:placeholder><text:s/><text:span text:style-name="T7">en</text:span> <text:placeholder text:placeholder-type="text">&lt;datetime.datetime.now().strftime(&apos;%H:%M:%S&apos;)&gt;</text:placeholder></text:p>
       </table:table-cell>
      </table:table-row>
     </table:table>
@@ -1611,10 +1491,10 @@
      <table:table-column table:style-name="Table2.B"/>
      <table:table-row>
       <table:table-cell table:style-name="Table2.A1" office:value-type="string">
-       <text:p text:style-name="P21"><text:span text:style-name="T15">Usuario</text:span>: <text:placeholder text:placeholder-type="text">&lt;user.rec_name&gt;</text:placeholder></text:p>
+       <text:p text:style-name="P15"><text:span text:style-name="T8">Usuario</text:span>: <text:placeholder text:placeholder-type="text">&lt;user.rec_name&gt;</text:placeholder></text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table2.A1" office:value-type="string">
-       <text:p text:style-name="P22"><text:page-number text:select-page="current">1</text:page-number>/<text:page-count>1</text:page-count></text:p>
+       <text:p text:style-name="P16"><text:page-number text:select-page="current">1</text:page-number>/<text:page-count>1</text:page-count></text:p>
       </table:table-cell>
      </table:table-row>
     </table:table>
@@ -1633,79 +1513,103 @@
     <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
     <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
    </text:sequence-decls>
-   <text:p text:style-name="P30"><text:placeholder text:placeholder-type="text">&lt;for each=&quot;party in records&quot;&gt;</text:placeholder></text:p>
-   <text:p text:style-name="P24"/>
+   <text:p text:style-name="P34"/>
+   <text:p text:style-name="P17"/>
    <table:table table:name="Tabla3" table:style-name="Tabla3">
     <table:table-column table:style-name="Tabla3.A"/>
+    <table:table-column table:style-name="Tabla3.B"/>
     <table:table-row>
      <table:table-cell table:style-name="Tabla3.A1" office:value-type="string">
-      <text:p text:style-name="P63"><text:span text:style-name="T22">Nombre</text:span>:<text:span text:style-name="T21"> <text:s/></text:span><text:span text:style-name="T20"><text:placeholder text:placeholder-type="text">&lt;party.rec_name&gt;</text:placeholder></text:span></text:p>
+      <text:p text:style-name="P36"><text:span text:style-name="T11">Nombre</text:span>:<text:span text:style-name="T10"> <text:s/></text:span><text:span text:style-name="T9"><text:placeholder text:placeholder-type="text">&lt;party.rec_name&gt;</text:placeholder></text:span><text:span text:style-name="T9"><text:s/></text:span></text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Tabla3.B1" office:value-type="string">
+      <text:p text:style-name="P35"><text:placeholder text:placeholder-type="text">&lt;format_currency(party.receivable, user.language, company.currency)&gt;</text:placeholder></text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
-   <text:p text:style-name="P66"/>
-   <table:table table:name="Tabla4" table:style-name="Tabla4">
-    <table:table-column table:style-name="Tabla4.A"/>
-    <table:table-column table:style-name="Tabla4.B"/>
-    <table:table-column table:style-name="Tabla4.C"/>
-    <table:table-column table:style-name="Tabla4.D"/>
-    <table:table-column table:style-name="Tabla4.E"/>
+   <text:p text:style-name="P31"/>
+   <table:table table:name="Tabla2" table:style-name="Tabla2">
+    <table:table-column table:style-name="Tabla2.A"/>
+    <table:table-column table:style-name="Tabla2.B"/>
+    <table:table-column table:style-name="Tabla2.C"/>
+    <table:table-column table:style-name="Tabla2.D"/>
+    <table:table-column table:style-name="Tabla2.E"/>
+    <table:table-column table:style-name="Tabla2.F"/>
     <table:table-row>
-     <table:table-cell table:style-name="Tabla4.A1" office:value-type="string">
-      <text:p text:style-name="P64">Fecha</text:p>
+     <table:table-cell table:style-name="Tabla2.A1" office:value-type="string">
+      <text:p text:style-name="P37">Fecha</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Tabla4.A1" office:value-type="string">
-      <text:p text:style-name="P64">Asiento</text:p>
+     <table:table-cell table:style-name="Tabla2.A1" office:value-type="string">
+      <text:p text:style-name="P37">Asiento</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Tabla4.A1" office:value-type="string">
-      <text:p text:style-name="P64">Descripción</text:p>
+     <table:table-cell table:style-name="Tabla2.A1" office:value-type="string">
+      <text:p text:style-name="P37">Descripción</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Tabla4.A1" office:value-type="string">
-      <text:p text:style-name="P64">Débito</text:p>
+     <table:table-cell table:style-name="Tabla2.A1" office:value-type="string">
+      <text:p text:style-name="P37">Débito</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Tabla4.E1" office:value-type="string">
-      <text:p text:style-name="P64">Crédito</text:p>
+     <table:table-cell table:style-name="Tabla2.A1" office:value-type="string">
+      <text:p text:style-name="P37">Crédito</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Tabla2.F1" office:value-type="string">
+      <text:p text:style-name="P39">Balance</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Tabla4.A2" table:number-columns-spanned="5" office:value-type="string">
-      <text:p text:style-name="P69"><text:placeholder text:placeholder-type="text">&lt;for each=&quot;line in party.payment_lines&quot;&gt;</text:placeholder></text:p>
+     <table:table-cell table:style-name="Tabla2.A2" table:number-columns-spanned="5" office:value-type="string">
+      <text:p text:style-name="P31"><text:placeholder text:placeholder-type="text">&lt;for each=&quot;line in records&quot;&gt;</text:placeholder><text:s/></text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
-    </table:table-row>
-    <table:table-row>
-     <table:table-cell table:style-name="Tabla4.A3" office:value-type="string">
-      <text:p text:style-name="P70"><text:placeholder text:placeholder-type="text">&lt;line.date&gt;</text:placeholder></text:p>
-     </table:table-cell>
-     <table:table-cell table:style-name="Tabla4.B3" office:value-type="string">
-      <text:p text:style-name="P71"><text:placeholder text:placeholder-type="text">&lt;line.move.post_number&gt;</text:placeholder></text:p>
-     </table:table-cell>
-     <table:table-cell table:style-name="Tabla4.C3" office:value-type="string">
-      <text:p text:style-name="P71"><text:placeholder text:placeholder-type="text">&lt;line.description&gt;</text:placeholder></text:p>
-     </table:table-cell>
-     <table:table-cell table:style-name="Tabla4.D3" office:value-type="string">
-      <text:p text:style-name="P71"><text:placeholder text:placeholder-type="text">&lt;line.debit&gt;</text:placeholder></text:p>
-     </table:table-cell>
-     <table:table-cell table:style-name="Tabla4.E3" office:value-type="string">
-      <text:p text:style-name="P71"><text:placeholder text:placeholder-type="text">&lt;line.credit&gt;</text:placeholder></text:p>
+     <table:table-cell table:style-name="Tabla2.F2" office:value-type="string">
+      <text:p text:style-name="P31"/>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Tabla4.A4" table:number-columns-spanned="5" office:value-type="string">
-      <text:p text:style-name="P69"><text:placeholder text:placeholder-type="text">&lt;/for&gt;</text:placeholder></text:p>
+     <table:table-cell table:style-name="Tabla2.A3" office:value-type="string">
+      <text:p text:style-name="P33"><text:placeholder text:placeholder-type="text">&lt;line.date&gt;</text:placeholder></text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Tabla2.B3" office:value-type="string">
+      <text:p text:style-name="P23"><text:placeholder text:placeholder-type="text">&lt;line.move.post_number&gt;</text:placeholder></text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Tabla2.C3" office:value-type="string">
+      <text:p text:style-name="P25"><text:placeholder text:placeholder-type="text">&lt;line.description&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P32"><text:span text:style-name="T12">DESCRIPCIÓN</text:span>: </text:p>
+      <text:p text:style-name="P25"><text:placeholder text:placeholder-type="text">&lt;if test=&quot;line.move.origin&quot;&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P25"><text:placeholder text:placeholder-type="text">&lt;line.move.origin.description&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P25"><text:placeholder text:placeholder-type="text">&lt;line.move.origin.number&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P25"><text:placeholder text:placeholder-type="text">&lt;/if&gt;</text:placeholder></text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Tabla2.D3" office:value-type="string">
+      <text:p text:style-name="P29"><text:placeholder text:placeholder-type="text">&lt;if test=&quot;line.debit!=0&quot;&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P27"><text:placeholder text:placeholder-type="text">&lt;format_currency(line.debit, user.language, company.currency)&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P29"><text:placeholder text:placeholder-type="text">&lt;/if&gt;</text:placeholder></text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Tabla2.E3" office:value-type="string">
+      <text:p text:style-name="P29"><text:placeholder text:placeholder-type="text">&lt;if test=&quot;line.credit!=0&quot;&gt;</text:placeholder><text:placeholder text:placeholder-type="text">&lt;format_currency(line.credit, user.language, company.currency)&gt;</text:placeholder><text:placeholder text:placeholder-type="text">&lt;/if&gt;</text:placeholder></text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Tabla2.F3" office:value-type="string">
+      <text:p text:style-name="P28"><text:placeholder text:placeholder-type="text">&lt;format_currency(line.balance, user.language, company.currency)&gt;</text:placeholder></text:p>
+     </table:table-cell>
+    </table:table-row>
+    <table:table-row>
+     <table:table-cell table:style-name="Tabla2.A4" table:number-columns-spanned="5" office:value-type="string">
+      <text:p text:style-name="P30"><text:placeholder text:placeholder-type="text">&lt;/for&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
+     <table:table-cell table:style-name="Tabla2.F4" office:value-type="string">
+      <text:p text:style-name="P30"/>
+     </table:table-cell>
     </table:table-row>
    </table:table>
-   <text:p text:style-name="P67"/>
-   <text:p text:style-name="P68"><text:placeholder text:placeholder-type="text">&lt;/for&gt;</text:placeholder></text:p>
-   <text:p text:style-name="P68"/>
+   <text:p text:style-name="P21"><text:s/></text:p>
+   <text:p text:style-name="P20"/>
+   <text:p text:style-name="Standard"/>
   </office:text>
  </office:body>
 </office:document>

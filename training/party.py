@@ -11,8 +11,11 @@ from trytond.model import ModelView, fields, ModelSQL
 from trytond.pool import PoolMeta, Pool
 from trytond.pyson import If, Eval, Bool, PYSONEncoder, Not
 from trytond.transaction import Transaction
+from trytond.report import Report
 
-__all__ = ['Party']
+__all__ = ['Party',
+    'PartyStatementReport',
+]
 __metaclass__ = PoolMeta
 
 _ZERO = Decimal('0.0')
@@ -57,7 +60,7 @@ class Party(ModelSQL, ModelView):
     dpi = fields.Char('DPI', 
         states=_states_subscriber)
 
-    photo = fields.Binary('Avatar')
+    #photo = fields.Binary('Avatar')
 
     skype = fields.Function(fields.Char('Skype'), 'get_mechanism')
     sip = fields.Function(fields.Char('SIP'), 'get_mechanism')
@@ -65,10 +68,15 @@ class Party(ModelSQL, ModelView):
     subscriptions = fields.One2Many('sale.subscription','party','Subscriptions')
     subscriptions_student = fields.One2Many('sale.subscription','student','Subscriptions')
     invoices = fields.One2Many('account.invoice','party','Invoices')
-    payment_lines = fields.One2Many('account.move.line','party','Payment History')
+    #payment_lines = fields.One2Many('account.move.line','party','Payment History')
+    payment_lines = fields.One2Many('account.general_ledger.line','party','Payment History',
+        context={
+                'party_cumulate': True,
+            }, 
+        #domain=[Eval('context', {}).get('company', -1),]
+        )
     company = fields.Many2One('company.company', 'Company', required=False,
         readonly=False, 
-        #invisible=True, 
         #domain=[
         #    ('id', If(Eval('context', {}).contains('company'), '=', '!='),
         #        Eval('context', {}).get('company', -1)),
@@ -192,3 +200,47 @@ class Party(ModelSQL, ModelView):
             ('//page[@id="notes"]', 'states', {
                     'invisible': ~Eval('is_student'),
                     })]
+
+class PartyStatementReport(Report):
+    'Party Statement Report'
+    __name__ = 'party.statement.report'
+
+    @classmethod
+    def _get_records(cls, ids, model, data):
+        pool = Pool()
+        MoveLine = pool.get('account.general_ledger.line')
+        Party = pool.get('party.party')
+        party_id = None 
+        
+
+        for party in ids: 
+            party_id = party
+        company_id = Transaction().context.get('company')
+
+        clause = [
+            ('party', '=', party_id),
+            ]
+
+        with Transaction().set_context(party_cumulate=True):
+            lines =  MoveLine.search(clause,
+                order=[('date', 'ASC')])
+            print ("LINES: ", str(lines))
+
+        return lines 
+
+    @classmethod
+    def get_context(cls, records, data):
+        report_context = super(PartyStatementReport, cls).get_context(records, data)
+
+        pool = Pool()
+        Party = pool.get('party.party')
+        Company = pool.get('company.company')
+        Date = pool.get('ir.date')
+        
+        company = Transaction().context.get('company')
+        today = Date.today()
+
+        report_context['date'] = today
+        report_context['company'] = Company(company)
+        report_context['party'] = Party(data['id'])
+        return report_context

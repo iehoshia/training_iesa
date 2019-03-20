@@ -15,9 +15,7 @@
     </xpath>
     <xpath expr="/form/field[@name=&quot;date&quot;]" position="replace">
     </xpath>
-    <xpath expr="//field[@name=&quot;journal&quot;]" position="replace_attributes">
-        <field name="journal" widget="selection"/>
-    </xpath>
+    <!--
     <xpath expr="/form/label[@name=&quot;journal&quot;]" position="before">
         <label name="currency"/>
         <field name="currency" readonly="1"/>
@@ -30,6 +28,7 @@
         <label name="receipt"/>
         <field name="receipt"/>
     </xpath>
+    -->
     <xpath expr="/form/field[@name=&quot;journal&quot;]" position="after">
         <label name="third_party"/>
         <field name="third_party" colspan="3"/>

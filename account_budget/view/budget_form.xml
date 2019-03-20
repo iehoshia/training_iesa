@@ -12,6 +12,9 @@ this repository contains the full copyright notices and license terms. -->
     <field name="parent"/>
     <label name="type"/>
     <field name="type"/>
+    <label name="template"/>
+    <field name="template"/>
+
     <group id="amount" colspan="4" col="6">
         <label name="amount"/>
         <field name="amount"/>

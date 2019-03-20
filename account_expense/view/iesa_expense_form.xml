@@ -1,33 +1,29 @@
 <?xml version="1.0"?>
 <!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
 this repository contains the full copyright notices and license terms. -->
-<form col="4" cursor="party">
-    <group id="parties" colspan="2" col="4">
+<form col="4" cursor="description">
+    <group id="parties" colspan="4" col="6">
         <label name="number"/>
         <field name="number" readonly="1"/>
-        <label name="journal"/>
-        <field name="journal" widget="selection"/>
+        <label name="payment_method"/>
+        <field name="payment_method" widget="selection"/>
         <label name="date"/>
         <field name="date"/>
         <newline/>
         <label name="description"/>
-        <field name="description" colspan="3"/>
-    </group>
-    <group id="account" colspan="2" col="4" yfill="1">
-        <label name="ticket"/>
-        <field name="ticket"/>
-        <label name="amount"/>
-        <field name="amount" xalign="1.0" />
+        <field name="description"/>
         <label name="party"/>
         <field name="party" colspan="3"/>
-        <label name="account"/>
-        <field name="account" colspan="3"/>
+        <label name="amount"/>
+        <field name="amount" xalign="1.0" />
+        <label name="ticket"/>
+        <field name="ticket"/>
         <label name="reference"/>
-        <field name="reference" colspan="3"/>
+        <field name="reference"/>
     </group>
-    <notebook colspan="6">
+    <notebook colspan="4">
         <page string="Payment History" id="invoice" col="4">
-            <group id="lines" colspan="6" col="4" yfill="1" yexpand="1">
+            <group id="lines" colspan="4" col="4" yfill="1" yexpand="1">
                 <field name="lines" colspan="4"/>
             </group>
             <group col="4" colspan="4" id="state_buttons">

@@ -34,7 +34,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <menuitem parent="training.menu_training" action="act_iesa_party_tree"
-            id="menu_party_tree" sequence="4"
+            id="menu_party_tree" sequence="9"
             icon="tryton-list"/>  
 
     </data>

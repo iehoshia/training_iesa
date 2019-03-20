@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<data>
+	<xpath expr="/form/field[@name='account']" position="replace">
+		<field name="account" widget="selection"/>
+	</xpath>
+    <xpath expr="/form/field[@name='account']" position="after">
+        <label name="meta_type"/>
+        <field name="meta_type" widget="selection"/>
+    </xpath>
+</data>

@@ -40,55 +40,55 @@
         
         <record model="company.company" id="company_company_initial">
             <field name="party" ref="party_party_initial"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
         </record>
 
         <record model="company.company" id="company_company_mision_norte">
             <field name="party" ref="party_party_mision_norte"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
             <field name="parent" ref="company_company_initial"/>
         </record>
         <record model="company.company" id="company_company_mision_oriental">
             <field name="party" ref="party_party_mision_oriental"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
             <field name="parent" ref="company_company_initial"/>
         </record>
         <record model="company.company" id="company_company_asociacion_occidental">
             <field name="party" ref="party_party_asociacion_occidental"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
             <field name="parent" ref="company_company_initial"/>
         </record>
         <record model="company.company" id="company_company_asociacion_metropolitana">
             <field name="party" ref="party_party_asociacion_metropolitana"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
             <field name="parent" ref="company_company_initial"/>
         </record>
         <record model="company.company" id="company_company_asociacion_central">
             <field name="party" ref="party_party_asociacion_central"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
             <field name="parent" ref="company_company_initial"/>
         </record>
         <record model="company.company" id="company_company_mision_del_lago">
             <field name="party" ref="party_party_mision_del_lago"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
             <field name="parent" ref="company_company_initial"/>
         </record>
         <record model="company.company" id="company_company_mision_del_altiplano">
             <field name="party" ref="party_party_mision_del_altiplano"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
             <field name="parent" ref="company_company_initial"/>
         </record>
         <record model="company.company" id="company_company_mision_sur">
             <field name="party" ref="party_party_mision_sur"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="timezone">America/Guatemala</field>
             <field name="parent" ref="company_company_initial"/>
         </record>
@@ -98,7 +98,7 @@
         </record>
         <record model="company.company" id="company_company_progreso">
             <field name="party" ref="party_party_progreso"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_asociacion_central"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -108,7 +108,7 @@
         </record>
         <record model="company.company" id="company_company_maranata">
             <field name="party" ref="party_party_maranata"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_del_altiplano"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -118,7 +118,7 @@
         </record>
         <record model="company.company" id="company_company_emanuel">
             <field name="party" ref="party_party_enmanuel"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_sur"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -128,7 +128,7 @@
         </record>
         <record model="company.company" id="company_company_moises_tahay">
             <field name="party" ref="party_party_moises_tahay"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_asociacion_occidental"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -138,7 +138,7 @@
         </record>
         <record model="company.company" id="company_company_florida">
             <field name="party" ref="party_party_florida"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_asociacion_central"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -148,7 +148,7 @@
         </record>
         <record model="company.company" id="company_company_bethel">
             <field name="party" ref="party_party_bethel"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_sur"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -158,7 +158,7 @@
         </record>
         <record model="company.company" id="company_company_braulio">
             <field name="party" ref="party_party_braulio"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_del_altiplano"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -168,7 +168,7 @@
         </record>
         <record model="company.company" id="company_company_el_alba">
             <field name="party" ref="party_party_el_alba"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_del_altiplano"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -178,7 +178,7 @@
         </record>
         <record model="company.company" id="company_company_orion_sacatepequez">
             <field name="party" ref="party_party_orion_sacatepequez"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_del_lago"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -188,7 +188,7 @@
         </record>
         <record model="company.company" id="company_company_orion_san_marcos">
             <field name="party" ref="party_party_orion_san_marcos"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_sur"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -198,7 +198,7 @@
         </record>
         <record model="company.company" id="company_company_elena_white">
             <field name="party" ref="party_party_elena_white"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_norte"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -208,7 +208,7 @@
         </record>
         <record model="company.company" id="company_company_salacuim">
             <field name="party" ref="party_party_salacuim"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_norte"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -218,7 +218,7 @@
         </record>
         <record model="company.company" id="company_company_nueva_jerusalem">
             <field name="party" ref="party_party_nueva_jerusalem"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_del_altiplano"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -228,7 +228,7 @@
         </record>
         <record model="company.company" id="company_company_getsemani">
             <field name="party" ref="party_party_getsemani"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_norte"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -238,7 +238,7 @@
         </record>
         <record model="company.company" id="company_company_peten">
             <field name="party" ref="party_party_peten"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_norte"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -248,7 +248,7 @@
         </record>
         <record model="company.company" id="company_company_amanecer">
             <field name="party" ref="party_party_amanecer"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_oriental"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -258,7 +258,7 @@
         </record>
         <record model="company.company" id="company_company_sinai">
             <field name="party" ref="party_party_sinai"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_oriental"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -268,7 +268,7 @@
         </record>
         <record model="company.company" id="company_company_redencion">
             <field name="party" ref="party_party_redencion"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_oriental"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -278,7 +278,7 @@
         </record>
         <record model="company.company" id="company_company_tecnico_adventista_del_sur">
             <field name="party" ref="party_party_tecnico_adventista_del_sur"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_del_lago"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -288,7 +288,7 @@
         </record>
         <record model="company.company" id="company_company_moria">
             <field name="party" ref="party_party_moria"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_oriental"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -298,7 +298,7 @@
         </record>
         <record model="company.company" id="company_company_bethania">
             <field name="party" ref="party_party_bethania"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_norte"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -308,7 +308,7 @@
         </record>
         <record model="company.company" id="company_company_guatemalteco">
             <field name="party" ref="party_party_guatemalteco"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_asociacion_metropolitana"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -318,7 +318,7 @@
         </record>
         <record model="company.company" id="company_company_ceas">
             <field name="party" ref="party_party_ceas"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_sur"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -328,7 +328,7 @@
         </record>
         <record model="company.company" id="company_company_juba">
             <field name="party" ref="party_party_juba"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_asociacion_metropolitana"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -338,7 +338,7 @@
         </record>
         <record model="company.company" id="company_company_modelo">
             <field name="party" ref="party_party_modelo"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_mision_sur"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -348,7 +348,7 @@
         </record>
         <record model="company.company" id="company_company_valparaiso">
             <field name="party" ref="party_party_valparaiso"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_asociacion_occidental"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -358,7 +358,7 @@
         </record>
         <record model="company.company" id="company_company_campestre">
             <field name="party" ref="party_party_campestre"/>
-            <field name="currency">16</field>
+            <field name="currency">156</field>
             <field name="parent" ref="company_company_asociacion_metropolitana"/>
             <field name="timezone">America/Guatemala</field>
         </record>
@@ -449,6 +449,20 @@
         <menuitem parent="menu_training" sequence="2"
             action="act_student" id="menuitem_student"
             icon="student_icon"/>
+
+        <record model="ir.action.report" id="report_party_statement">
+            <field name="name">Party Statement</field>
+            <field name="model">party.party</field>
+            <field name="report_name">party.statement.report</field>
+            <field name="report">training/party_statement.fodt</field>
+            
+        </record> 
+
+        <record model="ir.action.keyword" id="report_party_statement_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">party.party,-1</field>
+            <field name="action" ref="report_party_statement"/>
+        </record>
         
     </data>
 </tryton>

@@ -8,7 +8,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <record model="res.user-res.group" id="user_admin_group_budget">
             <field name="user" ref="res.user_admin"/>
-            <field name="group" ref="group_iesa_budget"/> S
+            <field name="group" ref="group_iesa_budget"/> 
         </record>
         <menuitem name="Budgets" parent="account.menu_account"
             id="menu_budget" sequence="90"/>
@@ -170,5 +170,51 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <menuitem parent="menu_budget" action="wizard_print_budget_report"
             id="menu_print_budget_report" icon="tryton-print" sequence="20"/>
+
+        <record model="ir.ui.view" id="create_budget_start_view_form">
+            <field name="model">account.budget.create_budget.start</field>
+            <field name="type">form</field>
+            <field name="name">create_budget_start_form</field>
+        </record>
+        <record model="ir.ui.view" id="create_budget_account_view_form">
+            <field name="model">account.budget.create_budget.account</field>
+            <field name="type">form</field>
+            <field name="name">create_budget_account_form</field>
+        </record>
+        <record model="ir.action.wizard" id="wizard_create_budget">
+            <field name="name">Create Budget from Template</field>
+            <field name="wiz_name">account.budget.create_budget</field>
+        </record>
+
+        <record model="ir.ui.view" id="update_budget_start_view_form">
+            <field name="model">account.budget.update_budget.start</field>
+            <field name="type">form</field>
+            <field name="name">update_budget_start_form</field>
+        </record>
+        <record model="ir.ui.view" id="update_budget_succeed_view_form">
+            <field name="model">account.budget.update_budget.succeed</field>
+            <field name="type">form</field>
+            <field name="name">update_budget_succeed_form</field>
+        </record>
+        <record model="ir.action.wizard" id="wizard_update_budget">
+            <field name="name">Update Budget from Template</field>
+            <field name="wiz_name">account.budget.update_budget</field>
+        </record> 
+        
+        <menuitem parent="account.menu_templates"
+            action="wizard_create_budget" id="menu_create_budget"
+            sequence="90"/>
+        <record model="ir.module.config_wizard.item"
+            id="config_wizard_item_budget_account">
+            <field name="action" ref="wizard_create_budget"/>
+        </record>
+
+        <menuitem parent="account.menu_templates"
+            action="wizard_update_budget" id="menu_update_budget"
+            sequence="100"/>
+        <record model="ir.module.config_wizard.item"
+            id="config_wizard_item_update_budget_account">
+            <field name="action" ref="wizard_update_budget"/>
+        </record>
     </data>
 </tryton>

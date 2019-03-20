@@ -3,8 +3,26 @@
     </xpath> 
     <xpath expr="/form/field[@name=&quot;zip&quot;]" position="replace">
     </xpath> 
-    <xpath expr="/form/label[@name=&quot;sequence&quot;]" position="replace">
+    <xpath expr="//label[@name=&quot;sequence&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//field[@name=&quot;sequence&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//label[@name=&quot;party_name&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//field[@name=&quot;party_name&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//label[@name=&quot;country&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//field[@name=&quot;country&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//label[@name=&quot;subdivision&quot;]" position="replace">
+    </xpath>
+    <xpath expr="//field[@name=&quot;subdivision&quot;]" position="replace">
+    </xpath>
+
+
+    <!--<xpath expr="/form/label[@name=&quot;sequence&quot;]" position="replace">
     </xpath>
     <xpath expr="/form/field[@name=&quot;sequence&quot;]" position="replace">
-    </xpath>
+    </xpath>-->
 </data>

@@ -24,7 +24,7 @@ _ZERO = Decimal(0)
 _YEAR = datetime.datetime.now().year 
 _FIRSTDAY = datetime.date(_YEAR,1,1)
 
-__all__ = ['Subscription',
+__all__ = [ 'Subscription',
             'SubscriptionContext',
             'Line',
             'LineConsumption',
@@ -154,8 +154,7 @@ class Subscription(ModelSQL, ModelView):
     student = fields.Many2One(
         'party.party', "Student", required=True,
         states={
-            'readonly': ((Eval('state') != 'draft') 
-                | (Eval('lines', [0]) & Eval('student'))),
+            'readonly': Eval('state') != 'draft',
             },
         depends=['state','company'],
         domain=['AND', [('is_student', '=', True)],
@@ -279,13 +278,16 @@ class Subscription(ModelSQL, ModelView):
     @classmethod 
     def __setup__(cls): 
         super(Subscription, cls).__setup__() 
-        cls.party.depends=['company']
+        cls.party.depends=['company','state']
+        cls.party.states={
+            'readonly': Eval('state') != 'draft'
+        }
         cls.company.domain=[]
         cls.party.domain=['AND', 
                 [('is_subscriber', '=', True)],
                 [('company', '=', Eval('company',-1) )],
             ]
-        cls.lines.required=True
+        cls.lines.required=True 
         cls.end_date.required=True
         cls._buttons.update({
                 'cancel': {
@@ -329,6 +331,17 @@ class Subscription(ModelSQL, ModelView):
                     "You need to define an enrolment account."),
                 })
 
+    @classmethod
+    def search_rec_name(cls, name, clause):
+        if clause[1].startswith('!') or clause[1].startswith('not '):
+            bool_op = 'AND'
+        else:
+            bool_op = 'OR'
+        return [bool_op,
+            ('party',) + tuple(clause[1:]),
+            ('student',) + tuple(clause[1:]),
+            ]
+
 
     def get_receivable_payable(self, name):
         amount = self.student.receivable
@@ -354,8 +367,8 @@ class Subscription(ModelSQL, ModelView):
         address = PartyAddress(party=party, 
                 city="Guatemala")
         address.save()
-        print "PARTY ID: " + str(address.id) +"ADDRESS:  " + str(address.city) + "PARTY: " + str(address.party)
-        print "PARTY ADDRESSES:  " + str(party.addresses)
+        #print "PARTY ID: " + str(address.id) +"ADDRESS:  " + str(address.city) + "PARTY: " + str(address.party)
+        #print "PARTY ADDRESSES:  " + str(party.addresses)
         return address
 
     def _get_invoice(self, invoice_date=None):
@@ -525,7 +538,7 @@ class Subscription(ModelSQL, ModelView):
         Invoice.save(all_invoices)
 
         all_invoice_lines = []
-        for subscription, invoice in invoices.iteritems():
+        for subscription, invoice in invoices.items():
             invoice_lines, _ = lines[subscription]
             for line in invoice_lines:
                 line.invoice = invoice
@@ -533,7 +546,7 @@ class Subscription(ModelSQL, ModelView):
         InvoiceLine.save(all_invoice_lines)
 
         all_consumptions = []
-        for values in lines.itervalues():
+        for values in lines.values():
             for invoice_line, consumptions in zip(*values):
                 for consumption in consumptions:
                     assert not consumption.invoice_line
@@ -604,7 +617,7 @@ class Subscription(ModelSQL, ModelView):
         Invoice.save(all_invoices)
 
         all_invoice_lines = []
-        for subscription, invoice in invoices.iteritems():
+        for subscription, invoice in invoices.items():
             invoice_lines, _ = lines[subscription]
             for line in invoice_lines:
                 line.invoice = invoice
@@ -612,7 +625,7 @@ class Subscription(ModelSQL, ModelView):
         InvoiceLine.save(all_invoice_lines)
 
         all_consumptions = []
-        for values in lines.itervalues():
+        for values in lines.values():
             for invoice_line, consumptions in zip(*values):
                 for consumption in consumptions:
                     assert not consumption.invoice_line
@@ -722,6 +735,22 @@ class Subscription(ModelSQL, ModelView):
         Date = Pool().get('ir.date')
         date = Date.today()
         return date 
+
+    @classmethod 
+    def default_start_date(cls):
+        Date = Pool().get('ir.date')
+        today = Date.today()
+        first_date = date(today.year, 1, 1)
+        return first_date
+
+    @classmethod 
+    def default_end_date(cls):
+        Date = Pool().get('ir.date')
+        today = Date.today()
+        end_date = date(today.year, 10, 1)
+        return end_date
+
+
 
     @classmethod
     def search(cls, domain, offset=0, limit=None, order=None, count=False,

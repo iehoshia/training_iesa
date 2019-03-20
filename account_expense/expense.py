@@ -28,18 +28,20 @@ from trytond.report import Report
 
 from trytond import backend
 
-from numero_letras import numero_a_moneda
+from .numero_letras import numero_a_moneda
 
 __all__ = [
     'Move',
     'Expense',
     'ExpenseLine',
+    'ExpenseBankCheck',
     'ExpenseContext', 
     'ExpenseMoveLine',
     'ExpenseMoveReference',
     'ExpenseReport',
     'CancelExpenses',
     'CancelExpensesDefault',
+    'PaymentMethod',
     ]  
 __metaclass__ = PoolMeta
 
@@ -88,11 +90,7 @@ class Expense(Workflow, ModelView, ModelSQL):
         depends=_DEPENDS, required=True)
     state = fields.Selection(STATES, 'State', readonly=True)
     date = fields.Date('Expense Date',
-        states={
-            'readonly': Eval('state').in_(['posted', 'canceled']),
-            'required': Eval('state').in_(['draft','posted'],),
-            },
-        depends=['state'])
+        states=_STATES, depends=_DEPENDS,)
     accounting_date = fields.Date('Accounting Date', states=_STATES,
         depends=_DEPENDS)
     currency = fields.Many2One('currency.currency', 'Currency', required=True,
@@ -101,9 +99,17 @@ class Expense(Workflow, ModelView, ModelSQL):
         'on_change_with_currency_digits')
     currency_date = fields.Function(fields.Date('Currency Date'),
         'on_change_with_currency_date')
-    journal = fields.Many2One('account.journal', 'Journal', required=True,
+    journal = fields.Many2One('account.journal', 'Journal', required=False,
         states=_STATES, depends=_DEPENDS,
         domain=[('type', 'in', ['cash', 'statement'])]) 
+    payment_method = fields.Many2One('account.invoice.payment.method', "Payment Method",  required=True,
+        domain=[
+            ('company', '=', Eval('company')),
+            #('debit_account', '!=', Eval('account')),
+            #('credit_account', '!=', Eval('account')),
+            ],
+        states=_STATES, depends=_DEPENDS + ['company', 'account'],
+        )
     account = fields.Many2One('account.account', 'Account', 
         required=False,
         states=_STATES, depends=_DEPENDS + ['company'],
@@ -115,7 +121,7 @@ class Expense(Workflow, ModelView, ModelSQL):
             ('company', '=', Eval('company', -1)),
             ],
         depends=['company'])
-    cancel_move = fields.Many2One('account.move', 'Cancel Move', readonly=True,
+    cancel_move = fields.Many2One('account.move', 'Asiento Cancelado', readonly=True,
         domain=[
             ('company', '=', Eval('company', -1)),
             ],
@@ -143,8 +149,8 @@ class Expense(Workflow, ModelView, ModelSQL):
                 states=_STATES, 
                 )
     comment = fields.Text('Comment', states=_STATES, depends=_DEPENDS)
-    ticket = fields.Char('Ticket',  states=_STATES, 
-        required=False)
+    ticket = fields.Char('Ticket',  states=_STATES, depends=_DEPENDS,
+        required=True)
     receipt = fields.Char('Receipt')
     party = fields.Many2One('party.party','Party',
         required=True, 
@@ -280,6 +286,17 @@ class Expense(Workflow, ModelView, ModelSQL):
         Date = pool.get('ir.date')
         return Date.today()
 
+    @staticmethod
+    def default_payment_method():
+        pool = Pool()
+        company_id = Transaction().context.get('company')
+        PaymentMethod = pool.get('account.invoice.payment.method')
+        payments = PaymentMethod.search([('name','=','Caja'),
+            ('company','=',company_id)
+            ])
+        if len(payments)==1: 
+            return payments[0].id 
+
     @fields.depends('party','lines','existing_move_lines','company','description')
     def on_change_party(self, name=None):
         pool = Pool()
@@ -308,12 +325,11 @@ class Expense(Workflow, ModelView, ModelSQL):
         moves = []
         return moves
 
-    @fields.depends('journal', 'account', 'ticket')
-    def on_change_journal(self, name=None):
+    @fields.depends('payment_method', 'account', 'ticket')
+    def on_change_payment_method(self, name=None):
         self.account = None
-        if self.journal: 
-            Sequence = Pool().get('ir.sequence') 
-            self.account = self.journal.debit_account.id
+        if self.payment_method:             
+            self.account = self.payment_method.debit_account.id
 
     @fields.depends('lines','existing_move_lines')
     def on_change_lines (self, name=None):
@@ -354,8 +370,12 @@ class Expense(Workflow, ModelView, ModelSQL):
         for expense in expenses:
             if expense.number:
                 continue
-            expense.number = Sequence.get_id(
-                config.iesa_expense_sequence.id)
+            else: 
+                expense.number = Sequence.get_id(
+                    config.iesa_expense_sequence.id)
+            if not expense.ticket:
+                expense.ticket = Sequence.get_id(
+                    expense.payment_method.sequence.id)
         cls.save(expenses)
 
     @fields.depends('date')
@@ -370,17 +390,19 @@ class Expense(Workflow, ModelView, ModelSQL):
         Period = pool.get('account.period')
         MoveLine = pool.get('account.move.line')
         
-        journal = self.journal 
+        journal = self.payment_method.journal 
         date = self.date
         amount = self.amount
         description = self.number + ' - ' + self.description + ' - ' + self.reference
         ticket = self.ticket
+        party = self.party
         origin = self 
         lines = []
 
         credit_line = MoveLine(description=self.description)
         credit_line.debit, credit_line.credit = 0, self.amount
-        credit_line.account = self.account
+        #credit_line.account = self.account
+        credit_line.account = self.payment_method.credit_account
         
         if not credit_line.account:
             self.raise_user_error('missing_account_credit')
@@ -398,12 +420,11 @@ class Expense(Workflow, ModelView, ModelSQL):
         period_id = Period.find(self.company.id, date=date)
 
         move = Move(journal=journal, period=period_id, date=date,
-            company=self.company, lines=lines, origin=self, description=description)
+            company=self.company, lines=lines, origin=self, description=description,
+            ticket=ticket, party=party)
         move.save()
         Move.post([move])
-
         return move
-
 
     @classmethod
     @ModelView.button
@@ -473,8 +494,8 @@ class Expense(Workflow, ModelView, ModelSQL):
         cls.set_number(expenses)
 
     @classmethod
-    @ModelView.button_action(
-        'account_expense.report_iesa_expense')
+    #@ModelView.button_action(
+    #    'account_expense.check_iesa_expense')
     @Workflow.transition('posted')
     def post(cls, expenses):
         
@@ -504,6 +525,21 @@ class Expense(Workflow, ModelView, ModelSQL):
         cls.save(expenses_ids)
 
     @classmethod
+    def copy(cls, expenses, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('state', cls.default_state())
+        default.setdefault('number', None)
+        #default.setdefault('ticket', None)
+        #default.setdefault('reference', None)
+        default.setdefault('accounting_date', None)
+        default.setdefault('move', None)
+        default.setdefault('cancel_move', None)
+        return super(Expense,cls).copy(expenses, default=default)
+
+    @classmethod
     def check_modify(cls, expenses):
         '''
         Check if the expenses can be modified
@@ -517,10 +553,11 @@ class Expense(Workflow, ModelView, ModelSQL):
         cls.check_modify(expenses)
         # Cancel before delete
         cls.cancel(expenses)
+        ExpenseLine = Pool().get('account.iesa.expense.line')
         for expense in expenses:
             if expense.state != 'canceled':
                 cls.raise_user_error('delete_cancel', (expense.rec_name,))
-            if expense.number:
+            if expense.number or expense.ticket:
                 cls.raise_user_error('delete_numbered', (expense.rec_name,))
         ExpenseLine.delete([l for e in expenses for l in e.lines])
         super(Expense, cls).delete(expenses)
@@ -554,7 +591,12 @@ class ExpenseLine(ModelView, ModelSQL):
             },
         depends=['expense'] + _depends,
         )
-    description = fields.Char('Description')
+    description = fields.Char('Description', 
+        states={
+            'readonly': _states['readonly'],
+            },
+        depends=['expense','_parent_expense','company'] + _depends ,
+    )
     party = fields.Many2One('party.party','Party',
         required=True, 
         domain=['AND',
@@ -585,6 +627,14 @@ class ExpenseLine(ModelView, ModelSQL):
     #@staticmethod
     #def default_party():  
 
+    @classmethod
+    def copy(cls, lines, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default.setdefault('expense', None)
+        return super(ExpenseLine, cls).copy(lines, default=default)
 
     @fields.depends('account')
     def on_change_with_party_required(self, name=None):
@@ -644,6 +694,18 @@ class ExpenseLine(ModelView, ModelSQL):
         if self.currency:
             return self.currency.digits
         return 2
+
+class PaymentMethod(DeactivableMixin, ModelSQL, ModelView):
+    'Payment Method'
+    __name__ = 'account.invoice.payment.method'
+
+    sequence = fields.Many2One(
+        'ir.sequence', "Sequence",
+        domain=[
+            ('code', '=', 'expense.check'),
+            ('company', 'in', [Eval('company', -1), None]),
+            ],
+        depends=['company'])
 
 class InvoiceParty(ModelSQL):
     'Invoice - Party'
@@ -714,6 +776,30 @@ class ExpenseReport(Report):
         
         return report_context
 
+class ExpenseBankCheck(Report): 
+    'Expense Bank Check'
+    __name__ = 'account.iesa.expense.check' 
+
+    @classmethod
+    def get_context(cls, records, data):
+
+        report_context = super(ExpenseBankCheck, cls).get_context(records, data)
+
+        amount = 0
+        for record in records: 
+            amount = record.amount
+        Company = Pool().get('company.company') 
+        company = Company(Transaction().context.get('company'))
+
+
+        amount_on_letters = numero_a_moneda(amount)
+        report_context['company'] = company
+        report_context['amount_on_letters'] = amount_on_letters
+
+        return report_context
+
+
+
 class ExpenseContext(ModelView):
     'Expense Context'
     __name__ = 'account.iesa.expense.context'
@@ -750,6 +836,9 @@ class CancelExpenses(Wizard):
 
         expenses = Expense.browse(Transaction().context['active_ids'])
         for expense in expenses: 
+            cancel_move = None 
+            if expense.state =='canceled': 
+                return 'end'
             move = expense.move
             if move is not None: 
                 moves = Move.browse([move])
@@ -762,13 +851,24 @@ class CancelExpenses(Wizard):
                             to_reconcile[(line.account, line.party)].append(line)
                     for lines in to_reconcile.values():
                         Line.reconcile(lines)
+                    Move.save([cancel_move])
+                    Move.post([cancel_move])
+        
         # Write state before reconcile to prevent expense to go to paid state
-        Expense.write(expenses, {
-                'state': 'canceled',
-                })
+        if cancel_move: 
+            Expense.write(expenses, {
+                    'state': 'canceled',
+                    'cancel_move': cancel_move, 
+                    })
+        else: 
+            Expense.write(expenses, {
+                    'state': 'canceled',
+                    #'cancel_move': cancel_move, 
+                    })
         return 'end'
 
 class CancelExpensesDefault(ModelView):
     'Cancel Expenses'
     __name__ = 'account.iesa.expense.cancel.default'
     description = fields.Char('Description')
+    

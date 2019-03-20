@@ -29,7 +29,7 @@ from trytond.config import config
 from trytond.modules.account.tax import TaxableMixin
 from trytond.modules.product import price_digits
 
-from numero_letras import numero_a_moneda
+from .numero_letras import numero_a_moneda
 
 __all__ = [
     'CreateChart',
@@ -44,8 +44,7 @@ __all__ = [
 
 __metaclass__ = PoolMeta
 
-class CreateChartProperties:
-    __metaclass__ = PoolMeta
+class CreateChartProperties(metaclass=PoolMeta):
     __name__ = 'account.create_chart.properties'
 
     enrolment_account = fields.Many2One(
@@ -63,8 +62,7 @@ class CreateChartProperties:
             ],
         depends=['company'])
 
-class CreateChart:
-    __metaclass__ = PoolMeta
+class CreateChart(metaclass=PoolMeta):
     __name__ = 'account.create_chart'
 
     def transition_create_properties(self):
@@ -80,9 +78,8 @@ class CreateChart:
             config.save()
         return state
 
-class Configuration:
+class Configuration(metaclass=PoolMeta):
     __name__ = 'account.configuration'
-    __metaclass__ = PoolMeta
 
     default_enrolment_account = fields.MultiValue(fields.Many2One(
             'account.account', 'Default Enrolment Account',
@@ -112,7 +109,7 @@ class Configuration:
             return pool.get('account.configuration.default_account')
         return super(Configuration, cls).multivalue_model(field)
 
-class ConfigurationDefaultAccount:
+class ConfigurationDefaultAccount(metaclass=PoolMeta):
     __metaclass__ = PoolMeta
     __name__ = 'account.configuration.default_account'
 
@@ -168,7 +165,7 @@ class Invoice(ModelSQL,ModelView):
             pay_wizard.transition_choice()
             pay_wizard.transition_pay()
             pay_wizard.do_print_()
-            print "PAY: " + str(pay_wizard)
+            #print "PAY: " + str(pay_wizard)
 
     def update_invoice_status(self):
         receivable = self.party.receivable
@@ -178,11 +175,11 @@ class Invoice(ModelSQL,ModelView):
         else: 
             receivable =-receivable
             current_amount = self.total_amount
-            print "RECEIVABLE TRAINING: " + str(receivable)
-            print "RECEIVABLE TRAINING: " + str(current_amount)
+            #print "RECEIVABLE TRAINING: " + str(receivable)
+            #print "RECEIVABLE TRAINING: " + str(current_amount)
             if current_amount <= receivable: 
                 state = 'paid'
-        print "STATE: " + str(state)
+        #print "STATE: " + str(state)
         return state 
 
     @classmethod
@@ -236,7 +233,7 @@ class Invoice(ModelSQL,ModelView):
             pay_wizard.transition_choice()
             pay_wizard.transition_pay()
             pay_wizard.do_print_()
-            print "PAY: " + str(pay_wizard) 
+            #print "PAY: " + str(pay_wizard) 
 
     def pay_invoice(self, amount, journal, date, description,
             amount_second_currency=None, second_currency=None,
@@ -378,8 +375,8 @@ class Invoice(ModelSQL,ModelView):
         address = PartyAddress(party=party, 
                 city="Guatemala")
         address.save()
-        print "PARTY ID: " + str(address.id) +"ADDRESS:  " + str(address.city) + "PARTY: " + str(address.party)
-        print "PARTY ADDRESSES:  " + str(party.addresses)
+        #print "PARTY ID: " + str(address.id) +"ADDRESS:  " + str(address.city) + "PARTY: " + str(address.party)
+        #print "PARTY ADDRESSES:  " + str(party.addresses)
         return address
 
     def __get_account_payment_term(self):
@@ -421,6 +418,58 @@ class Invoice(ModelSQL,ModelView):
         if self.party:
             self.invoice_address = self.party.address_get(type='invoice')
             self.party_tax_identifier = self.party.tax_identifier
+
+    def get_move(self):
+        '''
+        Compute account move for the invoice and return the created move
+        '''
+        pool = Pool()
+        Move = pool.get('account.move')
+        Period = pool.get('account.period')
+        Date = pool.get('ir.date')
+
+        if self.move:
+            return self.move
+        self.update_taxes([self], exception=True)
+        move_lines = []
+        for line in self.lines:
+            move_lines += line.get_move_lines()
+        for tax in self.taxes:
+            move_lines += tax.get_move_lines()
+
+        total = Decimal('0.0')
+        total_currency = Decimal('0.0')
+        for line in move_lines:
+            total += line.debit - line.credit
+            if line.amount_second_currency:
+                total_currency += line.amount_second_currency
+
+        term_lines = [(Date.today(), total)]
+        if self.payment_term:
+            term_lines = self.payment_term.compute(
+                total, self.company.currency, self.invoice_date)
+        remainder_total_currency = total_currency
+        for date, amount in term_lines:
+            line = self._get_move_line(date, amount)
+            if line.amount_second_currency:
+                remainder_total_currency += line.amount_second_currency
+            move_lines.append(line)
+        if not self.currency.is_zero(remainder_total_currency):
+            move_lines[-1].amount_second_currency -= \
+                remainder_total_currency
+
+        accounting_date = self.accounting_date or self.invoice_date
+        period_id = Period.find(self.company.id, date=accounting_date)
+
+        move = Move()
+        move.journal = self.journal
+        move.period = period_id
+        move.date = accounting_date
+        move.origin = self
+        move.company = self.company
+        move.lines = move_lines
+        move.description = self.reference + ' - ' + self.description 
+        return move
 
 class MoveLine(ModelSQL, ModelView):
     'Account Move Line'
@@ -487,7 +536,7 @@ class PayInvoice(Wizard):
             invoice = Invoice(current_invoice)
         else: 
             invoice = Invoice(Transaction().context['active_id'])
-        print "INVOICE CHOICE: " + str(invoice)
+        #print "INVOICE CHOICE: " + str(invoice)
 
         with Transaction().set_context(date=self.start.date):
             amount = Currency.compute(self.start.currency,
@@ -532,7 +581,7 @@ class PayInvoice(Wizard):
                 (invoice.rec_name,))
 
         line = None
-        print "JOURNAL: " + str(self.start.journal)
+        #print "JOURNAL: " + str(self.start.journal)
         if not invoice.company.currency.is_zero(amount):
             line = invoice.pay_invoice(amount,
                 self.start.journal, 
@@ -543,7 +592,7 @@ class PayInvoice(Wizard):
                 self.start.ticket or None, 
                 self.start.third_party or None,
                 self.start.receipt or None)
-        print "LINE: " + str(line)
+        #print "LINE: " + str(line)
 
         if remainder != Decimal('0.0'):
             if self.ask.type == 'writeoff':

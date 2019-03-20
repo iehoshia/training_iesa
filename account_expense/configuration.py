@@ -7,9 +7,8 @@ from trytond.pyson import Eval
 __all__ = ['Configuration', 'ConfigurationSequence']
 
 
-class Configuration:
+class Configuration(metaclass=PoolMeta):
     'Sale Configuration'
-    __metaclass__ = PoolMeta
     __name__ = 'sale.configuration'
 
     iesa_expense_sequence = fields.MultiValue(fields.Many2One(
@@ -33,8 +32,7 @@ class Configuration:
             'iesa_expense_sequence').default_iesa_expense_sequence()
 
 
-class ConfigurationSequence:
-    __metaclass__ = PoolMeta
+class ConfigurationSequence(metaclass=PoolMeta):
     __name__ = 'sale.configuration.sequence'
     iesa_expense_sequence = fields.Many2One(
         'ir.sequence', "Expense IESA Sequence", required=True,

@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+
+    <!-- ACCOUNT BUDGET TEMPLATE -->
+
+    <data grouped="1">
+        <record id="iesa_budget" model="account.budget.template">
+            <field name="name" ref="">Presupuesto </field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+        </record>
+    </data>
+    <data grouped="1">
+        <record id="iesa_budget_revenue" model="account.budget.template">
+            <field name="name" ref="">Ingresos Generales</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget"/>
+        </record>
+        <record id="iesa_budget_expense" model="account.budget.template">
+            <field name="name" ref="">Gastos Generales</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget"/>
+        </record>
+    </data>
+    <data grouped="1">
+        <record id="iesa_budget_ins" model="account.budget.template">
+            <field name="name" ref="">Inscripciones</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_revenue"/>
+        </record>
+        <record id="iesa_budget_col" model="account.budget.template">
+            <field name="name" ref="">Colegiaturas</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_revenue"/>
+        </record>
+        <record id="iesa_budget_exa" model="account.budget.template">
+            <field name="name" ref="">Derecho a Exámenes</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_revenue"/>
+        </record>
+        <record id="iesa_budget_mora" model="account.budget.template">
+            <field name="name" ref="">Derecho a Mora</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_revenue"/>
+        </record>
+        <record id="iesa_budget_dona" model="account.budget.template">
+            <field name="name" ref="">Donaciones</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_revenue"/>
+        </record>
+        <record id="iesa_budget_prima" model="account.budget.template">
+            <field name="name" ref="">Primas Ganadas</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_revenue"/>
+        </record>
+        <record id="iesa_budget_intereses_ganados" model="account.budget.template">
+            <field name="name" ref="">Intereses Ganados</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_revenue"/>
+        </record>
+        <record id="iesa_budget_ganancia_en_cambios" model="account.budget.template">
+            <field name="name" ref="">Ganancia en Cambios - General</field>
+            <field name="type">debit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_revenue"/>
+        </record>
+        <record id="iesa_budget_gastos_de_empleados" model="account.budget.template">
+            <field name="name" ref="">Gastos de Empleados</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_expense"/>
+        </record>
+        <record id="iesa_budget_gastos_generales" model="account.budget.template">
+            <field name="name" ref="">Gastos Generales Administrativos</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_expense"/>
+        </record>
+    </data>
+    <data grouped="1">
+        <record id="iesa_budget_salario_empleados" model="account.budget.template">
+            <field name="name" ref="">Salario Empleados</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_bono_catorce" model="account.budget.template">
+            <field name="name" ref="">Bono 14 Empleados</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_aguinaldo_empleados" model="account.budget.template">
+            <field name="name" ref="">Aguinaldo Empleados</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_finiquitos" model="account.budget.template">
+            <field name="name" ref="">Finiquitos</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_bonificacion_incentivo" model="account.budget.template">
+            <field name="name" ref="">Bonificación e Incentivo</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_seguro_cuatro" model="account.budget.template">
+            <field name="name" ref="">Seguro 4 en 1</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_seguro_estudiantes" model="account.budget.template">
+            <field name="name" ref="">Seguro de Estudiantes</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_seguro_igss" model="account.budget.template">
+            <field name="name" ref="">Seguro Social IGSS</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_irtra" model="account.budget.template">
+            <field name="name" ref="">Irtra</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_intecap" model="account.budget.template">
+            <field name="name" ref="">Intecap</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_indemnizacion" model="account.budget.template">
+            <field name="name" ref="">Indemnización</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+        <record id="iesa_budget_jubilacion" model="account.budget.template">
+            <field name="name" ref="">Jubilación 5%</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_de_empleados"/>
+        </record>
+
+        <record id="iesa_budget_cuentas_malas" model="account.budget.template">
+            <field name="name" ref="">Cuentas Malas</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_viaticos" model="account.budget.template">
+            <field name="name" ref="">Viáticos</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_acreditacion_denominacional" model="account.budget.template">
+            <field name="name" ref="">Acreditación Denominacional</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_reuniones y juntas" model="account.budget.template">
+            <field name="name" ref="">Reuniones y Juntas</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_capacitacion_retiros" model="account.budget.template">
+            <field name="name" ref="">Capacitación y Retiros</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_asesoria_legal" model="account.budget.template">
+            <field name="name" ref="">Asesoria Legal</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_asesoria_contable" model="account.budget.template">
+            <field name="name" ref="">Asesoria Contable</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_gastos_por_fondo" model="account.budget.template">
+            <field name="name" ref="">Gastos por Fondo Educativo</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_materiales de oficina" model="account.budget.template">
+            <field name="name" ref="">Materiales de Oficina</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_material_didactico" model="account.budget.template">
+            <field name="name" ref="">Material Didáctico</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_carnets_de_estudiantes" model="account.budget.template">
+            <field name="name" ref="">Carnets de Estudiantes</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_correos_envios" model="account.budget.template">
+            <field name="name" ref="">Correos y Envios</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_telefono_internet" model="account.budget.template">
+            <field name="name" ref="">Telefono y Internet</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_agazajos_representaciones" model="account.budget.template">
+            <field name="name" ref="">Agazajos y Representaciones</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_atencion_padres" model="account.budget.template">
+            <field name="name" ref="">Atención a Padres</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_atencion_alumnos" model="account.budget.template">
+            <field name="name" ref="">Atención a Alumnos</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_atencion_personal_docente" model="account.budget.template">
+            <field name="name" ref="">Atención a Personal Docente</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_gastos_generales_cuenta" model="account.budget.template">
+            <field name="name" ref="">Gastos Generales</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_evangelismo" model="account.budget.template">
+            <field name="name" ref="">Evangelismo</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_uniforme_de_personal" model="account.budget.template">
+            <field name="name" ref="">Uniformes de Personal</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_aniversario" model="account.budget.template">
+            <field name="name" ref="">Aniversario</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_seguridad_monitoreo" model="account.budget.template">
+            <field name="name" ref="">Seguridad y Monitoreo</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_enfermeria" model="account.budget.template">
+            <field name="name" ref="">Enfermería</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_talleres" model="account.budget.template">
+            <field name="name" ref="">Talleres</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_banda_escolar" model="account.budget.template">
+            <field name="name" ref="">Banda Escolar</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_biblioteca" model="account.budget.template">
+            <field name="name" ref="">Biblioteca</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_mensajeria_transporte" model="account.budget.template">
+            <field name="name" ref="">Mensajería y Transporte</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_materiales_limpieza" model="account.budget.template">
+            <field name="name" ref="">Materiales de Limpieza</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_extraccion_basura" model="account.budget.template">
+            <field name="name" ref="">Extracción de Básura</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_operacion_escuela" model="account.budget.template">
+            <field name="name" ref="">Operación Escuela</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_publicidad" model="account.budget.template">
+            <field name="name" ref="">Públicidad</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_soporte_tecnico" model="account.budget.template">
+            <field name="name" ref="">Soporte Técnico</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_seguro_edificios" model="account.budget.template">
+            <field name="name" ref="">Seguro de Edificios</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_seguro_equipos" model="account.budget.template">
+            <field name="name" ref="">Seguro de Equipo</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_comisiones_bancarias" model="account.budget.template">
+            <field name="name" ref="">Comisiones Bancarias</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_costo_gastos_Exentas" model="account.budget.template">
+            <field name="name" ref="">Costos y Gastos de Rentas Exentas</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_reparacion_terrenos" model="account.budget.template">
+            <field name="name" ref="">REPARACIÓN DE MEJORAS DE TERRENOS</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_mantenimiento_edificio" model="account.budget.template">
+            <field name="name" ref="">Mantenimiento de Edificio</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_mantimiento_equipo" model="account.budget.template">
+            <field name="name" ref="">Mantenimiento de Equipo</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_depreciacion_edificio" model="account.budget.template">
+            <field name="name" ref="">Depreciación de Edificio</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_depreciacion_mobiliario" model="account.budget.template">
+            <field name="name" ref="">Depreciación de Mobiliario y Equipo</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_electricidad" model="account.budget.template">
+            <field name="name" ref="">Electricidad</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_agua_alcantarillado" model="account.budget.template">
+            <field name="name" ref="">Agua y Alcantarillado</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_transferencia_entre_funciones" model="account.budget.template">
+            <field name="name" ref="">Transferencia entre Funciones</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+        <record id="iesa_budget_transferencia_entre_fondos" model="account.budget.template">
+            <field name="name" ref="">Transferencias entre Fondos</field>
+            <field name="type">credit</field>
+            <field name="amount">0</field>
+            <field name="parent" ref="iesa_budget_gastos_generales"/>
+        </record>
+    </data>
+</tryton>

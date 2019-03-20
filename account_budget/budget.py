@@ -4,8 +4,8 @@ from decimal import Decimal, ROUND_DOWN
 
 from sql.aggregate import Sum
 from sql.conditionals import Coalesce
-
-from trytond.model import ModelView, ModelSQL, fields
+from functools import wraps
+from trytond.model import ModelView, ModelSQL, fields, tree
 from trytond.pool import PoolMeta, Pool
 from trytond.pyson import If, Eval, Bool, Date, PYSONEncoder
 from trytond.tools import grouped_slice, reduce_ids
@@ -14,13 +14,31 @@ from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
     Button, StateReport
 from trytond.report import Report
 
+from .exceptions import BudgetExistForFiscalYear
+
+
 __all__ = [
     'BudgetAccount', 'Budget',  'BudgetPeriod', 'CopyBudgetStart',
     'CopyBudget', 'DistributePeriodStart', 'DistributePeriod',
     'PrintBudgetReportStart', 'PrintBudgetReport',
-    'BudgetReport']
+    'BudgetReport',
+    'BudgetTemplate',
+    'CreateBudgetStart',
+    'CreateBudgetAccount',
+    'CreateBudget',
+    'UpdateBudgetStart',
+    'UpdateBudgetSucceed',
+    'UpdateBudget',
+]
 
 __metaclass__ = PoolMeta
+
+def inactive_records(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        with Transaction().set_context(active_test=False):
+            return func(*args, **kwargs)
+    return wrapper
 
 class BalanceMixin:
     currency = fields.Function(fields.Many2One(
@@ -49,6 +67,10 @@ class BalanceMixin:
         digits=(2,0)), '_get_custom_balance')
     custom_difference = fields.Function(fields.Numeric('Custom Difference',
         digits=(2,0)), '_get_custom_difference')
+
+    @staticmethod
+    def default_type():
+        return 'debit'
 
     def _get_custom_amount(self, name):
         amount = 0
@@ -97,7 +119,7 @@ class BalanceMixin:
             balances.update(dict(cursor.fetchall()))
 
         # SQLite uses float for SUM
-        for record_id, balance in balances.iteritems():
+        for record_id, balance in balances.items():
             if isinstance(balance, Decimal):
                 break
             balances[record_id] = Decimal(str(balance))
@@ -115,7 +137,7 @@ class BalanceMixin:
         return differences
 
 
-class BudgetMixin(BalanceMixin, ModelSQL, ModelView):
+class BudgetMixin(BalanceMixin, tree(), ModelSQL, ModelView):
     name = fields.Char("Name", required=True,
         help="The main identifier of this budget.")
     company = fields.Many2One('company.company', "Company", required=True,
@@ -178,11 +200,18 @@ class BudgetMixin(BalanceMixin, ModelSQL, ModelView):
             return self.company.currency.id
 
     def get_rec_name(self, name):
+        return self.name 
+
+    '''
+    def get_rec_name(self, name):
         if self.parent:
             return self.parent.get_rec_name(name) + '\\' + self.name
         else:
             return self.name
 
+    '''
+
+    '''
     @classmethod
     def search_rec_name(cls, name, clause):
         if isinstance(clause[2], basestring):
@@ -197,6 +226,17 @@ class BudgetMixin(BalanceMixin, ModelSQL, ModelView):
             domain = [('name',) + tuple(clause[1:])]
         ids = [w.id for w in cls.search(domain, order=[])]
         return [('parent', 'child_of', ids)]
+    '''
+    @classmethod 
+    def search_rec_name(cls, name, clause):
+        if clause[1].startswith('!') or clause[1].startswith('not '):
+            bool_op = 'AND'
+        else:
+            bool_op = 'OR'
+        return [bool_op,
+            ('name',) + tuple(clause[1:]),
+            (cls._rec_name,) + tuple(clause[1:]),
+            ]
 
     @classmethod
     def copy_budget(cls, budgets):
@@ -225,6 +265,90 @@ class BudgetMixin(BalanceMixin, ModelSQL, ModelView):
                     'budget': self.rec_name,
                     })
 
+class BudgetTemplate(BudgetMixin):
+    'Account Budget Template'
+    __name__ = 'account.budget.template'
+
+    @classmethod
+    def __setup__(cls):
+        super(BudgetTemplate, cls).__setup__() 
+        cls.company.required=False
+
+    def _get_budget_value(self, budget=None):
+        '''
+        Set the values for budget creation.
+        '''
+        Date = Pool().get('ir.date')
+        today = Date.today()
+        year = today.year 
+        res = {}
+
+        if not budget or budget.name != self.name:
+            res['name'] = self.name
+        if not budget or budget.amount != self.amount:
+            res['amount'] = self.amount
+        if not budget or budget.template != self:
+            res['template'] = self.id
+        return res
+
+    def create_budget(self, company_id, fiscalyear_id,template2budget=None):
+        '''
+        Create recursively accounts based on template.
+        template2budget is a dictionary with template id as key and account id
+        as value, used to convert template id into account. The dictionary is
+        filled with new accounts
+        template2type is a dictionary with type template id as key and type id
+        as value, used to convert type template id into type.
+        '''
+        pool = Pool()
+        Budget = pool.get('account.budget')
+        Account = pool.get('account.account')
+        BudgetAccount = pool.get('account.budget-account.account')
+        assert self.parent is None
+
+        if template2budget is None:
+            template2budget = {}
+        print("TEMPLATE 2 BUDGET: ", str(template2budget))
+
+        def create(templates):
+            values = []
+            created = []
+            for template in templates:
+                if template.id not in template2budget:
+                    vals = template._get_budget_value()
+                    vals['company'] = company_id
+                    vals['fiscalyear'] = fiscalyear_id
+                    if template.parent:
+                        vals['parent'] = template2budget[template.parent.id]
+                    else:
+                        vals['parent'] = None
+                    values.append(vals)
+                    created.append(template)
+            
+            budgets = Budget.create(values)
+
+            for template, budget in zip(created, budgets):
+                template2budget[template.id] = budget.id
+
+            for budget in budgets: 
+                accounts = Account.search([
+                        ('name','=',budget.name), 
+                        ('company','=',company_id),
+                        ])
+                
+                print("ACCOUNTS: ", str(accounts))
+                print("BUDGET ID: ", str(budget.id))
+                
+                if len(accounts) == 1: 
+                    budgetaccounts = BudgetAccount.create([{
+                        'budget': budget.id,
+                        'account': accounts[0].id,
+                        }])
+
+        childs = [self]
+        while childs:
+            create(childs)
+            childs = sum((c.children for c in childs), ())
 
 class Budget(BudgetMixin):
     'Account Budget'
@@ -250,15 +374,19 @@ class Budget(BudgetMixin):
     level = fields.Function(fields.Numeric('Level',digits=(2,0)),
         '_get_level')
 
+    template = fields.Many2One('account.budget.template','Template')
+
     def _get_level(self, parent=None): 
         level = 0
         if self.parent:
             level = self.parent.level + 1
         return  level
 
+    def get_rec_name(self, name):
+        return self.name + self.fiscalyear.name 
+
     def _get_childs_by_order(self, res=None):
         '''Returns the records of all the children computed recursively, and sorted. Ready for the printing'''
-        
         Budget = Pool().get('account.budget')
         
         if res is None: 
@@ -313,8 +441,6 @@ class Budget(BudgetMixin):
         move = Move.__table__()
         period = Period.__table__()
         balance = Sum( Coalesce(line.credit, 0) -Coalesce(line.debit, 0) )
-
-        #print "BALANCE: " + str(balance)
 
         return table_a.join(table_c,
             condition=(table_c.left >= table_a.left)
@@ -380,6 +506,32 @@ class Budget(BudgetMixin):
         if create:
             BudgetPeriod.save(to_create)
         return to_create
+
+    def update_budget(self, template2budget=None):
+        '''
+        Update recursively types based on template.
+        template2type is a dictionary with template id as key and type id as
+        value, used to convert template id into type. The dictionary is filled
+        with new types
+        '''
+        if template2budget is None:
+            template2budget = {}
+
+        print("UPDATE BUDGET TEMPLATE2BUDGET: ", str(template2budget))
+
+        values = []
+        childs = [self]
+        while childs:
+            for child in childs:
+                if child.template:
+                    vals = child.template._get_budget_value()
+                    if vals:
+                        values.append([child])
+                        values.append(vals)
+                    template2budget[child.template.id] = child.id
+            childs = sum((c.children for c in childs), ())
+        if values:
+            self.write(*values)
 
 class BudgetAccount(ModelSQL):
     'Account Budget - Account'
@@ -449,7 +601,6 @@ class BudgetPeriod(BalanceMixin, ModelSQL, ModelView):
         for budget in budgets:
             budget.check_amounts()
 
-
 class CopyBudgetStartMixin(ModelView):
     'Copy Budget Start'
     __name__ = 'account.budget.copy.start'
@@ -457,7 +608,6 @@ class CopyBudgetStartMixin(ModelView):
         help="The main identifier of the new created budget.")
     zero_amounts = fields.Boolean("Zero Amounts",
         help="Check to reset all the budget amounts to zero.")
-
 
 class CopyBudgetStart(CopyBudgetStartMixin):
     'Copy Budget Start'
@@ -477,7 +627,6 @@ class CopyBudgetStart(CopyBudgetStartMixin):
     @classmethod
     def default_company(cls):
         return Transaction().context.get('company')
-
 
 class CopyBudgetMixin(Wizard):
     _start_fields = ['name']
@@ -515,7 +664,6 @@ class CopyBudgetMixin(Wizard):
             action['views'].reverse()
         return action, data
 
-
 class CopyBudget(CopyBudgetMixin):
     'Copy Budget'
     __name__ = 'account.budget.copy'
@@ -533,7 +681,6 @@ class CopyBudget(CopyBudgetMixin):
                 })
         return values
 
-
 class DistributePeriodStart(ModelView):
     'Distribute Periods Start'
     __name__ = 'account.budget.distribute_period.start'
@@ -545,7 +692,6 @@ class DistributePeriodStart(ModelView):
     @classmethod
     def default_method(cls):
         return 'linear'
-
 
 class DistributePeriod(Wizard):
     'Distribute Budget'
@@ -662,4 +808,160 @@ class BudgetReport(Report):
         report_context['start_date'] = data['start_date']
         report_context['end_date'] = data['end_date']
 
-        return report_context
+        return report_context 
+
+class CreateBudgetStart(ModelView):
+    'Create Budget'
+    __name__ = 'account.budget.create_budget.start'
+
+class CreateBudgetAccount(ModelView):
+    'Create Budget Account'
+    __name__ = 'account.budget.create_budget.account'
+    company = fields.Many2One('company.company', 'Company', required=True)
+    fiscalyear = fields.Many2One('account.fiscalyear', "Fiscal Year",
+        required=True,
+        domain=[
+            ('company', '=', Eval('company')),
+            ],
+        depends=['company'],
+        help="The fiscalyear used to compute the balances.")
+    template = fields.Many2One(
+            'account.budget.template', 'Default Account Template',
+            required=True, 
+            domain=[('parent', '=', None)],
+    )
+
+    @classmethod
+    def default_company(cls):
+        return Transaction().context.get('company')
+
+class CreateBudget(Wizard):
+    'Create Budget'
+    __name__ = 'account.budget.create_budget'
+    start = StateView('account.budget.create_budget.start',
+        'account_budget.create_budget_start_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('OK', 'account', 'tryton-ok', default=True),
+            ])
+    account = StateView('account.budget.create_budget.account',
+        'account_budget.create_budget_account_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Create', 'create_budget', 'tryton-ok', default=True),
+            ])
+    create_budget = StateTransition()
+
+    @classmethod
+    def __setup__(cls):
+        super(CreateBudget, cls).__setup__()
+        cls._error_messages.update({
+                'budget_already_exists': ('A budget already exists for the '
+                    'fiscalyear "%(fiscalyear)s" '
+                    'for the company "%(company)s".')
+                })
+
+    def transition_create_budget(self):
+        pool = Pool()
+        BudgetTemplate = \
+            pool.get('account.budget.template')
+        Budget = pool.get('account.budget')
+        Config = pool.get('ir.configuration')
+        
+        transaction = Transaction()
+        company = self.account.company
+        fiscalyear = self.account.fiscalyear
+        template = self.account.template
+
+        # Skip access rule
+        with transaction.set_user(0):
+            budgets = Budget.search([
+                ('company', '=', company.id),
+                ('fiscalyear','=',fiscalyear),
+                ('parent','=',None),
+
+            ])
+
+        if budgets:
+            #raise BudgetExistForFiscalYear(
+            #        gettext('account_budget.msg_budget_already_exist',
+            #            fiscalyear=fiscalyear.name,
+            #            company=company.rec_name))
+            self.raise_user_error('budget_already_exists', {
+                        'fiscalyear': fiscalyear.name,
+                        'company': company.rec_name,
+                        })
+
+        with transaction.set_context(language=Config.get_language(),
+                company=company.id):
+            template2budget = {}
+            template.create_budget(
+                company.id,
+                fiscalyear.id, 
+                template2budget=template2budget, 
+                )
+        return 'end'
+
+class UpdateBudgetStart(ModelView):
+    'Update Chart'
+    __name__ = 'account.budget.update_budget.start'
+    company = fields.Many2One('company.company', 'Company',
+            required=True)
+    budget = fields.Many2One('account.budget', 'Budget',
+            required=True, 
+            domain=[('parent', '=', None),
+            ('company','=',Eval('company'))
+            ]
+        )
+    #fiscalyear = fields.Many2One('account.fiscalyear', "Fiscal Year",
+    #    required=True,
+    #    domain=[
+    #        ('company', '=', Eval('company')),
+    #        ],
+    #    depends=['company'],
+    #    help="The fiscalyear used to compute the balances.")
+
+    @classmethod
+    def default_company(cls):
+        return Transaction().context.get('company')
+
+class UpdateBudgetSucceed(ModelView):
+    'Update Chart'
+    __name__ = 'account.budget.update_budget.succeed'
+
+class UpdateBudget(Wizard):
+    'Update Chart'
+    __name__ = 'account.budget.update_budget'
+    start = StateView('account.budget.update_budget.start',
+        'account_budget.update_budget_start_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Update', 'update', 'tryton-ok', default=True),
+            ])
+    update = StateTransition()
+    succeed = StateView('account.budget.update_budget.succeed',
+        'account_budget.update_budget_succeed_view_form', [
+            Button('OK', 'end', 'tryton-ok', default=True),
+            ])
+
+    @inactive_records
+    def transition_update(self):
+        pool = Pool()
+        AnalyticAccount = \
+            pool.get('analytic_account.account')
+        company = self.start.company
+        budget = self.start.budget
+        fiscalyear = self.start.budget.fiscalyear
+
+        template2budget = {}
+    
+        budget.update_budget(template2budget=template2budget)
+
+        print("TRANSITION UPDATE BUDGET: ", str(budget)) 
+
+        # Create missing accounts
+        if budget.template:
+            budget.template.create_budget(
+                company.id,
+                fiscalyear.id, 
+                template2budget=template2budget)
+
+        return 'succeed'
+

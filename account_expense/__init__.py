@@ -18,9 +18,11 @@ def register():
         Configuration,
         ConfigurationSequence,
         CancelExpensesDefault, 
+        PaymentMethod, 
         module='account_expense', type_='model')
     Pool.register(
         ExpenseReport,
+        ExpenseBankCheck,
         module='account_expense', type_='report')
     Pool.register(
         CancelExpenses,

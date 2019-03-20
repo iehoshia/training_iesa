@@ -12,7 +12,7 @@ from sql.aggregate import Sum, Max
 from sql.conditionals import Coalesce, Case
 
 from trytond.model import (
-    ModelSingleton, ModelView, ModelSQL, DeactivableMixin, fields, Unique, sequence_ordered)
+    ModelSingleton, ModelView, ModelSQL, DeactivableMixin, fields, Unique, sequence_ordered, tree)
 from trytond.wizard import Wizard, StateView, StateAction, StateTransition, \
     Button, StateReport
 from trytond.report import Report
@@ -25,7 +25,7 @@ import json, ast
 from json import dumps, loads, JSONEncoder, JSONDecoder
 from trytond.report import Report
 
-from numero_letras import numero_a_moneda
+from .numero_letras import numero_a_moneda
 
 __all__ = [
     'Company',
@@ -75,7 +75,11 @@ class Company(ModelSQL, ModelView):
         ('normal','Normal'),],
         'Type')
 
-class TypeTemplate(sequence_ordered(), ModelSQL, ModelView):
+    @staticmethod
+    def default_type():
+        return 'normal'
+
+class TypeTemplate(tree(separator='\\'), sequence_ordered(), ModelSQL, ModelView):
     'Account Meta Type Template'
     __name__ = 'account.account.meta.type.template'
     name = fields.Char('Name', required=True)
@@ -93,10 +97,10 @@ class TypeTemplate(sequence_ordered(), ModelSQL, ModelView):
             ('credit','Credit')],
             'Type')
 
-    @classmethod
-    def validate(cls, records):
-        super(TypeTemplate, cls).validate(records)
-        cls.check_recursion(records, rec_name='name')
+    #@classmethod
+    #def validate(cls, records):
+    #    super(TypeTemplate, cls).validate(records)
+    #    cls.check_recursion(records, rec_name='name')
 
     @staticmethod
     def default_balance_sheet():
@@ -178,7 +182,7 @@ class TypeTemplate(sequence_ordered(), ModelSQL, ModelView):
             create(childs)
             childs = sum((c.childs for c in childs), ())
 
-class Type(sequence_ordered(), ModelSQL, ModelView):
+class Type(sequence_ordered(), ModelSQL, ModelView, tree(separator='\\') ):
     'Account Meta Type'
     __name__ = 'account.account.meta.type'
 
@@ -261,10 +265,10 @@ class Type(sequence_ordered(), ModelSQL, ModelView):
                 child._get_childs_by_order(res=res)
         return res
 
-    @classmethod
-    def validate(cls, types):
-        super(Type, cls).validate(types)
-        cls.check_recursion(types, rec_name='name')
+    #@classmethod
+    #def validate(cls, types):
+    #    super(Type, cls).validate(types)
+    #    cls.check_recursion(types, rec_name='name')
 
     @staticmethod
     def default_balance_sheet():
@@ -445,13 +449,6 @@ class CreateChart(Wizard):
             account_template.create_type(
                 company.id,
                 template2type=template2type)
-
-            # Create accounts
-            #template2account = {}
-            #account_template.create_account(
-            #    company.id,
-            #    template2account=template2account,
-            #    template2type=template2type)
 
         return 'end'
 

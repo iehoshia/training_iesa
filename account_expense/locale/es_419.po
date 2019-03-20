@@ -6,6 +6,10 @@ msgctxt "field:party.party,is_provider:"
 msgid "Provider"
 msgstr "Proveedor"
 
+msgctxt "field:account.iesa.expense,payment_method:"
+msgid "Payment Method"
+msgstr "Método de Pago"
+
 msgctxt "field:account.iesa.expense.context,date:"
 msgid "Date"
 msgstr "Fecha"
@@ -206,6 +210,14 @@ msgctxt "error:account.iesa.expense:"
 msgid "You can not post expense \"%s\" because it is an unbalanced."
 msgstr "No puede contabilizar el recibo \"%s\" porque está descuadrado."
 
+msgctxt "error:account.iesa.expense:"
+msgid "You can not modify expense \"%s\" because it is posted or cancelled."
+msgstr "No puede modificar el pago \"%s\" porque está enumerado."
+
+msgctxt "error:account.iesa.expense:"
+msgid "The numbered payment \"%s\" can not be deleted."
+msgstr "No puede eliminar el pago \"%s\" porque está enumerado."
+
 msgctxt "model:account.iesa.expense,name:"
 msgid "Account Expense"
 msgstr "Gasto"
@@ -237,3 +249,4 @@ msgstr "Aceptar"
 msgctxt "model:ir.action,name:act_cancel_expenses"
 msgid "Cancel Expenses"
 msgstr "Anular Gasto"
+

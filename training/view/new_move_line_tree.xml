@@ -6,8 +6,10 @@ this repository contains the full copyright notices and license terms. -->
     <field name="origin"/>
     <field name="description"/>
     <field name="date"/>
+    <!--
     <field name="account"/>
-    <field name="party"/>
-    <field name="credit" string="InverseCredit" sum="D: "/>
-    <field name="debit" string="InverseDebit" sum="H: "/>
+    <field name="party"/>-->
+    <field name="debit" string="InverseCredit" sum="D: "/>
+    <field name="credit" string="InverseDebit" sum="C: "/>
+    <field name="balance" string="Balance"/>
 </tree>

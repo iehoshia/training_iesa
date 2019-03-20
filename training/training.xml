@@ -204,7 +204,8 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
 
         <menuitem name="Configuration" sequence="0" 
             id="menu_configuracion_training" parent="menu_training"
-            icon="tryton-preferences"/>
+            
+            />
 
           <!--<menuitem parent="menu_configuracion_training" sequence="2" id="item_horario" action="act_horario"/>-->
 
@@ -325,23 +326,24 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             icon="tryton-list"/>
 
         <!-- AGENDA -->
-
+        <!--
         <menuitem parent="menu_training" sequence="5"
             action="act_meeting" id="menuitem_calendar"
-            icon="tryton-clock"/>
+            />-->
 
         <!-- RECURRENCIAS -->
 
         <menuitem parent="menu_configuracion_training" sequence="8"
             action="sale_subscription.act_line_consumption_create" id="menuitem_line_consumption_create"
-            icon="tryton-clock"/>
+            />
 
+        <!--
         <menuitem parent="menu_configuracion_training" sequence="9"
             action="sale_subscription.act_create_invoice" id="menuitem_create_invoice"
-            icon="tryton-clock"/>
+            />-->
   
         <!-- CONVENIOS -->
-
+        <!--
         <record model="ir.action.report" id="report_agreement">
             <field name="name">Convenios</field>
             <field name="model">sale.subscription</field>
@@ -349,11 +351,13 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="report">training/agreement.fodt</field>
 
         </record>
+        
         <record model="ir.action.keyword" id="report_agreement_subscription">
             <field name="keyword">form_print</field>
             <field name="model">sale.subscription,-1</field>
             <field name="action" ref="report_agreement"/>
         </record>
+    -->
 
         <!-- FACTURAS REPORT -->
 
